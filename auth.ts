@@ -85,7 +85,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Driver ID não encontrado");
         }
 
-        if (!(user.data.phone.toString().slice(-4) == password)) {
+        console.log("LOOOOOOG USEEEEER", user);
+
+        if (!(user.data.phone?.toString().slice(-4) == password)) {
           // No user found, so this is their first attempt to login
           // meaning this is also the place you could do registration
           throw new Error("Telefone incorreto");
