@@ -21,7 +21,7 @@ export default async function Scheduling({ dates, preloadedBookings }) {
 
   const form = useForm();
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const onSubmit = (values) => {
     console.log("SUBMITOOOOU", values);
@@ -35,12 +35,13 @@ export default async function Scheduling({ dates, preloadedBookings }) {
         className="flex justify-center flex-col items-start gap-2"
       >
         {dates.map((date) => (
-          <div>
+          <div key={date.value}>
             <FormLabel>{date.formatted}</FormLabel>
 
             <div className="flex gap-4">
               {["AM", "PM"].map((shift) => (
                 <FormField
+                  key={shift}
                   control={form.control}
                   name={`${date.name}.${shift}`}
                   defaultValue={true}

@@ -4,9 +4,6 @@ import parser from "cron-parser";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 
-const api_url = process.env.EVENTS_API;
-const secret = process.env.SECRET;
-
 export async function fetchDates() {
   const session = await getCurrentUser();
 
@@ -34,7 +31,7 @@ export async function fetchDates() {
 
   const cron = events[0].cron_exp;
 
-  const parsed = parser.parseExpression(events[0].cron_exp);
+  const parsed = parser.parseExpression(cron);
 
   const dates = [1, 2, 3].map((event, idx) => {
     const nextEvent = parsed.next();
