@@ -1,0 +1,246 @@
+"use client";
+import * as React from "react";
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Preloaded } from "convex/react";
+import { useSession } from "next-auth/react";
+
+export default ({ preloadedPreferences, regions = [] }) => {
+  const { toast } = useToast();
+  const { data: session } = useSession();
+  const updatePreferences = useMutation(api.preferences.updatePreferences);
+
+  const [loading, setLoading] = React.useState(false);
+
+  const [values, setValues] = React.useState(
+    preloadedPreferences?.length > 0
+      ? preloadedPreferences[0].preferences.length > 0
+        ? preloadedPreferences[0].preferences.map((pref) => ({
+            id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+            value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+            label: `[${pref.cep}] ${pref?.neighbor} - ${pref.city}`,
+          }))
+        : Array.from(Array(3).keys()).map((v, idx) => ({
+            id: idx,
+            value: "",
+            label: "",
+          }))
+      : Array.from(Array(3).keys()).map((v, idx) => ({
+          id: idx,
+          value: "",
+          label: "",
+        }))
+  );
+
+  const form = useForm({
+    defaultValues: {
+      area1: "",
+    },
+  });
+
+  const onSubmit = React.useCallback(
+    async function onSubmit() {
+      // Do something with the form values.
+      // ✅ This will be type-safe and validated.
+
+      const preferences = values.map(({ value }) => {
+        const [city, neighbor, cep] = value.split("_");
+
+        return { cep, neighbor, city };
+      });
+
+      try {
+        setLoading(true);
+
+        const user = preloadedPreferences[0];
+
+        if (!user) {
+          const newUser = {
+            driver_id: session.user.driverId.toString(),
+            driver_name: session.user.driverName,
+            phone: session.user.phone.toString(),
+            preferences,
+            station: session.user.station,
+            vehicle: session.user.vehicle,
+          };
+
+          await updatePreferences({
+            user: newUser,
+            preferences,
+          });
+        } else {
+          await updatePreferences({
+            user: preloadedPreferences[0],
+            preferences,
+          });
+        }
+
+        setLoading(false);
+        toast({
+          title: "Pronto!",
+          description: "Suas preferências foram salvas!",
+        });
+      } catch (err) {
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Ops!",
+          description: "Algo deu errado.",
+        });
+        console.log(err);
+      }
+    },
+    [values]
+  );
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Áreas de Preferência</CardTitle>
+        <CardDescription>
+          Selecione pelo menos 3 áreas de preferência
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8"
+            id="preferences"
+          >
+            {values.map(({ id, value, label }) => (
+              <FormField
+                control={form.control}
+                name={`area${id}`}
+                render={({ field }) => {
+                  return (
+                    <div className="flex w-full">
+                      <FormItem className="w-full" id={id}>
+                        <FormControl>
+                          <Select
+                            id={`select${id}`}
+                            value={value}
+                            onValueChange={(a) =>
+                              setValues((state) => {
+                                const newState = state.map((toChange) => {
+                                  if (toChange.id == id) {
+                                    const labelArr = a.split("_");
+
+                                    return {
+                                      ...toChange,
+                                      value: a,
+                                      label: `${labelArr[1]}-${labelArr[0]}`,
+                                    };
+                                  }
+                                  return toChange;
+                                });
+                                return newState;
+                              })
+                            }
+                          >
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Área" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {regions.map((region) => {
+                                return (
+                                  <SelectItem
+                                    disabled={
+                                      values.findIndex(
+                                        (value) => value.value == region.value
+                                      ) >= 0
+                                    }
+                                    value={region.value}
+                                  >
+                                    {region.label}
+                                  </SelectItem>
+                                );
+                              })}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                      <Button
+                        variant="outliner"
+                        type="button"
+                        onClick={() =>
+                          setValues((state) => {
+                            return state.filter(
+                              (toDelete) => toDelete.id !== id
+                            );
+                          })
+                        }
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  );
+                }}
+              />
+            ))}
+          </form>
+        </Form>
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={() =>
+              setValues((state) => {
+                return [
+                  ...state,
+                  { id: Object.keys(state).length + 1, value: "" },
+                ];
+              })
+            }
+            variant="outliner"
+            className="rounded-full"
+          >
+            <PlusCircledIcon className="h-6 w-6 animate-pulse " />
+          </Button>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-end">
+        <Button
+          type="submit"
+          form="preferences"
+          disabled={values.findIndex((v) => v.value == "") > -1}
+        >
+          {loading ? (
+            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+          ) : (
+            "Salvar Alterações"
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
