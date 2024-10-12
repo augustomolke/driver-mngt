@@ -10,9 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const api_url = process.env.AUTH_API_URL;
-const secret = process.env.SECRET;
-
 export default async function Disponibilidade() {
   const dates = await fetchDates();
 

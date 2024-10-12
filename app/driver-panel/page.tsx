@@ -12,7 +12,7 @@ import {
 
 const secret = process.env.SECRET;
 
-const api_url = process.env.AUTH_API_URL;
+const api_url = process.env.GSHEET_AUTH_API_URL;
 
 export default async function Home() {
   const session = await auth();
