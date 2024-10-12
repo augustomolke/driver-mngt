@@ -37,4 +37,13 @@ export default defineSchema({
     timezone: v.string(),
     options: v.any(),
   }).index("by_station", ["location"]),
+
+  bookings: defineTable({
+    driver_id: v.string(),
+    event_id: v.string(),
+    instance: v.string(),
+    info: v.any(),
+  })
+    .index("by_driver", ["driver_id"])
+    .index("by_event", ["event_id"]),
 });

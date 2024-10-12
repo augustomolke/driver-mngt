@@ -8,7 +8,7 @@ export const get = query({
       .query("preferences")
       // .filter((q) => q.eq(q.field("taskListId"), args.taskListId))
       .filter((q) => q.eq(q.field("driver_id"), args.driver_id))
-      .take(5);
+      .collect();
     return tasks;
   },
 });

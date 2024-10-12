@@ -7,22 +7,12 @@ import { api } from "@/convex/_generated/api";
 export async function fetchDates() {
   const session = await getCurrentUser();
 
-  // const body = JSON.stringify({
-  //   method: "GET",
-  //   key: secret,
-  //   sheet: "events",
-  //   filter: { location: session?.user.station, event_type: "Disponibilidade" },
-  // });
-
-  // const result = await fetch(api_url, {
-  //   method: "POST",
-  //   body,
-  // });
-
-  // const events = await result.json();
-
   const events = await fetchQuery(api.events.get, {
     station: session?.user.station,
+  });
+
+  const preloadedBookings = await fetchQuery(api.bookings.get, {
+    driver_id: session.user.driverId.toString(),
   });
 
   if (!events.length) {
@@ -41,15 +31,20 @@ export async function fetchDates() {
       weekday: "long",
     });
 
+    const prevBooking = preloadedBookings.filter(
+      (b) => b.instance == nextEvent.toISOString()
+    );
+
+    const checked = prevBooking.length > 0 ? prevBooking[0].info.shifts : [];
+
     return {
-      id: idx,
-      event_id: events[0].event_id,
+      id: events[0]._id,
       location: events[0].location,
       name: `event${event}`,
       formatted: format.charAt(0).toUpperCase() + format.slice(1),
       value: nextEvent.toISOString(),
       instance: nextEvent.toISOString(),
-      checked: true,
+      checked,
     };
   });
 

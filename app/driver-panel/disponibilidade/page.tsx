@@ -13,6 +13,8 @@ import {
 export default async function Disponibilidade() {
   const dates = await fetchDates();
 
+  console.log(dates);
+
   return (
     <Card>
       <CardHeader>

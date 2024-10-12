@@ -15,16 +15,42 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
+import { useSession } from "next-auth/react";
 
 export default async function Scheduling({ dates, preloadedBookings }) {
   const [bookings, setBookings] = React.useState(preloadedBookings || []);
+  const createBooking = useMutation(api.bookings.createBooking);
+  const { data: session } = useSession();
 
-  const form = useForm();
+  const form = useForm({ initialValues: { "event1.AM": false } });
 
   // const { toast } = useToast();
 
-  const onSubmit = (values) => {
-    console.log("SUBMITOOOOU", values);
+  const onSubmit = async (values) => {
+    const booking = Object.entries(values)
+      .map(([event_name, bookings]) => {
+        const event = dates.filter((d) => d.name == event_name)[0];
+        if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
+          return null;
+        } else {
+          return {
+            driver_id: session.user.driverId.toString(),
+            event_id: event.id,
+            instance: event.instance,
+            info: {
+              shifts: Object.entries(bookings)
+                .filter((book) => !!book[1])
+                .map((book) => book[0]),
+            },
+          };
+        }
+      })
+      .filter((v) => !!v);
+
+    const results = await createBooking({ booking });
+    console.log(results);
   };
 
   return (
@@ -44,7 +70,11 @@ export default async function Scheduling({ dates, preloadedBookings }) {
                   key={shift}
                   control={form.control}
                   name={`${date.name}.${shift}`}
-                  defaultValue={true}
+                  defaultValue={
+                    dates
+                      .filter((d) => d.name == date.name)[0]
+                      .checked.filter((c) => c == shift).length > 0
+                  }
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
