@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { object, string } from "zod";
 
-const api_url = process.env.AUTH_API_URL;
+const api_url = process.env.GSHEET_AUTH_API_URL;
 
 const signInSchema = object({
   driverId: string({ required_error: "Driver ID é obrigatório" }).min(
@@ -71,29 +71,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           if (user.status != 200) {
             throw new Error(user.error.code);
-
-            return;
           }
+
+          if (!user) {
+            // No user found, so this is their first attempt to login
+            // meaning this is also the place you could do registration
+            throw new Error("Driver ID não encontrado");
+          }
+
+          if (!(user.data.phone?.toString().slice(-4) == password)) {
+            // No user found, so this is their first attempt to login
+            // meaning this is also the place you could do registration
+            throw new Error("Telefone incorreto");
+          }
+
+          // return user object with their profile data
+          return user.data;
         } catch (err) {
           throw new Error(err);
-          return;
         }
-
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("Driver ID não encontrado");
-        }
-
-        if (!(user.data.phone?.toString().slice(-4) == password)) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          // throw new Error("Telefone incorreto");
-          return {};
-        }
-
-        // return user object with their profile data
-        return user.data;
       },
     }),
   ],
