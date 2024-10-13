@@ -35,8 +35,11 @@ import {
 } from "@/components/ui/select";
 import { Preloaded } from "convex/react";
 import { useSession } from "next-auth/react";
+import { usePreloadedQuery } from "convex/react";
 
 export default ({ preloadedPreferences, regions = [] }) => {
+  const prevPreferences = usePreloadedQuery(preloadedPreferences);
+
   const { toast } = useToast();
   const { data: session } = useSession();
   const updatePreferences = useMutation(api.preferences.updatePreferences);
@@ -44,9 +47,9 @@ export default ({ preloadedPreferences, regions = [] }) => {
   const [loading, setLoading] = React.useState(false);
 
   const [values, setValues] = React.useState(
-    preloadedPreferences?.length > 0
-      ? preloadedPreferences[0].preferences.length > 0
-        ? preloadedPreferences[0].preferences.map((pref) => ({
+    prevPreferences?.length > 0
+      ? prevPreferences[0].preferences.length > 0
+        ? prevPreferences[0].preferences.map((pref) => ({
             id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
             value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
             label: `[${pref.cep}] ${pref?.neighbor} - ${pref.city}`,
@@ -63,27 +66,51 @@ export default ({ preloadedPreferences, regions = [] }) => {
         }))
   );
 
-  const form = useForm({
-    defaultValues: {
-      area1: "",
-    },
-  });
+  React.useEffect(() => {
+    setValues(
+      prevPreferences?.length > 0
+        ? prevPreferences[0].preferences.length > 0
+          ? prevPreferences[0].preferences.map((pref) => ({
+              id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+              value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+              label: `[${pref.cep}] ${pref?.neighbor} - ${pref.city}`,
+            }))
+          : Array.from(Array(3).keys()).map((v, idx) => ({
+              id: idx,
+              value: "",
+              label: "",
+            }))
+        : Array.from(Array(3).keys()).map((v, idx) => ({
+            id: idx,
+            value: "",
+            label: "",
+          }))
+    );
+  }, [prevPreferences]);
+
+  console.log(prevPreferences[0].preferences, values);
+
+  const form = useForm();
+
+  const preferences = React.useMemo(
+    () =>
+      values.map(({ value }) => {
+        const [city, neighbor, cep] = value.split("_");
+
+        return { cep, neighbor, city };
+      }),
+    [values]
+  );
 
   const onSubmit = React.useCallback(
     async function onSubmit() {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
 
-      const preferences = values.map(({ value }) => {
-        const [city, neighbor, cep] = value.split("_");
-
-        return { cep, neighbor, city };
-      });
-
       try {
         setLoading(true);
 
-        const user = preloadedPreferences[0];
+        const user = prevPreferences.find(Boolean);
 
         if (!user) {
           const newUser = {
@@ -101,7 +128,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
           });
         } else {
           await updatePreferences({
-            user: preloadedPreferences[0],
+            user: prevPreferences[0],
             preferences,
           });
         }
@@ -121,7 +148,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
         console.log(err);
       }
     },
-    [values]
+    [preferences]
   );
   return (
     <Card>

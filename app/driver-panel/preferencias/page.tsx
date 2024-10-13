@@ -2,6 +2,7 @@ import PreferencesForm from "@/components/preferences-form";
 import { auth } from "@/auth";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
+import { preloadQuery } from "convex/nextjs";
 
 export default async function Preferences() {
   const session = await auth();
@@ -9,7 +10,7 @@ export default async function Preferences() {
     station: session?.user.station,
   });
 
-  const preloadedPreferences = await fetchQuery(api.preferences.get, {
+  const preloadedPreferences = await preloadQuery(api.preferences.get, {
     driver_id: (session?.user.driverId).toString(),
   });
 

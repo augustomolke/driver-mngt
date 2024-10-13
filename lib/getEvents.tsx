@@ -11,10 +11,6 @@ export async function fetchDates() {
     station: session?.user.station,
   });
 
-  const preloadedBookings = await fetchQuery(api.bookings.get, {
-    driver_id: session.user.driverId.toString(),
-  });
-
   if (!events.length) {
     return [];
   }
@@ -31,11 +27,11 @@ export async function fetchDates() {
       weekday: "long",
     });
 
-    const prevBooking = preloadedBookings.filter(
-      (b) => b.instance == nextEvent.toISOString()
-    );
+    // const prevBooking = preloadedBookings.filter(
+    //   (b) => b.instance == nextEvent.toISOString()
+    // );
 
-    const checked = prevBooking.length > 0 ? prevBooking[0].info.shifts : [];
+    // const checked = prevBooking.length > 0 ? prevBooking[0].info.shifts : [];
 
     return {
       id: events[0]._id,
@@ -44,7 +40,8 @@ export async function fetchDates() {
       formatted: format.charAt(0).toUpperCase() + format.slice(1),
       value: nextEvent.toISOString(),
       instance: nextEvent.toISOString(),
-      checked,
+      // checked,
+      // booking_id: prevBooking.length > 0 ? prevBooking[0]._id : null,
     };
   });
 

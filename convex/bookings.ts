@@ -18,24 +18,27 @@ export const createBooking = mutation({
     booking: v.array(v.any()),
   },
   handler: async (ctx, args) => {
-    const promises = args.booking.map((payload) =>
-      ctx.db.insert("bookings", payload)
-    );
+    const promises = args.booking.map((payload) => {
+      if (!payload.booking_id) {
+        return ctx.db.insert("bookings", payload);
+      } else {
+        return ctx.db.patch(payload.booking_id, { info: payload.info });
+      }
+    });
 
     const pref = await Promise.all(promises);
-
-    console.log(pref);
-
-    return pref;
   },
 });
 
 export const deleteBooking = mutation({
   args: {
-    id: v.id("bookings"),
+    ids: v.array(v.id("bookings")),
   },
   handler: async (ctx, args) => {
-    const pref = await ctx.db.delete(args.id);
-    return pref;
+    const promises = args.ids.map((id) => {
+      return ctx.db.delete(id);
+    });
+
+    const pref = await Promise.all(promises);
   },
 });

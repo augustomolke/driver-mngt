@@ -9,11 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { preloadQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
+import { auth } from "@/auth";
 
 export default async function Disponibilidade() {
   const dates = await fetchDates();
-
-  console.log(dates);
+  const session = await auth();
+  const preloadedBookings = await preloadQuery(api.bookings.get, {
+    driver_id: session.user.driverId.toString(),
+  });
 
   return (
     <Card>
@@ -24,7 +29,7 @@ export default async function Disponibilidade() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Scheduling dates={dates} />;
+        <Scheduling dates={dates} preloadedBookings={preloadedBookings} />;
       </CardContent>
     </Card>
   );
