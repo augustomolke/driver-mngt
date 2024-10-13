@@ -19,7 +19,8 @@ export default async function Preferences() {
       preloadedPreferences={preloadedPreferences}
       regions={preLoadedLocations.map((location) => ({
         value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,
-        label: `[${location.zipcode_prefix}] ${location?.neighbor} - ${location.city}`,
+        label: `[${location.zipcode_prefix}] ${location?.neighbor}`,
+        incentive: location.incentive,
       }))}
     />
   );

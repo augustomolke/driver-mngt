@@ -3,6 +3,7 @@ import * as React from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { DollarSign } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
@@ -29,13 +31,16 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Preloaded } from "convex/react";
 import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
+import { BadgeIcon } from "@radix-ui/react-icons";
 
 export default ({ preloadedPreferences, regions = [] }) => {
   const prevPreferences = usePreloadedQuery(preloadedPreferences);
@@ -52,7 +57,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
         ? prevPreferences[0].preferences.map((pref) => ({
             id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
             value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            label: `[${pref.cep}] ${pref?.neighbor} - ${pref.city}`,
+            label: `[${pref.cep}] ${pref?.neighbor}`,
           }))
         : Array.from(Array(3).keys()).map((v, idx) => ({
             id: idx,
@@ -73,7 +78,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
           ? prevPreferences[0].preferences.map((pref) => ({
               id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
               value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-              label: `[${pref.cep}] ${pref?.neighbor} - ${pref.city}`,
+              label: `[${pref.cep}] ${pref?.neighbor}`,
             }))
           : Array.from(Array(3).keys()).map((v, idx) => ({
               id: idx,
@@ -173,6 +178,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
                       <FormItem className="w-full" id={id}>
                         <FormControl>
                           <Select
+                            className="w-full"
                             id={`select${id}`}
                             value={value}
                             onValueChange={(a) =>
@@ -193,22 +199,86 @@ export default ({ preloadedPreferences, regions = [] }) => {
                               })
                             }
                           >
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="Área" />
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Selecione uma área" />
                             </SelectTrigger>
                             <SelectContent>
-                              {regions.map((region) => {
+                              {[
+                                ...new Set(
+                                  regions
+                                    .sort((a, b) => {
+                                      if (a.incentive > b.incentive) {
+                                        return -1;
+                                      }
+                                      if (a.incentive < b.incentive) {
+                                        return 1;
+                                      }
+
+                                      return 0;
+                                    })
+                                    .map(({ value }) => {
+                                      return value.split("_");
+                                    })
+                                    .map((a) => a[0])
+                                ),
+                              ].map((city) => {
+                                const incentives = regions
+                                  .filter(
+                                    (region) =>
+                                      region.value.split("_")[0] == city
+                                  )
+                                  .filter((region) => !!region.incentive);
                                 return (
-                                  <SelectItem
-                                    disabled={
-                                      values.findIndex(
-                                        (value) => value.value == region.value
-                                      ) >= 0
-                                    }
-                                    value={region.value}
-                                  >
-                                    {region.label}
-                                  </SelectItem>
+                                  <SelectGroup>
+                                    {incentives.length > 0 ? (
+                                      <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
+                                        <Badge>
+                                          <DollarSign />
+                                          {city}
+                                        </Badge>
+                                      </SelectLabel>
+                                    ) : (
+                                      <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
+                                        {city}
+                                      </SelectLabel>
+                                    )}
+
+                                    {regions
+                                      .filter(
+                                        (region) =>
+                                          region.value.split("_")[0] == city
+                                      )
+                                      .sort((a, b) => {
+                                        if (a.incentive > b.incentive) {
+                                          return -1;
+                                        }
+                                        if (a.incentive < b.incentive) {
+                                          return 1;
+                                        }
+
+                                        return 0;
+                                      })
+                                      .map((region) => {
+                                        return (
+                                          <SelectItem
+                                            disabled={
+                                              values.findIndex(
+                                                (value) =>
+                                                  value.value == region.value
+                                              ) >= 0
+                                            }
+                                            value={region.value}
+                                          >
+                                            {region.incentive ? (
+                                              <Badge className="bg-green">
+                                                {region.incentive}
+                                              </Badge>
+                                            ) : null}{" "}
+                                            {region.label}
+                                          </SelectItem>
+                                        );
+                                      })}
+                                  </SelectGroup>
                                 );
                               })}
                             </SelectContent>
