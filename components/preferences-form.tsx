@@ -88,8 +88,6 @@ export default ({ preloadedPreferences, regions = [] }) => {
     );
   }, [prevPreferences]);
 
-  console.log(prevPreferences[0].preferences, values);
-
   const form = useForm();
 
   const preferences = React.useMemo(
@@ -221,6 +219,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
                       <Button
                         variant="outliner"
                         type="button"
+                        disabled={values.length <= 3}
                         onClick={() =>
                           setValues((state) => {
                             return state.filter(
