@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { SignIn } from "@/components/ui/sign-in";
 import SignoutButton from "@/components/signout-button";
 import { auth } from "@/auth";
@@ -12,10 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { DollarSign } from "lucide-react";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
+import IncentiveAlert from "@/components/incentive-alert";
 
 const secret = process.env.SECRET;
 
@@ -52,21 +50,7 @@ export default async function Home() {
       <CardContent>
         {preLoadedLocations.filter((location) => location.incentive != "")
           .length > 0 ? (
-          <Link href="/driver-panel/preferencias">
-            <Alert className="bg-green flex justify-center items-center mb-8">
-              <div>
-                <DollarSign className="h-8 w-8 animate-ping mr-1" />
-              </div>
-              <div>
-                <AlertTitle>
-                  <strong>Quer ganhar mais?</strong>
-                </AlertTitle>
-                <AlertDescription>
-                  Revise suas preferências de entrega para ganhos extras!
-                </AlertDescription>
-              </div>
-            </Alert>
-          </Link>
+          <IncentiveAlert />
         ) : null}
 
         <div className="flex flex-col justify-center items-center">
