@@ -64,7 +64,7 @@ export default async function Scheduling({ dates, preloadedBookings }) {
                 .filter((book) => !!book[1])
                 .map((book) => book[0]),
             },
-            ...(!!prev && { booking_id: prev._id }),
+            ...(!!prev && { booking_id: prev?._id }),
           };
         }
       })
@@ -78,7 +78,7 @@ export default async function Scheduling({ dates, preloadedBookings }) {
           .find(Boolean);
         if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
           //deletar
-          return prev._id;
+          return prev?._id;
         }
       })
       .filter((v) => !!v);
