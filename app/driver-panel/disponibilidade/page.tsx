@@ -12,6 +12,7 @@ import {
 import { preloadQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { auth } from "@/auth";
+import { Button } from "@/components/ui/button";
 
 export default async function Disponibilidade() {
   const dates = await fetchDates();
@@ -31,6 +32,14 @@ export default async function Disponibilidade() {
       <CardContent>
         <Scheduling dates={dates} preloadedBookings={preloadedBookings} />;
       </CardContent>
+
+      <CardFooter>
+        <div class="w-full flex justify-end">
+          <Button type="submit" form="disponibilidade">
+            Confirmar
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

@@ -20,6 +20,7 @@ import { api } from "../convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { compareArrays } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 export default async function Scheduling({ dates, preloadedBookings }) {
   const createBooking = useMutation(api.bookings.createBooking);
@@ -114,14 +115,14 @@ export default async function Scheduling({ dates, preloadedBookings }) {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         id="disponibilidade"
-        className="flex justify-center flex-col items-start gap-2"
+        className="flex justify-center flex-col items-start gap-4"
       >
-        {dates.map((date) => {
+        {dates.map((date, idx) => {
           return (
-            <div key={date.value}>
-              <FormLabel>{date.formatted}</FormLabel>
+            <div key={date.value} className="w-full">
+              <FormLabel className="text-xl">{date.formatted}</FormLabel>
 
-              <div className="flex gap-4">
+              <div className="flex justify-evenly gap-4 w-full">
                 {["AM", "PM"].map((shift) => (
                   <FormField
                     key={shift}
@@ -154,12 +155,11 @@ export default async function Scheduling({ dates, preloadedBookings }) {
                   />
                 ))}
               </div>
+
+              {idx < dates.length - 1 ? <Separator className="my-4" /> : null}
             </div>
           );
         })}
-        <div class="mt-12 w-full flex justify-end">
-          <Button type="submit">Confirmar</Button>
-        </div>
       </form>
     </Form>
   );

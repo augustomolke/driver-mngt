@@ -4,8 +4,9 @@ import { Toggle } from "@/components/ui/toggle";
 
 export default ({ text, checked, onCheckedChange, id }) => {
   return (
-    <div className="flex items-center space-x-2 ">
+    <div className="">
       <Toggle
+        size="lg"
         id={id}
         pressed={checked}
         onPressedChange={onCheckedChange}
