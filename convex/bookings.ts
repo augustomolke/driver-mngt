@@ -8,7 +8,8 @@ export const get = query({
       .query("bookings")
       // .filter((q) => q.eq(q.field("taskListId"), args.taskListId))
       .filter((q) => q.eq(q.field("driver_id"), args.driver_id))
-      .collect();
+      .order("desc")
+      .take(3);
     return bookings;
   },
 });

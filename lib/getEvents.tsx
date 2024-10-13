@@ -7,9 +7,11 @@ import { api } from "@/convex/_generated/api";
 export async function fetchDates() {
   const session = await getCurrentUser();
 
-  const events = await fetchQuery(api.events.get, {
+  const eventsResult = await fetchQuery(api.events.get, {
     station: session?.user.station,
   });
+
+  const events = eventsResult.filter((e) => e.event_type == "Disponibilidade");
 
   if (!events.length) {
     return [];

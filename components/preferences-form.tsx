@@ -311,16 +311,21 @@ export default ({ preloadedPreferences, regions = [] }) => {
           <Button
             onClick={() =>
               setValues((state) => {
-                return [
+                const newState = [
                   ...state,
-                  { id: Object.keys(state).length + 1, value: "" },
+                  {
+                    id: (Object.keys(state).length + 1).toString(),
+                    value: "",
+                  },
                 ];
+
+                return newState;
               })
             }
             variant="outliner"
             className="rounded-full"
           >
-            <PlusCircledIcon className="h-6 w-6 animate-pulse " />
+            <PlusCircledIcon className="h-6 w-6  " />
           </Button>
         </div>
       </CardContent>
