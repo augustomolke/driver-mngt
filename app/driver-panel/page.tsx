@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SignIn } from "@/components/ui/sign-in";
+import SignoutButton from "@/components/signout-button";
 import { auth } from "@/auth";
 import {
   Card,
@@ -9,6 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { DollarSign } from "lucide-react";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
 
 const secret = process.env.SECRET;
 
@@ -31,14 +38,37 @@ export default async function Home() {
 
   const mapInfo = await result.json();
 
+  const preLoadedLocations = await fetchQuery(api.locations.get, {
+    station: session?.user.station,
+  });
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bem vindo</CardTitle>
-        <CardDescription>description</CardDescription>
+        <CardTitle>Olá, {session?.user.driverName.split(" ")[0]}!</CardTitle>
+        {/* <CardDescription>description</CardDescription> */}
       </CardHeader>
 
       <CardContent>
+        {preLoadedLocations.filter((location) => location.incentive != "")
+          .length > 0 ? (
+          <Link href="/driver-panel/preferencias">
+            <Alert className="bg-green flex justify-center items-center mb-8">
+              <div>
+                <DollarSign className="h-8 w-8 animate-ping mr-1" />
+              </div>
+              <div>
+                <AlertTitle>
+                  <strong>Quer ganhar mais?</strong>
+                </AlertTitle>
+                <AlertDescription>
+                  Revise suas preferências de entrega para ganhos extras!
+                </AlertDescription>
+              </div>
+            </Alert>
+          </Link>
+        ) : null}
+
         <div className="flex flex-col justify-center items-center">
           <a
             href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
@@ -60,6 +90,9 @@ export default async function Home() {
             Endereço de coleta: <br />
             <strong>{mapInfo.address}</strong>
           </p>
+        </div>
+        <div className="w-full flex justify-end">
+          <SignoutButton />
         </div>
       </CardContent>
     </Card>

@@ -57,7 +57,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
         ? prevPreferences[0].preferences.map((pref) => ({
             id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
             value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            label: `[${pref.cep}] ${pref?.neighbor}`,
+            label: `[${pref.cep}-XXX] ${pref?.neighbor}`,
           }))
         : Array.from(Array(3).keys()).map((v, idx) => ({
             id: idx,
@@ -78,7 +78,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
           ? prevPreferences[0].preferences.map((pref) => ({
               id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
               value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-              label: `[${pref.cep}] ${pref?.neighbor}`,
+              label: `[${pref.cep}-XXX] ${pref?.neighbor}`,
             }))
           : Array.from(Array(3).keys()).map((v, idx) => ({
               id: idx,
@@ -171,7 +171,7 @@ export default ({ preloadedPreferences, regions = [] }) => {
             {values.map(({ id, value, label }) => (
               <FormField
                 control={form.control}
-                name={`area${id}`}
+                name={id}
                 render={({ field }) => {
                   return (
                     <div className="flex w-full">

@@ -61,35 +61,43 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
 
-        try {
-          const result = await fetch(api_url, {
-            method: "POST",
-            body,
-          });
+        const result = await fetch(api_url, {
+          method: "POST",
+          body,
+        });
 
-          user = await result.json();
+        user = await result.json();
 
-          if (user.status != 200) {
-            throw new Error(user.error.code);
-          }
-
-          if (!user) {
-            // No user found, so this is their first attempt to login
-            // meaning this is also the place you could do registration
-            throw new Error("Driver ID não encontrado");
-          }
-
-          if (!(user.data.phone?.toString().slice(-4) == password)) {
-            // No user found, so this is their first attempt to login
-            // meaning this is also the place you could do registration
-            throw new Error("Telefone incorreto");
-          }
-
-          // return user object with their profile data
-          return user.data;
-        } catch (err) {
-          throw new Error(err);
+        if (user.status != 200) {
+          throw new Error(
+            JSON.stringify({
+              errors: "Driver ID não encontrado",
+              status: false,
+            })
+          );
         }
+
+        if (!user) {
+          // No user found, so this is their first attempt to login
+          // meaning this is also the place you could do registration
+          throw new Error(
+            JSON.stringify({
+              errors: "Driver ID não encontrado",
+              status: false,
+            })
+          );
+        }
+
+        if (!(user.data.phone?.toString().slice(-4) == password)) {
+          // No user found, so this is their first attempt to login
+          // meaning this is also the place you could do registration
+          throw new Error(
+            JSON.stringify({ errors: "Telefone Incorreto", status: false })
+          );
+        }
+
+        // return user object with their profile data
+        return user.data;
       },
     }),
   ],
