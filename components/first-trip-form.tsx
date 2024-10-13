@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import { ArrowLeft } from "lucide-react";
+
 import {
   Form,
   FormControl,
@@ -41,21 +43,25 @@ import { Preloaded } from "convex/react";
 import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 
 export default function FirstTripForm({ dates }) {
+  const router = useRouter();
+
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
+  const [value, setValue] = React.useState();
 
   const form = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
+    console.log(value);
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Agende seu treinamento Prático</CardTitle>
+        <CardTitle>Agende seu Treinamento Prático</CardTitle>
         <CardDescription>Selecione uma data</CardDescription>
       </CardHeader>
       <CardContent>
@@ -72,7 +78,7 @@ export default function FirstTripForm({ dates }) {
                 return (
                   <FormItem>
                     <FormControl>
-                      <Select>
+                      <Select value={value} onValueChange={(a) => setValue(a)}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Escolha uma data" />
                         </SelectTrigger>
@@ -94,8 +100,12 @@ export default function FirstTripForm({ dates }) {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button type="submit" form="preferences" disabled={false}>
+      <CardFooter className="flex justify-between">
+        <Button onClick={() => router.back()}>
+          <ArrowLeft />
+        </Button>
+
+        <Button type="submit" form="first-trip" disabled={!value}>
           {loading ? (
             <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
           ) : (

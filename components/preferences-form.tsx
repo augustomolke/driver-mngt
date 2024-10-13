@@ -4,6 +4,9 @@ import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { DollarSign } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -42,7 +45,13 @@ import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 
-export default ({ preloadedPreferences, regions = [] }) => {
+export default ({
+  preloadedPreferences,
+  regions = [],
+  redirectTo = null,
+  backButton = false,
+}) => {
+  const router = useRouter();
   const prevPreferences = usePreloadedQuery(preloadedPreferences);
 
   const { toast } = useToast();
@@ -136,11 +145,16 @@ export default ({ preloadedPreferences, regions = [] }) => {
           });
         }
 
-        setLoading(false);
         toast({
           title: "Pronto!",
           description: "Suas preferências foram salvas!",
         });
+
+        if (!!redirectTo) {
+          router.push(redirectTo);
+        }
+
+        setLoading(false);
       } catch (err) {
         setLoading(false);
         toast({
@@ -168,86 +182,45 @@ export default ({ preloadedPreferences, regions = [] }) => {
             className="space-y-8"
             id="preferences"
           >
-            {values.map(({ id, value, label }) => (
-              <FormField
-                control={form.control}
-                name={id}
-                render={({ field }) => {
-                  return (
-                    <div className="flex w-full">
-                      <FormItem className="w-full" id={id}>
-                        <FormControl>
-                          <Select
-                            className="w-full"
-                            id={`select${id}`}
-                            value={value}
-                            onValueChange={(a) =>
-                              setValues((state) => {
-                                const newState = state.map((toChange) => {
-                                  if (toChange.id == id) {
-                                    const labelArr = a.split("_");
+            {values.map(({ id, value, label }) => {
+              return (
+                <FormField
+                  control={form.control}
+                  name={value}
+                  render={({ field }) => {
+                    return (
+                      <div className="flex w-full">
+                        <FormItem className="w-full" id={id}>
+                          <FormControl>
+                            <Select
+                              className="w-full"
+                              id={`select${id}`}
+                              value={value}
+                              onValueChange={(a) =>
+                                setValues((state) => {
+                                  const newState = state.map((toChange) => {
+                                    if (toChange.id == id) {
+                                      const labelArr = a.split("_");
 
-                                    return {
-                                      ...toChange,
-                                      value: a,
-                                      label: `${labelArr[1]}-${labelArr[0]}`,
-                                    };
-                                  }
-                                  return toChange;
-                                });
-                                return newState;
-                              })
-                            }
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Selecione uma área" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {[
-                                ...new Set(
-                                  regions
-                                    .sort((a, b) => {
-                                      if (a.incentive > b.incentive) {
-                                        return -1;
-                                      }
-                                      if (a.incentive < b.incentive) {
-                                        return 1;
-                                      }
-
-                                      return 0;
-                                    })
-                                    .map(({ value }) => {
-                                      return value.split("_");
-                                    })
-                                    .map((a) => a[0])
-                                ),
-                              ].map((city) => {
-                                const incentives = regions
-                                  .filter(
-                                    (region) =>
-                                      region.value.split("_")[0] == city
-                                  )
-                                  .filter((region) => !!region.incentive);
-                                return (
-                                  <SelectGroup>
-                                    {incentives.length > 0 ? (
-                                      <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
-                                        <Badge>
-                                          <DollarSign />
-                                          {city}
-                                        </Badge>
-                                      </SelectLabel>
-                                    ) : (
-                                      <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
-                                        {city}
-                                      </SelectLabel>
-                                    )}
-
-                                    {regions
-                                      .filter(
-                                        (region) =>
-                                          region.value.split("_")[0] == city
-                                      )
+                                      return {
+                                        ...toChange,
+                                        value: a,
+                                        label: `${labelArr[1]}-${labelArr[0]}`,
+                                      };
+                                    }
+                                    return toChange;
+                                  });
+                                  return newState;
+                                })
+                              }
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Selecione uma área" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {[
+                                  ...new Set(
+                                    regions
                                       .sort((a, b) => {
                                         if (a.incentive > b.incentive) {
                                           return -1;
@@ -258,53 +231,96 @@ export default ({ preloadedPreferences, regions = [] }) => {
 
                                         return 0;
                                       })
-                                      .map((region) => {
-                                        return (
-                                          <SelectItem
-                                            disabled={
-                                              values.findIndex(
-                                                (value) =>
-                                                  value.value == region.value
-                                              ) >= 0
-                                            }
-                                            value={region.value}
-                                          >
-                                            {region.incentive ? (
-                                              <Badge className="bg-green">
-                                                {region.incentive}
-                                              </Badge>
-                                            ) : null}{" "}
-                                            {region.label}
-                                          </SelectItem>
-                                        );
-                                      })}
-                                  </SelectGroup>
-                                );
-                              })}
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                      <Button
-                        variant="outliner"
-                        type="button"
-                        disabled={values.length <= 3}
-                        onClick={() =>
-                          setValues((state) => {
-                            return state.filter(
-                              (toDelete) => toDelete.id !== id
-                            );
-                          })
-                        }
-                      >
-                        <TrashIcon className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  );
-                }}
-              />
-            ))}
+                                      .map(({ value }) => {
+                                        return value.split("_");
+                                      })
+                                      .map((a) => a[0])
+                                  ),
+                                ].map((city) => {
+                                  const incentives = regions
+                                    .filter(
+                                      (region) =>
+                                        region.value.split("_")[0] == city
+                                    )
+                                    .filter((region) => !!region.incentive);
+                                  return (
+                                    <SelectGroup>
+                                      {incentives.length > 0 ? (
+                                        <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
+                                          <Badge>
+                                            <DollarSign />
+                                            {city}
+                                          </Badge>
+                                        </SelectLabel>
+                                      ) : (
+                                        <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
+                                          {city}
+                                        </SelectLabel>
+                                      )}
+
+                                      {regions
+                                        .filter(
+                                          (region) =>
+                                            region.value.split("_")[0] == city
+                                        )
+                                        .sort((a, b) => {
+                                          if (a.incentive > b.incentive) {
+                                            return -1;
+                                          }
+                                          if (a.incentive < b.incentive) {
+                                            return 1;
+                                          }
+
+                                          return 0;
+                                        })
+                                        .map((region) => {
+                                          return (
+                                            <SelectItem
+                                              disabled={
+                                                values.findIndex(
+                                                  (value) =>
+                                                    value.value == region.value
+                                                ) >= 0
+                                              }
+                                              value={region.value}
+                                            >
+                                              {region.incentive ? (
+                                                <Badge className="bg-green">
+                                                  {region.incentive}
+                                                </Badge>
+                                              ) : null}{" "}
+                                              {region.label}
+                                            </SelectItem>
+                                          );
+                                        })}
+                                    </SelectGroup>
+                                  );
+                                })}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                        <Button
+                          variant="outliner"
+                          type="button"
+                          disabled={values.length <= 3}
+                          onClick={() =>
+                            setValues((state) => {
+                              return state.filter(
+                                (toDelete) => toDelete.id !== id
+                              );
+                            })
+                          }
+                        >
+                          <TrashIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    );
+                  }}
+                />
+              );
+            })}
           </form>
         </Form>
         <div className="flex justify-center mt-4">
@@ -329,7 +345,14 @@ export default ({ preloadedPreferences, regions = [] }) => {
           </Button>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-end">
+      <CardFooter
+        className={`flex ${backButton ? "justify-between" : "justify-end"}`}
+      >
+        {backButton ? (
+          <Button onClick={() => router.back()}>
+            <ArrowLeft />
+          </Button>
+        ) : null}
         <Button
           type="submit"
           form="preferences"
