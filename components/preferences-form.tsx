@@ -45,6 +45,7 @@ import { Preloaded } from "convex/react";
 import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
+import IncentiveAlert from "./incentive-alert";
 
 export default ({
   preloadedPreferences,
@@ -173,11 +174,13 @@ export default ({
     <Card>
       <CardHeader>
         <CardTitle>Áreas de Preferência</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <IncentiveAlert callback={"/primeira-entrega/preferencias"} />
+
         <CardDescription>
           Selecione pelo menos 3 áreas de preferência
         </CardDescription>
-      </CardHeader>
-      <CardContent>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

@@ -50,7 +50,7 @@ export default async function Home() {
       <CardContent>
         {preLoadedLocations.filter((location) => location.incentive != "")
           .length > 0 ? (
-          <IncentiveAlert />
+          <IncentiveAlert callback="/driver-panel/preferencias" />
         ) : null}
 
         <div className="flex flex-col justify-center items-center">

@@ -7,9 +7,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { DollarSign } from "lucide-react";
 
-export default () => (
+export default ({ callback }) => (
   <Bounce duration={2500}>
-    <Link href="/driver-panel/preferencias">
+    <Link href={`/incentivos?callback=${callback}`}>
       <Alert className="bg-green flex justify-center items-center mb-8 w-full">
         <Bounce delay={2500}>
           <DollarSign className="h-8 w-8 mr-1" />
@@ -19,7 +19,7 @@ export default () => (
             <strong>Quer ganhar mais?</strong>
           </AlertTitle>
           <AlertDescription>
-            Revise suas preferências de entrega para ganhos extras!
+            Algumas áreas de entrega te garantem ganhos extras! Saiba mais aqui.
           </AlertDescription>
         </div>
       </Alert>

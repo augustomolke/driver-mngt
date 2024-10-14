@@ -13,6 +13,7 @@ import { preloadQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
 
 export default async function Disponibilidade() {
   const dates = await fetchDates();
@@ -20,6 +21,10 @@ export default async function Disponibilidade() {
   const preloadedBookings = await preloadQuery(api.bookings.get, {
     driver_id: session.user.driverId.toString(),
   });
+
+  if (!(dates.length > 0)) {
+    redirect("/driver-panel");
+  }
 
   return (
     <Card>
