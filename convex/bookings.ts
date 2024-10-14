@@ -30,14 +30,12 @@ export const createBooking = mutation({
 
       if (!(exists.length > 0)) {
         return ctx.db.insert("bookings", payload);
-      } else {
-        return ctx.db.patch(exists[0]._id, { info: payload.info });
       }
+
+      return ctx.db.patch(exists[0]._id, { info: payload.info });
     });
 
     const pref = await Promise.all(promises);
-
-    return pref;
   },
 });
 

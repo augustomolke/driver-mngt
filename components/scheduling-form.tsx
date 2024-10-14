@@ -95,7 +95,7 @@ export default async function Scheduling({ dates, preloadedBookings }) {
         promises.push(deleteBooking({ ids: bookingToDelete }));
       }
 
-      await Promise.all(promises);
+      const result = await Promise.all(promises);
 
       toast({
         title: "Pronto!",
