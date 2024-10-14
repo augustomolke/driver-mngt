@@ -34,6 +34,24 @@ export default async function Home() {
 
   const events = eventsResult.filter((e) => e.event_type == "First-trip");
 
+  if (events.length == 0) {
+    return (
+      <div>
+        <main className="flex flex-col items-center sm:items-start">
+          <Card>
+            <CardHeader>
+              <CardTitle>No momento não há vagas</CardTitle>
+              <CardDescription> No momento não há vagas</CardDescription>
+            </CardHeader>
+            <CardContent>
+              Mas fique de olho! A qualquer momento abriremos mais vagas.
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+
   const options = getCurrentWeekDates();
 
   const event = parser.parseExpression(events[0].cron_exp, {
