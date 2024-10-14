@@ -5,8 +5,8 @@ import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { DollarSign } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { Fade } from "react-awesome-reveal";
+import { ArrowLeft, Truck } from "lucide-react";
+import { Fade, AttentionSeeker } from "react-awesome-reveal";
 
 import {
   Card,
@@ -237,6 +237,16 @@ export default ({
 
                                           return 0;
                                         })
+                                        .sort((a, b) => {
+                                          if (a.priority > b.priority) {
+                                            return -1;
+                                          }
+                                          if (a.priority < b.priority) {
+                                            return 1;
+                                          }
+
+                                          return 0;
+                                        })
                                         .map(({ value }) => {
                                           return value.split("_");
                                         })
@@ -279,6 +289,16 @@ export default ({
 
                                             return 0;
                                           })
+                                          .sort((a, b) => {
+                                            if (a.priority > b.priority) {
+                                              return -1;
+                                            }
+                                            if (a.priority < b.priority) {
+                                              return 1;
+                                            }
+
+                                            return 0;
+                                          })
                                           .map((region) => {
                                             return (
                                               <SelectItem
@@ -290,10 +310,19 @@ export default ({
                                                   ) >= 0
                                                 }
                                                 value={region.value}
+                                                className="flex justify-between items-center"
                                               >
                                                 {region.incentive ? (
                                                   <Badge className="bg-green">
                                                     {region.incentive}
+                                                  </Badge>
+                                                ) : null}{" "}
+                                                {region.priority ? (
+                                                  <Badge variant="default">
+                                                    <Truck
+                                                      height={15}
+                                                      width={15}
+                                                    />
                                                   </Badge>
                                                 ) : null}{" "}
                                                 {region.label}
@@ -306,7 +335,12 @@ export default ({
                                 </SelectContent>
                               </Select>
                             </FormControl>
-                            <FormMessage />
+                            {/* {regions.find((region) => region.value == value)
+                              .incentive ? (
+                              <CardDescription className="text-xs">
+                                Entregas nesta região garantem ganhos extras!
+                              </CardDescription>
+                            ) : null} */}
                           </FormItem>
                           <Button
                             variant="outliner"

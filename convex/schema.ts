@@ -4,7 +4,8 @@ import { v } from "convex/values";
 export default defineSchema({
   locations: defineTable({
     city: v.string(),
-    incentive: v.string(),
+    incentive: v.optional(v.string()),
+    priority: v.optional(v.string()),
     state: v.string(),
     station: v.string(),
     neighbor: v.string(),

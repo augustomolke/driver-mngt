@@ -21,6 +21,7 @@ export default async function Preferences() {
         value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,
         label: `[${location.zipcode_prefix}-XXX] ${location?.neighbor}`,
         incentive: location.incentive,
+        priority: location.priority,
       }))}
     />
   );
