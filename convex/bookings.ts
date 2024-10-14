@@ -19,15 +19,25 @@ export const createBooking = mutation({
     booking: v.array(v.any()),
   },
   handler: async (ctx, args) => {
-    const promises = args.booking.map((payload) => {
-      if (!payload.booking_id) {
+    const promises = args.booking.map(async (payload) => {
+      const exists = await ctx.db
+        .query("bookings")
+        .withIndex("by_event_driver", (q) =>
+          q.eq("event_id", payload.event_id).eq("driver_id", payload.driver_id)
+        )
+        .filter((q) => q.eq(q.field("instance"), payload.instance))
+        .collect();
+
+      if (!(exists.length > 0)) {
         return ctx.db.insert("bookings", payload);
       } else {
-        return ctx.db.patch(payload.booking_id, { info: payload.info });
+        return ctx.db.patch(exists[0]._id, { info: payload.info });
       }
     });
 
     const pref = await Promise.all(promises);
+
+    return pref;
   },
 });
 

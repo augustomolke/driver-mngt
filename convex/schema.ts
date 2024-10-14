@@ -45,5 +45,6 @@ export default defineSchema({
     info: v.any(),
   })
     .index("by_driver", ["driver_id"])
-    .index("by_event", ["event_id"]),
+    .index("by_event", ["event_id"])
+    .index("by_event_driver", ["event_id", "driver_id"]),
 });
