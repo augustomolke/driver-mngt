@@ -19,7 +19,10 @@ export async function fetchDates() {
 
   const cron = events[0].cron_exp;
 
-  const parsed = parser.parseExpression(cron);
+  const parsed = parser.parseExpression(cron, {
+    tz: events[0].timezone,
+    utc: true,
+  });
 
   const dates = [1, 2, 3].map((event, idx) => {
     const nextEvent = parsed.next();
