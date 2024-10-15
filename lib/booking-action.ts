@@ -4,8 +4,82 @@ import { fetchQuery, fetchMutation } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
+import { compareArrays } from "./utils";
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
+
+export const confirmAvailability = async (values, prevBookings, dates) => {
+  const session = await auth();
+  const createBooking = fetchMutation();
+  const booking = Object.entries(values)
+    .map(([event_name, bookings]) => {
+      const event = dates.filter((d) => d.name == event_name)[0];
+      const prev = prevBookings
+        .filter((prev) => prev.instance == event.instance)
+        .find(Boolean);
+
+      if (
+        compareArrays(
+          prev?.info.shifts,
+          Object.entries(bookings)
+            .filter((book) => !!book[1])
+            .map((book) => book[0])
+        )
+      ) {
+        //nothing to do
+        return null;
+      }
+
+      if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
+        //deletar
+        return null;
+      } else {
+        return {
+          driver_id: session.user.driverId.toString(),
+          event_id: event.id,
+          instance: event.instance,
+          info: {
+            shifts: Object.entries(bookings)
+              .filter((book) => !!book[1])
+              .map((book) => book[0]),
+          },
+          ...(!!prev && { booking_id: prev?._id }),
+        };
+      }
+    })
+    .filter((v) => !!v);
+
+  const bookingToDelete = Object.entries(values)
+    .map(([event_name, bookings]) => {
+      const event = dates.filter((d) => d.name == event_name)[0];
+      const prev = prevBookings
+        .filter((prev) => prev.instance == event.instance)
+        .find(Boolean);
+      if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
+        //deletar
+        return prev?._id;
+      }
+    })
+    .filter((v) => !!v);
+
+  const promises = [];
+
+  if (booking.length > 0) {
+    promises.push(
+      fetchMutation(api.bookings.createBooking, {
+        booking,
+      })
+    );
+  }
+
+  if (bookingToDelete.length > 0) {
+    promises.push(
+      fetchMutation(api.bookings.deleteBooking, { ids: bookingToDelete })
+    );
+  }
+
+  return await Promise.all(promises);
+};
 
 export const createBookingAction = async (date, eventId) => {
   const session = await auth();

@@ -12,6 +12,9 @@ import { Button } from "./ui/button";
 import { deleteBookingAction } from "@/lib/booking-action";
 import { useToast } from "@/hooks/use-toast";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { signOut } from "@/auth";
+import { signOutAction } from "@/lib/getSession";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function ({ booking, user }) {
   const [loading, setLoading] = React.useState(false);
@@ -23,9 +26,23 @@ export default function ({ booking, user }) {
         <CardTitle>Confirmação de Agendamento</CardTitle>
       </CardHeader>
       <CardContent>Informações do agendamento</CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col">
         <Button
           disabled={loading}
+          onClick={async () => {
+            await signOutAction({ redirectTo: "/login" });
+          }}
+        >
+          {loading ? (
+            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+          ) : (
+            "Já fiz minha primeira entrega!"
+          )}
+        </Button>
+
+        <Button
+          disabled={loading}
+          variant={"outliner"}
           onClick={async () => {
             setLoading(true);
             try {
@@ -39,11 +56,7 @@ export default function ({ booking, user }) {
             }
           }}
         >
-          {loading ? (
-            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-          ) : (
-            "Desistir do agendamento"
-          )}
+          {loading ? null : "Desistir do agendamento"}
         </Button>
       </CardFooter>
     </Card>

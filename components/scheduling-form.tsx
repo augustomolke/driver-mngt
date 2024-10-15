@@ -17,93 +17,36 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
-import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { compareArrays } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
+import { confirmAvailability } from "@/lib/booking-action";
+import { CircleCheckBig, CircleX } from "lucide-react";
 
 export default async function Scheduling({ dates, preloadedBookings }) {
   const createBooking = useMutation(api.bookings.createBooking);
   const deleteBooking = useMutation(api.bookings.deleteBooking);
   const prevBookings = usePreloadedQuery(preloadedBookings);
-  const { data: session } = useSession();
 
   const form = useForm();
 
   const { toast } = useToast();
 
   const onSubmit = async (values) => {
-    const booking = Object.entries(values)
-      .map(([event_name, bookings]) => {
-        const event = dates.filter((d) => d.name == event_name)[0];
-        const prev = prevBookings
-          .filter((prev) => prev.instance == event.instance)
-          .find(Boolean);
-
-        if (
-          compareArrays(
-            prev?.info.shifts,
-            Object.entries(bookings)
-              .filter((book) => !!book[1])
-              .map((book) => book[0])
-          )
-        ) {
-          //nothing to do
-          return null;
-        }
-
-        if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
-          //deletar
-          return null;
-        } else {
-          return {
-            driver_id: session.user.driverId.toString(),
-            event_id: event.id,
-            instance: event.instance,
-            info: {
-              shifts: Object.entries(bookings)
-                .filter((book) => !!book[1])
-                .map((book) => book[0]),
-            },
-            ...(!!prev && { booking_id: prev?._id }),
-          };
-        }
-      })
-      .filter((v) => !!v);
-
-    const bookingToDelete = Object.entries(values)
-      .map(([event_name, bookings]) => {
-        const event = dates.filter((d) => d.name == event_name)[0];
-        const prev = prevBookings
-          .filter((prev) => prev.instance == event.instance)
-          .find(Boolean);
-        if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
-          //deletar
-          return prev?._id;
-        }
-      })
-      .filter((v) => !!v);
-
     try {
-      const promises = [];
-
-      if (booking.length > 0) {
-        promises.push(createBooking({ booking }));
-      }
-
-      if (bookingToDelete.length > 0) {
-        promises.push(deleteBooking({ ids: bookingToDelete }));
-      }
-
-      const result = await Promise.all(promises);
+      await confirmAvailability(values, prevBookings, dates);
 
       toast({
+        icon: (
+          <CircleCheckBig color="hsl(var(--green))" height={48} width={48} />
+        ),
         title: "Pronto!",
         description: "Você confirmou sua disponibilidade!",
       });
     } catch (err) {
+      console.log(err);
       toast({
-        variant: "destructive",
+        icon: <CircleX height={48} width={48} />,
         title: "Ops!",
         description: "Algo deu errado.",
       });

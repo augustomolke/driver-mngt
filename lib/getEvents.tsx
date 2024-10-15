@@ -19,7 +19,12 @@ export async function fetchDates() {
 
   const cron = events[0].cron_exp;
 
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const parsed = parser.parseExpression(cron, {
+    currentDate: tomorrow,
     tz: events[0].timezone,
     utc: true,
   });
@@ -32,6 +37,7 @@ export async function fetchDates() {
       weekday: "long",
     });
 
+    const instance = nextEvent.toDate().toLocaleDateString("en-GB");
     // const prevBooking = preloadedBookings.filter(
     //   (b) => b.instance == nextEvent.toISOString()
     // );
@@ -43,8 +49,8 @@ export async function fetchDates() {
       location: events[0].location,
       name: `event${event}`,
       formatted: format.charAt(0).toUpperCase() + format.slice(1),
-      value: nextEvent.toISOString(),
-      instance: nextEvent.toISOString(),
+      value: instance,
+      instance,
       // checked,
       // booking_id: prevBooking.length > 0 ? prevBooking[0]._id : null,
     };
