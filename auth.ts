@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { object, string } from "zod";
 
@@ -45,8 +45,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         let user = null;
 
-        const { driverId, password } =
-          await signInSchema.parseAsync(credentials);
+        const parsed = signInSchema.safeParse(credentials);
+
+        if (!parsed.success) {
+          throw new AuthError(parsed.error.issues[0].message);
+        }
+
+        const { driverId, password } = parsed.data;
 
         // logic to salt and hash password
 
@@ -69,31 +74,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         user = await result.json();
 
         if (user.status != 200) {
-          throw new Error(
-            JSON.stringify({
-              errors: "Driver ID não encontrado",
-              status: false,
-            })
-          );
+          throw new AuthError("Driver ID não encontrado");
         }
 
         if (!user) {
           // No user found, so this is their first attempt to login
           // meaning this is also the place you could do registration
-          throw new Error(
-            JSON.stringify({
-              errors: "Driver ID não encontrado",
-              status: false,
-            })
-          );
+          throw new AuthError("Driver ID não encontrado");
         }
 
         if (!(user.data.phone?.toString().slice(-4) == password)) {
           // No user found, so this is their first attempt to login
           // meaning this is also the place you could do registration
-          throw new Error(
-            JSON.stringify({ errors: "Telefone Incorreto", status: false })
-          );
+          throw new AuthError("Telefone Incorreto");
         }
 
         // return user object with their profile data

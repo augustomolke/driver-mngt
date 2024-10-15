@@ -7,6 +7,14 @@ import { preloadQuery } from "convex/nextjs";
 export default async function Preferences() {
   const session = await auth();
 
+  const bookings = await fetchQuery(api.bookings.get, {
+    driver_id: session.user.driverId.toString(),
+  });
+
+  if (bookings.length > 0) {
+    redirect("/primeira-entrega");
+  }
+
   const preLoadedLocations = await fetchQuery(api.locations.get, {
     station: session?.user.station,
   });

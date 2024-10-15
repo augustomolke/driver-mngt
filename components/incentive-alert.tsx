@@ -16,10 +16,11 @@ export default ({ callback }) => (
         </Bounce>
         <div>
           <AlertTitle>
-            <strong>Quer ganhar mais?</strong>
+            <strong>Temos áreas especiais para você!</strong>
           </AlertTitle>
           <AlertDescription>
-            Algumas áreas de entrega te garantem ganhos extras! Saiba mais aqui.
+            Algumas áreas de entrega garantem benefícios extras! Toque aqui e
+            saiba mais.
           </AlertDescription>
         </div>
       </Alert>

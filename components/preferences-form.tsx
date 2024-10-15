@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { DollarSign } from "lucide-react";
+import { CircleCheckBig, CircleX, DollarSign, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Truck } from "lucide-react";
 import { Fade, AttentionSeeker } from "react-awesome-reveal";
@@ -149,19 +149,23 @@ export default ({
         }
 
         toast({
+          icon: (
+            <CircleCheckBig color="hsl(var(--green))" height={48} width={48} />
+          ),
           title: "Pronto!",
           description: "Suas preferências foram salvas!",
         });
 
         if (!!redirectTo) {
           router.push(redirectTo);
+          return;
         }
 
         setLoading(false);
       } catch (err) {
         setLoading(false);
         toast({
-          variant: "destructive",
+          icon: <CircleX height={48} width={48} />,
           title: "Ops!",
           description: "Algo deu errado.",
         });
@@ -173,11 +177,16 @@ export default ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Áreas de Preferência</CardTitle>
+        <CardTitle className="flex gap-4 items-center">
+          <MapPin height={32} width={32} /> Áreas de entrega
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <IncentiveAlert callback={"/primeira-entrega/preferencias"} />
-
+        {regions.filter(
+          (location) => location.incentive != "" || location.priority != ""
+        ).length > 0 ? (
+          <IncentiveAlert callback={"/primeira-entrega/preferencias"} />
+        ) : null}
         <CardDescription>
           Selecione pelo menos 3 áreas de preferência
         </CardDescription>

@@ -44,8 +44,9 @@ import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { createBookingAction } from "@/lib/booking-action";
 
-export default function FirstTripForm({ dates }) {
+export default function FirstTripForm({ dates, eventId }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -54,8 +55,18 @@ export default function FirstTripForm({ dates }) {
 
   const form = useForm();
 
-  const onSubmit = () => {
-    console.log(value);
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      await createBookingAction(value, eventId);
+    } catch (e) {
+      toast({
+        icon: <CircleX height={48} width={48} />,
+        title: "Ops!",
+        description: "Algo deu errado.",
+      });
+      setLoading(false);
+    }
   };
 
   return (

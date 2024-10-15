@@ -20,6 +20,14 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await auth();
 
+  const bookings = await fetchQuery(api.bookings.get, {
+    driver_id: session.user.driverId.toString(),
+  });
+
+  if (bookings.length > 0) {
+    redirect("/primeira-entrega");
+  }
+
   const preferences = await fetchQuery(api.preferences.get, {
     driver_id: session.user.driverId.toString(),
   });
@@ -79,7 +87,7 @@ export default async function Home() {
     <div>
       <main className="flex flex-col items-center sm:items-start">
         {eventsArray.length > 0 ? (
-          <FirstTripForm dates={eventsArray} />
+          <FirstTripForm dates={eventsArray} eventId={events[0]._id} />
         ) : (
           <Card>
             <CardHeader>

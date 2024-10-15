@@ -16,8 +16,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { deleteBookingAction } from "@/lib/booking-action";
+import CongratsCard from "@/components/congrats-card";
 
 export default async function Home() {
+  const session = await auth();
+  const bookings = await fetchQuery(api.bookings.get, {
+    driver_id: session.user.driverId.toString(),
+  });
+
+  if (bookings.length > 0) {
+    const event = await fetchQuery(api.events.get, {
+      id: bookings[0].event_id,
+    });
+
+    if (event.event_type == "First-trip") {
+      return <CongratsCard booking={bookings[0]} user={session?.user} />;
+    }
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -26,7 +43,7 @@ export default async function Home() {
       <CardContent>Agendar</CardContent>
       <CardFooter>
         <Link href={"/primeira-entrega/preferencias"}>
-          <Button>Selecionar a data</Button>
+          <Button>Começar!</Button>
         </Link>
       </CardFooter>
     </Card>

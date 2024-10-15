@@ -13,11 +13,13 @@ import {
 } from "@/components/ui/card";
 import React from "react";
 import LoginSubmitButton from "./login-submit-button";
-import { useFormState } from "react-dom";
+import { useToast } from "@/hooks/use-toast";
+import { CircleX } from "lucide-react";
 
 export function SignIn() {
   const [values, setValues] = React.useState({ driverId: "", password: "" });
-  const [state, formAction] = useFormState(loginAction, { message: "" });
+  const [loading, setLoading] = React.useState(false);
+  const { toast } = useToast();
 
   return (
     <Card>
@@ -30,7 +32,21 @@ export function SignIn() {
       </CardHeader>
 
       <CardContent>
-        <form action={formAction}>
+        <form
+          action={async (formData) => {
+            try {
+              setLoading(true);
+              await loginAction(formData);
+            } catch (e) {
+              setLoading(false);
+              toast({
+                icon: <CircleX height={48} width={48} />,
+                title: "Algo deu errado!",
+                description: e.message.split(".")[0],
+              });
+            }
+          }}
+        >
           <input className="" type="hidden" name="redirectTo" value="/" />
           <Label>
             Driver ID
@@ -62,15 +78,16 @@ export function SignIn() {
           <div className="w-full flex justify-end mt-4">
             <LoginSubmitButton
               disabled={
+                loading ||
                 Object.entries(values)
                   .map((a) => a[1])
                   .filter((v) => !!v).length < 2
               }
             />
           </div>
-          <p aria-live="polite" className="sr-only">
-            {state?.message}
-          </p>
+          {/* <p aria-live="polite" className="sr-only">
+            {loading?.message}
+          </p> */}
         </form>
       </CardContent>
     </Card>

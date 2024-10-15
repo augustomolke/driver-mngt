@@ -41,9 +41,9 @@ export default defineSchema({
 
   bookings: defineTable({
     driver_id: v.string(),
-    event_id: v.string(),
+    event_id: v.id("events"),
     instance: v.string(),
-    info: v.any(),
+    info: v.optional(v.any()),
   })
     .index("by_driver", ["driver_id"])
     .index("by_event", ["event_id"])

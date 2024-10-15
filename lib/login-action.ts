@@ -1,6 +1,6 @@
 "use server";
 import { signIn } from "@/auth";
 
-export default async (prevState, formData) => {
-  const result = await signIn("credentials", formData);
+export default async (formData) => {
+  await signIn("credentials", formData);
 };
