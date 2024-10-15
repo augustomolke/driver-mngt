@@ -185,5 +185,5 @@ export const deleteBookingAction = async (driverId, bookinId) => {
   } catch (e) {
     console.log(e);
   }
-  await signOut({ redirectTo: "/login" });
+  await signOut({ redirectTo: "/" });
 };

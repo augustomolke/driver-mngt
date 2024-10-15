@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { deleteBookingAction } from "@/lib/booking-action";
-import CongratsCard from "@/components/congrats-card";
 import driver from "@/components/assets/delivery-man.svg";
 import { redirect } from "next/navigation";
 

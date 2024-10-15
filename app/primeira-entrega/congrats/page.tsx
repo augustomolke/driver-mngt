@@ -106,14 +106,18 @@ export default async function () {
 
         <Separator className="my-2" />
 
-        <div class="flex items-center justify-between mb-2">
-          <MapPin />
-          <p class="text-base max-w-[12.5rem]">
-            <strong>Endereço:</strong> <br />
-            {mapInfo.address}
-          </p>
-        </div>
-
+        <a
+          href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
+          target="_blank"
+        >
+          <div class="flex items-center justify-between mb-2">
+            <MapPin />
+            <p class="text-base max-w-[12.5rem]">
+              <strong>Endereço:</strong> <br />
+              {mapInfo.address}
+            </p>
+          </div>
+        </a>
         <Separator className="my-2" />
 
         <div className="flex flex-col justify-center items-center">

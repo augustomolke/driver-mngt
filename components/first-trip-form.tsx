@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { ArrowLeft } from "lucide-react";
-
+import worker from "@/components/assets/warehouse-worker.svg";
 import {
   Form,
   FormControl,
@@ -47,13 +47,25 @@ import { useRouter } from "next/navigation";
 import { createBookingAction } from "@/lib/booking-action";
 import driverArrived from "@/components/assets/driver-arrived.svg";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 
-export default function FirstTripForm({ dates, eventId }) {
+export default function FirstTripForm({ dates, eventId, checks }) {
   const router = useRouter();
 
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState();
+  const [checked, setChecked] = React.useState([]);
 
   const form = useForm();
 
@@ -132,13 +144,55 @@ export default function FirstTripForm({ dates, eventId }) {
           </Button>
         )}
 
-        <Button type="submit" form="first-trip" disabled={!value}>
-          {loading ? (
-            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-          ) : (
-            "Confirmar agendamento"
-          )}
-        </Button>
+        <Dialog>
+          <DialogTrigger>
+            <Button disabled={!value}>Confirmar agendamento</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Sua segutrança é nossa prioridade!</DialogTitle>
+              <DialogDescription>
+                Antes de prosseguir, é necessário garantir que você possui os
+                equipamentos de segurança obrigatórios!{" "}
+                <strong>
+                  Sem esses itens, não será permitida a entrada nas instalações!
+                </strong>
+                <div class="flex justify-center items-center">
+                  <Image src={worker} width={120} className="tra" />
+                  <div class="gap-4 flex flex-col justify-start items-start">
+                    {checks.map((c, idx) => (
+                      <div className="flex gap-2 w-full">
+                        <Checkbox
+                          id={idx}
+                          value={c}
+                          onCheckedChange={() =>
+                            setChecked((state) => [...state, c])
+                          }
+                        />
+                        <Label className="text-left" for={idx}>
+                          {c}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    form="first-trip"
+                    disabled={!(checked.length == checks.length)}
+                  >
+                    {loading ? (
+                      <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+                    ) : (
+                      "Confirmar agendamento"
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );

@@ -84,11 +84,29 @@ export default async function Home() {
     }
   }
 
+  const checks =
+    session?.user.vehicle === "MOTO"
+      ? [
+          "Calçado de segurança confeccionado em couro com biqueira de composite",
+          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Colete Refletivo",
+          "Alforje ou Baú fechado com capacidade mínima de 80L",
+        ]
+      : [
+          "Calçado de segurança: Calçado confeccionado em couro com biqueira de composite",
+          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Colete Refletivo",
+        ];
+
   return (
     <div>
       <main className="flex flex-col items-center sm:items-start">
         {eventsArray.length > 0 ? (
-          <FirstTripForm dates={eventsArray} eventId={events[0]._id} />
+          <FirstTripForm
+            dates={eventsArray}
+            eventId={events[0]._id}
+            checks={checks}
+          />
         ) : (
           <Card>
             <CardHeader>
