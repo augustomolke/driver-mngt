@@ -42,7 +42,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Preloaded } from "convex/react";
-import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import IncentiveAlert from "./incentive-alert";
@@ -63,12 +62,12 @@ export default ({
   regions = [],
   redirectTo = null,
   backButton = false,
+  user: loggedUser,
 }) => {
   const router = useRouter();
   const prevPreferences = usePreloadedQuery(preloadedPreferences);
 
   const { toast } = useToast();
-  const { data: session } = useSession();
   const updatePreferences = useMutation(api.preferences.updatePreferences);
 
   const [loading, setLoading] = React.useState(false);
@@ -140,12 +139,12 @@ export default ({
 
         if (!user) {
           const newUser = {
-            driver_id: session.user.driverId.toString(),
-            driver_name: session.user.driverName,
-            phone: session.user.phone.toString(),
+            driver_id: loggedUser.driverId.toString(),
+            driver_name: loggedUser.driverName,
+            phone: loggedUser.phone.toString(),
             preferences,
-            station: session.user.station,
-            vehicle: session.user.vehicle,
+            station: loggedUser.station,
+            vehicle: loggedUser.vehicle,
           };
 
           await updatePreferences({

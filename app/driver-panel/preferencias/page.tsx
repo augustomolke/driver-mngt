@@ -16,6 +16,8 @@ export default async function Preferences() {
 
   return (
     <PreferencesForm
+      user={session?.user}
+      redirectTo={"/driver-panel"}
       preloadedPreferences={preloadedPreferences}
       regions={preLoadedLocations.map((location) => ({
         value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,

@@ -22,6 +22,47 @@ const secret = process.env.SECRET;
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
 
+function stringParaDataPassada(dataStr) {
+  // Mapeamento dos meses em português para os índices (0-11)
+  const meses = {
+    janeiro: 0,
+    fevereiro: 1,
+    março: 2,
+    abril: 3,
+    maio: 4,
+    junho: 5,
+    julho: 6,
+    agosto: 7,
+    setembro: 8,
+    outubro: 9,
+    novembro: 10,
+    dezembro: 11,
+  };
+
+  // Regex para capturar dia, mês, ano e hora
+  const regex = /(\d{1,2})\sde\s(\w+)\sàs\s(\d{2}):(\d{2})/;
+  const match = dataStr.match(regex);
+
+  if (!match) {
+    throw new Error("Formato de data inválido");
+  }
+
+  const dia = parseInt(match[1], 10);
+  const mes = meses[match[2].toLowerCase()];
+  const anoAtual = new Date().getFullYear();
+  const horas = parseInt(match[3], 10);
+  const minutos = parseInt(match[4], 10);
+
+  // Criação da data
+  const dataInformada = new Date(anoAtual, mes, dia, horas, minutos);
+
+  // Comparação com a data atual
+  const agora = new Date();
+
+  // Retorna true se a data informada já passou
+  return dataInformada < agora;
+}
+
 export default async function () {
   const session = await auth();
 
@@ -97,6 +138,7 @@ export default async function () {
         <CancelBookingButton
           driverId={session?.user.driverId}
           bookingId={booking._id}
+          pastDate={stringParaDataPassada(booking.instance)}
         />
       </CardFooter>
     </Card>

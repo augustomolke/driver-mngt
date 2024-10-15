@@ -10,7 +10,6 @@ const api_url = process.env.GSHEET_AUTH_API_URL;
 
 export const confirmAvailability = async (values, prevBookings, dates) => {
   const session = await auth();
-  const createBooking = fetchMutation();
   const booking = Object.entries(values)
     .map(([event_name, bookings]) => {
       const event = dates.filter((d) => d.name == event_name)[0];

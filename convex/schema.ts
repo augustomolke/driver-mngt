@@ -48,4 +48,12 @@ export default defineSchema({
     .index("by_driver", ["driver_id"])
     .index("by_event", ["event_id"])
     .index("by_event_driver", ["event_id", "driver_id"]),
+
+  feedbacks: defineTable({
+    driver_id: v.string(),
+    nps: v.number(),
+    reason: v.optional(v.string()),
+    first_trip: v.string(),
+    text: v.optional(v.string()),
+  }),
 });
