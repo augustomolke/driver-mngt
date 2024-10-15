@@ -251,20 +251,20 @@ export default ({
                                     ...new Set(
                                       regions
                                         .sort((a, b) => {
-                                          if (a.incentive > b.incentive) {
+                                          if (!!a.priority && !b.priority) {
                                             return -1;
                                           }
-                                          if (a.incentive < b.incentive) {
+                                          if (!a.priority < !!b.priority) {
                                             return 1;
                                           }
 
                                           return 0;
                                         })
                                         .sort((a, b) => {
-                                          if (a.priority > b.priority) {
+                                          if (a.incentive > b.incentive) {
                                             return -1;
                                           }
-                                          if (a.priority < b.priority) {
+                                          if (a.incentive < b.incentive) {
                                             return 1;
                                           }
 
@@ -303,6 +303,16 @@ export default ({
                                               region.value.split("_")[0] == city
                                           )
                                           .sort((a, b) => {
+                                            if (!!a.priority && !b.priority) {
+                                              return -1;
+                                            }
+                                            if (!a.priority < !!b.priority) {
+                                              return 1;
+                                            }
+
+                                            return 0;
+                                          })
+                                          .sort((a, b) => {
                                             if (a.incentive > b.incentive) {
                                               return -1;
                                             }
@@ -312,16 +322,7 @@ export default ({
 
                                             return 0;
                                           })
-                                          .sort((a, b) => {
-                                            if (a.priority > b.priority) {
-                                              return -1;
-                                            }
-                                            if (a.priority < b.priority) {
-                                              return 1;
-                                            }
 
-                                            return 0;
-                                          })
                                           .map((region) => {
                                             return (
                                               <SelectItem
