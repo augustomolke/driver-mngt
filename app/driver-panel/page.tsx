@@ -14,31 +14,17 @@ import { Button } from "@/components/ui/button";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import IncentiveAlert from "@/components/incentive-alert";
-
-const secret = process.env.SECRET;
-
-const api_url = process.env.GSHEET_AUTH_API_URL;
+import getMap from "@/lib/getMap";
 
 export default async function Home() {
   const session = await auth();
-
-  const body = JSON.stringify({
-    method: "GETMAP",
-    key: secret,
-    sheet: "hubs",
-    filter: { "Station Name": session?.user.station },
-  });
-
-  const result = await fetch(api_url, {
-    method: "POST",
-    body,
-  });
-
-  const mapInfo = await result.json();
+  const station = session?.user.station;
 
   const preLoadedLocations = await fetchQuery(api.locations.get, {
-    station: session?.user.station,
+    station,
   });
+
+  const mapInfo = await getMap(station);
 
   return (
     <Card>

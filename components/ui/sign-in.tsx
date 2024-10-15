@@ -24,10 +24,10 @@ export function SignIn() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bem vindo</CardTitle>
+        <CardTitle>Que bom que você está aqui!</CardTitle>
         <CardDescription>
-          Por favor, informe seu Driver ID e os 4 últimos dígitos do seu
-          telefone cadastrado.
+          Para começar, preencha o seu <strong>ID</strong> e os
+          <strong> 4 últimos dígitos do seu telefone cadastrado</strong>.
         </CardDescription>
       </CardHeader>
 

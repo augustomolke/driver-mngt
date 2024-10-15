@@ -18,6 +18,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { deleteBookingAction } from "@/lib/booking-action";
 import CongratsCard from "@/components/congrats-card";
+import driver from "@/components/assets/delivery-man.svg";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await auth();
@@ -31,19 +33,39 @@ export default async function Home() {
     });
 
     if (event.event_type == "First-trip") {
-      return <CongratsCard booking={bookings[0]} user={session?.user} />;
+      redirect("/primeira-entrega/congrats");
     }
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Treinamento prático</CardTitle>
+        <div class="flex justify-center items-center">
+          <Image src={driver} height={250} />
+          <CardTitle class="leading-8 text-2xl">
+            Olá <br />
+            <strong>
+              Motorista <br /> Parceiro
+            </strong>
+            !
+          </CardTitle>
+        </div>
       </CardHeader>
-      <CardContent>Agendar</CardContent>
+      <CardContent>
+        <p>Estamos felizes em ter você com a gente.</p>
+
+        <p class="my-2">
+          Agora, <strong>falta pouco</strong> para fazer suas entregas!
+        </p>
+
+        <p>
+          <strong>Clique em "Vamos começar"</strong> e preencha as informações
+          para agendar nosso 1° encontro.
+        </p>
+      </CardContent>
       <CardFooter>
         <Link href={"/primeira-entrega/preferencias"}>
-          <Button>Começar!</Button>
+          <Button>Vamos Começar!</Button>
         </Link>
       </CardFooter>
     </Card>

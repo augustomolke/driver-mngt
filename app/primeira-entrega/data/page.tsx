@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { CalendarClock } from "lucide-react";
 
 import { redirect } from "next/navigation";
 
@@ -91,11 +92,14 @@ export default async function Home() {
         ) : (
           <Card>
             <CardHeader>
-              <CardTitle>Agendamento</CardTitle>
+              <CardTitle className="flex gap-4 items-center">
+                <CalendarClock height={32} width={32} />
+                Data e horário
+              </CardTitle>{" "}
             </CardHeader>
             <CardContent>
-              A próxima data disponível é:
-              {eventsArray[0]}
+              A próxima data disponível será
+              <strong>{eventsArray[0]}</strong>
             </CardContent>
           </Card>
         )}

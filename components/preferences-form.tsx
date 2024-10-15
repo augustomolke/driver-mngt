@@ -46,6 +46,17 @@ import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import IncentiveAlert from "./incentive-alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import packageOnTheWay from "@/components/assets/picked-up-package.svg";
+import Image from "next/image";
 
 export default ({
   preloadedPreferences,
@@ -180,6 +191,10 @@ export default ({
         <CardTitle className="flex gap-4 items-center">
           <MapPin height={32} width={32} /> Áreas de entrega
         </CardTitle>
+
+        <CardDescription className="mb-4">
+          Aqui você pode informar quais áreas você prefere realizar entrega.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {regions.filter(
@@ -187,7 +202,7 @@ export default ({
         ).length > 0 ? (
           <IncentiveAlert callback={"/primeira-entrega/preferencias"} />
         ) : null}
-        <CardDescription>
+        <CardDescription className="mb-4">
           Selecione pelo menos 3 áreas de preferência
         </CardDescription>
         <Form {...form}>
@@ -405,17 +420,38 @@ export default ({
             <ArrowLeft />
           </Button>
         ) : null}
-        <Button
-          type="submit"
-          form="preferences"
-          disabled={values.findIndex((v) => v.value == "") > -1}
-        >
-          {loading ? (
-            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-          ) : (
-            "Salvar Alterações"
-          )}
-        </Button>
+
+        <Dialog>
+          <DialogTrigger>
+            <Button>Salvar Alterações</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Gostaria de salvar suas alterações?</DialogTitle>
+              <DialogDescription>
+                Lembre-se:{" "}
+                <strong>
+                  não é uma garantia de que todas suas entregas serão somente
+                  nas áreas que escolheu.
+                </strong>
+                <Image src={packageOnTheWay} alt="Entrega" />
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    form="preferences"
+                    disabled={values.findIndex((v) => v.value == "") > -1}
+                  >
+                    {loading ? (
+                      <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+                    ) : (
+                      "Salvar Alterações"
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );

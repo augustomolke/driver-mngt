@@ -147,7 +147,7 @@ export const createBookingAction = async (date, eventId) => {
   } catch (e) {
     console.log(e);
   }
-  redirect("/primeira-entrega");
+  redirect("/primeira-entrega/congrats");
 };
 
 export const deleteBookingAction = async (driverId, bookinId) => {

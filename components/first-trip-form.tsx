@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { DollarSign } from "lucide-react";
+import { CalendarClock, DollarSign } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -45,6 +45,8 @@ import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { createBookingAction } from "@/lib/booking-action";
+import driverArrived from "@/components/assets/driver-arrived.svg";
+import Image from "next/image";
 
 export default function FirstTripForm({ dates, eventId }) {
   const router = useRouter();
@@ -72,8 +74,14 @@ export default function FirstTripForm({ dates, eventId }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Agende seu Treinamento Prático</CardTitle>
-        <CardDescription>Selecione uma data</CardDescription>
+        <CardTitle className="flex gap-4 items-center">
+          <CalendarClock height={32} width={32} />
+          Data e horário
+        </CardTitle>
+        <CardDescription>
+          Estas são as datas disponíveis para você no momento. Escolha uma para
+          agendar seu treinamento prático.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -110,11 +118,19 @@ export default function FirstTripForm({ dates, eventId }) {
             />
           </form>
         </Form>
+        <Image src={driverArrived} />
+
+        <CardDescription>
+          Caso não encontre uma data, não se preocupe!{" "}
+          <strong>Estamos sempre abrindo novas vagas.</strong> Fique de olho!
+        </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button onClick={() => router.back()}>
-          <ArrowLeft />
-        </Button>
+        {!loading && (
+          <Button onClick={() => router.back()}>
+            <ArrowLeft />
+          </Button>
+        )}
 
         <Button type="submit" form="first-trip" disabled={!value}>
           {loading ? (
