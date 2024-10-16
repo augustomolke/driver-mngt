@@ -27,7 +27,6 @@ export default async function Scheduling({ dates, preloadedBookings }) {
   const createBooking = useMutation(api.bookings.createBooking);
   const deleteBooking = useMutation(api.bookings.deleteBooking);
   const prevBookings = usePreloadedQuery(preloadedBookings);
-
   const form = useForm();
 
   const { toast } = useToast();

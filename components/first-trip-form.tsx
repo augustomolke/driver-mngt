@@ -150,7 +150,7 @@ export default function FirstTripForm({ dates, eventId, checks }) {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Sua segutrança é nossa prioridade!</DialogTitle>
+              <DialogTitle>Sua segurança é nossa prioridade!</DialogTitle>
               <DialogDescription>
                 Antes de prosseguir, é necessário garantir que você possui os
                 equipamentos de segurança obrigatórios!{" "}
