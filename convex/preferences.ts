@@ -21,6 +21,7 @@ export const updatePreferences = mutation({
         cep: v.string(),
         neighbor: v.string(),
         city: v.string(),
+        priority: v.optional(v.any()),
       })
     ),
   },

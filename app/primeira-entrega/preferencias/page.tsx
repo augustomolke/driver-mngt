@@ -26,6 +26,7 @@ export default async function Preferences() {
 
   return (
     <PreferencesForm
+      priorityAlert
       user={session?.user}
       redirectTo={"/primeira-entrega/data"}
       backButton

@@ -56,6 +56,7 @@ import {
 } from "@/components/ui/dialog";
 import packageOnTheWay from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
+import PriorityAlert from "./priority-alert";
 
 export default ({
   preloadedPreferences,
@@ -63,6 +64,8 @@ export default ({
   redirectTo = null,
   backButton = false,
   user: loggedUser,
+  priorityAlert = false,
+  incentiveAlert = false,
 }) => {
   const router = useRouter();
   const prevPreferences = usePreloadedQuery(preloadedPreferences);
@@ -122,7 +125,11 @@ export default ({
       values.map(({ value }) => {
         const [city, neighbor, cep] = value.split("_");
 
-        return { cep, neighbor, city };
+        const priority = regions
+          .filter((r) => !!r.priority)
+          .find((r) => r.value.split("_")[2] == cep);
+
+        return { cep, neighbor, city, priority: priority?.priority || "" };
       }),
     [values]
   );
@@ -196,10 +203,14 @@ export default ({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {regions.filter(
-          (location) => location.incentive != "" || location.priority != ""
-        ).length > 0 ? (
+        {incentiveAlert &&
+        regions.filter((location) => location.incentive != "").length > 0 ? (
           <IncentiveAlert callback={"/primeira-entrega/preferencias"} />
+        ) : null}
+
+        {priorityAlert &&
+        regions.filter((location) => location.priority != "").length > 0 ? (
+          <PriorityAlert callback={"/primeira-entrega/preferencias"} />
         ) : null}
         <CardDescription className="mb-4">
           Selecione pelo menos 3 áreas de preferência

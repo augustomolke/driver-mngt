@@ -16,6 +16,7 @@ export default async function Preferences() {
 
   return (
     <PreferencesForm
+      incentiveAlert
       user={session?.user}
       redirectTo={"/driver-panel"}
       preloadedPreferences={preloadedPreferences}

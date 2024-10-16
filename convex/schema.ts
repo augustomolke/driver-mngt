@@ -21,6 +21,7 @@ export default defineSchema({
     preferences: v.array(
       v.object({
         cep: v.string(),
+        priority: v.optional(v.any()),
         neighbor: v.string(),
         city: v.string(),
       })

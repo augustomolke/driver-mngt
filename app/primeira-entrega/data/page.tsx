@@ -1,11 +1,12 @@
-import Image from "next/image";
 import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
 import { api } from "@/convex/_generated/api";
-import { fetchQuery } from "convex/nextjs";
+import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { getCurrentWeekDates } from "../utils";
 import parser from "cron-parser";
 import FirstTripForm from "@/components/first-trip-form";
+import { Image } from "next/image";
+
 import {
   Card,
   CardContent,
@@ -14,9 +15,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CalendarClock } from "lucide-react";
+import { CalendarClock, TrafficCone, Siren } from "lucide-react";
 
 import { redirect } from "next/navigation";
+import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
+import { Separator } from "@/components/ui/separator";
+import { NoSpotsCard } from "@/components/no-spots-card";
 
 export default async function Home() {
   const session = await auth();
@@ -29,11 +33,11 @@ export default async function Home() {
     redirect("/primeira-entrega");
   }
 
-  const preferences = await fetchQuery(api.preferences.get, {
+  const preloadedPreferences = await preloadQuery(api.preferences.get, {
     driver_id: session.user.driverId.toString(),
   });
 
-  if (!(preferences.length > 0)) {
+  if (!(preloadedPreferences._valueJSON.length > 0)) {
     redirect("/primeira-entrega/preferencias");
   }
 
@@ -42,24 +46,6 @@ export default async function Home() {
   });
 
   const events = eventsResult.filter((e) => e.event_type == "First-trip");
-
-  if (events.length == 0) {
-    return (
-      <div>
-        <main className="flex flex-col items-center sm:items-start">
-          <Card>
-            <CardHeader>
-              <CardTitle>No momento não há vagas</CardTitle>
-              <CardDescription> No momento não há vagas</CardDescription>
-            </CardHeader>
-            <CardContent>
-              Mas fique de olho! A qualquer momento abriremos mais vagas.
-            </CardContent>
-          </Card>
-        </main>
-      </div>
-    );
-  }
 
   const options = getCurrentWeekDates();
 
@@ -101,26 +87,12 @@ export default async function Home() {
   return (
     <div>
       <main className="flex flex-col items-center sm:items-start">
-        {eventsArray.length > 0 ? (
-          <FirstTripForm
-            dates={eventsArray}
-            eventId={events[0]._id}
-            checks={checks}
-          />
-        ) : (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex gap-4 items-center">
-                <CalendarClock height={32} width={32} />
-                Data e horário
-              </CardTitle>{" "}
-            </CardHeader>
-            <CardContent>
-              A próxima data disponível será
-              <strong>{eventsArray[0]}</strong>
-            </CardContent>
-          </Card>
-        )}
+        <FirstTripForm
+          preloadedPreferences={preloadedPreferences}
+          dates={eventsArray}
+          eventId={events[0]._id}
+          checks={checks}
+        />
       </main>
     </div>
   );

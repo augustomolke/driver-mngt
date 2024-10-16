@@ -49,8 +49,10 @@ export default function Page({ searchParams }) {
               <strong>Áreas prioritárias</strong>
             </AccordionTrigger>
             <AccordionContent>
-              Áreas marcadas com este simbolo são áreas prioritárias que
-              garantem mais rotas e prioridade no carregamento.
+              Áreas mais indicadas para quem quer <strong>começar logo</strong>!
+              Aqui você terá{" "}
+              <strong>prioridade no agendamento da sua primeira entrega</strong>
+              .
             </AccordionContent>
           </AccordionItem>
         </Accordion>

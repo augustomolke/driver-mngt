@@ -47,6 +47,7 @@ import { useRouter } from "next/navigation";
 import { createBookingAction } from "@/lib/booking-action";
 import driverArrived from "@/components/assets/driver-arrived.svg";
 import Image from "next/image";
+import { NoSpotsCard } from "./no-spots-card";
 import {
   Dialog,
   DialogContent,
@@ -59,8 +60,15 @@ import {
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
-export default function FirstTripForm({ dates, eventId, checks }) {
+export default function FirstTripForm({
+  dates,
+  eventId,
+  checks,
+  preloadedPreferences,
+}) {
   const router = useRouter();
+
+  const preferences = usePreloadedQuery(preloadedPreferences);
 
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
@@ -82,6 +90,30 @@ export default function FirstTripForm({ dates, eventId, checks }) {
       setLoading(false);
     }
   };
+
+  if (
+    dates.length == 0 ||
+    preferences[0].preferences.filter((p) => !!p.priority).length == 0
+  ) {
+    return <NoSpotsCard />;
+  }
+
+  if (dates.length == 1) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex gap-4 items-center">
+            <CalendarClock height={32} width={32} />
+            Data e horário
+          </CardTitle>{" "}
+        </CardHeader>
+        <CardContent>
+          A próxima data disponível será
+          <strong>{dates[0]}</strong>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
