@@ -1,5 +1,6 @@
 "use server";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export async function getCurrentUser() {
   const session = await auth();
@@ -7,6 +8,5 @@ export async function getCurrentUser() {
 }
 
 export async function signOutAction() {
-  "use server";
-  await signOut();
+  redirect("/logout");
 }

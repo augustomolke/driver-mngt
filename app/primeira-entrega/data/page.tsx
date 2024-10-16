@@ -93,7 +93,7 @@ export default async function Home() {
           "Alforje ou Baú fechado com capacidade mínima de 80L",
         ]
       : [
-          "Calçado de segurança: Calçado confeccionado em couro com biqueira de composite",
+          "Calçado de segurança confeccionado em couro com biqueira de composite",
           // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
           "Colete Refletivo",
         ];
