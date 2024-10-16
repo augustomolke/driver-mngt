@@ -14,5 +14,7 @@ export const createFeedbackAction = async (answers) => {
     answers: { ...answers, driver_id: session.user?.driverId.toString() },
   });
 
-  await signOut({ redirectTo: "/" });
+  const redirectTo = await signOut({ redirect: false });
+
+  redirect(redirectTo);
 };

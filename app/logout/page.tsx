@@ -1,13 +1,13 @@
+"use server";
 import { signOut } from "@/auth";
 
 export default function SignOutPage() {
   return (
     <div>
-      <h5>Are you sure you want to sign out?</h5>
+      <h5>Você tem certeza que deseja sair?</h5>
       <form
         action={async (formData) => {
-          "use server";
-          await signOut({ redirectTo: "/" });
+          await signOut();
         }}
       >
         <button type="submit">Sair</button>

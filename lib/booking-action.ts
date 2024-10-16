@@ -157,6 +157,8 @@ export const deleteBookingAction = async (driverId, bookinId) => {
     filter: { driverId },
   });
 
+  let redirectTo;
+
   try {
     const result = await fetch(api_url, {
       method: "POST",
@@ -182,8 +184,11 @@ export const deleteBookingAction = async (driverId, bookinId) => {
     await fetchMutation(api.bookings.deleteBooking, {
       ids: [bookinId],
     });
+
+    redirectTo = await signOut({ redirect: false });
   } catch (e) {
     console.log(e);
   }
-  await signOut({ redirectTo: "/" });
+
+  if (redirectTo) redirect(redirectTo);
 };

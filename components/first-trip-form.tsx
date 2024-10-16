@@ -157,9 +157,9 @@ export default function FirstTripForm({ dates, eventId, checks }) {
                 <strong>
                   Sem esses itens, não será permitida a entrada nas instalações!
                 </strong>
-                <div class="flex justify-center items-center">
+                <div className="flex justify-center items-center">
                   <Image src={worker} width={120} className="tra" />
-                  <div class="gap-4 flex flex-col justify-start items-start">
+                  <div className="gap-4 flex flex-col justify-start items-start">
                     {checks.map((c, idx) => (
                       <div className="flex gap-2 w-full">
                         <Checkbox

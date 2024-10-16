@@ -39,7 +39,7 @@ export default async function Disponibilidade() {
       </CardContent>
 
       <CardFooter>
-        <div class="w-full flex justify-end">
+        <div className="w-full flex justify-end">
           <Button type="submit" form="disponibilidade">
             Confirmar
           </Button>

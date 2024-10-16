@@ -39,9 +39,9 @@ export default async function Home() {
   return (
     <Card>
       <CardHeader>
-        <div class="flex justify-center items-center">
+        <div className="flex justify-center items-center">
           <Image src={driver} height={250} />
-          <CardTitle class="leading-8 text-2xl">
+          <CardTitle className="leading-8 text-2xl">
             Olá <br />
             <strong>
               Motorista <br /> Parceiro
@@ -53,7 +53,7 @@ export default async function Home() {
       <CardContent>
         <p>Estamos felizes em ter você com a gente.</p>
 
-        <p class="my-2">
+        <p className="my-2">
           Agora, <strong>falta pouco</strong> para fazer suas entregas!
         </p>
 

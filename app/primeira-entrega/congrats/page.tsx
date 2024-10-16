@@ -96,9 +96,9 @@ export default async function () {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div class="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-2">
           <Calendar />
-          <p class="text-base max-w-[12.5rem]">
+          <p className="text-base max-w-[12.5rem]">
             <strong>Data e horário:</strong> <br />
             {booking.instance}
           </p>
@@ -110,9 +110,9 @@ export default async function () {
           href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
           target="_blank"
         >
-          <div class="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-2">
             <MapPin />
-            <p class="text-base max-w-[12.5rem]">
+            <p className="text-base max-w-[12.5rem]">
               <strong>Endereço:</strong> <br />
               {mapInfo.address}
             </p>

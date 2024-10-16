@@ -15,7 +15,7 @@ export default async function RootLayout({
   });
 
   return (
-    <div class="h-full">
+    <div className="h-full">
       {children}
       <BottomNav preloadedEvents={preLoadedEvents} />
       <footer className="h-[64px]"></footer>
