@@ -19,14 +19,12 @@ export async function fetchDates() {
 
   const cron = events[0].cron_exp;
 
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  // const today = new Date();
+  // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
+  // tomorrow.setDate(tomorrow.getDate() + 1);
 
   const parsed = parser.parseExpression(cron, {
-    currentDate: tomorrow,
     tz: events[0].timezone,
-    utc: true,
   });
 
   const dates = [1, 2, 3].map((event, idx) => {
@@ -35,9 +33,12 @@ export async function fetchDates() {
       day: "numeric",
       month: "short",
       weekday: "long",
+      timeZone: events[0].timezone,
     });
 
-    const instance = nextEvent.toDate().toLocaleDateString("en-GB");
+    const instance = nextEvent
+      .toDate()
+      .toLocaleDateString("en-GB", { timeZone: events[0].timezone });
     // const prevBooking = preloadedBookings.filter(
     //   (b) => b.instance == nextEvent.toISOString()
     // );
