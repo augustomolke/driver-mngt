@@ -22,7 +22,10 @@ export default async function Preferences() {
       preloadedPreferences={preloadedPreferences}
       regions={preLoadedLocations.map((location) => ({
         value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,
-        label: `[${location.zipcode_prefix}-XXX] ${location?.neighbor}`,
+        label:
+          location?.neighbor == "-"
+            ? `CEP - ${location.zipcode_prefix}-XXX`
+            : `[${location.zipcode_prefix}-XXX] ${location?.neighbor}`,
         incentive: location.incentive,
         priority: location.priority,
       }))}

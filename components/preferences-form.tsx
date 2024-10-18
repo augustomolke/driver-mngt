@@ -82,7 +82,10 @@ export default ({
         ? prevPreferences[0].preferences.map((pref) => ({
             id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
             value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            label: `[${pref.cep}-XXX] ${pref?.neighbor}`,
+            label:
+              pref?.neighbor == "-"
+                ? `CEP - ${pref.cep}-XXX`
+                : `[${pref.cep}-XXX] ${pref?.neighbor}`,
           }))
         : Array.from(Array(3).keys()).map((v, idx) => ({
             id: idx,
@@ -103,7 +106,10 @@ export default ({
           ? prevPreferences[0].preferences.map((pref) => ({
               id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
               value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-              label: `[${pref.cep}-XXX] ${pref?.neighbor}`,
+              label:
+                pref?.neighbor == "-"
+                  ? `CEP - ${pref.cep}-XXX`
+                  : `[${pref.cep}-XXX] ${pref?.neighbor}`,
             }))
           : Array.from(Array(3).keys()).map((v, idx) => ({
               id: idx,
@@ -293,12 +299,23 @@ export default ({
                                           region.value.split("_")[0] == city
                                       )
                                       .filter((region) => !!region.incentive);
+
+                                    const priority = regions
+                                      .filter(
+                                        (region) =>
+                                          region.value.split("_")[0] == city
+                                      )
+                                      .filter((region) => !!region.priority);
                                     return (
                                       <SelectGroup>
-                                        {incentives.length > 0 ? (
+                                        {priority.length > 0 ? (
                                           <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
                                             <Badge>
-                                              <DollarSign />
+                                              {incentives.length > 0 ? (
+                                                <DollarSign />
+                                              ) : (
+                                                <Truck />
+                                              )}
                                               {city}
                                             </Badge>
                                           </SelectLabel>
