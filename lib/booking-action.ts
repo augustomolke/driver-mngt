@@ -105,7 +105,7 @@ export const createBookingAction = async (date, eventId) => {
     date,
     station: session.user.station,
     vehicle: session.user.vehicle,
-    phone: session.user.session,
+    phone: session.user.phone,
     city: preloadedPreferences[0].preferences.reduce(
       (acc, curr) => curr.city + ", " + acc,
       ""
