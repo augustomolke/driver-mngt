@@ -9,7 +9,7 @@ export default defineSchema({
     state: v.string(),
     station: v.string(),
     neighbor: v.string(),
-    zipcode: v.string(),
+    zipcode: v.optional(v.string()),
     zipcode_prefix: v.string(),
   }).index("by_station", ["station"]),
   preferences: defineTable({
@@ -38,7 +38,9 @@ export default defineSchema({
     end_date: v.string(),
     timezone: v.string(),
     options: v.any(),
-  }).index("by_station", ["location"]),
+  })
+    .index("by_station", ["location"])
+    .index("by_eventId", ["event_id"]),
 
   bookings: defineTable({
     driver_id: v.string(),

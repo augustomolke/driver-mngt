@@ -78,10 +78,7 @@ export default function FirstTripForm({
   const onSubmit = async () => {
     try {
       setLoading(true);
-      await createBookingAction(
-        new Date().toString(),
-        "js70tnf6wgwcyge6ztx90zk8cs72wbha"
-      );
+      await createBookingAction(new Date().toString(), eventId);
     } catch (e) {
       toast({
         icon: <CircleX height={48} width={48} />,

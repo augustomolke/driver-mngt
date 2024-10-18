@@ -39,6 +39,10 @@ export default async function Home() {
     redirect("/primeira-entrega/preferencias");
   }
 
+  const event = await fetchQuery(api.events.get, {
+    event_id: "first-trip-sem-data",
+  });
+
   const checks =
     session?.user.vehicle === "MOTO"
       ? [
@@ -58,7 +62,7 @@ export default async function Home() {
       <main className="flex flex-col items-center sm:items-start">
         <ConfirmationForm
           preloadedPreferences={preloadedPreferences}
-          eventId={preloadedPreferences._valueJSON[0].station}
+          eventId={event[0]._id}
           checks={checks}
         />
       </main>
