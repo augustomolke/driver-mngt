@@ -33,7 +33,7 @@ export const NoSpotsCard = () => {
               <Siren height={48} width={48} />
               <strong className="max-w-48">
                 Caso prefira esperar, fique de olho! A qualquer momento
-                abriremos mais vagas.
+                entraremos em contato.
               </strong>
             </div>
           </CardContent>

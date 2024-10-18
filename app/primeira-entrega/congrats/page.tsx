@@ -17,10 +17,27 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { CircleCheckBig } from "lucide-react";
 import getMap from "@/lib/getMap";
+import pckg from "@/components/assets/picked-up-package.svg";
+import Image from "next/image";
 
 const secret = process.env.SECRET;
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
+
+const sevenDays = (string) => {
+  const date = new Date(string);
+
+  date.setDate(date.getDate() + 7);
+
+  return {
+    date,
+    formatted: date.toLocaleDateString("pt-br", {
+      day: "numeric",
+      month: "long",
+      weekday: "long",
+    }),
+  };
+};
 
 function stringParaDataPassada(dataStr) {
   // Mapeamento dos meses em português para os índices (0-11)
@@ -73,6 +90,7 @@ export default async function () {
   });
 
   if (bookings.length > 0) {
+    const booking = bookings[0];
     const event = await fetchQuery(api.events.get, {
       id: bookings[0].event_id,
     });
@@ -80,9 +98,47 @@ export default async function () {
     if (event.event_type != "First-trip") {
       redirect("/");
     }
+
+    if (event.event_id == "first-trip-sem-data") {
+      return (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex justify-between items-center gap-4">
+              <CircleCheckBig
+                color="hsl(var(--green))"
+                height={64}
+                width={96}
+              />
+              Você confirmou seu interesse!
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between mb-2">
+              <Calendar />
+              <p className="text-base max-w-[15rem]">
+                Entraremos em contato até: <br />
+                <strong>{sevenDays(booking.instance).formatted}</strong>
+              </p>
+            </div>
+
+            <Separator className="my-2" />
+
+            <Image src={pckg} />
+          </CardContent>
+          <CardFooter className="flex flex-col">
+            <CancelBookingButton
+              driverId={session?.user.driverId}
+              bookingId={booking._id}
+              pastDate={sevenDays(booking.instance).date < new Date()}
+            />
+          </CardFooter>
+        </Card>
+      );
+    }
   } else {
     redirect("/");
   }
+
   const booking = bookings[0];
 
   const mapInfo = await getMap(session?.user.station);

@@ -28,7 +28,7 @@ export default async function Preferences() {
     <PreferencesForm
       priorityAlert
       user={session?.user}
-      redirectTo={"/primeira-entrega/data"}
+      redirectTo={"/primeira-entrega/confirmation"}
       backButton
       preloadedPreferences={preloadedPreferences}
       regions={preLoadedLocations.map((location) => ({

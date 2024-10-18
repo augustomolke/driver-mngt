@@ -352,7 +352,8 @@ export default ({
                                                     {region.incentive}
                                                   </Badge>
                                                 ) : null}{" "}
-                                                {region.priority ? (
+                                                {region.priority &&
+                                                !region.incentive ? (
                                                   <Badge variant="default">
                                                     <Truck
                                                       height={15}
