@@ -29,10 +29,12 @@ import { Separator } from "./ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 const reasons = [
-  "Fui dispensado pelo responsável do hub",
-  "Não tinha os equipamentos de segurança necessários",
+  "Ninguém entrou em contato comigo",
+  "Não me ofereceram uma rota adequada",
+  "Eu não tinha os equipamentos de segurança necessários",
   "Tive problemas pessoais",
   "Tive problemas com a plataforma de agendamento",
+  "Outro",
 ];
 
 export default function FeedbackForm() {
@@ -51,6 +53,7 @@ export default function FeedbackForm() {
 
   const first_trip = watch("first_trip");
   const reason = watch("reason");
+  const nps = watch("nps");
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -108,37 +111,39 @@ export default function FeedbackForm() {
           )}
         />
 
-        {first_trip === "no" && (
+        {first_trip === "yes" || first_trip === "no" ? (
           <>
             <Separator className="my-4" />
-            <FormField
-              control={control}
-              name="reason"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <strong>Conta pra gente o que aconteceu:</strong>
-                  </FormLabel>
-                  <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione um motivo" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        {reasons.map((r) => (
-                          <SelectItem key={r} value={r}>
-                            {r}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {first_trip === "no" && (
+              <FormField
+                control={control}
+                name="reason"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <strong>Conta pra gente o que aconteceu:</strong>
+                    </FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione um motivo" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          {reasons.map((r) => (
+                            <SelectItem key={r} value={r}>
+                              {r}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={control}
               name="text"
@@ -147,7 +152,11 @@ export default function FeedbackForm() {
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder="Conte um pouco mais do que aconteceu."
+                      placeholder={
+                        first_trip === "yes"
+                          ? "Conte como foi sua experiência."
+                          : "Conte um pouco mais do que aconteceu."
+                      }
                     />
                   </FormControl>
                   <p className="text-sm text-muted-foreground">
@@ -157,7 +166,7 @@ export default function FeedbackForm() {
               )}
             />
           </>
-        )}
+        ) : null}
 
         {(first_trip === "yes" || (first_trip === "no" && reason)) && (
           <>
@@ -200,7 +209,7 @@ export default function FeedbackForm() {
         )}
 
         <DialogFooter>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading || !nps}>
             {loading ? (
               <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
             ) : (

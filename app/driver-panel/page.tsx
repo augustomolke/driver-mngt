@@ -9,8 +9,10 @@ import IncentiveAlert from "@/components/incentive-alert";
 import getMap from "@/lib/getMap";
 import { MapPin, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function DriverPanel() {
+  redirect("https://spx-motorista-parceiro-v0.netlify.app/driver-panel");
   const session = await auth();
   const station = session?.user.station;
   const driverFirstName = session?.user.driverName.split(" ")[0];
