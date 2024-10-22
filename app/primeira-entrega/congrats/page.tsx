@@ -19,6 +19,7 @@ import { CircleCheckBig } from "lucide-react";
 import getMap from "@/lib/getMap";
 import pckg from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
+import FeedbackForm from "@/components/feedback-form";
 
 const secret = process.env.SECRET;
 
@@ -100,39 +101,64 @@ export default async function () {
     }
 
     if (event.event_id == "first-trip-sem-data") {
+      const booking = bookings[0];
       return (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex justify-between items-center gap-4">
-              <CircleCheckBig
-                color="hsl(var(--green))"
-                height={64}
-                width={96}
-              />
-              Você confirmou seu interesse!
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between mb-2">
-              <Calendar />
-              <p className="text-base max-w-[15rem]">
-                Entraremos em contato até: <br />
-                <strong>{sevenDays(booking.instance).formatted}</strong>
-              </p>
-            </div>
+        <>
+          {sevenDays(booking.instance).date < new Date() ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex justify-between items-center gap-4">
+                  <CircleCheckBig
+                    color="hsl(var(--green))"
+                    height={64}
+                    width={96}
+                  />
+                  Conte-nos sobre sua experiência!
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base mb-4">
+                  Gostaríamos de saber como foi sua primeira entrega com a
+                  Shopee.
+                </p>
+                <FeedbackForm />
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex justify-between items-center gap-4">
+                  <CircleCheckBig
+                    color="hsl(var(--green))"
+                    height={64}
+                    width={96}
+                  />
+                  Você confirmou seu interesse!
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between mb-2">
+                  <Calendar />
+                  <p className="text-base max-w-[15rem]">
+                    Entraremos em contato até: <br />
+                    <strong>{sevenDays(booking.instance).formatted}</strong>
+                  </p>
+                </div>
 
-            <Separator className="my-2" />
+                <Separator className="my-2" />
 
-            <Image src={pckg} />
-          </CardContent>
-          <CardFooter className="flex flex-col">
-            <CancelBookingButton
-              driverId={session?.user.driverId}
-              bookingId={booking._id}
-              pastDate={sevenDays(booking.instance).date < new Date()}
-            />
-          </CardFooter>
-        </Card>
+                <Image src={pckg} alt="Package" />
+              </CardContent>
+              <CardFooter className="flex flex-col">
+                <CancelBookingButton
+                  driverId={session?.user.driverId}
+                  bookingId={booking._id}
+                  pastDate={false}
+                />
+              </CardFooter>
+            </Card>
+          )}
+        </>
       );
     }
   } else {

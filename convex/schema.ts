@@ -54,7 +54,7 @@ export default defineSchema({
 
   feedbacks: defineTable({
     driver_id: v.string(),
-    nps: v.number(),
+    nps: v.string(),
     reason: v.optional(v.string()),
     first_trip: v.string(),
     text: v.optional(v.string()),

@@ -1,34 +1,32 @@
+"use client";
+import React from "react";
+import { useForm, Controller, useFormContext } from "react-hook-form";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Star } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { createFeedbackAction } from "@/lib/feedback-actions";
+
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { DialogFooter } from "./ui/dialog";
-import { useForm } from "react-hook-form";
-import React from "react";
 import { Separator } from "./ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "./ui/label";
-import { createFeedbackAction } from "@/lib/feedback-actions";
 
 const reasons = [
   "Fui dispensado pelo responsável do hub",
@@ -37,130 +35,180 @@ const reasons = [
   "Tive problemas com a plataforma de agendamento",
 ];
 
-export default function () {
-  const form = useForm();
-  const [direction, setDirection] = React.useState();
-  const [nps, setNps] = React.useState();
-  const [loading, setLoading] = React.useState(false);
-  const [reason, setReason] = React.useState();
-  const [text, setText] = React.useState();
+export default function FeedbackForm() {
+  const form = useForm({
+    defaultValues: {
+      first_trip: "",
+      reason: "",
+      text: "",
+      nps: "",
+    },
+  });
 
+  const { control, handleSubmit, watch } = form;
+  const [loading, setLoading] = React.useState(false);
   const { toast } = useToast();
 
-  const onSubmit = () => {};
+  const first_trip = watch("first_trip");
+  const reason = watch("reason");
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    setLoading(true);
+    try {
+      await createFeedbackAction(data);
+      toast({
+        title: "Feedback enviado",
+        description: "Obrigado por compartilhar sua experiência!",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro",
+        description:
+          "Houve um problema ao enviar seu feedback. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="flex flex-col gap-6">
-      <Form {...form}>
-        <FormLabel>
-          <strong> Você fez sua primeira entrega?</strong>
-        </FormLabel>
-        <ToggleGroup onValueChange={setDirection} type="single">
-          <ToggleGroupItem className="text-xl text-bold border-2" value="yes">
-            Sim
-          </ToggleGroupItem>
-          <ToggleGroupItem className="text-xl text-bold border-2" value="no">
-            Não
-          </ToggleGroupItem>
-        </ToggleGroup>
-
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4"
-          id="feedback"
-        >
-          {direction == "no" && (
-            <>
-              <Separator className="my-2" />
-              <FormField
-                control={form.control}
-                name="reason"
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>
-                        <strong>Conta pra gente o que aconteceu:</strong>
-                      </FormLabel>
-                      <FormControl>
-                        <Select value={reason} onValueChange={setReason}>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Selecione um motivo" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {reasons.map((r) => (
-                                <SelectItem value={r}>{r}</SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
-              <div className="grid w-full gap-1.5">
-                <Textarea
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Conte um pouco mais do que aconteceu."
-                  id="message-2"
-                />
-                <p className="text-sm text-muted-foreground">
-                  Sua mensagem vai ser encaminhada para a equipe responsável.
-                </p>
-              </div>
-            </>
-          )}
-
-          {(direction == "yes" || (direction == "no" && !!reason)) && (
-            <>
-              <Separator className="my-2" />
-              <FormLabel className="mt-2">
-                <strong>Que nota você daria para sua experiência?</strong>
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={control}
+          name="first_trip"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                <strong>Você fez sua primeira entrega?</strong>
               </FormLabel>
-              <ToggleGroup
-                className="mb-8"
-                onValueChange={setNps}
-                value={nps}
-                type="single"
-              >
-                {Array.from({ length: 5 }, (value, index) => index + 1).map(
-                  (idx) => (
-                    <ToggleGroupItem value={idx}>{idx}</ToggleGroupItem>
-                  )
-                )}
-              </ToggleGroup>
-            </>
+              <FormControl>
+                <ToggleGroup
+                  onValueChange={field.onChange}
+                  type="single"
+                  value={field.value}
+                >
+                  <ToggleGroupItem
+                    className="text-xl font-bold border-2"
+                    value="yes"
+                  >
+                    Sim
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="text-xl font-bold border-2"
+                    value="no"
+                  >
+                    Não
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </FormControl>
+            </FormItem>
           )}
-        </form>
-      </Form>
+        />
 
-      <DialogFooter>
-        <Button
-          disabled={loading || !nps}
-          onClick={async () => {
-            setLoading(true);
-            const answers = {
-              nps,
-              reason,
-              first_trip: direction,
-              text,
-            };
+        {first_trip === "no" && (
+          <>
+            <Separator className="my-4" />
+            <FormField
+              control={control}
+              name="reason"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <strong>Conta pra gente o que aconteceu:</strong>
+                  </FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um motivo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        {reasons.map((r) => (
+                          <SelectItem key={r} value={r}>
+                            {r}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name="text"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      placeholder="Conte um pouco mais do que aconteceu."
+                    />
+                  </FormControl>
+                  <p className="text-sm text-muted-foreground">
+                    Sua mensagem vai ser encaminhada para a equipe responsável.
+                  </p>
+                </FormItem>
+              )}
+            />
+          </>
+        )}
 
-            await createFeedbackAction(answers);
+        {(first_trip === "yes" || (first_trip === "no" && reason)) && (
+          <>
+            <Separator className="my-4" />
+            <FormField
+              control={control}
+              name="nps"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <strong>Que nota você daria para sua experiência?</strong>
+                  </FormLabel>
+                  <FormControl>
+                    <ToggleGroup
+                      className="mb-4 flex justify-center"
+                      onValueChange={field.onChange}
+                      type="single"
+                    >
+                      {[1, 2, 3, 4, 5].map((idx) => (
+                        <ToggleGroupItem
+                          key={idx}
+                          value={idx.toString()}
+                          className="p-2 bg-white"
+                        >
+                          <Star
+                            className={`h-6 w-6 ${
+                              field.value >= idx.toString()
+                                ? "text-yellow-400 fill-yellow-400"
+                                : "text-gray-300"
+                            }`}
+                          />
+                        </ToggleGroupItem>
+                      ))}
+                    </ToggleGroup>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </>
+        )}
 
-            setLoading(false);
-          }}
-        >
-          {loading ? (
-            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-          ) : (
-            "Confirmar"
-          )}
-        </Button>
-      </DialogFooter>
-    </div>
+        <DialogFooter>
+          <Button type="submit" disabled={loading}>
+            {loading ? (
+              <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+            ) : (
+              "Confirmar"
+            )}
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
   );
 }

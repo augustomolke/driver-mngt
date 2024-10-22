@@ -37,36 +37,45 @@ export default async function Home() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex justify-center items-center">
-          <Image src={driver} height={250} />
-          <CardTitle className="leading-8 text-2xl">
-            Olá <br />
-            <strong>
-              Motorista <br /> Parceiro
-            </strong>
-            !
-          </CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <p>Estamos felizes em ter você com a gente.</p>
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Image
+              src={driver}
+              height={250}
+              alt="Driver"
+              className="w-auto h-auto max-h-[250px]"
+            />
+            <CardTitle className="leading-8 text-2xl text-center sm:text-left">
+              Olá <br />
+              <strong>
+                Motorista <br /> Parceiro
+              </strong>
+              !
+            </CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center sm:text-left">
+            <p>Estamos felizes em ter você com a gente.</p>
 
-        <p className="my-2">
-          Agora, <strong>falta pouco</strong> para fazer suas entregas!
-        </p>
+            <p className="my-2">
+              Agora, <strong>falta pouco</strong> para fazer suas entregas!
+            </p>
 
-        <p>
-          <strong>Clique em "Vamos começar"</strong> e preencha as informações
-          para agendar nosso 1° encontro.
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Link href={"/primeira-entrega/preferencias"}>
-          <Button>Vamos Começar!</Button>
-        </Link>
-      </CardFooter>
-    </Card>
+            <p>
+              <strong>Clique em "Vamos começar"</strong> e preencha as
+              informações para agendar nosso 1° encontro.
+            </p>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-center sm:justify-start">
+          <Link href={"/primeira-entrega/preferencias"}>
+            <Button className="w-full sm:w-auto">Vamos Começar!</Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

@@ -248,9 +248,9 @@
 {"station": "LM Hub_BA_Itabuna", "state": "Bahia", "city": "Floresta Azul", "neighbor": "Centro", "zipcode_prefix": "45740", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Itabuna", "state": "Bahia", "city": "Ibicaraí", "neighbor": "Centro", "zipcode_prefix": "45745", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Itabuna", "state": "Bahia", "city": "Itapé", "neighbor": "Centro", "zipcode_prefix": "45750", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Remanso", "neighbor": "Centro", "zipcode_prefix": "47200", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Remanso", "neighbor": "Centro", "zipcode_prefix": "47200", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Remanso", "neighbor": "Poços", "zipcode_prefix": "47210", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Pilão Arcado", "neighbor": "Centro", "zipcode_prefix": "47240", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Pilão Arcado", "neighbor": "Centro", "zipcode_prefix": "47240", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Pilão Arcado", "neighbor": "Saldanha", "zipcode_prefix": "47250", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Pilão Arcado", "neighbor": "Brejo Serra", "zipcode_prefix": "47260", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Juazeiro", "state": "Bahia", "city": "Pilão Arcado", "neighbor": "Baluarte", "zipcode_prefix": "47270", "incentive": "", "priority": ""}
@@ -424,11 +424,11 @@
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Rio Sena", "zipcode_prefix": "40715", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Colinas de Periperi", "zipcode_prefix": "40719", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Periperi", "zipcode_prefix": "40720", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Fazenda Coutos", "zipcode_prefix": "40730", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Fazenda Coutos", "zipcode_prefix": "40730", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Nova Constituinte", "zipcode_prefix": "40748", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Vista Alegre", "zipcode_prefix": "40749", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Coutos", "zipcode_prefix": "40750", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Paripe", "zipcode_prefix": "40800", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Paripe", "zipcode_prefix": "40800", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Cabula", "zipcode_prefix": "41150", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Resgate", "zipcode_prefix": "41152", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "Bahia", "city": "Salvador", "neighbor": "Saboeiro", "zipcode_prefix": "41180", "incentive": "", "priority": "true"}
@@ -533,7 +533,7 @@
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Pero Vaz", "zipcode_prefix": "40335", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Santa Mônica", "zipcode_prefix": "40342", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Fazenda Grande do Retiro", "zipcode_prefix": "40349", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Curuzu", "zipcode_prefix": "40365", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Curuzu", "zipcode_prefix": "40365", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Boa Vista de São Caetano", "zipcode_prefix": "40385", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Horto Bela Vista", "zipcode_prefix": "41098", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Saramandaia", "zipcode_prefix": "41099", "incentive": "", "priority": ""}
@@ -548,9 +548,9 @@
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Caminho das Árvores", "zipcode_prefix": "41820", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Amaralina", "zipcode_prefix": "41899", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Nordeste", "zipcode_prefix": "41905", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41915", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41915", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Chapada do Rio Vermelho", "zipcode_prefix": "41928", "incentive": "", "priority": ""}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Vale das Pedrinhas", "zipcode_prefix": "41930", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Vale das Pedrinhas", "zipcode_prefix": "41930", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Rio Vermelho", "zipcode_prefix": "41940", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Armenda (Ilha de Maré)", "zipcode_prefix": "42500", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "Bahia", "city": "Salvador", "neighbor": "Costa de Fora (Ilha dos Frades)", "zipcode_prefix": "42505", "incentive": "", "priority": ""}
@@ -636,7 +636,7 @@
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Nova Itarana", "neighbor": "Serra CEM", "zipcode_prefix": "45398", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Jiquiriçá", "neighbor": "Centro", "zipcode_prefix": "45470", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Mutuípe", "neighbor": "Centro", "zipcode_prefix": "45480", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Laje", "neighbor": "Centro", "zipcode_prefix": "45490", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Laje", "neighbor": "Centro", "zipcode_prefix": "45490", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Laje", "neighbor": "Capão", "zipcode_prefix": "45495", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Laje", "neighbor": "Eng Pontes", "zipcode_prefix": "45498", "incentive": "", "priority": ""}
 {"station": "LM Hub_BA_Santo Antônio deJesus", "state": "Bahia", "city": "Itatim", "neighbor": "Centro", "zipcode_prefix": "46875", "incentive": "", "priority": "true"}
@@ -977,20 +977,20 @@
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "São Paulo", "city": "Osasco", "neighbor": "Santa Fé", "zipcode_prefix": "62782", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Palmácia", "neighbor": "Grande Basílio", "zipcode_prefix": "62783", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Palmácia", "neighbor": "Gado Rodrigues", "zipcode_prefix": "62784", "incentive": "", "priority": "true"}
-{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Centro", "zipcode_prefix": "62840", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Centro", "zipcode_prefix": "62840", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Sucatinga", "zipcode_prefix": "62842", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Itapeim", "zipcode_prefix": "62843", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Palmeira", "zipcode_prefix": "62844", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Serra Félix", "zipcode_prefix": "62846", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Forquilha", "zipcode_prefix": "62847", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Beberibe", "neighbor": "Parajuru", "zipcode_prefix": "62848", "incentive": "", "priority": ""}
-{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Centro", "zipcode_prefix": "62850", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Centro", "zipcode_prefix": "62850", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Caponga", "zipcode_prefix": "62852", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Jacarecoara", "zipcode_prefix": "62855", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Guanacés", "zipcode_prefix": "62856", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Pitombeiras", "zipcode_prefix": "62858", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Cascavel", "neighbor": "Cristais", "zipcode_prefix": "62859", "incentive": "", "priority": ""}
-{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "São Paulo", "city": "Osasco", "neighbor": "Mutinga", "zipcode_prefix": "62860", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "São Paulo", "city": "Osasco", "neighbor": "Mutinga", "zipcode_prefix": "62860", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pindoretama", "neighbor": "Pratiús", "zipcode_prefix": "62863", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pindoretama", "neighbor": "Capim Roça", "zipcode_prefix": "62864", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pindoretama", "neighbor": "Caponguinha", "zipcode_prefix": "62865", "incentive": "", "priority": ""}
@@ -998,7 +998,7 @@
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pacajus", "neighbor": "Centro", "zipcode_prefix": "62870", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pacajus", "neighbor": "Itaipaba", "zipcode_prefix": "62872", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Pacajus", "neighbor": "Pascoal", "zipcode_prefix": "62874", "incentive": "", "priority": ""}
-{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Chorozinho", "neighbor": "Centro", "zipcode_prefix": "62875", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Chorozinho", "neighbor": "Centro", "zipcode_prefix": "62875", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Chorozinho", "neighbor": "Triângulo", "zipcode_prefix": "62877", "incentive": "", "priority": ""}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Chorozinho", "neighbor": "Cedro", "zipcode_prefix": "62878", "incentive": "", "priority": "true"}
 {"station": "LM Hub_CE_Fortaleza_Cajazeiras", "state": "Ceará", "city": "Chorozinho", "neighbor": "Campestre", "zipcode_prefix": "62879", "incentive": "", "priority": ""}
@@ -1251,35 +1251,35 @@
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Parque Moscoso", "zipcode_prefix": "29018", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Ilha do Príncipe", "zipcode_prefix": "29020", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Estrelinha", "zipcode_prefix": "29023", "incentive": "", "priority": ""}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Grande Vitória", "zipcode_prefix": "29024", "incentive": "", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Grande Vitória", "zipcode_prefix": "29024", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Caratoíra", "zipcode_prefix": "29025", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Santa Tereza", "zipcode_prefix": "29026", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Ariovaldo Favalessa", "zipcode_prefix": "29027", "incentive": "", "priority": "true"}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Santa Luíza", "zipcode_prefix": "29030", "incentive": "", "priority": ""}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "São José", "zipcode_prefix": "29031", "incentive": "", "priority": ""}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Santa Luíza", "zipcode_prefix": "29030", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "São José", "zipcode_prefix": "29031", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Comdusa", "zipcode_prefix": "29032", "incentive": "", "priority": "true"}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Conquista", "zipcode_prefix": "29033", "incentive": "", "priority": ""}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Jucutuquara", "zipcode_prefix": "29040", "incentive": "", "priority": ""}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Conquista", "zipcode_prefix": "29033", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Jucutuquara", "zipcode_prefix": "29040", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Cruzamento", "zipcode_prefix": "29041", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Fradinhos", "zipcode_prefix": "29042", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Maruípe", "zipcode_prefix": "29043", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Andorinhas", "zipcode_prefix": "29045", "incentive": "", "priority": "true"}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Gurigica", "zipcode_prefix": "29046", "incentive": "", "priority": "true"}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Bonfim", "zipcode_prefix": "29047", "incentive": "", "priority": "true"}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Joana D'arc", "zipcode_prefix": "29048", "incentive": "", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Gurigica", "zipcode_prefix": "29046", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Bonfim", "zipcode_prefix": "29047", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Joana D'arc", "zipcode_prefix": "29048", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Bento Ferreira", "zipcode_prefix": "29050", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Ilha de Santa Maria", "zipcode_prefix": "29051", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Ilha do Boi", "zipcode_prefix": "29052", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Santa Helena", "zipcode_prefix": "29055", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Santa Lúcia", "zipcode_prefix": "29056", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vitória", "neighbor": "Barro Vermelho", "zipcode_prefix": "29057", "incentive": "", "priority": ""}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Centro de Vila Velha", "zipcode_prefix": "29100", "incentive": "", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Centro de Vila Velha", "zipcode_prefix": "29100", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Itapuã", "zipcode_prefix": "29101", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Boa Vista II", "zipcode_prefix": "29102", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Araçás", "zipcode_prefix": "29103", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Ilha dos Bentos", "zipcode_prefix": "29104", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Cocal", "zipcode_prefix": "29105", "incentive": "", "priority": ""}
-{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Cristóvão Colombo", "zipcode_prefix": "29106", "incentive": "", "priority": "true"}
+{"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Cristóvão Colombo", "zipcode_prefix": "29106", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Boa Vista I", "zipcode_prefix": "29107", "incentive": "", "priority": ""}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "IBES", "zipcode_prefix": "29108", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "Espírito Santo", "city": "Vila Velha", "neighbor": "Brisamar", "zipcode_prefix": "29109", "incentive": "", "priority": "true"}
@@ -1644,7 +1644,7 @@
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Aparecida de Goiânia", "neighbor": "Distrito Agroindustrial de Aparecida de Goiânia", "zipcode_prefix": "74993", "incentive": "", "priority": "true"}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Aparecida de Goiânia", "neighbor": "Área Rural de Aparecida de Goiânia", "zipcode_prefix": "74999", "incentive": "", "priority": "true"}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Bonfinópolis", "neighbor": "Setor Central", "zipcode_prefix": "75195", "incentive": "", "priority": "true"}
-{"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Bela Vista de Goiás", "neighbor": "Jardim Barcelona", "zipcode_prefix": "75240", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Bela Vista de Goiás", "neighbor": "Jardim Barcelona", "zipcode_prefix": "75240", "incentive": "", "priority": "true"}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Bela Vista de Goiás", "neighbor": "Distrito de Roselândia", "zipcode_prefix": "75244", "incentive": "", "priority": ""}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Senador Canedo", "neighbor": "Conjunto Habitacional Jardim Sabiá", "zipcode_prefix": "75250", "incentive": "", "priority": ""}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Senador Canedo", "neighbor": "Distrito Industrial Brasil Central", "zipcode_prefix": "75251", "incentive": "", "priority": ""}
@@ -1697,7 +1697,7 @@
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Trindade", "neighbor": "Residencial Santa Fé", "zipcode_prefix": "75394", "incentive": "", "priority": ""}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Brazabrantes", "neighbor": "Setor Central", "zipcode_prefix": "75449", "incentive": "", "priority": ""}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "Goiás", "city": "Nerópolis", "neighbor": "Setor Central", "zipcode_prefix": "75469", "incentive": "", "priority": ""}
-{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Areinha", "zipcode_prefix": "65010", "incentive": "", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Areinha", "zipcode_prefix": "65010", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Belira", "zipcode_prefix": "65015", "incentive": "", "priority": ""}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Boa Vista", "zipcode_prefix": "65020", "incentive": "", "priority": ""}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Apicum", "zipcode_prefix": "65025", "incentive": "", "priority": "true"}
@@ -1731,7 +1731,7 @@
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Conjunto Habitacional Turu", "zipcode_prefix": "65065", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Chácara Brasil", "zipcode_prefix": "65066", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Divinéia", "zipcode_prefix": "65067", "incentive": "", "priority": ""}
-{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Araçagi", "zipcode_prefix": "65068", "incentive": "", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Araçagi", "zipcode_prefix": "65068", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Boa Morada", "zipcode_prefix": "65070", "incentive": "", "priority": ""}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Alto do Calhau", "zipcode_prefix": "65071", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Cohajap", "zipcode_prefix": "65072", "incentive": "", "priority": ""}
@@ -1747,7 +1747,7 @@
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "São Luís", "neighbor": "Área Rural de São Luís", "zipcode_prefix": "65109", "incentive": "", "priority": ""}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "Paço do Lumiar", "neighbor": "Centro", "zipcode_prefix": "65130", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "Paço do Lumiar", "neighbor": "Loteamento La Belle Park", "zipcode_prefix": "65137", "incentive": "", "priority": "true"}
-{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "Raposa", "neighbor": "Centro", "zipcode_prefix": "65138", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "Maranhão", "city": "Raposa", "neighbor": "Centro", "zipcode_prefix": "65138", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MG_Barbacena", "state": "Minas Gerais", "city": "Santana do Garambéu", "neighbor": "Centro", "zipcode_prefix": "36146", "incentive": "", "priority": ""}
 {"station": "LM Hub_MG_Barbacena", "state": "Minas Gerais", "city": "Paiva", "neighbor": "Centro", "zipcode_prefix": "36195", "incentive": "", "priority": ""}
 {"station": "LM Hub_MG_Barbacena", "state": "Minas Gerais", "city": "Barbacena", "neighbor": "Aeroporto", "zipcode_prefix": "36200", "incentive": "", "priority": ""}
@@ -2174,7 +2174,7 @@
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itaúna", "neighbor": "Aeroporto", "zipcode_prefix": "35680", "incentive": "", "priority": ""}
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itaúna", "neighbor": "Aeroporto II", "zipcode_prefix": "35681", "incentive": "", "priority": ""}
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itaúna", "neighbor": "Área Rural de Itaúna", "zipcode_prefix": "35684", "incentive": "", "priority": ""}
-{"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itatiaiuçu", "neighbor": "Centro", "zipcode_prefix": "35685", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itatiaiuçu", "neighbor": "Centro", "zipcode_prefix": "35685", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Itatiaiuçu", "neighbor": "Sta Terezinha Minas", "zipcode_prefix": "35688", "incentive": "", "priority": ""}
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Igaratinga", "neighbor": "Centro", "zipcode_prefix": "35695", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MG_Divinópolis", "state": "Minas Gerais", "city": "Igaratinga", "neighbor": "Antunes", "zipcode_prefix": "35698", "incentive": "", "priority": ""}
@@ -4563,7 +4563,7 @@
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Geribá", "zipcode_prefix": "28953", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Bosque de Geribá", "zipcode_prefix": "28954", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Praia Rasa", "zipcode_prefix": "28955", "incentive": "", "priority": "true"}
-{"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Arpoador", "zipcode_prefix": "28956", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Arpoador", "zipcode_prefix": "28956", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Alto da Marina", "zipcode_prefix": "28957", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Caravelas", "zipcode_prefix": "28958", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Cabo Frio_Jd Flamb", "state": "Rio de Janeiro", "city": "Armação dos Búzios", "neighbor": "Baía Formosa", "zipcode_prefix": "28959", "incentive": "", "priority": "true"}
@@ -4631,7 +4631,7 @@
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São João da Barra", "neighbor": "Atafona", "zipcode_prefix": "28200", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São João da Barra", "neighbor": "Barcelos", "zipcode_prefix": "28220", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São João da Barra", "neighbor": "Pipeiras", "zipcode_prefix": "28225", "incentive": "", "priority": ""}
-{"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São Francisco de Itabapoana", "neighbor": "Amontoado Brejo Grande", "zipcode_prefix": "28230", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São Francisco de Itabapoana", "neighbor": "Amontoado Brejo Grande", "zipcode_prefix": "28230", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São Francisco de Itabapoana", "neighbor": "Maniva", "zipcode_prefix": "28235", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São Francisco de Itabapoana", "neighbor": "Barra Seca", "zipcode_prefix": "28240", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Cps dos Goytacazes", "state": "Rio de Janeiro", "city": "São Francisco de Itabapoana", "neighbor": "Itabapoana", "zipcode_prefix": "28245", "incentive": "", "priority": ""}
@@ -4736,7 +4736,7 @@
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Macaé", "neighbor": "Frade", "zipcode_prefix": "27987", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Macaé", "neighbor": "Cachoeiros", "zipcode_prefix": "27990", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Macaé", "neighbor": "Sana", "zipcode_prefix": "27995", "incentive": "", "priority": "true"}
-{"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Carapebus", "neighbor": "Centro", "zipcode_prefix": "27998", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Carapebus", "neighbor": "Centro", "zipcode_prefix": "27998", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Quissamã", "neighbor": "Canto da Saudade", "zipcode_prefix": "28735", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Quissamã", "neighbor": "Alto Alegre", "zipcode_prefix": "28736", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Macae_ Imboassica", "state": "Rio de Janeiro", "city": "Quissamã", "neighbor": "Areias", "zipcode_prefix": "28737", "incentive": "", "priority": ""}
@@ -4839,7 +4839,7 @@
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Trajano de Moraes", "neighbor": "Sodrelândia", "zipcode_prefix": "28760", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Trajano de Moraes", "neighbor": "Vl Grama", "zipcode_prefix": "28765", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Trajano de Moraes", "neighbor": "Tapera", "zipcode_prefix": "28767", "incentive": "", "priority": ""}
-{"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Santa Maria Madalena", "neighbor": "Centro", "zipcode_prefix": "28770", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Santa Maria Madalena", "neighbor": "Centro", "zipcode_prefix": "28770", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Santa Maria Madalena", "neighbor": "Dr Loreti", "zipcode_prefix": "28772", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Santa Maria Madalena", "neighbor": "Renascença", "zipcode_prefix": "28774", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_Nova Friburgo", "state": "Rio de Janeiro", "city": "Santa Maria Madalena", "neighbor": "Sossego", "zipcode_prefix": "28777", "incentive": "", "priority": ""}
@@ -5011,7 +5011,7 @@
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Belford Roxo", "neighbor": "SANTA TERESA", "zipcode_prefix": "20725", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Encantado", "zipcode_prefix": "20730", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Piedade", "zipcode_prefix": "20740", "incentive": "", "priority": ""}
-{"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Abolição", "zipcode_prefix": "20750", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Abolição", "zipcode_prefix": "20750", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Del Castilho", "zipcode_prefix": "20760", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Engenho da Rainha", "zipcode_prefix": "20761", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Cristóvão", "state": "Rio de Janeiro", "city": "Rio de Janeiro", "neighbor": "Cachambi", "zipcode_prefix": "20770", "incentive": "", "priority": ""}
@@ -5098,7 +5098,7 @@
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Luiz Caçador", "zipcode_prefix": "24474", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Jardim Alcântara", "zipcode_prefix": "24710", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Laranjal", "zipcode_prefix": "24711", "incentive": "", "priority": ""}
-{"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24715", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24715", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Amendoeira", "zipcode_prefix": "24720", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Guaxindiba", "zipcode_prefix": "24721", "incentive": "", "priority": ""}
 {"station": "LM Hub_RJ_São Gonçalo", "state": "Rio de Janeiro", "city": "São Gonçalo", "neighbor": "Bom Retiro", "zipcode_prefix": "24722", "incentive": "", "priority": "true"}
@@ -5603,7 +5603,7 @@
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Ipê", "neighbor": "Centro", "zipcode_prefix": "95240", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Ipê", "neighbor": "Segredo", "zipcode_prefix": "95242", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Ipê", "neighbor": "S Paulo", "zipcode_prefix": "95244", "incentive": "", "priority": ""}
-{"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Antônio Prado", "neighbor": "Centro", "zipcode_prefix": "95250", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Antônio Prado", "neighbor": "Centro", "zipcode_prefix": "95250", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Flores da Cunha", "neighbor": "Centro", "zipcode_prefix": "95270", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Flores da Cunha", "neighbor": "Otávio Rocha", "zipcode_prefix": "95272", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Caxias do Sul", "state": "Rio Grande do Sul", "city": "Flores da Cunha", "neighbor": "Mato Perso", "zipcode_prefix": "95274", "incentive": "", "priority": ""}
@@ -5905,7 +5905,7 @@
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Agronomia", "zipcode_prefix": "91450", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Vila João Pessoa", "zipcode_prefix": "91510", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Vila São José", "zipcode_prefix": "91520", "incentive": "", "priority": ""}
-{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Lomba do Pinheiro", "zipcode_prefix": "91550", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Lomba do Pinheiro", "zipcode_prefix": "91550", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Cascata", "zipcode_prefix": "91710", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Lageado", "zipcode_prefix": "91796", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "Rio Grande do Sul", "city": "Porto Alegre", "neighbor": "Camaquã", "zipcode_prefix": "91900", "incentive": "", "priority": ""}
@@ -6016,7 +6016,7 @@
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capivari do Sul", "neighbor": "Centro", "zipcode_prefix": "95552", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capivari do Sul", "neighbor": "Rancho Velho", "zipcode_prefix": "95553", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capivari do Sul", "neighbor": "Sta Rosa", "zipcode_prefix": "95554", "incentive": "", "priority": ""}
-{"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capão da Canoa", "neighbor": "Centro", "zipcode_prefix": "95555", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capão da Canoa", "neighbor": "Centro", "zipcode_prefix": "95555", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capão da Canoa", "neighbor": "Capão Novo", "zipcode_prefix": "95556", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capão da Canoa", "neighbor": "Curumim", "zipcode_prefix": "95558", "incentive": "", "priority": ""}
 {"station": "LM Hub_RS_Tramandai", "state": "Rio Grande do Sul", "city": "Capão da Canoa", "neighbor": "Arroio Teixeira", "zipcode_prefix": "95559", "incentive": "", "priority": ""}
@@ -6825,7 +6825,7 @@
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Juscelino Kubitschek", "zipcode_prefix": "8465", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Roseira II", "zipcode_prefix": "8466", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Tiradentes", "zipcode_prefix": "8470", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Inácio Monteiro", "zipcode_prefix": "8472", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Inácio Monteiro", "zipcode_prefix": "8472", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Barro Branco II", "zipcode_prefix": "8473", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Barro Branco I", "zipcode_prefix": "8474", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Artur Alvim", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Habitacional Santa Etelvina II", "zipcode_prefix": "8475", "incentive": "", "priority": ""}
@@ -7678,7 +7678,7 @@
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Nova São Miguel", "zipcode_prefix": "8042", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim das Camélias", "zipcode_prefix": "8050", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Limoeiro", "zipcode_prefix": "8051", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Pedro José Nunes", "zipcode_prefix": "8061", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Pedro José Nunes", "zipcode_prefix": "8061", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim São Carlos (Zona Leste)", "zipcode_prefix": "8062", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Parque Cruzeiro do Sul", "zipcode_prefix": "8070", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Guarulhos", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Lapena", "zipcode_prefix": "8071", "incentive": "", "priority": ""}
@@ -8640,7 +8640,7 @@
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Rodolfo Pirani", "zipcode_prefix": "8310", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Buriti", "zipcode_prefix": "8320", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Santo André", "zipcode_prefix": "8390", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Nova São Paulo(São Rafael)", "zipcode_prefix": "8391", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Nova São Paulo(São Rafael)", "zipcode_prefix": "8391", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "São Paulo", "neighbor": "Conjunto Promorar Rio Claro", "zipcode_prefix": "8395", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "Santo André", "neighbor": "Centro", "zipcode_prefix": "9010", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "São Paulo", "city": "Santo André", "neighbor": "Casa Branca", "zipcode_prefix": "9015", "incentive": "", "priority": "true"}
@@ -9438,13 +9438,13 @@
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Altinópolis", "neighbor": "Chácara do Vovô", "zipcode_prefix": "14355", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Altinópolis", "neighbor": "Alto da Liberdade", "zipcode_prefix": "14357", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Santo Antônio da Alegria", "neighbor": "Centro", "zipcode_prefix": "14390", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Centro", "zipcode_prefix": "14640", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Conjunto Habitacional Antônio José Abrahão", "zipcode_prefix": "14642", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Centro", "zipcode_prefix": "14640", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Conjunto Habitacional Antônio José Abrahão", "zipcode_prefix": "14642", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Condomínio Lago Azul", "zipcode_prefix": "14645", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Morro Agudo", "neighbor": "Alto da Boa Vista", "zipcode_prefix": "14647", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Jardinópolis", "neighbor": "Centro", "zipcode_prefix": "14680", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Jardinópolis", "neighbor": "Centro Prisional", "zipcode_prefix": "14690", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Pitangueiras", "neighbor": "Centro", "zipcode_prefix": "14750", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Pitangueiras", "neighbor": "Centro", "zipcode_prefix": "14750", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Pitangueiras", "neighbor": "Ibitiúva", "zipcode_prefix": "14760", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Guariba", "neighbor": "Centro", "zipcode_prefix": "14840", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "São Paulo", "city": "Guariba", "neighbor": "Distrito Empresarial Mário Covas", "zipcode_prefix": "14841", "incentive": "", "priority": ""}
@@ -9513,20 +9513,20 @@
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Sítio Cafezal", "zipcode_prefix": "11505", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Centro", "zipcode_prefix": "11510", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Jardim Trinta e Um de Março", "zipcode_prefix": "11515", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila São José", "zipcode_prefix": "11523", "incentive": "", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila São José", "zipcode_prefix": "11523", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Jardim Casqueiro", "zipcode_prefix": "11530", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila dos Pescadores", "zipcode_prefix": "11531", "incentive": "", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila dos Pescadores", "zipcode_prefix": "11531", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Parque São Luis", "zipcode_prefix": "11533", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Jardim Nova República", "zipcode_prefix": "11534", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila Caraguata", "zipcode_prefix": "11535", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila Costa Muniz", "zipcode_prefix": "11538", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Pica-Pau", "zipcode_prefix": "11540", "incentive": "", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila Caraguata", "zipcode_prefix": "11535", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vila Costa Muniz", "zipcode_prefix": "11538", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Pica-Pau", "zipcode_prefix": "11540", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Vale Verde", "zipcode_prefix": "11542", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Fabril", "zipcode_prefix": "11543", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Cota 400", "zipcode_prefix": "11547", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Cota 200", "zipcode_prefix": "11548", "incentive": "", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Fabril", "zipcode_prefix": "11543", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Cota 400", "zipcode_prefix": "11547", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Cota 200", "zipcode_prefix": "11548", "incentive": "+R$45", "priority": ""}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Zona Industrial", "zipcode_prefix": "11555", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Área Rural de Cubatão", "zipcode_prefix": "11599", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Cubatão", "neighbor": "Área Rural de Cubatão", "zipcode_prefix": "11599", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Praia Grande", "neighbor": "Boqueirão", "zipcode_prefix": "11700", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Praia Grande", "neighbor": "Guilhermina", "zipcode_prefix": "11701", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Santos_Praia Grande", "state": "São Paulo", "city": "Praia Grande", "neighbor": "Aviação", "zipcode_prefix": "11702", "incentive": "", "priority": "true"}
@@ -9576,21 +9576,21 @@
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Sítio Caraguata", "zipcode_prefix": "4191", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim São Savério", "zipcode_prefix": "4194", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Celeste", "zipcode_prefix": "4195", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4410", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Ademar", "zipcode_prefix": "4411", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4410", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Ademar", "zipcode_prefix": "4411", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Sul São Paulo", "zipcode_prefix": "4413", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Clara", "zipcode_prefix": "4414", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Capela", "zipcode_prefix": "4415", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Miriam", "zipcode_prefix": "4416", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Luso", "zipcode_prefix": "4417", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Júlia", "zipcode_prefix": "4421", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Melo", "zipcode_prefix": "4423", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Guacuri", "zipcode_prefix": "4425", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Missionária", "zipcode_prefix": "4426", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Joaniza", "zipcode_prefix": "4428", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Parque Primavera", "zipcode_prefix": "4430", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Cidade Júlia", "zipcode_prefix": "4421", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Melo", "zipcode_prefix": "4423", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Guacuri", "zipcode_prefix": "4425", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Missionária", "zipcode_prefix": "4426", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Vila Joaniza", "zipcode_prefix": "4428", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Parque Primavera", "zipcode_prefix": "4430", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Selma", "zipcode_prefix": "4431", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Niteroi", "zipcode_prefix": "4432", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Niteroi", "zipcode_prefix": "4432", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Itapura", "zipcode_prefix": "4433", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Ideal", "zipcode_prefix": "4434", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Consórcio", "zipcode_prefix": "4436", "incentive": "", "priority": ""}
@@ -9934,7 +9934,7 @@
 {"station": "LM Hub_SP_São José dos Campos", "state": "São Paulo", "city": "Jacareí", "neighbor": "São Sebastião", "zipcode_prefix": "12341", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São José dos Campos", "state": "São Paulo", "city": "Jacareí", "neighbor": "Área Rural de Jacareí", "zipcode_prefix": "12349", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São José dos Campos", "state": "São Paulo", "city": "Igaratá", "neighbor": "Centro", "zipcode_prefix": "12350", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São José dos Campos", "state": "São Paulo", "city": "Santa Branca", "neighbor": "Centro", "zipcode_prefix": "12380", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São José dos Campos", "state": "São Paulo", "city": "Santa Branca", "neighbor": "Centro", "zipcode_prefix": "12380", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Barra Funda", "zipcode_prefix": "1140", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Bom Retiro", "zipcode_prefix": "1142", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Pacaembu", "zipcode_prefix": "1250", "incentive": "", "priority": ""}
@@ -10098,7 +10098,7 @@
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Líbano", "zipcode_prefix": "5138", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Chácara Inglesa", "zipcode_prefix": "5139", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Felicidade (Zona Oeste)", "zipcode_prefix": "5143", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Íris", "zipcode_prefix": "5144", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Íris", "zipcode_prefix": "5144", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Vista Linda", "zipcode_prefix": "5154", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Jardim Jaraguá (São Domingos)", "zipcode_prefix": "5157", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "São Paulo", "city": "São Paulo", "neighbor": "Parque Anhangüera (São Domingos)", "zipcode_prefix": "5158", "incentive": "", "priority": ""}
@@ -10798,13 +10798,13 @@
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Daniel Klabunde Dubieux", "zipcode_prefix": "12465", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Acampamento dos Pumas", "zipcode_prefix": "12466", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Chácara Fracalanza", "zipcode_prefix": "12467", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Bela Vista", "zipcode_prefix": "12470", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Bela Vista", "zipcode_prefix": "12470", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Mellos", "zipcode_prefix": "12471", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Alpes de Campos do Jordão", "zipcode_prefix": "12472", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Atalaia", "zipcode_prefix": "12475", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Alto da Água Santa", "zipcode_prefix": "12477", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "Campos do Jordão", "neighbor": "Gleba Ermitage", "zipcode_prefix": "12478", "incentive": "", "priority": ""}
-{"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "São Bento do Sapucaí", "neighbor": "Centro", "zipcode_prefix": "12490", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Taubaté", "state": "São Paulo", "city": "São Bento do Sapucaí", "neighbor": "Centro", "zipcode_prefix": "12490", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Taubaté", "state": "Minas Gerais", "city": "Sapucaí-Mirim", "neighbor": "Centro", "zipcode_prefix": "37690", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Votuporanga", "state": "São Paulo", "city": "Sebastianópolis do Sul", "neighbor": "Aduss", "zipcode_prefix": "15180", "incentive": "", "priority": ""}
 {"station": "LM Hub_SP_Votuporanga", "state": "São Paulo", "city": "Nhandeara", "neighbor": "Centro", "zipcode_prefix": "15190", "incentive": "", "priority": ""}
@@ -10930,9 +10930,9 @@
 {"station": "LM Hub_SP_Granja Julieta", "state": "n/a", "city": "São Paulo", "neighbor": "-", "zipcode_prefix": "4779", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Granja Julieta", "state": "n/a", "city": "São Paulo", "neighbor": "-", "zipcode_prefix": "4808", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Santo André", "neighbor": "-", "zipcode_prefix": "9151", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11545", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11553", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11556", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11545", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11553", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11556", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Arujá", "neighbor": "-", "zipcode_prefix": "7416", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Arujá", "neighbor": "-", "zipcode_prefix": "7419", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "-", "zipcode_prefix": "8491", "incentive": "", "priority": "true"}
@@ -10942,7 +10942,7 @@
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "n/a", "city": "São Paulo", "neighbor": "-", "zipcode_prefix": "5357", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Sorocaba_Região Norte", "state": "n/a", "city": "Salto de Pirapora", "neighbor": "-", "zipcode_prefix": "18162", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Sorocaba_Região Norte", "state": "n/a", "city": "Salto de Pirapora", "neighbor": "-", "zipcode_prefix": "18167", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41926", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41926", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Terra Nova", "neighbor": "-", "zipcode_prefix": "44270", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Terra Nova", "neighbor": "-", "zipcode_prefix": "44275", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Teodoro Sampaio", "neighbor": "-", "zipcode_prefix": "44280", "incentive": "", "priority": "true"}
@@ -10952,8 +10952,8 @@
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Alagoinhas", "neighbor": "Taizé", "zipcode_prefix": "48012", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Entre Rios", "neighbor": "-", "zipcode_prefix": "48190", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Alagoinhas", "neighbor": "Novo Horizonte", "zipcode_prefix": "48009", "incentive": "", "priority": "true"}
-{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Residencial Paraíso", "zipcode_prefix": "65081", "incentive": "", "priority": "true"}
-{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Alto Esperança", "zipcode_prefix": "65082", "incentive": "", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Residencial Paraíso", "zipcode_prefix": "65081", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Alto Esperança", "zipcode_prefix": "65082", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_PR_Maringá", "state": "n/a", "city": "Maringá", "neighbor": "Centro Cívico de Maringá", "zipcode_prefix": "87051", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Santo André", "neighbor": "Jardim Club de Campo", "zipcode_prefix": "9163", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Arujá", "neighbor": "São Bento", "zipcode_prefix": "7442", "incentive": "", "priority": "true"}
@@ -10962,9 +10962,9 @@
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "Fazenda Coutos", "zipcode_prefix": "40731", "incentive": "", "priority": "true"}
 {"station": "LM Hub_ES_Cariacica", "state": "n/a", "city": "Cariacica", "neighbor": "Cruzeiro do Sul", "zipcode_prefix": "29144", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40723", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41927", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Caixa D'Água", "zipcode_prefix": "40321", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40370", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Santa Cruz", "zipcode_prefix": "41927", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Caixa D'Água", "zipcode_prefix": "40321", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40370", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Ribeirão Pires", "neighbor": "Centro de Ouro Fino Paulista", "zipcode_prefix": "9443", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Santo André", "neighbor": "Vila Guiomar", "zipcode_prefix": "9091", "incentive": "", "priority": "true"}
 {"station": "LM Hub_GO_Goiânia_ St. Empr", "state": "n/a", "city": "Santo Antônio de Goiás", "neighbor": "-", "zipcode_prefix": "75375", "incentive": "", "priority": "true"}
@@ -10982,7 +10982,7 @@
 {"station": "LM Hub_SP_São Paulo_Mooca", "state": "n/a", "city": "São Paulo", "neighbor": "Consolação", "zipcode_prefix": "1305", "incentive": "", "priority": "true"}
 {"station": "LM Hub_PR_Curitiba", "state": "n/a", "city": "Curitiba", "neighbor": "Rebouças", "zipcode_prefix": "80230", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Mooca", "state": "n/a", "city": "São Paulo", "neighbor": "Consolação", "zipcode_prefix": "1302", "incentive": "", "priority": "true"}
-{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Diamante", "zipcode_prefix": "65021", "incentive": "", "priority": "true"}
+{"station": "LM Hub_MA_São Luís", "state": "n/a", "city": "São Luís", "neighbor": "Diamante", "zipcode_prefix": "65021", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_PR_Curitiba", "state": "n/a", "city": "Curitiba", "neighbor": "Mercês", "zipcode_prefix": "80510", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MG_Ubá", "state": "n/a", "city": "Astolfo Dutra", "neighbor": "-", "zipcode_prefix": "36782", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Mooca", "state": "n/a", "city": "São Paulo", "neighbor": "Bela Vista", "zipcode_prefix": "1317", "incentive": "", "priority": "true"}
@@ -11019,7 +11019,7 @@
 {"station": "LM Hub_SP_São Paulo_Mooca", "state": "n/a", "city": "São Paulo", "neighbor": "Bela Vista", "zipcode_prefix": "1314", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Sarah", "zipcode_prefix": "5381", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Lomba do Pinheiro", "zipcode_prefix": "91570", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40368", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40368", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Artur Alvim", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim da Conquista (Zona Leste)", "zipcode_prefix": "8345", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Sarah", "zipcode_prefix": "5382", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Ribeirão Pires", "neighbor": "Represa", "zipcode_prefix": "9415", "incentive": "", "priority": "true"}
@@ -11032,13 +11032,13 @@
 {"station": "LM Hub_SP_Ribeirão Preto", "state": "n/a", "city": "Ribeirão Preto", "neighbor": "Centro", "zipcode_prefix": "14010", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Ferraz de Vasconcelos", "neighbor": "Sítio do Paiolzinho", "zipcode_prefix": "8509", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade São Francisco", "zipcode_prefix": "5353", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4427", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4427", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Ferraz de Vasconcelos", "neighbor": "Jardim Hernandez", "zipcode_prefix": "8539", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Júlia", "zipcode_prefix": "4424", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Miriam", "zipcode_prefix": "4419", "incentive": "", "priority": "true"}
-{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4412", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Júlia", "zipcode_prefix": "4424", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Miriam", "zipcode_prefix": "4419", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4412", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_São José dos Campos", "state": "n/a", "city": "São José dos Campos", "neighbor": "Centro", "zipcode_prefix": "12210", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40367", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40367", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Itaquaquecetuba", "neighbor": "Rio Abaixo", "zipcode_prefix": "8578", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Itaquaquecetuba", "neighbor": "Vila Popular", "zipcode_prefix": "8577", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "Ferraz de Vasconcelos", "neighbor": "Jardim Triângulo", "zipcode_prefix": "8538", "incentive": "", "priority": "true"}
@@ -11056,7 +11056,7 @@
 {"station": "LM Hub_SP_São Paulo_Lapa", "state": "n/a", "city": "São Paulo", "neighbor": "Jaguaré", "zipcode_prefix": "5321", "incentive": "", "priority": "true"}
 {"station": "LM Hub_MG_Uberlândia_Moving", "state": "n/a", "city": "Uberlândia", "neighbor": "Chácaras Oliveiras", "zipcode_prefix": "38419", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Lauro de Freitas", "state": "n/a", "city": "Salvador", "neighbor": "Itapuã", "zipcode_prefix": "41620", "incentive": "", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40327", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Liberdade", "zipcode_prefix": "40327", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_Registro", "state": "n/a", "city": "Sete Barras", "neighbor": "-", "zipcode_prefix": "11910", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Vila Iolanda II", "zipcode_prefix": "8474", "incentive": "", "priority": "true"}
 {"station": "LM Hub_SP_Guarulhos", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Bartira", "zipcode_prefix": "8152", "incentive": "", "priority": "true"}
@@ -12025,28 +12025,46 @@
 {"station": "LM Hub_ES_São Mateus", "state": "n/a", "city": "São Mateus", "neighbor": "Nestor Gomes", "zipcode_prefix": "29949", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Resende", "state": "n/a", "city": "Passa Vinte", "neighbor": "-", "zipcode_prefix": "37330", "incentive": "", "priority": "true"}
 {"station": "LM Hub_RJ_Resende", "state": "n/a", "city": "Bocaina de Minas", "neighbor": "-", "zipcode_prefix": "37340", "incentive": "", "priority": "true"}
-{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Santa Cruz", "zipcode_prefix": "23590", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Conjunto Habitacional Inácio Monteiro", "zipcode_prefix": "8472", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Centro Histórico", "zipcode_prefix": "90020", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40727", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Santa Cruz", "zipcode_prefix": "23590", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Conjunto Habitacional Inácio Monteiro", "zipcode_prefix": "8472", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Centro Histórico", "zipcode_prefix": "90020", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40727", "incentive": "", "priority": "true"}
 {"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "Federação", "zipcode_prefix": "40231", "incentive": "+R$45", "priority": "true"}
 {"station": "LM Hub_SP_São Bernardo do Campo", "state": "n/a", "city": "São Paulo", "neighbor": "Americanópolis", "zipcode_prefix": "4429", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_São Gonçalo", "state": "n/a", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24717", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Artur Alvim", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Tiradentes", "zipcode_prefix": "8471", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Tiradentes", "zipcode_prefix": "8471", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Campo Grande", "zipcode_prefix": "23017", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Santa Cruz", "zipcode_prefix": "23510", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Praia de Belas", "zipcode_prefix": "90010", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_São Gonçalo", "state": "n/a", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24716", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Pedro José Nunes", "zipcode_prefix": "8061", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Santo André", "neighbor": "Campestre", "zipcode_prefix": "9080", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Santa Rosa de Lima", "zipcode_prefix": "91160", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Guaíba", "neighbor": "Santa Rita", "zipcode_prefix": "92708", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "Moradas da Lagoa", "zipcode_prefix": "41307", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Paciência", "zipcode_prefix": "23595", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Centro", "zipcode_prefix": "20040", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_PR_Pinhais", "state": "n/a", "city": "Rio Branco do Sul", "neighbor": "-", "zipcode_prefix": "83540", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Inhambupe", "neighbor": "-", "zipcode_prefix": "48490", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_SP_Registro", "state": "n/a", "city": "Miracatu", "neighbor": "-", "zipcode_prefix": "11850", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Engenho da Rainha", "zipcode_prefix": "20766", "incentive": "+R$45", "priority": "true"}
-{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Penha", "zipcode_prefix": "21070", "incentive": "+R$45", "priority": "true"}
+{"station": "LM Hub_RJ_São Gonçalo", "state": "n/a", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24717", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Artur Alvim", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Tiradentes", "zipcode_prefix": "8471", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Cidade Tiradentes", "zipcode_prefix": "8471", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Campo Grande", "zipcode_prefix": "23017", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Santa Cruz", "zipcode_prefix": "23510", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Praia de Belas", "zipcode_prefix": "90010", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_São Gonçalo", "state": "n/a", "city": "São Gonçalo", "neighbor": "Jardim Catarina", "zipcode_prefix": "24716", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Zimba", "state": "n/a", "city": "São Paulo", "neighbor": "Jardim Pedro José Nunes", "zipcode_prefix": "8061", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Mauá", "state": "n/a", "city": "Santo André", "neighbor": "Campestre", "zipcode_prefix": "9080", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Porto Alegre", "neighbor": "Santa Rosa de Lima", "zipcode_prefix": "91160", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RS_Porto Alegre_Floresta", "state": "n/a", "city": "Guaíba", "neighbor": "Santa Rita", "zipcode_prefix": "92708", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Salvador_Cajazeiras", "state": "n/a", "city": "Salvador", "neighbor": "Moradas da Lagoa", "zipcode_prefix": "41307", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_Rio de Janeiro_Campo G", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Paciência", "zipcode_prefix": "23595", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Centro", "zipcode_prefix": "20040", "incentive": "", "priority": "true"}
+{"station": "LM Hub_PR_Pinhais", "state": "n/a", "city": "Rio Branco do Sul", "neighbor": "-", "zipcode_prefix": "83540", "incentive": "", "priority": "true"}
+{"station": "LM Hub_BA_Alagoinhas", "state": "n/a", "city": "Inhambupe", "neighbor": "-", "zipcode_prefix": "48490", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SP_Registro", "state": "n/a", "city": "Miracatu", "neighbor": "-", "zipcode_prefix": "11850", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Engenho da Rainha", "zipcode_prefix": "20766", "incentive": "", "priority": "true"}
+{"station": "LM Hub_RJ_São Cristóvão", "state": "n/a", "city": "Rio de Janeiro", "neighbor": "Penha", "zipcode_prefix": "21070", "incentive": "", "priority": "true"}
+{"station": "LM Hub_SC_Lages", "state": "n/a", "city": "Correia Pinto", "neighbor": "-", "zipcode_prefix": "88535", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SC_Lages", "state": "n/a", "city": "Otacílio Costa", "neighbor": "-", "zipcode_prefix": "88540", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40453", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40770", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40731", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40730", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "41308", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "41307", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "41306", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40800", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40727", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40723", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40830", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40718", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40717", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40810", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_BA_Salvador_Vila Laura", "state": "n/a", "city": "Salvador", "neighbor": "-", "zipcode_prefix": "40820", "incentive": "+R$45", "priority": ""}
+{"station": "LM Hub_SP_Santos_Praia Grande", "state": "n/a", "city": "Cubatão", "neighbor": "-", "zipcode_prefix": "11546", "incentive": "+R$45", "priority": ""}

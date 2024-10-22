@@ -27,7 +27,7 @@ export default ({ driverId, bookingId, pastDate }) => {
       {pastDate ? (
         <Dialog>
           <DialogTrigger>
-            <Button className="p-6">
+            <Button className="p-8 text-xl text-bold text-white">
               Conta pra gente como <br />
               foi seu primeiro dia!
             </Button>

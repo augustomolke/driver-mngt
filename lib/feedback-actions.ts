@@ -11,7 +11,10 @@ export const createFeedbackAction = async (answers) => {
   const session = await auth();
 
   await fetchMutation(api.feedbacks.createFeedback, {
-    answers: { ...answers, driver_id: session.user?.driverId.toString() },
+    answers: {
+      ...answers,
+      driver_id: session.user?.driverId.toString(),
+    },
   });
 
   redirect("/logout");
