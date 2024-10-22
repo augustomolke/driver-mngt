@@ -11,7 +11,7 @@ export default async function Home() {
   if (!session.user.trips) {
     redirect("/primeira-entrega");
   } else {
-    redirect("/driver-panel");
+    redirect("https://spx-motorista-parceiro-v0.netlify.app/driver-panel");
   }
 
   return (
