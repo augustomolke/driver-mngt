@@ -40,14 +40,14 @@ export default async function Home() {
     <div className="flex justify-center items-center min-h-screen p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <div className="flex justify-center items-center">
             <Image
               src={driver}
               height={250}
               alt="Driver"
-              className="w-auto h-auto max-h-[250px]"
+              className="mx-[-12px]"
             />
-            <CardTitle className="leading-8 text-2xl text-center sm:text-left">
+            <CardTitle className="leading-8 text-2xl text-left">
               Olá <br />
               <strong>
                 Motorista <br /> Parceiro
@@ -57,7 +57,7 @@ export default async function Home() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-center sm:text-left">
+          <div className="text-left">
             <p>Estamos felizes em ter você com a gente.</p>
 
             <p className="my-2">
