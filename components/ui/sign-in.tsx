@@ -22,7 +22,10 @@ interface FormValues {
 }
 
 export function SignIn() {
-  const [values, setValues] = useState<FormValues>({ driverId: "", password: "" });
+  const [values, setValues] = useState<FormValues>({
+    driverId: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -52,7 +55,9 @@ export function SignIn() {
       <CardHeader>
         <CardTitle>Que bom que você está aqui!</CardTitle>
         <CardDescription>
-          Para começar, preencha o seu <strong>ID</strong> e os
+          Para começar, preencha o seu{" "}
+          <strong>Driver ID, localizado no canto superior do APP Driver</strong>
+          , e os
           <strong> 4 últimos dígitos do seu telefone cadastrado</strong>.
         </CardDescription>
       </CardHeader>
@@ -69,7 +74,7 @@ export function SignIn() {
             onChange={handleInputChange}
           />
           <FormField
-            label="Senha"
+            label="Últimos 4 dígitos do seu telefone"
             name="password"
             type="password"
             placeholder="XXXX"
