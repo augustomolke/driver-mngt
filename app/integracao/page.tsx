@@ -18,7 +18,7 @@ import Step4 from "./components/Step4";
 import { redirect } from "next/navigation";
 
 export default function Integracao() {
-  redirect("https://spx-motorista-parceiro-v0.netlify.app/integracao");
+  redirect("https://spx-legacy.netlify.app/integracao");
   //   const [current, setCurrent] = useState("#step1");
 
   //   const steps = [
