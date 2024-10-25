@@ -18,7 +18,7 @@ import Step4 from "./components/Step4";
 import { redirect } from "next/navigation";
 
 export default function Integracao() {
-  redirect("https://spx-legacy.netlify.app/integracao");
+  redirect("https://thunderous-halva-6ddbd6.netlify.app/integracao");
   //   const [current, setCurrent] = useState("#step1");
 
   //   const steps = [
