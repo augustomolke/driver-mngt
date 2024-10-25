@@ -12,7 +12,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function DriverPanel() {
-  redirect("https://spx-legacy.netlify.app/driver-panel");
+  redirect("https://thunderous-halva-6ddbd6.netlify.app");
   const session = await auth();
   const station = session?.user.station;
   const driverFirstName = session?.user.driverName.split(" ")[0];
