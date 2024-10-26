@@ -29,6 +29,21 @@ const nextConfig = {
       },
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/driver-panel",
+        destination: "https://spx-legacy.netlify.app",
+        permanent: true,
+      },
+      {
+        source: "/integracao",
+        destination: "https://spx-legacy.netlify.app/integracao",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
