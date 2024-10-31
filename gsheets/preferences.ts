@@ -88,6 +88,10 @@ export async function createPreferences(preferences: Preferences) {
       body,
     });
 
+    const print = await response.json();
+
+    console.log("create", print);
+
     revalidateTag("preferences");
   } catch (error) {
     console.error("Error creating preferences:", error);
@@ -115,6 +119,9 @@ export async function updatePreferences(
 
     const result = await response.json();
 
+    const print = await response.json();
+
+    console.log("update", print);
     revalidateTag("preferences");
 
     return result;
