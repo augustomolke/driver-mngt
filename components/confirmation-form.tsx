@@ -63,11 +63,9 @@ import { Label } from "./ui/label";
 export default function FirstTripForm({
   eventId,
   checks,
-  preloadedPreferences,
+  preloadedPreferences: preferences,
 }) {
   const router = useRouter();
-
-  const preferences = usePreloadedQuery(preloadedPreferences);
 
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
@@ -89,7 +87,7 @@ export default function FirstTripForm({
     }
   };
 
-  if (preferences[0].preferences.filter((p) => !!p.priority).length == 0) {
+  if (preferences.preferences.filter((p) => !!p.priority).length == 0) {
     return <NoSpotsCard />;
   }
 

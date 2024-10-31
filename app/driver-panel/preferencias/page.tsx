@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { preloadQuery } from "convex/nextjs";
+import { getPreferences } from "@/gsheets/preferences";
 
 export default async function Preferences() {
   const session = await auth();
@@ -10,16 +11,14 @@ export default async function Preferences() {
     station: session?.user.station,
   });
 
-  const preloadedPreferences = await preloadQuery(api.preferences.get, {
-    driver_id: (session?.user.driverId).toString(),
-  });
+  const preferences = await getPreferences(session?.user.driverId);
 
   return (
     <PreferencesForm
       incentiveAlert
       user={session?.user}
       redirectTo={"/driver-panel"}
-      preloadedPreferences={preloadedPreferences}
+      preloadedPreferences={[preferences]}
       regions={preLoadedLocations.map((location) => ({
         value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,
         label:

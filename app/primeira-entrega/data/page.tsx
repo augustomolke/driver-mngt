@@ -33,11 +33,14 @@ export default async function Home() {
     redirect("/primeira-entrega");
   }
 
-  const preloadedPreferences = await preloadQuery(api.preferences.get, {
-    driver_id: session.user.driverId.toString(),
-  });
+  const preloadedPreferences = await getPreferences(
+    session?.user.driverId.toString()
+  );
 
-  if (!(preloadedPreferences._valueJSON.length > 0)) {
+  if (
+    preloadedPreferences.neverFilled ||
+    !(preloadedPreferences.preferences.length > 0)
+  ) {
     redirect("/primeira-entrega/preferencias");
   }
 

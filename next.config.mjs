@@ -12,14 +12,14 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  rewrites: async () => {
-    return [
-      {
-        source: "/:integracao",
-        destination: "/:integracao/integracao.html",
-      },
-    ];
-  },
+  // rewrites: async () => {
+  //   return [
+  //     {
+  //       source: "/:integracao",
+  //       destination: "/:integracao/integracao.html",
+  //     },
+  //   ];
+  // },
 
   images: {
     remotePatterns: [
@@ -32,15 +32,15 @@ const nextConfig = {
 
   async redirects() {
     return [
-      {
-        source: "/driver-panel",
-        destination: "https://spx-legacy.netlify.app",
-        permanent: true,
-      },
+      // {
+      //   source: "/driver-panel",
+      //   destination: "https://spx-legacy.netlify.app",
+      //   permanent: false,
+      // },
       {
         source: "/integracao",
         destination: "https://spx-legacy.netlify.app/integracao",
-        permanent: true,
+        permanent: false,
       },
     ];
   },

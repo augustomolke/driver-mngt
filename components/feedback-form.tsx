@@ -56,7 +56,6 @@ export default function FeedbackForm() {
   const nps = watch("nps");
 
   const onSubmit = async (data) => {
-    console.log(data);
     setLoading(true);
     try {
       await createFeedbackAction(data);

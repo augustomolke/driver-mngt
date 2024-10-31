@@ -5,8 +5,11 @@ import { api } from "@/convex/_generated/api";
 import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { compareArrays } from "./utils";
+import { getPreferences } from "@/gsheets/preferences";
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
+const EVENTS_API_URL = process.env.EVENTS_API;
+const SECRET = process.env.SECRET;
 
 export const confirmAvailability = async (values, prevBookings, dates) => {
   const session = await auth();
@@ -64,6 +67,27 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   const promises = [];
 
   if (booking.length > 0) {
+    const body = JSON.stringify(
+      booking.map((instance) => ({
+        method: "POST",
+        sheet: "enrollments",
+        key: SECRET,
+        payload: {
+          driver_id: instance.driver_id,
+          driver_name: session?.user.driverName,
+          event_id: "FAZER",
+          instance: instance.instance,
+          instance_id: instance.id,
+          info: JSON.stringify(instance.info),
+        },
+      }))
+    );
+
+    const gsheetCreate = await fetch(EVENTS_API_URL, {
+      method: "POST",
+      body,
+    });
+
     promises.push(
       fetchMutation(api.bookings.createBooking, {
         booking,
@@ -72,6 +96,34 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   }
 
   if (bookingToDelete.length > 0) {
+    // DELETAR DEPOIS
+    const instancesToDelete = Object.entries(values)
+      .map(([event_name, bookings]) => {
+        const event = dates.filter((d) => d.name == event_name)[0];
+        const prev = prevBookings
+          .filter((prev) => prev.instance == event.instance)
+          .find(Boolean);
+        if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
+          //deletar
+          return prev?.instance;
+        }
+      })
+      .filter((v) => !!v);
+
+    const body = JSON.stringify(
+      instancesToDelete.map((instance) => ({
+        method: "DELETE",
+        sheet: "enrollments",
+        key: SECRET,
+        filter: { driver_id: session.user?.driverId.toString(), instance },
+      }))
+    );
+
+    const gsheetDelete = await fetch(EVENTS_API_URL, {
+      method: "POST",
+      body,
+    });
+
     promises.push(
       fetchMutation(api.bookings.deleteBooking, { ids: bookingToDelete })
     );
@@ -87,13 +139,13 @@ export const createBookingAction = async (date, eventId) => {
     return;
   }
 
-  const preloadedPreferences = await fetchQuery(api.preferences.get, {
-    driver_id: session.user.driverId.toString(),
-  });
+  const preloadedPreferences = await getPreferences(
+    session.user.driverId.toString()
+  );
 
   if (
-    !(preloadedPreferences.length > 0) &&
-    !(preloadedPreferences[0].preferences.length > 0)
+    preloadedPreferences.neverFilled ||
+    preloadedPreferences.preferences.length === 0
   ) {
     return;
   }
@@ -106,15 +158,15 @@ export const createBookingAction = async (date, eventId) => {
     station: session.user.station,
     vehicle: session.user.vehicle,
     phone: session.user.phone,
-    city: preloadedPreferences[0].preferences.reduce(
+    city: preloadedPreferences.preferences.reduce(
       (acc, curr) => curr.city + ", " + acc,
       ""
     ),
-    neighbor: preloadedPreferences[0].preferences.reduce(
+    neighbor: preloadedPreferences.preferences.reduce(
       (acc, curr) => curr.neighbor + ", " + acc,
       ""
     ),
-    cep: preloadedPreferences[0].preferences.reduce(
+    cep: preloadedPreferences.preferences.reduce(
       (acc, curr) => curr.cep + ", " + acc,
       ""
     ),

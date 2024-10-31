@@ -19,6 +19,7 @@ import { redirect } from "next/navigation";
 import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
+import { getPreferences } from "@/gsheets/preferences";
 
 export default async function Home() {
   const session = await auth();
@@ -31,11 +32,13 @@ export default async function Home() {
     redirect("/primeira-entrega");
   }
 
-  const preloadedPreferences = await preloadQuery(api.preferences.get, {
-    driver_id: session.user.driverId.toString(),
-  });
-
-  if (!(preloadedPreferences._valueJSON.length > 0)) {
+  const preloadedPreferences = await getPreferences(
+    session?.user.driverId.toString()
+  );
+  if (
+    preloadedPreferences.neverFilled ||
+    !(preloadedPreferences.preferences.length > 0)
+  ) {
     redirect("/primeira-entrega/preferencias");
   }
 

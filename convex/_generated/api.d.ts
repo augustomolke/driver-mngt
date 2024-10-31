@@ -16,8 +16,10 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as bookings from "../bookings.js";
+import type * as crons from "../crons.js";
 import type * as events from "../events.js";
 import type * as feedbacks from "../feedbacks.js";
+import type * as gsheet from "../gsheet.js";
 import type * as locations from "../locations.js";
 import type * as preferences from "../preferences.js";
 
@@ -31,8 +33,10 @@ import type * as preferences from "../preferences.js";
  */
 declare const fullApi: ApiFromModules<{
   bookings: typeof bookings;
+  crons: typeof crons;
   events: typeof events;
   feedbacks: typeof feedbacks;
+  gsheet: typeof gsheet;
   locations: typeof locations;
   preferences: typeof preferences;
 }>;

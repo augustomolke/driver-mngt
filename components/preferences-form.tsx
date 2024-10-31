@@ -1,7 +1,5 @@
 "use client";
 import * as React from "react";
-import { useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { CircleCheckBig, CircleX, DollarSign, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -57,9 +55,10 @@ import {
 import packageOnTheWay from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
 import PriorityAlert from "./priority-alert";
+import { createPreferences, updatePreferences } from "@/gsheets/preferences";
 
 export default ({
-  preloadedPreferences,
+  preloadedPreferences: prevPreferences,
   regions = [],
   redirectTo = null,
   backButton = false,
@@ -68,30 +67,22 @@ export default ({
   incentiveAlert = false,
 }) => {
   const router = useRouter();
-  const prevPreferences = usePreloadedQuery(preloadedPreferences);
 
   const { toast } = useToast();
-  const updatePreferences = useMutation(api.preferences.updatePreferences);
 
   const [loading, setLoading] = React.useState(false);
 
   const [cascadeState, setCascade] = React.useState(true);
   const [values, setValues] = React.useState(
-    prevPreferences?.length > 0
-      ? prevPreferences[0].preferences.length > 0
-        ? prevPreferences[0].preferences.map((pref) => ({
-            id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            label:
-              pref?.neighbor == "-"
-                ? `CEP - ${pref.cep}-XXX`
-                : `[${pref.cep}-XXX] ${pref?.neighbor}`,
-          }))
-        : Array.from(Array(3).keys()).map((v, idx) => ({
-            id: idx,
-            value: "",
-            label: "",
-          }))
+    !prevPreferences[0].neverFilled
+      ? prevPreferences[0].preferences.map((pref) => ({
+          id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+          value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+          label:
+            pref?.neighbor == "-"
+              ? `CEP - ${pref.cep}-XXX`
+              : `[${pref.cep}-XXX] ${pref?.neighbor}`,
+        }))
       : Array.from(Array(3).keys()).map((v, idx) => ({
           id: idx,
           value: "",
@@ -101,21 +92,15 @@ export default ({
 
   React.useEffect(() => {
     setValues(
-      prevPreferences?.length > 0
-        ? prevPreferences[0].preferences.length > 0
-          ? prevPreferences[0].preferences.map((pref) => ({
-              id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-              value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-              label:
-                pref?.neighbor == "-"
-                  ? `CEP - ${pref.cep}-XXX`
-                  : `[${pref.cep}-XXX] ${pref?.neighbor}`,
-            }))
-          : Array.from(Array(3).keys()).map((v, idx) => ({
-              id: idx,
-              value: "",
-              label: "",
-            }))
+      !prevPreferences[0].neverFilled
+        ? prevPreferences[0].preferences.map((pref) => ({
+            id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+            value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
+            label:
+              pref?.neighbor == "-"
+                ? `CEP - ${pref.cep}-XXX`
+                : `[${pref.cep}-XXX] ${pref?.neighbor}`,
+          }))
         : Array.from(Array(3).keys()).map((v, idx) => ({
             id: idx,
             value: "",
@@ -148,26 +133,20 @@ export default ({
       try {
         setLoading(true);
 
-        const user = prevPreferences.find(Boolean);
-
-        if (!user) {
+        if (prevPreferences[0].neverFilled) {
           const newUser = {
             driver_id: loggedUser.driverId.toString(),
             driver_name: loggedUser.driverName,
             phone: loggedUser.phone.toString(),
-            preferences,
+            preferences: JSON.stringify(preferences),
             station: loggedUser.station,
             vehicle: loggedUser.vehicle,
           };
 
-          await updatePreferences({
-            user: newUser,
-            preferences,
-          });
+          await createPreferences(newUser);
         } else {
-          await updatePreferences({
-            user: prevPreferences[0],
-            preferences,
+          await updatePreferences(prevPreferences[0]._id, {
+            preferences: JSON.stringify(preferences),
           });
         }
 
@@ -452,7 +431,9 @@ export default ({
 
         <Dialog>
           <DialogTrigger>
-            <Button>Salvar Alterações</Button>
+            <Button disabled={values.filter((v) => v.value != "").length < 3}>
+              Salvar Alterações
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

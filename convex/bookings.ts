@@ -14,6 +14,37 @@ export const get = query({
   },
 });
 
+function getTomorrowDate() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  const day = String(tomorrow.getDate()).padStart(2, "0");
+  const month = String(tomorrow.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
+  const year = tomorrow.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+export const getAvailability = query({
+  args: {},
+  handler: async (ctx, args) => {
+    // const bookings = await ctx.db
+    //   .query("bookings")
+    //   .filter((q) => q.eq(q.field("instance"), getTomorrowDate()))
+    //   .order("desc")
+    //   .collect();
+
+    const mockBooking = {
+      driver_id: "111",
+      event_id: "js7fasbcqrj3f4ffk28z63gv6h72gcgw",
+      info: { shifts: ["AM"] },
+      instance: getTomorrowDate(),
+    };
+    return Array(500).fill(mockBooking);
+  },
+});
+
 export const createBooking = mutation({
   args: {
     booking: v.array(v.any()),
