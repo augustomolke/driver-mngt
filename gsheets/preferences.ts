@@ -71,7 +71,7 @@ export const getPreferences = unstable_cache(
   },
   ["preferences"],
   {
-    revalidate: 300,
+    revalidate: 100,
     tags: ["preferences"],
   }
 );
@@ -91,8 +91,6 @@ export async function createPreferences(preferences: Preferences) {
     });
 
     const print = await response.json();
-
-    console.log("create", print);
 
     revalidateTag("preferences");
   } catch (error) {
@@ -120,8 +118,6 @@ export async function updatePreferences(
     });
 
     const result = await response.json();
-
-    console.log("update", result);
 
     revalidateTag("preferences");
 
