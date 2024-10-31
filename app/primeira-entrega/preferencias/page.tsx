@@ -25,6 +25,8 @@ export default async function Preferences() {
     session?.user.driverId.toString()
   );
 
+  console.log("preloadedPreferences", preloadedPreferences);
+
   return (
     <PreferencesForm
       priorityAlert
