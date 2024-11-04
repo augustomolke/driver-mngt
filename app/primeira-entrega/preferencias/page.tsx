@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { preloadQuery } from "convex/nextjs";
 import { redirect } from "next/navigation";
 import { getPreferences } from "@/gsheets/preferences";
+import { getLocations } from "@/gsheets/locations";
 
 export default async function Preferences() {
   const session = await auth();
@@ -17,15 +18,11 @@ export default async function Preferences() {
     redirect("/primeira-entrega");
   }
 
-  const preLoadedLocations = await fetchQuery(api.locations.get, {
-    station: session?.user.station,
-  });
-
   const preloadedPreferences = await getPreferences(
     session?.user.driverId.toString()
   );
 
-  console.log("preloadedPreferences", preloadedPreferences);
+  const locations = await getLocations(session?.user.station);
 
   return (
     <PreferencesForm
@@ -34,12 +31,9 @@ export default async function Preferences() {
       redirectTo={"/primeira-entrega/confirmation"}
       backButton
       preloadedPreferences={[preloadedPreferences]}
-      regions={preLoadedLocations.map((location) => ({
-        value: `${location.city}_${location?.neighbor}_${location.zipcode_prefix}`,
-        label:
-          location?.neighbor == "-"
-            ? `CEP - ${location.zipcode_prefix}-XXX`
-            : `[${location.zipcode_prefix}-XXX] ${location?.neighbor}`,
+      regions={locations.map((location) => ({
+        value: `${location.buyer_city}_${location.cep5}`,
+        label: `CEP - ${location.cep5}-XXX`,
         incentive: location.incentive,
         priority: location.priority,
       }))}

@@ -10,18 +10,18 @@ import getMap from "@/lib/getMap";
 import { MapPin, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getLocations } from "@/gsheets/locations";
 
 export default async function DriverPanel() {
   const session = await auth();
   const station = session?.user.station;
   const driverFirstName = session?.user.driverName.split(" ")[0];
 
-  const preLoadedLocations = await fetchQuery(api.locations.get, { station });
+  const locations = await getLocations(station);
+
   const mapInfo = await getMap(station);
 
-  const hasIncentives = preLoadedLocations.some(
-    (location) => location.incentive !== ""
-  );
+  const hasIncentives = locations.some((location) => location.incentive !== "");
 
   return (
     <Card className="max-w-3xl mx-auto">

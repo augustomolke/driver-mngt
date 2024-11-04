@@ -76,12 +76,9 @@ export default ({
   const [values, setValues] = React.useState(
     !prevPreferences[0].neverFilled
       ? prevPreferences[0].preferences.map((pref) => ({
-          id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-          value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-          label:
-            pref?.neighbor == "-"
-              ? `CEP - ${pref.cep}-XXX`
-              : `[${pref.cep}-XXX] ${pref?.neighbor}`,
+          id: `${pref.city}_${pref.cep}`,
+          value: `${pref.city}_${pref.cep}`,
+          label: `CEP - ${pref.cep}-XXX`,
         }))
       : Array.from(Array(3).keys()).map((v, idx) => ({
           id: idx,
@@ -94,12 +91,9 @@ export default ({
     setValues(
       !prevPreferences[0].neverFilled
         ? prevPreferences[0].preferences.map((pref) => ({
-            id: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            value: `${pref.city}_${pref?.neighbor}_${pref.cep}`,
-            label:
-              pref?.neighbor == "-"
-                ? `CEP - ${pref.cep}-XXX`
-                : `[${pref.cep}-XXX] ${pref?.neighbor}`,
+            id: `${pref.city}_${pref.cep}`,
+            value: `${pref.city}_${pref.cep}`,
+            label: `CEP - ${pref.cep}-XXX`,
           }))
         : Array.from(Array(3).keys()).map((v, idx) => ({
             id: idx,
@@ -114,13 +108,13 @@ export default ({
   const preferences = React.useMemo(
     () =>
       values.map(({ value }) => {
-        const [city, neighbor, cep] = value.split("_");
+        const [city, cep] = value.split("_");
 
         const priority = regions
           .filter((r) => !!r.priority)
-          .find((r) => r.value.split("_")[2] == cep);
+          .find((r) => r.value.split("_")[1] == cep);
 
-        return { cep, neighbor, city, priority: priority?.priority || "" };
+        return { cep, city, priority: priority?.priority || "" };
       }),
     [values]
   );
