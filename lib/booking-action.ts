@@ -27,7 +27,6 @@ const formatDate = (dateString: string) => {
 };
 
 export const confirmAvailability = async (values, prevBookings, dates) => {
-  "use server";
   const session = await auth();
 
   const booking = Object.entries(values)
@@ -102,7 +101,8 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
     promises.push(deleteAvailability(bookingToDelete));
   }
 
-  return await Promise.all(promises);
+  await Promise.all(promises);
+  redirect("/driver-panel");
 };
 
 export const createBookingAction = async (date, event_id) => {

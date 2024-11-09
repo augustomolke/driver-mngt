@@ -1,3 +1,4 @@
+"use server";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { fetchQuery } from "convex/nextjs";
