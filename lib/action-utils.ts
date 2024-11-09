@@ -1,6 +1,4 @@
-export type ServerActionResult<T> =
-  | { success: true; value: T }
-  | { success: false; error: string };
+export type ServerActionResult<T> = T | { error: true; error: string };
 
 export class ServerActionError extends Error {
   constructor(message: string) {
@@ -15,10 +13,10 @@ export function createServerAction<Return, Args extends unknown[] = []>(
   return async (...args: Args) => {
     try {
       const value = await callback(...args);
-      return { success: true, value };
+      return value;
     } catch (error) {
       if (error instanceof ServerActionError)
-        return { success: false, error: error.message };
+        return { error: true, error: error.message };
       throw error;
     }
   };
