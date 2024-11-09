@@ -1,6 +1,8 @@
 "use server";
 import { unstable_cache } from "next/cache";
 import { revalidateTag } from "next/cache";
+import { ServerActionError, createServerAction } from "@/lib/action-utils";
+import { redirect } from "next/navigation";
 
 const url = process.env.GSHEET_PREFERENCES_URL;
 const secret = process.env.SECRET;
@@ -15,7 +17,7 @@ interface Location {
 }
 
 export const getLocations = unstable_cache(
-  async (station_name: string): Promise<Locations[]> => {
+  createServerAction(async (station_name: string): Promise<Locations[]> => {
     const body = JSON.stringify({
       method: "GET",
       sheet: "locations",
@@ -33,19 +35,19 @@ export const getLocations = unstable_cache(
     const { status, data } = location;
 
     if (status == 404) {
-      throw new Error("No locations");
+      redirect("/error?message=NoLocations");
     }
 
     if (status != 200) {
-      throw new Error("Erro");
+      throw new ServerActionError("Erro");
     }
 
     if (!data) {
-      throw new Error("Erro");
+      throw new ServerActionError("Erro");
     }
 
     return data;
-  },
+  }),
   ["locations"],
   {
     revalidate: 1800,
