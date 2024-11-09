@@ -16,6 +16,7 @@ import {
   getFirstTripBooking,
   deleteBooking,
 } from "@/gsheets/bookings";
+import { revalidateTag } from "next/cache";
 
 const EVENTS_API_URL = process.env.EVENTS_API;
 const SECRET = process.env.SECRET;
@@ -102,6 +103,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   }
 
   await Promise.all(promises);
+  revalidateTag("availability");
   redirect("/driver-panel");
 };
 
