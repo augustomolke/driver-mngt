@@ -21,6 +21,7 @@ import { redirect } from "next/navigation";
 import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
+import { getFirstTripBooking } from "@/gsheets/bookings";
 
 export default async function Home() {
   const session = await auth();
@@ -44,15 +45,11 @@ export default async function Home() {
     redirect("/primeira-entrega/preferencias");
   }
 
-  const eventsResult = await fetchQuery(api.events.get, {
-    station: session?.user.station,
-  });
-
-  const events = eventsResult.filter((e) => e.event_type == "First-trip");
+  const eventObj = await getFirstTripBooking(session?.user.station);
 
   const options = getCurrentWeekDates();
 
-  const event = parser.parseExpression(events[0].cron_exp, {
+  const event = parser.parseExpression(eventObj.cron_exp, {
     ...options,
   });
 
@@ -93,7 +90,6 @@ export default async function Home() {
         <FirstTripForm
           preloadedPreferences={preloadedPreferences}
           dates={eventsArray}
-          eventId={events[0]._id}
           checks={checks}
         />
       </main>

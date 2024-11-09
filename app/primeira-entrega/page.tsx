@@ -19,21 +19,15 @@ import { Button } from "@/components/ui/button";
 import { deleteBookingAction } from "@/lib/booking-action";
 import driver from "@/components/assets/delivery-man.svg";
 import { redirect } from "next/navigation";
+import { getFirstTripBooking } from "@/gsheets/bookings";
 
 export default async function Home() {
   const session = await auth();
-  const bookings = await fetchQuery(api.bookings.get, {
-    driver_id: session.user.driverId.toString(),
-  });
 
-  if (bookings.length > 0) {
-    const event = await fetchQuery(api.events.get, {
-      id: bookings[0].event_id,
-    });
+  const event = await getFirstTripBooking(session.user.driverId.toString());
 
-    if (event.event_type == "First-trip") {
-      redirect("/primeira-entrega/congrats");
-    }
+  if (!!event) {
+    redirect("/primeira-entrega/congrats");
   }
 
   return (

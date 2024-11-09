@@ -6,23 +6,40 @@ import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { compareArrays } from "./utils";
 import { getPreferences } from "@/gsheets/preferences";
+import {
+  createAvailability,
+  deleteAvailability,
+  updateAvailability,
+} from "@/gsheets/bookings";
+import {
+  createBooking,
+  getFirstTripBooking,
+  deleteBooking,
+} from "@/gsheets/bookings";
 
-const api_url = process.env.GSHEET_AUTH_API_URL;
 const EVENTS_API_URL = process.env.EVENTS_API;
 const SECRET = process.env.SECRET;
 
+const formatDate = (dateString: string) => {
+  const [day, month, year] = dateString.split("/");
+
+  return `${month}/${day}/${year}`;
+};
+
 export const confirmAvailability = async (values, prevBookings, dates) => {
+  "use server";
   const session = await auth();
+
   const booking = Object.entries(values)
     .map(([event_name, bookings]) => {
       const event = dates.filter((d) => d.name == event_name)[0];
       const prev = prevBookings
-        .filter((prev) => prev.instance == event.instance)
+        .filter((prev) => prev.date == event.instance)
         .find(Boolean);
 
       if (
         compareArrays(
-          prev?.info.shifts,
+          prev?.info,
           Object.entries(bookings)
             .filter((book) => !!book[1])
             .map((book) => book[0])
@@ -38,13 +55,17 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
       } else {
         return {
           driver_id: session.user.driverId.toString(),
-          event_id: event.id,
-          instance: event.instance,
-          info: {
-            shifts: Object.entries(bookings)
+          name: session?.user.driverName,
+          plate: session?.user.plate,
+          vehicle: session?.user.vehicle,
+          station: session?.user.station,
+          event_id: event.event_id,
+          date: formatDate(event.instance),
+          info: JSON.stringify(
+            Object.entries(bookings)
               .filter((book) => !!book[1])
-              .map((book) => book[0]),
-          },
+              .map((book) => book[0])
+          ),
           ...(!!prev && { booking_id: prev?._id }),
         };
       }
@@ -55,7 +76,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
     .map(([event_name, bookings]) => {
       const event = dates.filter((d) => d.name == event_name)[0];
       const prev = prevBookings
-        .filter((prev) => prev.instance == event.instance)
+        .filter((prev) => prev.date == event.instance)
         .find(Boolean);
       if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
         //deletar
@@ -67,72 +88,24 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   const promises = [];
 
   if (booking.length > 0) {
-    const body = JSON.stringify(
-      booking.map((instance) => ({
-        method: "POST",
-        sheet: "enrollments",
-        key: SECRET,
-        payload: {
-          driver_id: instance.driver_id,
-          driver_name: session?.user.driverName,
-          event_id: "FAZER",
-          instance: instance.instance,
-          instance_id: instance.id,
-          info: JSON.stringify(instance.info),
-        },
-      }))
-    );
-
-    const gsheetCreate = await fetch(EVENTS_API_URL, {
-      method: "POST",
-      body,
-    });
-
+    promises.push(createAvailability(booking.filter((b) => !b.booking_id)));
     promises.push(
-      fetchMutation(api.bookings.createBooking, {
-        booking,
-      })
+      updateAvailability(
+        booking
+          .filter((b) => !!b.booking_id)
+          .map((b) => ({ id: b.booking_id, payload: { info: b.info } }))
+      )
     );
   }
 
   if (bookingToDelete.length > 0) {
-    // DELETAR DEPOIS
-    const instancesToDelete = Object.entries(values)
-      .map(([event_name, bookings]) => {
-        const event = dates.filter((d) => d.name == event_name)[0];
-        const prev = prevBookings
-          .filter((prev) => prev.instance == event.instance)
-          .find(Boolean);
-        if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
-          //deletar
-          return prev?.instance;
-        }
-      })
-      .filter((v) => !!v);
-
-    const body = JSON.stringify(
-      instancesToDelete.map((instance) => ({
-        method: "DELETE",
-        sheet: "enrollments",
-        key: SECRET,
-        filter: { driver_id: session.user?.driverId.toString(), instance },
-      }))
-    );
-
-    const gsheetDelete = await fetch(EVENTS_API_URL, {
-      method: "POST",
-      body,
-    });
-
-    promises.push(
-      fetchMutation(api.bookings.deleteBooking, { ids: bookingToDelete })
-    );
+    promises.push(deleteAvailability(bookingToDelete));
   }
 
   return await Promise.all(promises);
 };
 
-export const createBookingAction = async (date, eventId) => {
+export const createBookingAction = async (date, event_id) => {
   const session = await auth();
 
   if (!session?.user) {
@@ -151,7 +124,7 @@ export const createBookingAction = async (date, eventId) => {
   }
 
   const payload = {
-    driverId: session.user.driverId,
+    driver_id: session.user.driverId,
     name: session.user.driverName,
     plate: session.user.plate,
     date,
@@ -162,81 +135,34 @@ export const createBookingAction = async (date, eventId) => {
       (acc, curr) => curr.city + ", " + acc,
       ""
     ),
-    neighbor: preloadedPreferences.preferences.reduce(
-      (acc, curr) => curr.neighbor + ", " + acc,
-      ""
-    ),
+    neighbor: "",
     cep: preloadedPreferences.preferences.reduce(
       (acc, curr) => curr.cep + ", " + acc,
       ""
     ),
-    eventId,
+    event_id,
   };
 
-  const body = JSON.stringify({
-    method: "POST",
-    sheet: "bookings",
-    key: process.env.SECRET,
-    payload,
-  });
-
   try {
-    const result = await fetch(api_url, {
-      method: "POST",
-      body,
-    });
-
-    const createBooking = await fetchMutation(api.bookings.createBooking, {
-      booking: [
-        {
-          driver_id: session.user.driverId.toString(),
-          event_id: eventId,
-          instance: date,
-        },
-      ],
-    });
+    await createBooking([payload]);
   } catch (e) {
     console.log(e);
   }
   redirect("/primeira-entrega/congrats");
 };
 
-export const deleteBookingAction = async (driverId, bookinId) => {
-  const body = JSON.stringify({
-    method: "GET",
-    sheet: "bookings",
-    key: process.env.SECRET,
-    filter: { driverId },
-  });
-
+export const deleteBookingAction = async (id) => {
   let redirectTo;
 
   try {
-    const result = await fetch(api_url, {
-      method: "POST",
-      body,
+    const deleteBody = JSON.stringify({
+      method: "DELETE",
+      sheet: "bookings",
+      key: process.env.SECRET,
+      id,
     });
 
-    const gSheetBooking = await result.json();
-
-    if (!!gSheetBooking.data?._id) {
-      const deleteBody = JSON.stringify({
-        method: "DELETE",
-        sheet: "bookings",
-        key: process.env.SECRET,
-        id: gSheetBooking.data._id,
-      });
-
-      const deleteResult = await fetch(api_url, {
-        method: "POST",
-        body: deleteBody,
-      });
-    }
-
-    await fetchMutation(api.bookings.deleteBooking, {
-      ids: [bookinId],
-    });
-
+    const deleteResult = await deleteBooking(id);
     redirectTo = true;
   } catch (e) {
     console.log(e);

@@ -1,9 +1,8 @@
 import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
-import { api } from "@/convex/_generated/api";
-import { fetchQuery, preloadQuery } from "convex/nextjs";
 import ConfirmationForm from "@/components/confirmation-form";
 import { Image } from "next/image";
+import { getEvent } from "@/gsheets/events";
 
 import {
   Card,
@@ -20,15 +19,14 @@ import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
 import { getPreferences } from "@/gsheets/preferences";
+import { getFirstTripBooking } from "@/gsheets/bookings";
 
 export default async function Home() {
   const session = await auth();
 
-  const bookings = await fetchQuery(api.bookings.get, {
-    driver_id: session.user.driverId.toString(),
-  });
+  const booking = await getFirstTripBooking(session?.user.driverId);
 
-  if (bookings.length > 0) {
+  if (!!booking) {
     redirect("/primeira-entrega");
   }
 
@@ -42,9 +40,7 @@ export default async function Home() {
     redirect("/primeira-entrega/preferencias");
   }
 
-  const event = await fetchQuery(api.events.get, {
-    event_id: "first-trip-sem-data",
-  });
+  const event = await getEvent(session?.user.station, "first-trip-sem-data");
 
   const checks =
     session?.user.vehicle === "MOTO"
@@ -65,7 +61,6 @@ export default async function Home() {
       <main className="flex flex-col items-center sm:items-start">
         <ConfirmationForm
           preloadedPreferences={preloadedPreferences}
-          eventId={event[0]._id}
           checks={checks}
         />
       </main>

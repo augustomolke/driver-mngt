@@ -28,7 +28,13 @@ export const getLocations = unstable_cache(
       body,
     });
 
-    const { status, data } = await result.json();
+    const location = await result.json();
+
+    const { status, data } = location;
+
+    if (status == 404) {
+      throw new Error("No locations");
+    }
 
     if (status != 200) {
       throw new Error("Erro");

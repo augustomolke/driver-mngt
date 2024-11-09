@@ -14,13 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import SchedulingForm from "@/components/scheduling-form";
 
-export default async ({ preloadedEvents }) => {
-  // const preloadedEvents = React.useMemoawait useQuery(api.events.get, {
-  //   location: user?.station,
-  // });
-  const hasDisp =
-    preloadedEvents.filter((e) => e.event_type == "Disponibilidade").length > 0;
-
+export default async ({ hasDisp }) => {
   return (
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
       <div
@@ -84,7 +78,7 @@ export default async ({ preloadedEvents }) => {
               viewBox="0 0 24 24"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
                 clipRule="evenodd"
               />

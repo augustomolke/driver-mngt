@@ -1,30 +1,25 @@
 "use server";
 import { getCurrentUser } from "./getSession";
 import parser from "cron-parser";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
+import { getEvent } from "@/gsheets/events";
 
 export async function fetchDates() {
   const session = await getCurrentUser();
 
-  const eventsResult = await fetchQuery(api.events.get, {
-    station: session?.user.station,
-  });
+  const eventGsheet = await getEvent(session?.user.station, "Disponibilidade");
 
-  const events = eventsResult.filter((e) => e.event_type == "Disponibilidade");
-
-  if (!events.length) {
+  if (!eventGsheet) {
     return [];
   }
 
-  const cron = events[0].cron_exp;
+  const cron = eventGsheet.cron_exp;
 
   // const today = new Date();
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
   // tomorrow.setDate(tomorrow.getDate() + 1);
 
   const parsed = parser.parseExpression(cron, {
-    tz: events[0].timezone,
+    tz: eventGsheet.timezone,
   });
 
   const dates = [1, 2, 3].map((event, idx) => {
@@ -33,27 +28,20 @@ export async function fetchDates() {
       day: "numeric",
       month: "short",
       weekday: "long",
-      timeZone: events[0].timezone,
+      timeZone: event.timezone,
     });
 
     const instance = nextEvent
       .toDate()
-      .toLocaleDateString("en-GB", { timeZone: events[0].timezone });
-    // const prevBooking = preloadedBookings.filter(
-    //   (b) => b.instance == nextEvent.toISOString()
-    // );
-
-    // const checked = prevBooking.length > 0 ? prevBooking[0].info.shifts : [];
+      .toLocaleDateString("en-GB", { timeZone: event.timezone });
 
     return {
-      id: events[0]._id,
-      location: events[0].location,
-      name: `event${event}`,
+      event_id: eventGsheet.event_id,
+      location: eventGsheet.location,
+      name: instance,
       formatted: format.charAt(0).toUpperCase() + format.slice(1),
       value: instance,
       instance,
-      // checked,
-      // booking_id: prevBooking.length > 0 ? prevBooking[0]._id : null,
     };
   });
 

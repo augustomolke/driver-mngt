@@ -61,7 +61,6 @@ import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
 export default function FirstTripForm({
-  eventId,
   checks,
   preloadedPreferences: preferences,
 }) {
@@ -76,7 +75,7 @@ export default function FirstTripForm({
   const onSubmit = async () => {
     try {
       setLoading(true);
-      await createBookingAction(new Date().toString(), eventId);
+      await createBookingAction(new Date().toString(), "first-trip-sem-data");
     } catch (e) {
       toast({
         icon: <CircleX height={48} width={48} />,

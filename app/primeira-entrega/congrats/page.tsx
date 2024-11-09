@@ -20,6 +20,7 @@ import getMap from "@/lib/getMap";
 import pckg from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
 import FeedbackForm from "@/components/feedback-form";
+import { getFirstTripBooking } from "@/gsheets/bookings";
 
 const secret = process.env.SECRET;
 
@@ -86,147 +87,132 @@ export default async function () {
 
   const user = session?.user;
 
-  const bookings = await fetchQuery(api.bookings.get, {
-    driver_id: session.user.driverId.toString(),
-  });
+  const booking = await getFirstTripBooking(session.user.driverId.toString());
 
-  if (bookings.length > 0) {
-    const booking = bookings[0];
-    const event = await fetchQuery(api.events.get, {
-      id: bookings[0].event_id,
-    });
-
-    if (event.event_type != "First-trip") {
-      redirect("/");
-    }
-
-    if (event.event_id == "first-trip-sem-data") {
-      const booking = bookings[0];
-      return (
-        <>
-          {sevenDays(booking.instance).date < new Date() ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex justify-between items-center gap-4">
-                  <CircleCheckBig
-                    color="hsl(var(--green))"
-                    height={64}
-                    width={96}
-                  />
-                  Conte-nos sobre sua experiência!
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base mb-4">
-                  Gostaríamos de saber como foi sua primeira entrega com a
-                  Shopee.
-                </p>
-                <FeedbackForm />
-              </CardContent>
-            </Card>
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex justify-between items-center gap-4">
-                  <CircleCheckBig
-                    color="hsl(var(--green))"
-                    height={64}
-                    width={96}
-                  />
-                  Você confirmou seu interesse!
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-2">
-                  <Calendar />
-                  <p className="text-base max-w-[15rem]">
-                    Entraremos em contato até: <br />
-                    <strong>{sevenDays(booking.instance).formatted}</strong>
-                  </p>
-                </div>
-
-                <Separator className="my-2" />
-
-                <Image src={pckg} alt="Package" />
-              </CardContent>
-              <CardFooter className="flex flex-col">
-                <CancelBookingButton
-                  driverId={session?.user.driverId}
-                  bookingId={booking._id}
-                  pastDate={false}
-                />
-              </CardFooter>
-            </Card>
-          )}
-        </>
-      );
-    }
-  } else {
+  if (!booking) {
     redirect("/");
   }
 
-  const booking = bookings[0];
-
-  const mapInfo = await getMap(session?.user.station);
-
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center gap-4">
-          <CircleCheckBig color="hsl(var(--green))" height={64} width={96} />
-          Agendamento realizado com sucesso!
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-between mb-2">
-          <Calendar />
-          <p className="text-base max-w-[12.5rem]">
-            <strong>Data e horário:</strong> <br />
-            {booking.instance}
-          </p>
-        </div>
-
-        <Separator className="my-2" />
-
-        <a
-          href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
-          target="_blank"
-        >
-          <div className="flex items-center justify-between mb-2">
-            <MapPin />
-            <p className="text-base max-w-[12.5rem]">
-              <strong>Endereço:</strong> <br />
-              {mapInfo.address}
+    <>
+      {sevenDays(booking.instance).date < new Date() ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex justify-between items-center gap-4">
+              <CircleCheckBig
+                color="hsl(var(--green))"
+                height={64}
+                width={96}
+              />
+              Conte-nos sobre sua experiência!
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-base mb-4">
+              Gostaríamos de saber como foi sua primeira entrega com a Shopee.
             </p>
-          </div>
-        </a>
-        <Separator className="my-2" />
+            <FeedbackForm />
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex justify-between items-center gap-4">
+              <CircleCheckBig
+                color="hsl(var(--green))"
+                height={64}
+                width={96}
+              />
+              Você confirmou seu interesse!
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between mb-2">
+              <Calendar />
+              <p className="text-base max-w-[15rem]">
+                Entraremos em contato até: <br />
+                <strong>{sevenDays(booking.date).formatted}</strong>
+              </p>
+            </div>
 
-        <div className="flex flex-col justify-center items-center">
-          <a
-            href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
-            target="_blank"
-          >
-            <img
-              src={mapInfo.map}
-              alt="Mapa"
-              className="border-[--background] border-2 rounded-lg"
+            <Separator className="my-2" />
+
+            <Image src={pckg} alt="Package" />
+          </CardContent>
+          <CardFooter className="flex flex-col">
+            <CancelBookingButton
+              driverId={session?.user.driverId}
+              bookingId={booking._id}
+              pastDate={false}
             />
-          </a>
-          <div className="flex justify-end w-full">
-            <span className="text-xs italic mr-8">
-              *Região de atuação aproximada
-            </span>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="flex flex-col">
-        <CancelBookingButton
-          driverId={session?.user.driverId}
-          bookingId={booking._id}
-          pastDate={stringParaDataPassada(booking.instance)}
-        />
-      </CardFooter>
-    </Card>
+          </CardFooter>
+        </Card>
+      )}
+    </>
   );
+
+  // const booking = bookings[0];
+
+  // const mapInfo = await getMap(session?.user.station);
+
+  // return (
+  //   <Card>
+  //     <CardHeader>
+  //       <CardTitle className="flex justify-between items-center gap-4">
+  //         <CircleCheckBig color="hsl(var(--green))" height={64} width={96} />
+  //         Agendamento realizado com sucesso!
+  //       </CardTitle>
+  //     </CardHeader>
+  //     <CardContent>
+  //       <div className="flex items-center justify-between mb-2">
+  //         <Calendar />
+  //         <p className="text-base max-w-[12.5rem]">
+  //           <strong>Data e horário:</strong> <br />
+  //           {booking.instance}
+  //         </p>
+  //       </div>
+
+  //       <Separator className="my-2" />
+
+  //       <a
+  //         href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
+  //         target="_blank"
+  //       >
+  //         <div className="flex items-center justify-between mb-2">
+  //           <MapPin />
+  //           <p className="text-base max-w-[12.5rem]">
+  //             <strong>Endereço:</strong> <br />
+  //             {mapInfo.address}
+  //           </p>
+  //         </div>
+  //       </a>
+  //       <Separator className="my-2" />
+
+  //       <div className="flex flex-col justify-center items-center">
+  //         <a
+  //           href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
+  //           target="_blank"
+  //         >
+  //           <img
+  //             src={mapInfo.map}
+  //             alt="Mapa"
+  //             className="border-[--background] border-2 rounded-lg"
+  //           />
+  //         </a>
+  //         <div className="flex justify-end w-full">
+  //           <span className="text-xs italic mr-8">
+  //             *Região de atuação aproximada
+  //           </span>
+  //         </div>
+  //       </div>
+  //     </CardContent>
+  //     <CardFooter className="flex flex-col">
+  //       <CancelBookingButton
+  //         driverId={session?.user.driverId}
+  //         bookingId={booking._id}
+  //         pastDate={stringParaDataPassada(booking.instance)}
+  //       />
+  //     </CardFooter>
+  //   </Card>
+  // );
 }

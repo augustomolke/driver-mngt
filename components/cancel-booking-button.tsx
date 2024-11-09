@@ -60,7 +60,7 @@ export default ({ driverId, bookingId, pastDate }) => {
                     onClick={async () => {
                       setLoading(true);
                       try {
-                        await deleteBookingAction(driverId, bookingId);
+                        await deleteBookingAction([bookingId]);
                       } catch (e) {
                         toast({
                           icon: <CircleX height={48} width={48} />,

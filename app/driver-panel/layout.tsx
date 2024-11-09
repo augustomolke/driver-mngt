@@ -1,7 +1,6 @@
 import BottomNav from "@/components/bottom-nav";
 import { auth } from "@/auth";
-import { api } from "@/convex/_generated/api";
-import { fetchQuery } from "convex/nextjs";
+import { getEvent } from "@/gsheets/events";
 
 export default async function RootLayout({
   children,
@@ -10,14 +9,12 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
 
-  const preLoadedEvents = await fetchQuery(api.events.get, {
-    station: session?.user.station,
-  });
+  const event = await getEvent(session?.user.station, "Disponibilidade");
 
   return (
     <div className="h-full">
       {children}
-      <BottomNav preloadedEvents={preLoadedEvents} />
+      <BottomNav hasDisp={!!event} />
       <footer className="h-[64px]"></footer>
     </div>
   );

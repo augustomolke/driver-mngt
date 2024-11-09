@@ -1,5 +1,4 @@
-import PreferencesForm from "@/components/preferences-form";
-import Scheduling from "@/components/scheduling-form";
+import SchedulingForm from "@/components/scheduling-form";
 import { fetchDates } from "@/lib/getEvents";
 import {
   Card,
@@ -14,13 +13,13 @@ import { api } from "@/convex/_generated/api";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { getAvailability } from "@/gsheets/bookings";
 
 export default async function Disponibilidade() {
   const dates = await fetchDates();
+
   const session = await auth();
-  const preloadedBookings = await preloadQuery(api.bookings.get, {
-    driver_id: session.user.driverId.toString(),
-  });
+  const prevBookings = await getAvailability(session?.user.driverId);
 
   if (!(dates.length > 0)) {
     redirect("/driver-panel");
@@ -31,11 +30,11 @@ export default async function Disponibilidade() {
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
         <CardDescription>
-          Você pode confirmar disponibilidade para té três dias adiante.
+          Você pode confirmar disponibilidade para até três dias adiante.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <Scheduling dates={dates} preloadedBookings={preloadedBookings} />;
+      <CardContent className="relative">
+        <SchedulingForm dates={dates} prevBookings={prevBookings} />
       </CardContent>
 
       <CardFooter>

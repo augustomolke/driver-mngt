@@ -4,9 +4,10 @@ import { Check, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-interface DateCheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+interface DateCheckboxProps
+  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
   text: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
 }
 
 const DateCheckbox = React.forwardRef<
@@ -23,13 +24,17 @@ const DateCheckbox = React.forwardRef<
     )}
     {...props}
   >
-    <motion.div 
+    <motion.div
       className="flex flex-col items-center justify-center h-full"
       whileTap={{ scale: 0.95 }}
     >
-      <Icon className="h-10 w-10 mb-2" />
+      {Icon && <Icon className="h-10 w-10 mb-2" />}
       <span className="text-lg font-semibold">{text}</span>
-      <CheckboxPrimitive.Indicator className={cn("absolute top-2 right-2 flex items-center justify-center text-white")}>
+      <CheckboxPrimitive.Indicator
+        className={cn(
+          "absolute top-2 right-2 flex items-center justify-center text-white"
+        )}
+      >
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
