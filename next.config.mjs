@@ -32,11 +32,11 @@ const nextConfig = {
 
   async redirects() {
     return [
-      // {
-      //   source: "/driver-panel",
-      //   destination: "https://spx-legacy.netlify.app",
-      //   permanent: false,
-      // },
+      {
+        source: "/driver-panel",
+        destination: "https://spx-legacy.netlify.app",
+        permanent: false,
+      },
       {
         source: "/integracao",
         destination: "https://spx-legacy.netlify.app/integracao",
