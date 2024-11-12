@@ -167,6 +167,8 @@ export const deleteBookingAction = async (id) => {
     });
 
     const deleteResult = await deleteBooking(id);
+
+    revalidateTag("first-trip-booking");
     redirectTo = true;
   } catch (e) {
     console.log(e);
