@@ -36,14 +36,6 @@ export default async function Disponibilidade() {
       <CardContent className="relative">
         <SchedulingForm dates={dates} prevBookings={prevBookings} />
       </CardContent>
-
-      <CardFooter>
-        <div className="w-full flex justify-end">
-          <Button type="submit" form="disponibilidade">
-            Confirmar
-          </Button>
-        </div>
-      </CardFooter>
     </Card>
   );
 }

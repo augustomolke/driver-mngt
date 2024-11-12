@@ -28,11 +28,11 @@ const DateCheckbox = React.forwardRef<
       className="flex flex-col items-center justify-center h-full"
       whileTap={{ scale: 0.95 }}
     >
-      {Icon && <Icon className="h-10 w-10 mb-2" />}
+      {Icon && <Icon className="h-8 w-8 mb-2" />}
       <span className="text-lg font-semibold">{text}</span>
       <CheckboxPrimitive.Indicator
         className={cn(
-          "absolute top-2 right-2 flex items-center justify-center text-white"
+          "absolute top-[0.2rem] right-[0.2rem] flex items-center justify-center text-white"
         )}
       >
         <motion.div

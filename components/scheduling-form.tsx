@@ -16,6 +16,8 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import DateCheckbox from "./date-checkbox";
 import { motion } from "framer-motion";
+import { ReloadIcon } from "@radix-ui/react-icons";
+
 interface SchedulingProps {
   dates: Array<{
     value: string;
@@ -30,8 +32,11 @@ interface FormValues {
   [key: string]: {
     AM: boolean;
     PM: boolean;
+    SD: boolean;
   };
 }
+
+const shiftsOptions = ["AM", "PM", "SD"];
 
 export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
   const { toast } = useToast();
@@ -44,10 +49,15 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
       acc[date.name] = {
         AM: prevBooking?.info.includes("AM") || false,
         PM: prevBooking?.info.includes("PM") || false,
+        SD: prevBooking?.info.includes("SD") || false,
       };
       return acc;
     }, {} as FormValues),
   });
+
+  const {
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -91,13 +101,13 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
             >
               <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
                 <div className="flex items-center mb-6">
-                  <Calendar className="mr-3 text-primary w-8 h-8" />
+                  <Calendar className="mr-3 text-primary w-16 h-16" />
                   <FormLabel className="text-2xl font-semibold text-primary">
                     {date.formatted}
                   </FormLabel>
                 </div>
-                <div className="flex justify-center gap-4">
-                  {["AM", "PM"].map((shift) => (
+                <div className="flex justify-center gap-2">
+                  {shiftsOptions.map((shift) => (
                     <Controller
                       key={shift}
                       name={`${date.name}.${shift}`}
@@ -110,7 +120,7 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
                               id={`${date.name}.${shift}`}
                               checked={field.value}
                               onCheckedChange={field.onChange}
-                              className="w-24 h-16 text-xl"
+                              className="w-16 h-16 text-xl"
                             />
                           </FormControl>
                         </FormItem>
@@ -130,6 +140,15 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
             className="flex justify-center mt-12"
           ></motion.div>
         </motion.div>
+        <div className="flex justify-end">
+          <Button disabled={isSubmitting} type="submit" className="w-full">
+            {isSubmitting ? (
+              <ReloadIcon className="h-4 w-4 animate-spin" />
+            ) : (
+              "Confirmar"
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );
