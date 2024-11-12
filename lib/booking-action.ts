@@ -147,6 +147,8 @@ export const createBookingAction = async (date, event_id) => {
 
   try {
     await createBooking([payload]);
+
+    revalidateTag("first-trip-booking");
   } catch (e) {
     console.log(e);
   }

@@ -55,7 +55,7 @@ export const getAvailability = unstable_cache(
   },
   ["availability"],
   {
-    revalidate: 100,
+    revalidate: 1800,
     tags: ["availability"],
   }
 );

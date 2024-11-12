@@ -71,7 +71,7 @@ export const getPreferences = unstable_cache(
   },
   ["preferences"],
   {
-    revalidate: 100,
+    revalidate: 1800,
     tags: ["preferences"],
   }
 );
