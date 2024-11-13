@@ -3,30 +3,23 @@ import { unstable_cache } from "next/cache";
 const EVENTS_API_URL = process.env.EVENTS_API || "";
 const SECRET = process.env.SECRET || "";
 
-export const getFirstTripBooking = unstable_cache(
-  async (driver_id) => {
-    const body = JSON.stringify({
-      method: "GET",
-      sheet: "bookings",
-      key: SECRET,
-      filter: { driver_id, event_id: "first-trip-sem-data" },
-    });
+export const getFirstTripBooking = async (driver_id) => {
+  const body = JSON.stringify({
+    method: "GET",
+    sheet: "bookings",
+    key: SECRET,
+    filter: { driver_id, event_id: "first-trip-sem-data" },
+  });
 
-    const result = await fetch(EVENTS_API_URL, {
-      method: "POST",
-      body,
-    });
+  const result = await fetch(EVENTS_API_URL, {
+    method: "POST",
+    body,
+  });
 
-    const booking = await result.json();
+  const booking = await result.json();
 
-    return booking.data;
-  },
-  ["first-trip-booking"],
-  {
-    revalidate: 0,
-    tags: ["first-trip-booking"],
-  }
-);
+  return booking.data;
+};
 
 export const getAvailability = unstable_cache(
   async (driver_id) => {
