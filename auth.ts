@@ -1,5 +1,6 @@
 import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { revalidateTag } from "next/cache";
 import { object, string } from "zod";
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
@@ -88,6 +89,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // meaning this is also the place you could do registration
           throw new AuthError("Telefone Incorreto");
         }
+
+        revalidateTag("locations");
 
         // return user object with their profile data
         return user.data;
