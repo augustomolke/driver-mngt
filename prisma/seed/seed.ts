@@ -13,7 +13,7 @@ async function main() {
 
   const event = prisma.event.findFirst({ where: { event_type: "FIRST_TRIP" } });
 
-  const id = event.id;
+  const id = event[0].id;
 
   await prisma.bookings.createMany({
     data: bookings
