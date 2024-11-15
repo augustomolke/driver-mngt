@@ -16,6 +16,7 @@ export default async function DriverPanel() {
   const station = session?.user.station;
   const driverFirstName = session?.user.driverName.split(" ")[0];
 
+
   const locations = await getLocations(station);
 
   const mapInfo = await getMap(station);

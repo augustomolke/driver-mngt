@@ -11,7 +11,7 @@ async function main() {
     data: events,
   });
 
-  const event = prisma.event.findUnique({
+  const event = await prisma.event.findFirst({
     where: { event_type: "FIRST_TRIP" },
   });
 

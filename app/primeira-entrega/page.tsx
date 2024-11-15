@@ -22,6 +22,8 @@ import { getFirstTripBooking } from "@/lib/db/bookings";
 export default async function Home() {
   const session = await auth();
 
+
+
   const event = await getFirstTripBooking(session.user.driverId.toString());
 
   if (!!event) {
