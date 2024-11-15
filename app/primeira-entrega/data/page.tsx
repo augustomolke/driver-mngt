@@ -24,9 +24,7 @@ import { getFirstTripBooking } from "@/lib/db/bookings";
 export default async function Home() {
   const session = await auth();
 
-  const bookings = await getFirstTripBooking(
-    driver_id: session.user.driverId.toString(),
-  );
+  const bookings = await getFirstTripBooking(session.user.driverId.toString());
 
   if (bookings.length > 0) {
     redirect("/primeira-entrega/congrats");
