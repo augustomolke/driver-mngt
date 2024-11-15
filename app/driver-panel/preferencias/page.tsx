@@ -1,8 +1,5 @@
 import PreferencesForm from "@/components/preferences-form";
 import { auth } from "@/auth";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
-import { preloadQuery } from "convex/nextjs";
 import { getPreferences } from "@/lib/db/preferences";
 import { getLocations } from "@/gsheets/locations";
 

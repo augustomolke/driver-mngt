@@ -3,6 +3,13 @@ import { events, preferences, bookings } from "./data.ts";
 
 const prisma = new PrismaClient();
 async function main() {
+  await prisma.bookings.deleteMany();
+  await prisma.bookings.createMany({
+    data: bookings
+      .filter((b) => !!b.driver_id)
+      .map((b) => ({ ...b, date: new Date(b.date) })),
+  });
+
   await prisma.event.deleteMany();
 
   await prisma.event.createMany({
@@ -41,11 +48,6 @@ async function main() {
 
   await prisma.preferences.createMany({
     data: prefs,
-  });
-
-  await prisma.bookings.deleteMany();
-  await prisma.bookings.createMany({
-    data: bookings.filter((b) => !!b.driver_id),
   });
 }
 main()

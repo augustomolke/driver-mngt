@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useMutation, usePreloadedQuery } from "convex/react";
 import { CircleCheckBig, CircleX, Calendar, Sun, Moon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { confirmAvailability } from "@/lib/actions/booking-action";
@@ -25,7 +24,7 @@ interface SchedulingProps {
     name: string;
     instance: string;
   }>;
-  preloadedBookings: any; // Replace 'any' with the actual type from your Convex setup
+  preloadedBookings: any;
 }
 
 interface FormValues {

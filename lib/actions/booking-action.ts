@@ -1,7 +1,5 @@
 "use server";
 import { auth } from "@/auth";
-import { fetchQuery, fetchMutation } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { compareArrays } from "../utils";
@@ -120,6 +118,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   }
 
   await Promise.all(promises);
+
   revalidateTag("availability");
   // redirect("/driver-panel");
 };

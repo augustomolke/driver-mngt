@@ -19,13 +19,13 @@ import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
 import { getPreferences } from "@/lib/db/preferences";
-import { getFirstTripBooking } from "@/gsheets/bookings";
+import { getFirstTripBooking } from "@/lib/db/bookings";
 import { getLocations } from "@/gsheets/locations";
 
 export default async function Home() {
   const session = await auth();
 
-  const booking = await getFirstTripBooking(session?.user.driverId);
+  const booking = await getFirstTripBooking(session?.user.driverId.toString());
 
   if (!!booking) {
     redirect("/primeira-entrega");

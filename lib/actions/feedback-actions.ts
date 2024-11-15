@@ -1,7 +1,5 @@
 "use server";
 import { auth } from "@/auth";
-import { fetchMutation } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db/db";

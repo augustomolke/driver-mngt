@@ -1,7 +1,5 @@
 import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
-import { api } from "@/convex/_generated/api";
-import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { getCurrentWeekDates } from "../utils";
 import parser from "cron-parser";
 import FirstTripForm from "@/components/first-trip-form";
@@ -21,17 +19,17 @@ import { redirect } from "next/navigation";
 import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
-import { getFirstTripBooking } from "@/gsheets/bookings";
+import { getFirstTripBooking } from "@/lib/db/bookings";
 
 export default async function Home() {
   const session = await auth();
 
-  const bookings = await fetchQuery(api.bookings.get, {
+  const bookings = await getFirstTripBooking(
     driver_id: session.user.driverId.toString(),
-  });
+  );
 
   if (bookings.length > 0) {
-    redirect("/primeira-entrega");
+    redirect("/primeira-entrega/congrats");
   }
 
   const preloadedPreferences = await getPreferences(

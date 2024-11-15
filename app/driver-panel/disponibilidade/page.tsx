@@ -8,8 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { preloadQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";

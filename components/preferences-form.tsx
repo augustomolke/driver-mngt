@@ -39,8 +39,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Preloaded } from "convex/react";
-import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import IncentiveAlert from "./incentive-alert";
 import {
@@ -55,7 +53,6 @@ import {
 import packageOnTheWay from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
 import PriorityAlert from "./priority-alert";
-import { createPreferences, updatePreferences } from "@/gsheets/preferences";
 import { savePreferences } from "@/lib/db/preferences";
 
 export default ({

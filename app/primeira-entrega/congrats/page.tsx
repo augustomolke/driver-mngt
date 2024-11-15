@@ -13,8 +13,6 @@ import { Calendar, MapPin } from "lucide-react";
 import CancelBookingButton from "@/components/cancel-booking-button";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { CircleCheckBig } from "lucide-react";
 import getMap from "@/lib/getMap";
 import pckg from "@/components/assets/picked-up-package.svg";
@@ -26,8 +24,8 @@ const secret = process.env.SECRET;
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
 
-const sevenDays = (string) => {
-  const date = new Date(string);
+const sevenDays = (bookedDate) => {
+  const date = new Date(bookedDate);
 
   date.setDate(date.getDate() + 7);
 
@@ -95,7 +93,7 @@ export default async function () {
 
   return (
     <>
-      {sevenDays(booking.instance).date < new Date() ? (
+      {sevenDays(booking.date).date < new Date() ? (
         <Card>
           <CardHeader>
             <CardTitle className="flex justify-between items-center gap-4">

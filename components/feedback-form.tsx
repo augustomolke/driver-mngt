@@ -58,7 +58,11 @@ export default function FeedbackForm() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await createFeedbackAction(data);
+      await createFeedbackAction({
+        ...data,
+        first_trip: data.first_trip === "sim",
+        nps: Number(data.nps),
+      });
       toast({
         title: "Feedback enviado",
         description: "Obrigado por compartilhar sua experiência!",
