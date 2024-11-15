@@ -1,7 +1,10 @@
 "use server";
 import { unstable_cache } from "next/cache";
 import { revalidateTag } from "next/cache";
-import { ServerActionError, createServerAction } from "@/lib/action-utils";
+import {
+  ServerActionError,
+  createServerAction,
+} from "@/lib/actions/action-utils";
 import { redirect } from "next/navigation";
 
 const url = process.env.GSHEET_PREFERENCES_URL;

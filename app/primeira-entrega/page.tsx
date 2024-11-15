@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { deleteBookingAction } from "@/lib/booking-action";
+import { deleteBookingAction } from "@/lib/actions/booking-action";
 import driver from "@/components/assets/delivery-man.svg";
 import { redirect } from "next/navigation";
 import { getFirstTripBooking } from "@/gsheets/bookings";

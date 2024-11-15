@@ -4,7 +4,7 @@ import { useForm, Controller, useFormContext } from "react-hook-form";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { createFeedbackAction } from "@/lib/feedback-actions";
+import { createFeedbackAction } from "@/lib/actions/feedback-actions";
 
 import {
   Form,

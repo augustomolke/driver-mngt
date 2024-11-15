@@ -20,7 +20,7 @@ import getMap from "@/lib/getMap";
 import pckg from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
 import FeedbackForm from "@/components/feedback-form";
-import { getFirstTripBooking } from "@/gsheets/bookings";
+import { getFirstTripBooking } from "@/lib/db/bookings";
 
 const secret = process.env.SECRET;
 
@@ -142,7 +142,7 @@ export default async function () {
           <CardFooter className="flex flex-col">
             <CancelBookingButton
               driverId={session?.user.driverId}
-              bookingId={booking._id}
+              bookingId={booking.id}
               pastDate={false}
             />
           </CardFooter>

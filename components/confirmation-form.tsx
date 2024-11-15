@@ -44,7 +44,7 @@ import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { createBookingAction } from "@/lib/booking-action";
+import { createBookingAction } from "@/lib/actions/booking-action";
 import driverArrived from "@/components/assets/driver-arrived.svg";
 import Image from "next/image";
 import { NoSpotsCard } from "./no-spots-card";
@@ -60,10 +60,7 @@ import {
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
-export default function FirstTripForm({
-  checks,
-  preloadedPreferences: preferences,
-}) {
+export default function FirstTripForm({ checks, noSpots, event_id }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -75,7 +72,7 @@ export default function FirstTripForm({
   const onSubmit = async () => {
     try {
       setLoading(true);
-      await createBookingAction(new Date().toString(), "first-trip-sem-data");
+      await createBookingAction(new Date(), event_id);
     } catch (e) {
       toast({
         icon: <CircleX height={48} width={48} />,
@@ -86,7 +83,7 @@ export default function FirstTripForm({
     }
   };
 
-  if (preferences.preferences.filter((p) => !!p.priority).length == 0) {
+  if (noSpots) {
     return <NoSpotsCard />;
   }
 

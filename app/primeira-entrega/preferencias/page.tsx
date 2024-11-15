@@ -4,8 +4,8 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { preloadQuery } from "convex/nextjs";
 import { redirect } from "next/navigation";
-import { getPreferences } from "@/gsheets/preferences";
 import { getLocations } from "@/gsheets/locations";
+import { getPreferences } from "@/lib/db/preferences";
 
 export default async function Preferences() {
   const session = await auth();
@@ -30,7 +30,7 @@ export default async function Preferences() {
       user={session?.user}
       redirectTo={"/primeira-entrega/confirmation"}
       backButton
-      preloadedPreferences={[preloadedPreferences]}
+      preloadedPreferences={preloadedPreferences}
       regions={locations.map((location) => ({
         value: `${location.buyer_city}_${location.cep5}`,
         label: `CEP - ${location.cep5}-XXX`,

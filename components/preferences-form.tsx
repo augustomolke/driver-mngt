@@ -56,6 +56,7 @@ import packageOnTheWay from "@/components/assets/picked-up-package.svg";
 import Image from "next/image";
 import PriorityAlert from "./priority-alert";
 import { createPreferences, updatePreferences } from "@/gsheets/preferences";
+import { savePreferences } from "@/lib/db/preferences";
 
 export default ({
   preloadedPreferences: prevPreferences,
@@ -74,47 +75,31 @@ export default ({
 
   const [cascadeState, setCascade] = React.useState(true);
   const [values, setValues] = React.useState(
-    !prevPreferences[0].neverFilled
-      ? prevPreferences[0].preferences.map((pref) => ({
-          id: `${pref.city}_${pref.cep}`,
+    prevPreferences.length > 0
+      ? prevPreferences.map((pref) => ({
+          id: pref.id,
           value: `${pref.city}_${pref.cep}`,
           label: `CEP - ${pref.cep}-XXX`,
         }))
       : Array.from(Array(3).keys()).map((v, idx) => ({
-          id: idx,
+          id: `new-${idx}`,
           value: "",
           label: "",
         }))
   );
 
-  React.useEffect(() => {
-    setValues(
-      !prevPreferences[0].neverFilled
-        ? prevPreferences[0].preferences.map((pref) => ({
-            id: `${pref.city}_${pref.cep}`,
-            value: `${pref.city}_${pref.cep}`,
-            label: `CEP - ${pref.cep}-XXX`,
-          }))
-        : Array.from(Array(3).keys()).map((v, idx) => ({
-            id: idx,
-            value: "",
-            label: "",
-          }))
-    );
-  }, [prevPreferences]);
-
   const form = useForm();
 
   const preferences = React.useMemo(
     () =>
-      values.map(({ value }) => {
+      values.map(({ value, id }) => {
         const [city, cep] = value.split("_");
 
         const priority = regions
           .filter((r) => !!r.priority)
           .find((r) => r.value.split("_")[1] == cep);
 
-        return { cep, city, priority: priority?.priority || "" };
+        return { id, cep, city, priority: priority?.priority || "" };
       }),
     [values]
   );
@@ -127,22 +112,17 @@ export default ({
       try {
         setLoading(true);
 
-        if (prevPreferences[0].neverFilled) {
-          const newUser = {
+        await savePreferences(
+          preferences.map((pref) => ({
             driver_id: loggedUser.driverId.toString(),
             driver_name: loggedUser.driverName,
             phone: loggedUser.phone.toString(),
-            preferences: JSON.stringify(preferences),
             station: loggedUser.station,
             vehicle: loggedUser.vehicle,
-          };
-
-          await createPreferences(newUser);
-        } else {
-          await updatePreferences(prevPreferences[0]._id, {
-            preferences: JSON.stringify(preferences),
-          });
-        }
+            city: pref.city,
+            cep: pref.cep,
+          }))
+        );
 
         toast({
           icon: (
@@ -220,7 +200,6 @@ export default ({
                                     const newState = state.map((toChange) => {
                                       if (toChange.id == id) {
                                         const labelArr = a.split("_");
-
                                         return {
                                           ...toChange,
                                           value: a,

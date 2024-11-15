@@ -44,7 +44,7 @@ import { useSession } from "next-auth/react";
 import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { createBookingAction } from "@/lib/booking-action";
+import { createBookingAction } from "@/lib/actions/booking-action";
 import driverArrived from "@/components/assets/driver-arrived.svg";
 import Image from "next/image";
 import { NoSpotsCard } from "./no-spots-card";
