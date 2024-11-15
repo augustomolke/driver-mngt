@@ -11,10 +11,14 @@ async function main() {
     data: events,
   });
 
+  const event = prisma.event.findFirst({ where: { event_type: "FIRST_TRIP" } });
+
+  const id = event.id;
+
   await prisma.bookings.createMany({
     data: bookings
       .filter((b) => !!b.driver_id)
-      .map((b) => ({ ...b, date: new Date(b.date) })),
+      .map((b) => ({ ...b, date: new Date(b.date), event_id: id })),
   });
 
   const prefs = preferences.reduce((acc, curr) => {
