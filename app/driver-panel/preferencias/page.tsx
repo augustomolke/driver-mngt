@@ -1,15 +1,12 @@
 import PreferencesForm from "@/components/preferences-form";
 import { auth } from "@/auth";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
-import { preloadQuery } from "convex/nextjs";
-import { getPreferences } from "@/gsheets/preferences";
+import { getPreferences } from "@/lib/db/preferences";
 import { getLocations } from "@/gsheets/locations";
 
 export default async function Preferences() {
   const session = await auth();
 
-  const preferences = await getPreferences(session?.user.driverId);
+  const preferences = await getPreferences(session?.user.driverId.toString());
 
   const locations = await getLocations(session?.user.station);
 
@@ -18,7 +15,7 @@ export default async function Preferences() {
       incentiveAlert
       user={session?.user}
       redirectTo={"/driver-panel"}
-      preloadedPreferences={[preferences]}
+      preloadedPreferences={preferences}
       regions={locations.map((location) => ({
         value: `${location.buyer_city}_${location.cep5}`,
         label: `CEP - ${location.cep5}-XXX`,

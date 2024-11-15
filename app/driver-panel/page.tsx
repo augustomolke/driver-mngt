@@ -1,8 +1,6 @@
 "use server";
 import Image from "next/image";
 import { auth } from "@/auth";
-import { fetchQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SignoutButton from "@/components/signout-button";
@@ -17,6 +15,7 @@ export default async function DriverPanel() {
   const session = await auth();
   const station = session?.user.station;
   const driverFirstName = session?.user.driverName.split(" ")[0];
+
 
   const locations = await getLocations(station);
 

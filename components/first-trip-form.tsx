@@ -1,7 +1,5 @@
 "use client";
 import * as React from "react";
-import { useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { CalendarClock, DollarSign } from "lucide-react";
 import {
@@ -39,12 +37,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Preloaded } from "convex/react";
 import { useSession } from "next-auth/react";
-import { usePreloadedQuery } from "convex/react";
 import { BadgeIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { createBookingAction } from "@/lib/booking-action";
+import { createBookingAction } from "@/lib/actions/booking-action";
 import driverArrived from "@/components/assets/driver-arrived.svg";
 import Image from "next/image";
 import { NoSpotsCard } from "./no-spots-card";

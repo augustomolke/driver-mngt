@@ -8,18 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { preloadQuery } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import { getAvailability } from "@/gsheets/bookings";
+import { getAvailability } from "@/lib/db/bookings";
 
 export default async function Disponibilidade() {
   const dates = await fetchDates();
 
   const session = await auth();
-  const prevBookings = await getAvailability(session?.user.driverId);
+  const prevBookings = await getAvailability(session?.user.driverId.toString());
 
   if (!(dates.length > 0)) {
     redirect("/driver-panel");

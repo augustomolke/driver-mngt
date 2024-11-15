@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Logo from "@/components/assets/logo";
-import ConvexClietProvider from "@/components/providers/convex-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -40,10 +39,8 @@ export default function RootLayout({
             </header>
 
             <section className="container row-span-7 p-[2rem]">
-              <ConvexClietProvider>
-                {children}
-                <Toaster />
-              </ConvexClietProvider>
+              {children}
+              <Toaster />
             </section>
 
             {/* <footer className="h-[24px]"></footer> */}

@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
-import { api } from "@/convex/_generated/api";
-import { fetchQuery } from "convex/nextjs";
 import { getCurrentWeekDates } from "./utils";
 import parser from "cron-parser";
 import FirstTripForm from "@/components/first-trip-form";
@@ -16,13 +14,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { deleteBookingAction } from "@/lib/booking-action";
+import { deleteBookingAction } from "@/lib/actions/booking-action";
 import driver from "@/components/assets/delivery-man.svg";
 import { redirect } from "next/navigation";
-import { getFirstTripBooking } from "@/gsheets/bookings";
+import { getFirstTripBooking } from "@/lib/db/bookings";
 
 export default async function Home() {
   const session = await auth();
+
+
 
   const event = await getFirstTripBooking(session.user.driverId.toString());
 

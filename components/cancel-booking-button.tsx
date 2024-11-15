@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { signOutAction } from "@/lib/getSession";
-import { deleteBookingAction } from "@/lib/booking-action";
+import { deleteBookingAction } from "@/lib/actions/booking-action";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "./ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -60,7 +60,7 @@ export default ({ driverId, bookingId, pastDate }) => {
                     onClick={async () => {
                       setLoading(true);
                       try {
-                        await deleteBookingAction([bookingId]);
+                        await deleteBookingAction(bookingId);
                       } catch (e) {
                         toast({
                           icon: <CircleX height={48} width={48} />,

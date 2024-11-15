@@ -4,7 +4,7 @@ import { useForm, Controller, useFormContext } from "react-hook-form";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { createFeedbackAction } from "@/lib/feedback-actions";
+import { createFeedbackAction } from "@/lib/actions/feedback-actions";
 
 import {
   Form,
@@ -58,7 +58,11 @@ export default function FeedbackForm() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await createFeedbackAction(data);
+      await createFeedbackAction({
+        ...data,
+        first_trip: data.first_trip === "sim",
+        nps: Number(data.nps),
+      });
       toast({
         title: "Feedback enviado",
         description: "Obrigado por compartilhar sua experiência!",

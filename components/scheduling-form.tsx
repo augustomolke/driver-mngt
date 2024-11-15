@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useMutation, usePreloadedQuery } from "convex/react";
 import { CircleCheckBig, CircleX, Calendar, Sun, Moon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { confirmAvailability } from "@/lib/booking-action";
+import { confirmAvailability } from "@/lib/actions/booking-action";
 import {
   Form,
   FormControl,
@@ -25,7 +24,7 @@ interface SchedulingProps {
     name: string;
     instance: string;
   }>;
-  preloadedBookings: any; // Replace 'any' with the actual type from your Convex setup
+  preloadedBookings: any;
 }
 
 interface FormValues {
@@ -44,9 +43,11 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
   const form = useForm<FormValues>({
     defaultValues: dates.reduce((acc, date) => {
       const prevBooking = prevBookings.find(
-        (prev) => prev.date === date.instance
+        (prev) =>
+          new Date(prev.date).getDate() === new Date(date.value).getDate()
       );
-      acc[date.name] = {
+
+      acc[date.value] = {
         AM: prevBooking?.info.includes("AM") || false,
         PM: prevBooking?.info.includes("PM") || false,
         SD: prevBooking?.info.includes("SD") || false,
@@ -110,7 +111,7 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
                   {shiftsOptions.map((shift) => (
                     <Controller
                       key={shift}
-                      name={`${date.name}.${shift}`}
+                      name={`${date.value}.${shift}`}
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
