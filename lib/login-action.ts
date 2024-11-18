@@ -1,11 +1,16 @@
 "use server";
 import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 export default async (formData) => {
   try {
     await signIn("credentials", formData);
   } catch (err) {
+    if (isRedirectError(err)) {
+      throw err;
+    }
+
     if (err.message.split(".")[0] == "Driver ID não encontrado") {
       redirect("/error?message=WrongId");
     }
