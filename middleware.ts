@@ -9,6 +9,6 @@ export default auth((req) => {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|driver-panel|integracao|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|driver-panel|error|integracao|favicon.ico).*)",
   ],
 };

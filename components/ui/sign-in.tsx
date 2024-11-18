@@ -35,17 +35,8 @@ export function SignIn() {
   };
 
   const handleSubmit = async (formData: FormData) => {
-    try {
-      setLoading(true);
-      await loginAction(formData);
-    } catch (e) {
-      setLoading(false);
-      toast({
-        icon: <CircleX height={48} width={48} />,
-        title: "Algo deu errado!",
-        description: e.message.split(".")[0],
-      });
-    }
+    setLoading(true);
+    await loginAction(formData);
   };
 
   const isFormValid = Object.values(values).every(Boolean);
