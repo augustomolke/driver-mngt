@@ -1,5 +1,11 @@
 import prisma from "@/lib/db/db";
-import { date } from "zod";
+
+export async function GET(request: Request) {
+  const data = await prisma.bookings.findMany({
+    where: { date: { gte: new Date() }, event: { event_type: "AVAILABILITY" } },
+  });
+  return Response.json({ data });
+}
 
 export async function POST(request: Request) {
   const { station } = await request.json();
