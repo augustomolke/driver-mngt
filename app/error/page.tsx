@@ -20,7 +20,7 @@ const generateMessage = (code) => {
       message:
         "Verifique se existe alguma pendência no seu cadastro através dos nossos canais de suporte oficial.",
       action: (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center w-full">
           <Link href="/login">
             <Button> Tentar Novamente</Button>
           </Link>
