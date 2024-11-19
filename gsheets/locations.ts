@@ -53,7 +53,7 @@ export const getLocations = unstable_cache(
   }),
   ["locations"],
   {
-    revalidate: 1800,
+    revalidate: 10,
     tags: ["locations"],
   }
 );
