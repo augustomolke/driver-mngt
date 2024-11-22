@@ -17,25 +17,29 @@ export const NoSpotsCard = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex gap-4 items-center">
-              Alerta desvio de rota!
+              Agora é com a gente!
               <TrafficCone height={64} width={64} />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <CardDescription className="my-4">
-              <strong>Para as regiões que você selecionou</strong>, não há mais
-              vagas neste momento.{" "}
+              <strong>
+                Obrigado por confirmar seu interesse em ser um Motorista
+                Parceiro Shopee
+              </strong>
+              . Entraremos em contato para informar os próximos passos. Por
+              favor, mantenha seus dados de contato atualizados no App Driver.{" "}
             </CardDescription>
             <ReviewPreferencesAlert />
             <Separator className="my-4" />
 
-            <div className="flex items-center justify-center gap-8">
+            {/* <div className="flex items-center justify-center gap-8">
               <Siren height={48} width={48} />
               <strong className="max-w-48">
                 Caso prefira esperar, fique de olho! A qualquer momento
                 abriremos mais vagas.
               </strong>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </main>
