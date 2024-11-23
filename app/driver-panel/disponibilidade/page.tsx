@@ -32,7 +32,14 @@ export default async function Disponibilidade() {
         </CardDescription>
       </CardHeader>
       <CardContent className="relative">
-        <SchedulingForm dates={dates} prevBookings={prevBookings} />
+        <SchedulingForm
+          dates={dates}
+          prevBookings={prevBookings.filter(
+            ({ station }) =>
+              station ==
+              (session?.user.choosed_station || session?.user.station)
+          )}
+        />
       </CardContent>
     </Card>
   );
