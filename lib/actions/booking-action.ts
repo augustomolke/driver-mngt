@@ -68,7 +68,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
           city: preferences.reduce((acc, curr) => curr.city + ", " + acc, ""),
           cep: preferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
           vehicle: session?.user.vehicle,
-          station: session?.user.station,
+          station: session?.user.choosed_station || session?.user.station,
           event_id: event.event_id,
           date: event.value,
           info: JSON.stringify(
