@@ -11,6 +11,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLocations } from "@/gsheets/locations";
 
+const formatHub = (hub) => {
+  if (!hub) return;
+
+  return hub.split("_")[2];
+};
+
 export default async function DriverPanel() {
   const session = await auth();
   const station = session?.user.station;
@@ -27,6 +33,11 @@ export default async function DriverPanel() {
       <CardHeader>
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
       </CardHeader>
+
+      <CardContent>
+        <strong>Hub atual:</strong>
+        {formatHub(session?.user.choosed_station || session?.user.station)}
+      </CardContent>
 
       <CardContent className="space-y-6">
         {hasIncentives && (
