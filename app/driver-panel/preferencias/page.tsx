@@ -8,7 +8,9 @@ export default async function Preferences() {
 
   const preferences = await getPreferences(session?.user.driverId.toString());
 
-  const locations = await getLocations(session?.user.station);
+  const locations = await getLocations(
+    session?.user.choosed_station || session?.user.station
+  );
 
   return (
     <PreferencesForm
