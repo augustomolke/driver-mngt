@@ -3,7 +3,9 @@ import { unstable_cache } from "next/cache";
 
 const secret = process.env.SECRET;
 
-const api_url = process.env.GSHEET_AUTH_API_URL;
+const api_url = process.env.GSHEET_PREFERENCES_URL;
+
+console.log(api_url);
 
 export default unstable_cache(
   async function (station) {
@@ -11,7 +13,7 @@ export default unstable_cache(
       method: "GETMAP",
       key: secret,
       sheet: "hubs",
-      filter: { "Station Name": station },
+      filter: { station_name: station },
     });
 
     const result = await fetch(api_url, {
