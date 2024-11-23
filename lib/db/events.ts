@@ -12,5 +12,5 @@ export const getEvent = unstable_cache(
     });
   },
   ["events"],
-  { revalidate: 1800 }
+  { revalidate: 10 }
 );
