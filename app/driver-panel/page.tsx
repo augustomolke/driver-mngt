@@ -34,17 +34,16 @@ export default async function DriverPanel() {
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <strong>Hub atual:</strong>
-        {formatHub(session?.user.choosed_station || session?.user.station)}
-      </CardContent>
-
       <CardContent className="space-y-6">
         {hasIncentives && (
           <IncentiveAlert callback="/driver-panel/preferencias" />
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-4 border-2 rounded-lg">
+          <div className="bg-primary text-white flex justify-center text-3xl py-2 rounded-t-lg">
+            <strong>Hub</strong>&nbsp;
+            {formatHub(session?.user.choosed_station || session?.user.station)}
+          </div>
           <Link
             href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
             target="_blank"
@@ -67,7 +66,7 @@ export default async function DriverPanel() {
             <div className="flex items-center space-x-2">
               <MapPin className="text-primary" />
               <p className="text-base">
-                Endereço de coleta: <strong>{mapInfo.address}</strong>
+                Endereço: <strong>{mapInfo.address}</strong>
               </p>
             </div>
           </Link>
