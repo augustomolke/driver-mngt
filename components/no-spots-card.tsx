@@ -9,6 +9,7 @@ import {
 import { ReviewPreferencesAlert } from "./review-preferences-alert";
 import { Separator } from "./ui/separator";
 import { Siren, TrafficCone } from "lucide-react";
+import SignOutButton from "./signout-button";
 
 export const NoSpotsCard = () => {
   return (
@@ -40,6 +41,10 @@ export const NoSpotsCard = () => {
                 abriremos mais vagas.
               </strong>
             </div> */}
+
+            <div className="flex justify-end">
+              <SignOutButton text="Sair" />
+            </div>
           </CardContent>
         </Card>
       </main>
