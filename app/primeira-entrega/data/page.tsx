@@ -19,6 +19,8 @@ import { redirect } from "next/navigation";
 import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
 import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
+import { getEvent } from "@/lib/db/events";
+import { getPreferences } from "@/lib/db/preferences";
 import { getFirstTripBooking } from "@/lib/db/bookings";
 
 export default async function Home() {
@@ -26,7 +28,7 @@ export default async function Home() {
 
   const bookings = await getFirstTripBooking(session.user.driverId.toString());
 
-  if (bookings.length > 0) {
+  if (bookings?.length > 0) {
     redirect("/primeira-entrega/congrats");
   }
 
@@ -34,14 +36,11 @@ export default async function Home() {
     session?.user.driverId.toString()
   );
 
-  if (
-    preloadedPreferences.neverFilled ||
-    !(preloadedPreferences.preferences.length > 0)
-  ) {
+  if (!(preloadedPreferences.length > 0)) {
     redirect("/primeira-entrega/preferencias");
   }
 
-  const eventObj = await getFirstTripBooking(session?.user.station);
+  const eventObj = await getEvent(session?.user.station, "FIRST_TRIP");
 
   const options = getCurrentWeekDates();
 
@@ -53,13 +52,15 @@ export default async function Home() {
 
   while (true) {
     try {
-      const obj = event.next().toDate().toLocaleDateString("pt-br", {
+      const evDate = event.next().toDate();
+      const evString = evDate.toLocaleDateString("pt-br", {
         day: "numeric",
         month: "long",
         weekday: "long",
         hour: "2-digit",
         minute: "2-digit",
       });
+      const obj = { evDate, evString };
       eventsArray.push(obj);
     } catch (e) {
       break;
@@ -87,6 +88,7 @@ export default async function Home() {
           preloadedPreferences={preloadedPreferences}
           dates={eventsArray}
           checks={checks}
+          event={eventObj}
         />
       </main>
     </div>

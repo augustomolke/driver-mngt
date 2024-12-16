@@ -7,7 +7,6 @@ import { getPreferences } from "@/lib/db/preferences";
 export default async function Preferences() {
   const session = await auth();
 
-
   const preloadedPreferences = await getPreferences(
     session?.user.driverId.toString()
   );
@@ -18,7 +17,7 @@ export default async function Preferences() {
     <PreferencesForm
       priorityAlert
       user={session?.user}
-      redirectTo={"/primeira-entrega/confirmation"}
+      redirectTo={"/primeira-entrega/data"}
       backButton
       preloadedPreferences={preloadedPreferences}
       regions={locations.map((location) => ({

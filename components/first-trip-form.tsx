@@ -58,13 +58,13 @@ import { Label } from "./ui/label";
 
 export default function FirstTripForm({
   dates,
-  eventId,
   checks,
+  event,
   preloadedPreferences,
 }) {
   const router = useRouter();
 
-  const preferences = usePreloadedQuery(preloadedPreferences);
+  const preferences = preloadedPreferences;
 
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
@@ -76,7 +76,9 @@ export default function FirstTripForm({
   const onSubmit = async () => {
     try {
       setLoading(true);
-      await createBookingAction(value, eventId);
+      const selectedDate = dates.find((d) => d.evString == value);
+
+      await createBookingAction(selectedDate.evDate, event.id);
     } catch (e) {
       toast({
         icon: <CircleX height={48} width={48} />,
@@ -87,12 +89,12 @@ export default function FirstTripForm({
     }
   };
 
-  if (
-    dates.length == 0 ||
-    preferences[0].preferences.filter((p) => !!p.priority).length == 0
-  ) {
-    return <NoSpotsCard />;
-  }
+  // if (
+  //   dates.length == 0 ||
+  //   preferences.filter((p) => !!p.priority).length == 0
+  // ) {
+  //   return <NoSpotsCard />;
+  // }
 
   if (dates.length == 1) {
     return (
@@ -105,7 +107,7 @@ export default function FirstTripForm({
         </CardHeader>
         <CardContent>
           A próxima data disponível será
-          <strong>{dates[0]}</strong>
+          <strong>{dates[0].evString}</strong>
         </CardContent>
       </Card>
     );
@@ -144,7 +146,7 @@ export default function FirstTripForm({
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Datas disponíveis</SelectLabel>
-                            {dates.map((date) => (
+                            {dates.map(({ evString: date }) => (
                               <SelectItem value={date}>{date}</SelectItem>
                             ))}
                           </SelectGroup>
