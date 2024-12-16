@@ -56,7 +56,6 @@ model Event {
 model Preferences {
   id      Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   driver_id   String
   driver_name    String
   phone String

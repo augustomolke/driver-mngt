@@ -17,9 +17,7 @@ export async function savePreferences(preferences: Preferences) {
         where: { driver_id: preferences[0].driver_id },
       }),
       prisma.preferences.createMany({
-        data: preferences.map((p) => {
-          return { ...p, updatedAt: new Date() };
-        }),
+        data: preferences,
       }),
     ]);
 
