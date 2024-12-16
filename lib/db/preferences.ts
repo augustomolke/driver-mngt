@@ -11,6 +11,7 @@ export const getPreferences = async (
 };
 
 export async function savePreferences(preferences: Preferences) {
+  console.log(preferences);
   try {
     await prisma.$transaction([
       prisma.preferences.deleteMany({
