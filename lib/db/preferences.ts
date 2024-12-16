@@ -11,13 +11,16 @@ export const getPreferences = async (
 };
 
 export async function savePreferences(preferences: Preferences) {
-  console.log(preferences);
   try {
     await prisma.$transaction([
       prisma.preferences.deleteMany({
         where: { driver_id: preferences[0].driver_id },
       }),
-      prisma.preferences.createMany({ data: preferences }),
+      prisma.preferences.createMany({
+        data: preferences.map((p) => {
+          return { ...p, updatedAt: new Date() };
+        }),
+      }),
     ]);
 
     revalidatePath("/primeira-entrega/preferencias");
