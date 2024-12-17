@@ -9,7 +9,7 @@ import {
 import { Button } from "./ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Clock, CircleHelp } from "lucide-react";
 import CancelBookingButton from "@/components/cancel-booking-button";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -91,6 +91,12 @@ export default async function () {
     redirect("/");
   }
 
+  const info = JSON.parse(booking.info);
+
+  const instructions = info[3];
+
+  const time = info[2];
+
   // return (
   //   <>
   //     {sevenDays(booking.date).date < new Date() ? (
@@ -160,17 +166,36 @@ export default async function () {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center justify-between mb-2">
+        {instructions ? (
+          <>
+            <div className="flex items-center justify-start mb-2 gap-8">
+              <CircleHelp />
+              <p className="text-base max-w-[10rem]">
+                <strong>Instruções:</strong> <br />
+                {instructions}
+              </p>
+            </div>
+            <Separator className="my-2" />
+          </>
+        ) : null}
+
+        <div className="flex items-center justify-start mb-2 gap-8">
           <Calendar />
-          <p className="text-base max-w-[12.5rem]">
-            <strong>Data e horário:</strong> <br />
+          <p className="text-base max-w-[10rem]">
+            <strong>Data:</strong> <br />
             {booking.date.toLocaleDateString("pt-br", {
               day: "numeric",
               month: "long",
               weekday: "long",
-              hour: "2-digit",
-              minute: "2-digit",
             })}
+          </p>
+        </div>
+        <Separator className="my-2" />
+        <div className="flex items-center justify-start mb-2 gap-8">
+          <Clock />
+          <p className="text-base max-w-[10rem]">
+            <strong>Horário:</strong> <br />
+            {`De ${time}`}
           </p>
         </div>
 
@@ -180,16 +205,14 @@ export default async function () {
           href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
           target="_blank"
         >
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-start mb-2 gap-8">
             <MapPin />
-            <p className="text-base max-w-[12.5rem]">
+            <p className="text-base max-w-[10rem]">
               <strong>Endereço:</strong> <br />
               {mapInfo.address}
             </p>
           </div>
         </a>
-        <Separator className="my-2" />
-
         <div className="flex flex-col justify-center items-center">
           <a
             href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}

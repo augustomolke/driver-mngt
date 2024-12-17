@@ -5,8 +5,6 @@ const secret = process.env.SECRET;
 
 const api_url = process.env.GSHEET_PREFERENCES_URL;
 
-console.log(api_url);
-
 export default unstable_cache(
   async function (station) {
     const body = JSON.stringify({

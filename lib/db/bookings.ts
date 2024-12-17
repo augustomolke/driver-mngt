@@ -20,6 +20,25 @@ export const getFirstTripBooking = unstable_cache(
   }
 );
 
+export const getSpots = unstable_cache(
+  async (station) => {
+    const booking = await prisma.bookings.findMany({
+      where: {
+        station,
+        event: { event_type: "FIRST_TRIP" },
+        date: { gte: new Date() },
+      },
+    });
+
+    return booking;
+  },
+  ["spots"],
+  {
+    revalidate: 10,
+    tags: ["spots"],
+  }
+);
+
 export const getAvailability = unstable_cache(
   async (driver_id: string) => {
     return await prisma.bookings.findMany({

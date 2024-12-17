@@ -21,7 +21,23 @@ import { Separator } from "@/components/ui/separator";
 import { NoSpotsCard } from "@/components/no-spots-card";
 import { getEvent } from "@/lib/db/events";
 import { getPreferences } from "@/lib/db/preferences";
-import { getFirstTripBooking } from "@/lib/db/bookings";
+import { getFirstTripBooking, getSpots } from "@/lib/db/bookings";
+import { getLocations } from "@/gsheets/locations";
+
+function groupByDate(items) {
+  return items.reduce((acc, item) => {
+    const { date } = item;
+    if (date) {
+      const formattedDate = date.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      acc[formattedDate] = (acc[formattedDate] || 0) + 1;
+    }
+    return acc;
+  }, {});
+}
 
 export default async function Home() {
   const session = await auth();
@@ -40,7 +56,26 @@ export default async function Home() {
     redirect("/primeira-entrega/preferencias");
   }
 
+  const locations = await getLocations(session?.user.station);
+
+  const ceps = preloadedPreferences.map((p) => p.cep);
+  const priority = locations.filter(
+    (l) => ceps.includes(l.cep5) && l.priority == "true"
+  );
+
+  if (!priority.length > 0) {
+    redirect("/primeira-entrega/waitlist");
+  }
+
+  const bookingsPerHub = await getSpots(session.user.station);
+
+  const availableSpots = groupByDate(bookingsPerHub);
+
   const eventObj = await getEvent(session?.user.station, "FIRST_TRIP");
+
+  if (!eventObj) {
+    redirect("/primeira-entrega/waitlist");
+  }
 
   const options = getCurrentWeekDates();
 
@@ -57,14 +92,28 @@ export default async function Home() {
         day: "numeric",
         month: "long",
         weekday: "long",
-        hour: "2-digit",
-        minute: "2-digit",
+        // hour: "2-digit",
+        // minute: "2-digit",
       });
-      const obj = { evDate, evString };
-      eventsArray.push(obj);
+
+      const key = evDate.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+
+      if (!availableSpots[key] || availableSpots[key] < 10) {
+        const obj = { evDate, evString };
+
+        eventsArray.push(obj);
+      }
     } catch (e) {
       break;
     }
+  }
+
+  if (!eventsArray.length > 0) {
+    redirect("/primeira-entrega/waitlist");
   }
 
   const checks =

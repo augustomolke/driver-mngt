@@ -123,7 +123,14 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   // redirect("/driver-panel");
 };
 
-export const createBookingAction = async (date, event_id) => {
+export const createBookingAction = async (
+  date,
+  event_id,
+  shift,
+  exp,
+  description,
+  instructions
+) => {
   const session = await auth();
 
   if (!session?.user) {
@@ -152,6 +159,7 @@ export const createBookingAction = async (date, event_id) => {
     ),
     cep: preloadedPreferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
     event_id,
+    info: JSON.stringify([shift, exp, description, instructions]),
   };
 
   try {
