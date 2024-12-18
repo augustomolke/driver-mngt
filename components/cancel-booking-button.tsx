@@ -17,9 +17,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import FeedbackForm from "./feedback-form";
+import { Textarea } from "@/components/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { saveFeedback } from "@/gsheets/feedback-gsheets";
 
-export default ({ driverId, bookingId, pastDate }) => {
+export default ({ driverId, station, phone, bookingId, pastDate }) => {
   const [loading, setLoading] = React.useState(false);
+  const [interest, setInterest] = React.useState("");
+  const [comment, setComment] = React.useState("");
+  const [open, setOpen] = React.useState(false);
   const { toast } = useToast();
 
   return (
@@ -42,40 +48,114 @@ export default ({ driverId, bookingId, pastDate }) => {
           </DialogContent>
         </Dialog>
       ) : (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger>
-            <Button>Desistir do agendamento</Button>
+            <Button>Está com algum problema?</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Você tem certeza?</DialogTitle>
+              <DialogTitle>Como podemos ajudar?</DialogTitle>
+
               <DialogDescription>
-                Caso queira,{" "}
-                <strong>
-                  você poderá agendar novamente se houverem vagas.
-                </strong>
-                <DialogFooter>
-                  <Button
-                    disabled={loading}
-                    onClick={async () => {
-                      setLoading(true);
-                      try {
-                        await deleteBookingAction(bookingId);
-                      } catch (e) {
-                        toast({
-                          icon: <CircleX height={48} width={48} />,
-                          title: "Ops!",
-                          description: "Algo deu errado.",
-                        });
-                      }
-                    }}
+                <p className="my-4">
+                  Você ainda tem interesse em ser um entregador parceiro Shopee?
+                </p>
+
+                <ToggleGroup
+                  className="mb-4"
+                  type="single"
+                  value={interest}
+                  onValueChange={(v) => setInterest(v)}
+                >
+                  <ToggleGroupItem
+                    value="yes"
+                    aria-label="Toggle bold"
+                    className="border-2"
                   >
-                    {loading ? (
-                      <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-                    ) : (
-                      "Confirmar"
-                    )}
-                  </Button>
+                    Sim
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    value="no"
+                    aria-label="Toggle italic"
+                    className="border-2"
+                  >
+                    Não
+                  </ToggleGroupItem>
+                </ToggleGroup>
+                <DialogFooter>
+                  {!!interest ? (
+                    <div className="flex flex-col gap-8">
+                      <Textarea
+                        value={comment}
+                        onChange={({ target }) => setComment(target.value)}
+                        placeholder="Escreva aqui suas sugestões, reclamações ou problemas que teve até agora."
+                      />
+
+                      {interest == "no" ? (
+                        <Button
+                          disabled={loading}
+                          onClick={async () => {
+                            setLoading(true);
+                            try {
+                              await saveFeedback({
+                                driver_id: driverId,
+                                station,
+                                phone,
+                                interest,
+                                comment,
+                              });
+                              await deleteBookingAction(bookingId);
+                            } catch (e) {
+                              toast({
+                                icon: <CircleX height={48} width={48} />,
+                                title: "Ops!",
+                                description: "Algo deu errado.",
+                              });
+                            }
+                          }}
+                        >
+                          {loading ? (
+                            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+                          ) : (
+                            "Confirmar Cancelamento"
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          disabled={loading}
+                          onClick={async () => {
+                            setLoading(true);
+                            try {
+                              await saveFeedback({
+                                driver_id: driverId,
+                                station,
+                                phone,
+                                interest,
+                                comment,
+                              });
+
+                              setLoading(false);
+                              setOpen(false);
+                            } catch (e) {
+                              setLoading(false);
+
+                              toast({
+                                icon: <CircleX height={48} width={48} />,
+                                title: "Ops!",
+                                description: "Algo deu errado.",
+                              });
+                            }
+                          }}
+                        >
+                          {loading ? (
+                            <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+                          ) : (
+                            "Enviar"
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  ) : null}
                 </DialogFooter>
               </DialogDescription>
             </DialogHeader>

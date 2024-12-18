@@ -97,64 +97,6 @@ export default async function () {
 
   const time = info[2];
 
-  // return (
-  //   <>
-  //     {sevenDays(booking.date).date < new Date() ? (
-  //       <Card>
-  //         <CardHeader>
-  //           <CardTitle className="flex justify-between items-center gap-4">
-  //             <CircleCheckBig
-  //               color="hsl(var(--green))"
-  //               height={64}
-  //               width={96}
-  //             />
-  //             Conte-nos sobre sua experiência!
-  //           </CardTitle>
-  //         </CardHeader>
-  //         <CardContent>
-  //           <p className="text-base mb-4">
-  //             Gostaríamos de saber como foi sua primeira entrega com a Shopee.
-  //           </p>
-  //           <FeedbackForm />
-  //         </CardContent>
-  //       </Card>
-  //     ) : (
-  //       <Card>
-  //         <CardHeader>
-  //           <CardTitle className="flex justify-between items-center gap-4">
-  //             <CircleCheckBig
-  //               color="hsl(var(--green))"
-  //               height={64}
-  //               width={96}
-  //             />
-  //             Você confirmou seu interesse!
-  //           </CardTitle>
-  //         </CardHeader>
-  //         <CardContent>
-  //           <div className="flex items-center justify-between mb-2">
-  //             <Calendar />
-  //             <p className="text-base max-w-[15rem]">
-  //               Entraremos em contato até: <br />
-  //               <strong>{sevenDays(booking.date).formatted}</strong>
-  //             </p>
-  //           </div>
-
-  //           <Separator className="my-2" />
-
-  //           <Image src={pckg} alt="Package" />
-  //         </CardContent>
-  //         <CardFooter className="flex flex-col">
-  //           <CancelBookingButton
-  //             driverId={session?.user.driverId}
-  //             bookingId={booking.id}
-  //             pastDate={false}
-  //           />
-  //         </CardFooter>
-  //       </Card>
-  //     )}
-  //   </>
-  // );
-
   const mapInfo = await getMap(session?.user.station);
 
   return (
@@ -165,13 +107,27 @@ export default async function () {
           Agendamento realizado com sucesso!
         </CardTitle>
       </CardHeader>
+
       <CardContent>
+        <CardDescription className="mb-4">
+          Compareça no endereço na data agendada, e dentro da janela de horário
+          escolhida.
+        </CardDescription>
+
+        <CardDescription className="mb-4">
+          Não se esqueça de concluir o treinamento disponível no App do
+          Motorista, e garantir que possui os equipamentos necessários.{" "}
+          <strong>
+            Sem isso, não será permitida a entrada nos estabelecimentos
+          </strong>
+        </CardDescription>
+
         {instructions ? (
           <>
             <div className="flex items-center justify-start mb-2 gap-8">
               <CircleHelp />
               <p className="text-base max-w-[10rem]">
-                <strong>Instruções:</strong> <br />
+                <strong>Instruções do Hub:</strong> <br />
                 {instructions}
               </p>
             </div>
@@ -235,6 +191,8 @@ export default async function () {
         <CancelBookingButton
           driverId={session?.user.driverId}
           bookingId={booking.id}
+          station={session?.user.station}
+          phone={session?.user.phone}
           pastDate={booking.date < new Date()}
         />
       </CardFooter>
