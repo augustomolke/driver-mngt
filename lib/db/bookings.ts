@@ -5,20 +5,13 @@ import { bookings } from "@/prisma/seed/data";
 const EVENTS_API_URL = process.env.EVENTS_API || "";
 const SECRET = process.env.SECRET || "";
 
-export const getFirstTripBooking = unstable_cache(
-  async (driver_id) => {
-    const booking = await prisma.bookings.findFirst({
-      where: { driver_id, event: { event_type: "FIRST_TRIP" } },
-    });
+export const getFirstTripBooking = async (driver_id) => {
+  const booking = await prisma.bookings.findFirst({
+    where: { driver_id, event: { event_type: "FIRST_TRIP" } },
+  });
 
-    return booking;
-  },
-  ["first-trip-booking"],
-  {
-    revalidate: 0,
-    tags: ["first-trip-booking"],
-  }
-);
+  return booking;
+};
 
 export const getSpots = unstable_cache(
   async (station) => {
