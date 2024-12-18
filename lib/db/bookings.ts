@@ -15,7 +15,7 @@ export const getFirstTripBooking = unstable_cache(
   },
   ["first-trip-booking"],
   {
-    revalidate: 10,
+    revalidate: 0,
     tags: ["first-trip-booking"],
   }
 );
