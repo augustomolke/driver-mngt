@@ -194,7 +194,7 @@ export default function FirstTripForm({
                   return (
                     <FormItem>
                       <CardDescription>
-                        Você pode deve{" "}
+                        Você deve{" "}
                         <strong>escolher uma janela de expedição</strong> que se
                         encaixe melhor na sua agenda:
                       </CardDescription>
