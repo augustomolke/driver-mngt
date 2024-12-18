@@ -91,13 +91,16 @@ export default async function () {
     redirect("/");
   }
 
-  console.log(booking);
-
   const info = JSON.parse(booking.info);
 
-  const instructions = info[3];
+  let instructions;
+  let time;
 
-  const time = info[2];
+  if (info) {
+    instructions = info[3];
+
+    time = info[2];
+  }
 
   const mapInfo = await getMap(session?.user.station);
 
@@ -149,13 +152,15 @@ export default async function () {
           </p>
         </div>
         <Separator className="my-2" />
-        <div className="flex items-center justify-start mb-2 gap-8">
-          <Clock />
-          <p className="text-base max-w-[10rem]">
-            <strong>Horário:</strong> <br />
-            {`De ${time}`}
-          </p>
-        </div>
+        {time ? (
+          <div className="flex items-center justify-start mb-2 gap-8">
+            <Clock />
+            <p className="text-base max-w-[10rem]">
+              <strong>Horário:</strong> <br />
+              {`De ${time}`}
+            </p>
+          </div>
+        ) : null}
 
         <Separator className="my-2" />
 
