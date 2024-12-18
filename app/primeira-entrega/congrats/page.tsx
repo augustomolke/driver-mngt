@@ -141,7 +141,7 @@ export default async function () {
           <Calendar />
           <p className="text-base max-w-[10rem]">
             <strong>Data:</strong> <br />
-            {booking.date.toLocaleDateString("pt-br", {
+            {new Date(booking?.date).toLocaleDateString("pt-br", {
               day: "numeric",
               month: "long",
               weekday: "long",
