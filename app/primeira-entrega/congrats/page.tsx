@@ -91,6 +91,8 @@ export default async function () {
     redirect("/");
   }
 
+  console.log(booking);
+
   const info = JSON.parse(booking.info);
 
   const instructions = info[3];
