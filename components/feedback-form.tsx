@@ -28,10 +28,16 @@ import { DialogFooter } from "./ui/dialog";
 import { Separator } from "./ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
-const reasons = [
-  "Ninguém entrou em contato comigo",
-  "Não me ofereceram uma rota adequada",
+const reasonsShowUp = [
+  "Não me ofereceram uma rota",
+  "A rota era muito longa",
+  "O valor é muito baixo",
+  "Eu fui com outro veículo",
   "Eu não tinha os equipamentos de segurança necessários",
+];
+
+const reasonsDidntShowUp = [
+  "Esqueci do agendamento",
   "Tive problemas pessoais",
   "Tive problemas com a plataforma de agendamento",
   "Outro",
@@ -54,6 +60,7 @@ export default function FeedbackForm() {
   const first_trip = watch("first_trip");
   const reason = watch("reason");
   const nps = watch("nps");
+  const showUp = watch("show-up");
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -113,38 +120,77 @@ export default function FeedbackForm() {
             </FormItem>
           )}
         />
+        {first_trip === "no" ? (
+          <FormField
+            control={control}
+            name="show-up"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <strong>
+                    Você compareceu ao Hub na data e horario marcado?
+                  </strong>
+                </FormLabel>
+                <FormControl>
+                  <ToggleGroup
+                    onValueChange={field.onChange}
+                    type="single"
+                    value={field.value}
+                  >
+                    <ToggleGroupItem
+                      className="text-xl font-bold border-2"
+                      value="yes"
+                    >
+                      Sim
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      className="text-xl font-bold border-2"
+                      value="no"
+                    >
+                      Não
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        ) : null}
 
-        {first_trip === "yes" || first_trip === "no" ? (
+        {first_trip === "yes" || showUp === "no" || showUp === "yes" ? (
           <>
             <Separator className="my-4" />
             {first_trip === "no" && (
               <FormField
                 control={control}
                 name="reason"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <strong>Conta pra gente o que aconteceu:</strong>
-                    </FormLabel>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione um motivo" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup>
-                          {reasons.map((r) => (
-                            <SelectItem key={r} value={r}>
-                              {r}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const reasons =
+                    showUp === "yes" ? reasonsShowUp : reasonsDidntShowUp;
+                  return (
+                    <FormItem>
+                      <FormLabel>
+                        <strong>Conta pra gente o que aconteceu:</strong>
+                      </FormLabel>
+                      <Select onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione um motivo" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectGroup>
+                            {reasons.map((r) => (
+                              <SelectItem key={r} value={r}>
+                                {r}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
             )}
             <FormField

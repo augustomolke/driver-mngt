@@ -104,6 +104,28 @@ export default async function () {
 
   const mapInfo = await getMap(session?.user.station);
 
+  if (booking.date > new Date()) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex justify-between items-center gap-4">
+            <CircleCheckBig color="hsl(var(--green))" height={64} width={96} />
+            Conta pra gente como foi seu primeiro dia!
+          </CardTitle>
+        </CardHeader>
+
+        <CardContent>
+          <CardDescription className="mb-4">
+            Queremos que sua primeira experiência como Motorista parceiro Shopee
+            seja especial! Conta pra gente como foi.
+          </CardDescription>
+
+          <FeedbackForm />
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
