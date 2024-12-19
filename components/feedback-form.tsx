@@ -64,6 +64,8 @@ export default function FeedbackForm() {
 
   const onSubmit = async (data) => {
     setLoading(true);
+
+    delete data["show-up"];
     try {
       await createFeedbackAction({
         ...data,
