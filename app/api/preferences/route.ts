@@ -5,8 +5,6 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   const data = await prisma.preferences.findMany();
 
-  console.log(data[1]);
-
   return Response.json({ data });
 }
 
