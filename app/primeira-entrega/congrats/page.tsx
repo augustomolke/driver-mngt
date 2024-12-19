@@ -91,20 +91,7 @@ export default async function () {
     redirect("/");
   }
 
-  const info = JSON.parse(booking.info);
-
-  let instructions;
-  let time;
-
-  if (info) {
-    instructions = info[3];
-
-    time = info[2];
-  }
-
-  const mapInfo = await getMap(session?.user.station);
-
-  if (booking.date > new Date()) {
+  if (booking.date < new Date()) {
     return (
       <Card>
         <CardHeader>
@@ -125,6 +112,19 @@ export default async function () {
       </Card>
     );
   }
+
+  const info = JSON.parse(booking.info);
+
+  let instructions = "Compareça na data e horário agendado";
+  let time = "Horário pardão";
+
+  if (info) {
+    instructions = info[3];
+
+    time = info[2];
+  }
+
+  const mapInfo = await getMap(session?.user.station);
 
   return (
     <Card>
