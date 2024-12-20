@@ -159,7 +159,13 @@ export default function FirstTripForm({
                 return (
                   <FormItem>
                     <FormControl>
-                      <Select value={value} onValueChange={(a) => setValue(a)}>
+                      <Select
+                        value={value}
+                        onValueChange={(a) => {
+                          console.log(a);
+                          setValue(a);
+                        }}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Escolha uma data" />
                         </SelectTrigger>
@@ -205,11 +211,24 @@ export default function FirstTripForm({
                             <SelectGroup>
                               <SelectLabel>Janelas disponíveis</SelectLabel>
 
-                              {shifts.map(({ name, description }) => (
-                                <SelectItem value={name}>
-                                  {name} - {description}
-                                </SelectItem>
-                              ))}
+                              {shifts
+                                .filter(
+                                  (s) =>
+                                    ([
+                                      "terça-feira, 24 de dezembro",
+                                      "terça-feira, 31 de dezembro",
+                                    ].includes(value) &&
+                                      s.name != "PM") ||
+                                    ![
+                                      "terça-feira, 24 de dezembro",
+                                      "terça-feira, 31 de dezembro",
+                                    ].includes(value)
+                                )
+                                .map(({ name, description }) => (
+                                  <SelectItem value={name}>
+                                    {name} - {description}
+                                  </SelectItem>
+                                ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
