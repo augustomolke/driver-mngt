@@ -58,17 +58,12 @@ import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
 
-const shifts = [
-  { name: "AM", description: "5AM às 9AM" },
-  { name: "PM", description: "11AM às 13AM" },
-  { name: "SD", description: "17PM às 20PM" },
-];
-
 export default function FirstTripForm({
   dates,
   checks,
   event,
   preloadedPreferences,
+  shifts,
 }) {
   const router = useRouter();
 

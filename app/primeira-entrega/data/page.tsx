@@ -24,6 +24,20 @@ import { getPreferences } from "@/lib/db/preferences";
 import { getFirstTripBooking, getSpots } from "@/lib/db/bookings";
 import { getLocations } from "@/gsheets/locations";
 
+const holidays = [
+  { month: 12, day: 25 },
+  { month: 1, day: 1 },
+];
+
+const checkHolidays = (date: Date) => {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const found = holidays.find((h) => h.month == month && h.day == day);
+
+  return !!found;
+};
+
 function groupByDate(items) {
   return items.reduce((acc, item) => {
     const { date } = item;
@@ -88,24 +102,27 @@ export default async function Home() {
   while (true) {
     try {
       const evDate = event.next().toDate();
-      const evString = evDate.toLocaleDateString("pt-br", {
-        day: "numeric",
-        month: "long",
-        weekday: "long",
-        // hour: "2-digit",
-        // minute: "2-digit",
-      });
 
-      const key = evDate.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
+      if (!checkHolidays(evDate)) {
+        const evString = evDate.toLocaleDateString("pt-br", {
+          day: "numeric",
+          month: "long",
+          weekday: "long",
+          // hour: "2-digit",
+          // minute: "2-digit",
+        });
 
-      if (!availableSpots[key] || availableSpots[key] < 10) {
-        const obj = { evDate, evString };
+        const key = evDate.toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
 
-        eventsArray.push(obj);
+        if (!availableSpots[key] || availableSpots[key] < 10) {
+          const obj = { evDate, evString };
+
+          eventsArray.push(obj);
+        }
       }
     } catch (e) {
       break;
@@ -115,6 +132,8 @@ export default async function Home() {
   if (!eventsArray.length > 0) {
     redirect("/primeira-entrega/waitlist");
   }
+
+  const shifts = eventObj.options ? JSON.parse(eventObj.options).shifts : [];
 
   const checks =
     session?.user.vehicle === "MOTO"
@@ -138,6 +157,7 @@ export default async function Home() {
           dates={eventsArray}
           checks={checks}
           event={eventObj}
+          shifts={shifts}
         />
       </main>
     </div>
