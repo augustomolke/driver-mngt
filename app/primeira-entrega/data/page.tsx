@@ -42,7 +42,7 @@ function groupByDate(items) {
   return items.reduce((acc, item) => {
     const { date } = item;
     if (date) {
-      const formattedDate = date.toLocaleDateString("pt-BR", {
+      const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
