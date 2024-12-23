@@ -106,7 +106,7 @@ export default async function Home() {
       const evDate = event.next().toDate();
 
       if (!checkHolidays(evDate)) {
-        const evString = evDate.toLocaleDateString("pt-br", {
+        const evString = evDate?.toLocaleDateString("pt-br", {
           day: "numeric",
           month: "long",
           weekday: "long",
@@ -114,7 +114,7 @@ export default async function Home() {
           // minute: "2-digit",
         });
 
-        const key = evDate.toLocaleDateString("pt-BR", {
+        const key = evDate?.toLocaleDateString("pt-BR", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
