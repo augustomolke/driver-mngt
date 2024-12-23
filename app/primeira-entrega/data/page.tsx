@@ -87,6 +87,8 @@ export default async function Home() {
 
   const eventObj = await getEvent(session?.user.station, "FIRST_TRIP");
 
+  console.log("AAAAAA", eventObj);
+
   if (!eventObj) {
     redirect("/primeira-entrega/waitlist");
   }
