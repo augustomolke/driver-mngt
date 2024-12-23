@@ -83,6 +83,8 @@ export default async function Home() {
 
   const bookingsPerHub = await getSpots(session.user.station);
 
+  console.log("BBBBBBB", bookingsPerHub);
+
   const availableSpots = groupByDate(bookingsPerHub);
 
   const eventObj = await getEvent(session?.user.station, "FIRST_TRIP");
