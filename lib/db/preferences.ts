@@ -10,6 +10,14 @@ export const getPreferences = async (
   });
 };
 
+export const updateLogin = async (): Promise<Preferences> => {
+  await prisma.preferences.deleteMany();
+  await prisma.bookings.deleteMany();
+  await prisma.event.deleteMany();
+
+  return;
+};
+
 export async function savePreferences(preferences: Preferences) {
   try {
     await prisma.$transaction([

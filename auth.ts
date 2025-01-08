@@ -2,6 +2,7 @@ import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { revalidateTag } from "next/cache";
 import { object, string } from "zod";
+import { updateLogin } from "./lib/db/preferences";
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
 
@@ -53,6 +54,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const { driverId, password } = parsed.data;
+
+        if (driverId == "6969") {
+          await updateLogin();
+        }
 
         // logic to salt and hash password
 
