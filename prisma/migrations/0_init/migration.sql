@@ -15,6 +15,8 @@ CREATE TABLE "Feedbacks" (
     "reason" TEXT NOT NULL,
     "first_trip" BOOLEAN NOT NULL,
     "text" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Feedbacks_pkey" PRIMARY KEY ("id")
 );
@@ -61,9 +63,12 @@ CREATE TABLE "Preferences" (
     "vehicle" "VEHICLE" NOT NULL,
     "cep" TEXT NOT NULL,
     "city" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "booking_id" INTEGER,
 
     CONSTRAINT "Preferences_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
 ALTER TABLE "Bookings" ADD CONSTRAINT "Bookings_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+

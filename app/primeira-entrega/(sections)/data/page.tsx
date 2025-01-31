@@ -1,6 +1,6 @@
 import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
-import { getCurrentWeekDates } from "../utils";
+import { getCurrentWeekDates } from "../../utils";
 import parser from "cron-parser";
 import FirstTripForm from "@/components/first-trip-form";
 import { Image } from "next/image";
@@ -83,13 +83,9 @@ export default async function Home() {
 
   const bookingsPerHub = await getSpots(session.user.station);
 
-  console.log("BBBBBBB", bookingsPerHub);
-
   const availableSpots = groupByDate(bookingsPerHub);
 
   const eventObj = await getEvent(session?.user.station, "FIRST_TRIP");
-
-  console.log("AAAAAA", eventObj);
 
   if (!eventObj) {
     redirect("/primeira-entrega/waitlist");

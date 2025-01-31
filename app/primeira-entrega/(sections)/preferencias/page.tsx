@@ -3,9 +3,15 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getLocations } from "@/gsheets/locations";
 import { getPreferences } from "@/lib/db/preferences";
+import { getClusters } from "@/lib/db/clusters";
 
 export default async function Preferences() {
   const session = await auth();
+
+  // const clusters = await getClusters(session?.user.station);
+  // if (clusters.length > 0) {
+  //   redirect("/primeira-entrega/clusters");
+  // }
 
   const preloadedPreferences = await getPreferences(
     session?.user.driverId.toString()

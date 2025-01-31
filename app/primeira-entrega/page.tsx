@@ -29,7 +29,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
+    <div className="flex justify-center min-h-screen p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex justify-center items-center">

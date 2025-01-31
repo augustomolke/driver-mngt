@@ -19,6 +19,53 @@ interface Location {
   incentive?: string;
 }
 
+interface HubInfo {
+  station_code: string;
+  station_name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
+export const getHubInfo = unstable_cache(
+  createServerAction(async (station_name: string): Promise<HubInfo[]> => {
+    const body = JSON.stringify({
+      method: "GET",
+      sheet: "hubs",
+      key: secret,
+      filter: { station_name: station_name},
+    });
+
+    const result = await fetch(url, {
+      method: "POST",
+      body,
+    });
+
+    const hubInfo = await result.json();
+
+    const { status, data } = hubInfo;
+
+    if (status == 404) {
+      redirect("/error?message=NoLocations");
+    }
+
+    if (status != 200) {
+      throw new ServerActionError("Erro");
+    }
+
+    if (!data) {
+      throw new ServerActionError("Erro");
+    }
+
+    return data;
+  }),
+  ["hubInfo"],
+  {
+    revalidate: 10,
+    tags: ["hubInfo"],
+  }
+);
+
 export const getLocations = unstable_cache(
   createServerAction(async (station_name: string): Promise<Locations[]> => {
     const body = JSON.stringify({
