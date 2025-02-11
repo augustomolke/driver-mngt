@@ -162,7 +162,6 @@ export default function FirstTripForm({
                       <Select
                         value={value}
                         onValueChange={(a) => {
-                          console.log(a);
                           setValue(a);
                         }}
                       >

@@ -38,7 +38,11 @@ export const SelectionDrawer = ({ serverSession }) => {
         description: "Sua preferência foi salva!",
       });
 
-      router.push("/primeira-entrega/data");
+      router.push(
+        serverSession.user.trips > 0
+          ? "/driver-panel"
+          : "/primeira-entrega/data"
+      );
     } catch (err) {
       console.log("Erro", err);
       setLoading(false);
@@ -58,7 +62,7 @@ export const SelectionDrawer = ({ serverSession }) => {
       }}
     >
       <DrawerTrigger asChild>
-        <Button className="fixed bottom-4 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
+        <Button className="fixed bottom-20 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
           <CircleCheckBig className="w-12 h-12" />
         </Button>
       </DrawerTrigger>

@@ -124,7 +124,7 @@ export default async function () {
     time = info[2];
   }
 
-  const mapInfo = await getMap(session?.user.station);
+  const map = await getMap(session?.user.station);
 
   return (
     <Card>

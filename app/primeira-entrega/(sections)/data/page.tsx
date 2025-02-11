@@ -1,24 +1,9 @@
-import { SignIn } from "@/components/ui/sign-in";
 import { auth } from "@/auth";
 import { getCurrentWeekDates } from "../../utils";
 import parser from "cron-parser";
 import FirstTripForm from "@/components/first-trip-form";
-import { Image } from "next/image";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CalendarClock, TrafficCone, Siren } from "lucide-react";
 
 import { redirect } from "next/navigation";
-import { ReviewPreferencesAlert } from "@/components/review-preferences-alert";
-import { Separator } from "@/components/ui/separator";
-import { NoSpotsCard } from "@/components/no-spots-card";
 import { getEvent } from "@/lib/db/events";
 import { getPreferences } from "@/lib/db/preferences";
 import { getFirstTripBooking, getSpots } from "@/lib/db/bookings";

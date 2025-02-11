@@ -9,6 +9,7 @@ export default function MyPage({
   clusters,
   center,
   defaultClusters,
+  style,
 }) {
   const Map = useMemo(
     () =>
@@ -23,12 +24,13 @@ export default function MyPage({
     <>
       {serverSession && <SelectionDrawer serverSession={serverSession} />}
       <Map
-        zoom={12}
+        zoom={9}
         serverSession={serverSession}
         closed={closed}
         clusters={clusters}
         center={center}
         defaultClusters={defaultClusters}
+        style={style}
       />
     </>
   );

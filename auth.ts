@@ -19,6 +19,9 @@ const signInSchema = object({
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: { signIn: "/login" },
   trustHost: true,
+  session: {
+    maxAge: 60 * 30,
+  },
   callbacks: {
     async jwt({ user, token }) {
       if (user) {

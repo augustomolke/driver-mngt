@@ -12,11 +12,13 @@ import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { getAvailability } from "@/lib/db/bookings";
+import { Separator } from "@/components/ui/separator";
 
 export default async function Disponibilidade() {
-  const dates = await fetchDates();
-
   const session = await auth();
+
+  const dates = await fetchDates(); //session?.user.ownflex ? 1 : null);
+
   const prevBookings = await getAvailability(session?.user.driverId.toString());
 
   if (!(dates.length > 0)) {
@@ -28,7 +30,11 @@ export default async function Disponibilidade() {
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
         <CardDescription>
-          Você pode confirmar disponibilidade para até três dias adiante.
+          Você pode sempre informar a sua disponibilidade para realizar
+          entregas. Assim, a gente pode se preparar para{" "}
+          <strong>dar a melhor experiência de carregamento!</strong>
+          <Separator className="my-2" />
+          Escolha quais turnos e datas você gostaria de carregar abaixo:
         </CardDescription>
       </CardHeader>
       <CardContent className="relative">

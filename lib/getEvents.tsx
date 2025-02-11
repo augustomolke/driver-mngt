@@ -4,7 +4,7 @@ import { getEvent } from "@/lib/db/events";
 import { prisma } from "@/prisma/db";
 import { auth } from "@/auth";
 
-export async function fetchDates() {
+export async function fetchDates(days: number = 3) {
   const session = await auth();
 
   const eventDb = await getEvent(session?.user.station, "AVAILABILITY");
@@ -23,30 +23,32 @@ export async function fetchDates() {
     tz: eventDb.timezone,
   });
 
-  const dates = [1, 2, 3].map((event, idx) => {
-    const nextEvent = parsed.next();
-    const format = nextEvent.toDate().toLocaleDateString("pt-br", {
-      day: "numeric",
-      month: "short",
-      weekday: "long",
-      timeZone: eventDb.timezone,
-    });
+  const dates = Array.from({ length: days }, (v, i, k) => k).map(
+    (event, idx) => {
+      const nextEvent = parsed.next();
+      const format = nextEvent.toDate().toLocaleDateString("pt-br", {
+        day: "numeric",
+        month: "short",
+        weekday: "long",
+        timeZone: eventDb.timezone,
+      });
 
-    const value = nextEvent.toDate({ timeZone: eventDb.timezone });
+      const value = nextEvent.toDate({ timeZone: eventDb.timezone });
 
-    const instance = value.toLocaleDateString("en-GB", {
-      timeZone: eventDb.timezone,
-    });
+      const instance = value.toLocaleDateString("en-GB", {
+        timeZone: eventDb.timezone,
+      });
 
-    return {
-      event_id: eventDb.id,
-      location: eventDb.location,
-      name: instance,
-      formatted: format.charAt(0).toUpperCase() + format.slice(1),
-      value,
-      instance,
-    };
-  });
+      return {
+        event_id: eventDb.id,
+        location: eventDb.location,
+        name: instance,
+        formatted: format.charAt(0).toUpperCase() + format.slice(1),
+        value,
+        instance,
+      };
+    }
+  );
 
   return dates;
 }

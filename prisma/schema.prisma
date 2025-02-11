@@ -18,6 +18,13 @@ model Feedbacks {
   updatedAt  DateTime @updatedAt
 }
 
+
+model Options {
+  driver_id         Int      @id @default(autoincrement())
+  options           String
+  createdAt  DateTime @default(now())
+}
+
 model Clusters {
   zone_base_id Int @id @default(autoincrement())
   zone_id      String
@@ -36,6 +43,7 @@ model Bookings {
   plate     String
   vehicle   String
   station   String
+  ownflex   Boolean @default(false)
   phone     String
   city      String
   cep       String
@@ -62,6 +70,7 @@ model Preferences {
   phone       String
   station     String
   vehicle     VEHICLE
+  ownflex   Boolean @default(false)
   cep         String
   city        String
   createdAt   DateTime @default(now())

@@ -65,6 +65,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
           name: session?.user.driverName,
           phone: session?.user.phone.toString(),
           plate: session?.user.plate,
+          ownflex: session?.user.ownflex,
           city: preferences.reduce((acc, curr) => curr.city + ", " + acc, ""),
           cep: preferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
           vehicle: session?.user.vehicle,

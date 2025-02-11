@@ -49,8 +49,15 @@ const checkIcon = new Icon({
 });
 
 export default function MyMap(props: any) {
-  const { serverSession, closed, clusters, center, zoom, defaultClusters } =
-    props;
+  const {
+    serverSession,
+    closed,
+    clusters,
+    center,
+    zoom,
+    defaultClusters,
+    style = { width: "100vw", height: "100vh" },
+  } = props;
 
   const { selected, setSelected, setCloseBtn } = useClusters();
 
@@ -68,7 +75,7 @@ export default function MyMap(props: any) {
       zoom={zoom}
       scrollWheelZoom={false}
       className="z-0"
-      style={{ width: "100vw", height: "100vh" }}
+      style={style}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -35,7 +35,11 @@ interface FormValues {
   };
 }
 
-const shiftsOptions = ["AM", "PM", "SD"];
+const shiftsOptions = [
+  { id: "AM", description: "6AM" },
+  { id: "PM", description: "12PM" },
+  { id: "SD", description: "16PM" },
+];
 
 export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
   const { toast } = useToast();
@@ -108,17 +112,17 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
                   </FormLabel>
                 </div>
                 <div className="flex justify-center gap-2">
-                  {shiftsOptions.map((shift) => (
+                  {shiftsOptions.map(({ id, description }) => (
                     <Controller
-                      key={shift}
-                      name={`${date.value}.${shift}`}
+                      key={id}
+                      name={`${date.value}.${id}`}
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
                             <DateCheckbox
-                              text={shift}
-                              id={`${date.name}.${shift}`}
+                              text={description}
+                              id={`${date.name}.${id}`}
                               checked={field.value}
                               onCheckedChange={field.onChange}
                               className="w-16 h-16 text-xl"
