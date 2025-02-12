@@ -2,7 +2,8 @@ import Image from "next/image";
 import GooglePlay from "@/public/google-play.png";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import SpxExpress from "@/public/spx_express_logo.svg";
+import Trackage from "@/public/trackage.png";
 
 export default function OwnFleetApps() {
   return (
@@ -16,7 +17,7 @@ export default function OwnFleetApps() {
               className="flex gap-8 items-center"
             >
               <Image
-                src={GooglePlay}
+                src={SpxExpress}
                 alt="Google Play"
                 width={36}
                 height={36}
@@ -60,7 +61,7 @@ export default function OwnFleetApps() {
             target="_blank"
             className="flex gap-8 items-center"
           >
-            <Image src={GooglePlay} alt="Google Play" width={36} height={36} />
+            <Image src={Trackage} alt="Google Play" width={36} height={36} />
             <span className="font-bold">Motorista Trackage</span>
           </Link>
         </AlertTitle>

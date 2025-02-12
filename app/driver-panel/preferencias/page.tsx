@@ -77,7 +77,7 @@ export default async function Preferences() {
             loggedUser={session?.user}
             defaultValues={defaultValues}
             macroRegions={macroRegions}
-            defaultOptions={options?.option && JSON.parse(options.options)}
+            defaultOptions={options ? JSON.parse(options.options) : undefined}
           />
         </CardContent>
       </Card>

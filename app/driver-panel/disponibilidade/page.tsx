@@ -32,8 +32,7 @@ export default async function Disponibilidade() {
   const preferences = await getPreferences(session?.user.driverId.toString());
   const options = await getOptions(session?.user.driverId);
 
-  if ((!session?.user.ownflex && !preferences.length > 0) || !options) {
-    console.log(preferences, options);
+  if (session?.user.ownflex && (!preferences.length > 0 || !options)) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -65,8 +64,8 @@ export default async function Disponibilidade() {
 
   const shiftsOptions = session?.user.ownflex
     ? [
-        { id: "AM", description: "6AM" },
-        { id: "PM", description: "15:30PM" },
+        { id: "AM", description: "6h" },
+        { id: "PM", description: "15:30h" },
       ]
     : [
         { id: "AM", description: "AM" },

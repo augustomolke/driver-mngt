@@ -49,16 +49,16 @@ const items = [
 const shifts = [
   {
     id: "janela1",
-    label: "Janela 1: 6AM",
+    label: "Janela 1: 6h as 10h",
   },
   {
     id: "janela2",
-    label: "Janela 2: 12AM",
+    label: "Janela 2: 15:30h as 18h",
   },
-  {
-    id: "janela3",
-    label: "Janela 3: 16PM",
-  },
+  // {
+  //   id: "janela3",
+  //   label: "Janela 3: 16PM",
+  // },
 ] as const;
 
 export function OptionsForm({
