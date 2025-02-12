@@ -25,6 +25,18 @@ export default async function Disponibilidade() {
     redirect("/driver-panel");
   }
 
+  const shiftsOptions = session?.user.ownflex
+    ? [
+        { id: "AM", description: "6AM" },
+        { id: "PM", description: "12PM" },
+        { id: "SD", description: "16PM" },
+      ]
+    : [
+        { id: "AM", description: "AM" },
+        { id: "PM", description: "PM" },
+        { id: "SD", description: "SD" },
+      ];
+
   return (
     <Card>
       <CardHeader>
@@ -40,6 +52,7 @@ export default async function Disponibilidade() {
       <CardContent className="relative">
         <SchedulingForm
           dates={dates}
+          shiftsOptions={shiftsOptions}
           prevBookings={prevBookings.filter(
             ({ station }) =>
               station ==

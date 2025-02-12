@@ -35,13 +35,11 @@ interface FormValues {
   };
 }
 
-const shiftsOptions = [
-  { id: "AM", description: "6AM" },
-  { id: "PM", description: "12PM" },
-  { id: "SD", description: "16PM" },
-];
-
-export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
+export default function Scheduling({
+  dates,
+  prevBookings,
+  shiftsOptions,
+}: SchedulingProps) {
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
