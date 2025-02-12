@@ -15,8 +15,10 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const cron = ownflex ? "0 0 * * *" : eventDb.cron_exp;
 
-  const today = new Date();
-  const limit = today.setHours(22, 0, 0, 0);
+  const limit = new Date();
+  if (limit.getHours() > 22) {
+    limit.setDate(limit.getDate() + 1);
+  }
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
   // tomorrow.setDate(tomorrow.getDate() + 1);
 
