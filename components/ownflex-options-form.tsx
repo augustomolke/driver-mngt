@@ -61,7 +61,10 @@ const shifts = [
   },
 ] as const;
 
-export function OptionsForm({ defaultValues, setOptions }) {
+export function OptionsForm({
+  defaultValues = { days: [], shifts: [] },
+  setOptions,
+}) {
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -127,7 +130,7 @@ export function OptionsForm({ defaultValues, setOptions }) {
                                   field.onChange([...field.value, item.id]);
                                   setOptions((state) => ({
                                     ...state,
-                                    days: [...field.value, item.id],
+                                    days: [...field?.value, item.id],
                                   }));
                                 } else {
                                   setOptions((state) => ({

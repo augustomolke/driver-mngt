@@ -69,7 +69,7 @@ export default function OwnFlexCepsForm({
 
     const ceps = macroRegions[route].filter((r) => r.zona == zona);
 
-    return ceps?.length < 3 ? ceps?.length : 3;
+    return ceps?.length < 3 ? ceps.length : 3;
   }, [selectedMacro]);
 
   async function onSubmit(data) {
@@ -261,8 +261,8 @@ export default function OwnFlexCepsForm({
             loading ||
             !selectedCeps ||
             selectedCeps?.length < limit ||
-            options.days?.length <= 0 ||
-            options.shifts?.length <= 0
+            options?.days?.length <= 0 ||
+            options?.shifts?.length <= 0
           }
         >
           {loading ? (
