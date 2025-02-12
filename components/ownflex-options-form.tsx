@@ -49,11 +49,11 @@ const items = [
 const shifts = [
   {
     id: "janela1",
-    label: "Janela 1: 6h as 10h",
+    label: "Janela 1: 6h às 10h",
   },
   {
     id: "janela2",
-    label: "Janela 2: 15:30h as 18h",
+    label: "Janela 2: 15:30h às 18h",
   },
   // {
   //   id: "janela3",
