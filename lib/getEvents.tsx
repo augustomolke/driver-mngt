@@ -4,7 +4,7 @@ import { getEvent } from "@/lib/db/events";
 import { prisma } from "@/prisma/db";
 import { auth } from "@/auth";
 
-export async function fetchDates(days: number = 3) {
+export async function fetchDates(ownflex = false, days: number = 3) {
   const session = await auth();
 
   const eventDb = await getEvent(session?.user.station, "AVAILABILITY");
@@ -13,14 +13,16 @@ export async function fetchDates(days: number = 3) {
     return [];
   }
 
-  const cron = eventDb.cron_exp;
+  const cron = ownflex ? "0 0 * * *" : eventDb.cron_exp;
 
-  // const today = new Date();
+  const today = new Date();
+  const limit = today.setHours(22, 0, 0, 0);
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
   // tomorrow.setDate(tomorrow.getDate() + 1);
 
   const parsed = parser.parseExpression(cron, {
     tz: eventDb.timezone,
+    currentDate: limit,
   });
 
   const dates = Array.from({ length: days }, (v, i, k) => k).map(

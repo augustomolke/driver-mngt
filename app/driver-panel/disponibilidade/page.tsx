@@ -27,7 +27,7 @@ import Link from "next/link";
 export default async function Disponibilidade() {
   const session = await auth();
 
-  const dates = await fetchDates(); //session?.user.ownflex ? 1 : null);
+  const dates = await fetchDates(session?.user.ownflex);
 
   const preferences = await getPreferences(session?.user.driverId.toString());
   const options = await getOptions(session?.user.driverId);
