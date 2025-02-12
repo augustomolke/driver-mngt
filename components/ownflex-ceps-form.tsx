@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { CircleX, CircleCheckBig } from "lucide-react";
@@ -258,11 +258,12 @@ export default function OwnFlexCepsForm({
         <Button
           type="submit"
           disabled={
-            loading ||
-            !selectedCeps ||
-            selectedCeps?.length < limit ||
-            options?.days?.length <= 0 ||
-            options?.shifts?.length <= 0
+            !(
+              !loading &&
+              selectedCeps.length >= limit &&
+              options?.days?.length > 0 &&
+              options?.shifts?.length > 0
+            )
           }
         >
           {loading ? (
