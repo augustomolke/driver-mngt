@@ -96,7 +96,7 @@ export default async function HomeOwnFlex({ driverFirstName }) {
             </Button>
           </Link>
 
-          <Link
+          {/* <Link
             href={`https://wa.me/551128386686?text=Ol%C3%A1%2C%20preciso%20de%20ajuda.%20Sou%20entregador%20OwnFlex%20e%20meu%20id%20%C3%A9%3A%20${session?.user.driverId}`}
             target="_blank"
           >
@@ -106,7 +106,7 @@ export default async function HomeOwnFlex({ driverFirstName }) {
                 Precisa de Ajuda?
               </div>
             </Button>
-          </Link>
+          </Link> */}
         </div>
 
         <div className="flex justify-end">

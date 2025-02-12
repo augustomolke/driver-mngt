@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -13,11 +12,50 @@ import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { getAvailability } from "@/lib/db/bookings";
 import { Separator } from "@/components/ui/separator";
+import { getPreferences } from "@/lib/db/preferences";
+import { getOptions } from "@/lib/db/options";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Link from "next/link";
 
 export default async function Disponibilidade() {
   const session = await auth();
 
   const dates = await fetchDates(); //session?.user.ownflex ? 1 : null);
+
+  const preferences = await getPreferences(session?.user.driverId.toString());
+  const options = await getOptions(session?.user.driverId);
+
+  if ((!session?.user.ownflex && !preferences.length > 0) || !options) {
+    console.log(preferences, options);
+    return (
+      <Dialog open={true}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              Você ainda não preencheu suas preferências!
+            </DialogTitle>
+            <DialogDescription>
+              Para informar sua disponibilidade, é preciso preencher suas
+              preferências.
+            </DialogDescription>
+
+            <DialogFooter>
+              <Link href="/driver-panel/preferencias">
+                <Button>Ir para preferências</Button>
+              </Link>
+            </DialogFooter>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   const prevBookings = await getAvailability(session?.user.driverId.toString());
 
@@ -28,8 +66,7 @@ export default async function Disponibilidade() {
   const shiftsOptions = session?.user.ownflex
     ? [
         { id: "AM", description: "6AM" },
-        { id: "PM", description: "12PM" },
-        { id: "SD", description: "16PM" },
+        { id: "PM", description: "15:30PM" },
       ]
     : [
         { id: "AM", description: "AM" },

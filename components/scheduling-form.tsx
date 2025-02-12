@@ -123,7 +123,7 @@ export default function Scheduling({
                               id={`${date.name}.${id}`}
                               checked={field.value}
                               onCheckedChange={field.onChange}
-                              className="w-16 h-16 text-xl"
+                              className="min-w-16 h-16 text-xl"
                             />
                           </FormControl>
                         </FormItem>
