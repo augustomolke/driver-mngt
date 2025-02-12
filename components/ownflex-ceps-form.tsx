@@ -260,6 +260,7 @@ export default function OwnFlexCepsForm({
           disabled={
             !(
               !loading &&
+              !!selectedMacro &&
               selectedCeps.length >= limit &&
               options?.days?.length > 0 &&
               options?.shifts?.length > 0
