@@ -120,7 +120,7 @@ export function OptionsForm({
                       return (
                         <FormItem
                           key={item.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
+                          className="flex flex-row items-start space-x-3 space-y-0 items-center"
                         >
                           <FormControl>
                             <Checkbox
@@ -148,7 +148,7 @@ export function OptionsForm({
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
+                          <FormLabel className="text-sm font-normal text-muted-foreground ">
                             {item.label}
                           </FormLabel>
                         </FormItem>
@@ -180,7 +180,7 @@ export function OptionsForm({
                       return (
                         <FormItem
                           key={item.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
+                          className="flex flex-row items-start space-x-3 space-y-0 items-center"
                         >
                           <FormControl>
                             <Checkbox
@@ -208,7 +208,7 @@ export function OptionsForm({
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
+                          <FormLabel className="text-sm font-normal text-muted-foreground">
                             {item.label}
                           </FormLabel>
                         </FormItem>

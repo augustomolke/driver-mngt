@@ -13,8 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { OptionsForm } from "@/components/ownflex-options-form";
 import { getOptions } from "@/lib/db/options";
+import OwnFlexPrefsForm from "@/components/ownflex-prefs-form";
 
 function formatCep(input) {
   // Ensure the input is a string
@@ -69,16 +69,26 @@ export default async function Preferences() {
     return (
       <Card className="max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl">Olá, {driverFirstName}</CardTitle>
+          <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-6">
-          <OwnFlexCepsForm
+          <CardDescription>
+            Aqui você pode informar as regiões que gostaria de realizar entrega.
+            Por favor,{" "}
+            <strong>selecione no mapa abaixo pelo menos uma região.</strong>
+          </CardDescription>
+
+          <OwnFlexPrefsForm
+            defaultOptions={options ? JSON.parse(options.options) : undefined}
+          />
+
+          {/* <OwnFlexCepsForm
             loggedUser={session?.user}
             defaultValues={defaultValues}
             macroRegions={macroRegions}
             defaultOptions={options ? JSON.parse(options.options) : undefined}
-          />
+          /> */}
         </CardContent>
       </Card>
     );

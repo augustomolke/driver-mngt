@@ -4,7 +4,7 @@ import { getHubInfo } from "@/gsheets/locations";
 import MapComponent from "@/components/map-container";
 import { getPrevClusters } from "@/lib/db/clusters";
 import { redirect } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default async function Preferences() {
   const session = await auth();

@@ -2,7 +2,8 @@
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { SelectionDrawer } from "@/components/selection-drawer";
-import Loading from "@/components/loading-overlay";
+import { SelectionDrawer as OwnFlexSelectionDrawer } from "@/components/selection-drawer-ownflex";
+
 export default function MyPage({
   serverSession = null,
   closed,
@@ -10,6 +11,7 @@ export default function MyPage({
   center,
   defaultClusters,
   style,
+  defaultOptions,
 }) {
   const Map = useMemo(
     () =>
@@ -22,7 +24,15 @@ export default function MyPage({
 
   return (
     <>
-      {serverSession && <SelectionDrawer serverSession={serverSession} />}
+      {serverSession && serverSession.user.ownflex ? (
+        <OwnFlexSelectionDrawer
+          serverSession={serverSession}
+          defaultOptions={defaultOptions}
+        />
+      ) : (
+        <SelectionDrawer serverSession={serverSession} />
+      )}
+
       <Map
         zoom={9}
         serverSession={serverSession}
