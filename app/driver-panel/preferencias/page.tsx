@@ -79,16 +79,16 @@ export default async function Preferences() {
             <strong>selecione no mapa abaixo pelo menos uma região.</strong>
           </CardDescription>
 
-          <OwnFlexPrefsForm
+          {/* <OwnFlexPrefsForm
             defaultOptions={options ? JSON.parse(options.options) : undefined}
-          />
+          /> */}
 
-          {/* <OwnFlexCepsForm
+          <OwnFlexCepsForm
             loggedUser={session?.user}
             defaultValues={defaultValues}
             macroRegions={macroRegions}
             defaultOptions={options ? JSON.parse(options.options) : undefined}
-          /> */}
+          />
         </CardContent>
       </Card>
     );
