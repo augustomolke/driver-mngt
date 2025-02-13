@@ -109,7 +109,7 @@ export default function Scheduling({
                     {date.formatted}
                   </FormLabel>
                 </div>
-                <div className="flex justify-center gap-2">
+                <div className="flex flex-col gap-2">
                   {shiftsOptions.map(({ id, description }) => (
                     <Controller
                       key={id}

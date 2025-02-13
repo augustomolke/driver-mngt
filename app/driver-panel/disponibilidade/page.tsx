@@ -64,8 +64,8 @@ export default async function Disponibilidade() {
 
   const shiftsOptions = session?.user.ownflex
     ? [
-        { id: "AM", description: "6h" },
-        { id: "PM", description: "15:30h" },
+        { id: "AM", description: "6h às 10h" },
+        { id: "PM", description: "15:30h às 18h" },
       ]
     : [
         { id: "AM", description: "AM" },
