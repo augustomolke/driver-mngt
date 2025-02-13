@@ -14,7 +14,9 @@ export default async function RootLayout({
   return (
     <div className="h-full">
       {children}
-      <BottomNav hasDisp={!!event} />
+      <BottomNav
+        hasDisp={session?.user.ownflex || (!session?.user.ownflex && !!event)}
+      />
       <footer className="h-[64px]"></footer>
     </div>
   );

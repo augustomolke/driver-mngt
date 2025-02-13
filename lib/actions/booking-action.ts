@@ -121,7 +121,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
   await Promise.all(promises);
 
   revalidateTag("availability");
-  // redirect("/driver-panel");
+  redirect("/driver-panel");
 };
 
 export const createBookingAction = async (

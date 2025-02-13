@@ -7,13 +7,16 @@ import { auth } from "@/auth";
 export async function fetchDates(ownflex = false, days: number = 3) {
   const session = await auth();
 
-  const eventDb = await getEvent(session?.user.station, "AVAILABILITY");
+  const eventDb = await getEvent(
+    ownflex ? "OF Hub_SP_Lapa" : session?.user.station,
+    "AVAILABILITY"
+  );
 
   if (!eventDb) {
     return [];
   }
 
-  const cron = ownflex ? "0 0 * * *" : eventDb.cron_exp;
+  const cron = eventDb.cron_exp;
 
   const limit = new Date();
   if (limit.getHours() > 22) {

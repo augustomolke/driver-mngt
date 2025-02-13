@@ -31,7 +31,7 @@ export default function TodoAlert({ amount }: { amount: number }) {
           </Bounce>
           <div>
             <AlertTitle>
-              <strong>Você não possui pendencias para revisar.</strong>
+              <strong>Você não possui pendêpncias para revisar.</strong>
             </AlertTitle>
           </div>
         </Alert>
