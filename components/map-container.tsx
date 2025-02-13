@@ -27,14 +27,14 @@ export default function MyPage({
       {serverSession && serverSession.user.ownflex ? (
         <OwnFlexSelectionDrawer
           serverSession={serverSession}
-          defaultOptions={defaultOptions}
+          // defaultOptions={defaultOptions}
         />
       ) : (
         <SelectionDrawer serverSession={serverSession} />
       )}
 
       <Map
-        zoom={9}
+        zoom={10}
         serverSession={serverSession}
         closed={closed}
         clusters={clusters}

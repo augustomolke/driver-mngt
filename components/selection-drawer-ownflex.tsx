@@ -18,6 +18,9 @@ import { useRouter } from "next/navigation";
 import { savePreferences } from "@/lib/db/clusters";
 import { OptionsForm } from "@/components/ownflex-options-form";
 import { saveOptions } from "@/lib/db/options";
+import { Badge } from "./ui/badge";
+
+const limit = 5;
 
 export const SelectionDrawer = ({
   serverSession,
@@ -27,14 +30,14 @@ export const SelectionDrawer = ({
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
   const router = useRouter();
-  const [options, setOptions] = React.useState(defaultOptions);
+  // const [options, setOptions] = React.useState(defaultOptions);
 
   const onSubmit = React.useCallback(async () => {
     setLoading(true);
 
     try {
       await savePreferences(selected, serverSession.user);
-      await saveOptions(JSON.stringify(options));
+      // await saveOptions(JSON.stringify(options));
 
       toast({
         icon: (
@@ -59,7 +62,7 @@ export const SelectionDrawer = ({
         description: "Algo deu errado.",
       });
     }
-  }, [selected, options]);
+  }, [selected]); //, options]);
 
   return (
     <Drawer
@@ -72,31 +75,30 @@ export const SelectionDrawer = ({
           <CircleCheckBig className="w-12 h-12" />
         </Button>
       </DrawerTrigger>
-      {selected.length > 0 ? (
+      {selected.length >= limit ? (
         <>
           <DrawerContent className="max-w-screen-sm mx-auto">
             <DrawerHeader>
-              <DrawerTitle>
-                Agora nos diga suas preferências de dias e turnos.
-              </DrawerTitle>
+              <DrawerTitle>Confirmar seleção</DrawerTitle>
               <DrawerDescription>
                 <strong>
                   Consideraremos que você gostaria de realizar entregas em toda
                   regiões destacada no mapa.
                 </strong>
+                <div>
+                  As regiões selecionadas são:
+                  <div>
+                    {selected.map((c) => (
+                      <Badge className="m-1">{c}</Badge>
+                    ))}
+                  </div>
+                </div>
               </DrawerDescription>
-
-              <OptionsForm defaultValues={options} setOptions={setOptions} />
             </DrawerHeader>
             <DrawerFooter>
               <Button
                 onClick={onSubmit}
-                disabled={
-                  loading ||
-                  !options ||
-                  options?.shifts?.length < 1 ||
-                  options?.days?.length < 1
-                }
+                disabled={loading || selected.length < limit}
               >
                 {loading ? (
                   <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
@@ -111,7 +113,7 @@ export const SelectionDrawer = ({
         <>
           <DrawerContent className="max-w-screen-sm mx-auto">
             <DrawerHeader>
-              <DrawerTitle>Por favor, escolha ao menos uma região</DrawerTitle>
+              <DrawerTitle>{`Por favor, escolha ao menos ${limit} regiões`}</DrawerTitle>
               <DrawerDescription>
                 Selecione regiões que gostaria de realizar entregas clicando no
                 mapa.

@@ -13,11 +13,15 @@ export default async function Preferences() {
   //   session?.user.driverId.toString()
   // );
 
-  const clusters = await getClusters(session?.user.station);
+  const clusters = await getClusters(
+    session?.user.ownflex ? "OwnFlex" : session?.user.station
+  );
   if (clusters.length == 0) {
     redirect("/primeira-entrega/preferencias");
   }
-  const hubInfo = await getHubInfo(session?.user.station);
+  const hubInfo = await getHubInfo(
+    session?.user.ownflex ? "OwnFlex" : session?.user.station
+  );
 
   const prevClusters = await getPrevClusters(session?.user.driverId.toString());
 

@@ -34,6 +34,14 @@ export default async function Preferences() {
   const preferences = await getPreferences(session?.user.driverId.toString());
 
   if (session?.user.ownflex) {
+    const clusters = await getClusters(
+      session?.user.ownflex ? "OwnFlex" : session?.user.station
+    );
+
+    if (clusters.length > 0) {
+      redirect("/driver-panel/clusters");
+    }
+
     const ceps2 = await getCeps();
 
     const regions = [...new Set(ceps2.map((r) => r["route"]))].filter(
@@ -93,11 +101,6 @@ export default async function Preferences() {
       </Card>
     );
   }
-
-  // const clusters = await getClusters(session?.user.station);
-  // if (clusters.length > 0) {
-  //   redirect("/driver-panel/clusters");
-  // }
 
   const locations = await getLocations(
     session?.user.choosed_station || session?.user.station
