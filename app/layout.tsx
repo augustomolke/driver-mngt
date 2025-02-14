@@ -32,7 +32,7 @@ export default function RootLayout({
       <TooltipProvider>
         <html lang="en">
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >
             <header className="header md:row-span-2">
               <Logo />
