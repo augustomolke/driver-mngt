@@ -114,7 +114,7 @@ export default async function Disponibilidade() {
                   </DialogDescription>
 
                   <DialogFooter>
-                    <Link href="https://docs.google.com/forms/d/1EJnL6MMK3YLrPpmD_UD_EDM-CfhfwiDec2Cl12IUzLc">
+                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd1dqFFQD0F6lYCjRXJ5ZGYSLI2eMvZMJRb5pGyabLhkPocMg/viewform">
                       <Button>
                         {`Trocar para 
                       ${session?.user.ownflex ? "Entrega Comum" : "Flex"}`}
