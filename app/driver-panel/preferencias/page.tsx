@@ -32,7 +32,10 @@ function formatCep(input) {
 export default async function Preferences() {
   const session = await auth();
   const preferences = await getPreferences(session?.user.driverId.toString());
-  if (session?.user.driverId == "3333") {
+
+  if (
+    ["3333", "4444", "5555", "6666", "7777"].includes(session.user.driverId)
+  ) {
     redirect("/driver-panel/clusters");
   }
 
@@ -46,6 +49,8 @@ export default async function Preferences() {
     // }
 
     const ceps2 = await getCeps();
+
+    const options = await getOptions(session?.user.driverId);
 
     const regions = [...new Set(ceps2.map((r) => r["route"]))].filter(
       (a) => a.length > 0
