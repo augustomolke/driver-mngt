@@ -4,6 +4,16 @@ import { getEvent } from "@/lib/db/events";
 import { prisma } from "@/prisma/db";
 import { auth } from "@/auth";
 
+function isLaterThan10PMSaoPaulo() {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Sao_Paulo",
+    hour: "numeric",
+    hour12: false,
+  });
+  const currentHour = parseInt(formatter.format(new Date()));
+  return currentHour >= 22;
+}
+
 export async function fetchDates(ownflex = false, days: number = 3) {
   const session = await auth();
 
@@ -18,11 +28,11 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const cron = eventDb.cron_exp;
 
+  process.env.TZ = "America/Sao_Paulo";
+
   const limit = new Date();
 
-  limit.setHours(limit.getHours() - limit.getTimezoneOffset() / 60);
-
-  if (limit.getHours() > 22) {
+  if (isLaterThan10PMSaoPaulo()) {
     limit.setDate(limit.getDate() + 1);
   }
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
