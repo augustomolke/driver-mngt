@@ -32,6 +32,9 @@ function formatCep(input) {
 export default async function Preferences() {
   const session = await auth();
   const preferences = await getPreferences(session?.user.driverId.toString());
+  if (session?.user.driverId == "3333") {
+    redirect("/driver-panel/clusters");
+  }
 
   if (session?.user.ownflex) {
     // const clusters = await getClusters(
@@ -71,8 +74,6 @@ export default async function Preferences() {
       preferences.length > 0
         ? { ceps: preferences.map((p) => p.cep), macro: preferences[0].city }
         : { ceps: [], macro: "" };
-
-    const options = await getOptions(session?.user.driverId);
 
     return (
       <Card className="max-w-3xl mx-auto">

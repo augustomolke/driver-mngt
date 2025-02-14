@@ -11,9 +11,9 @@ export default async function DriverPanel() {
     return <HomeOwnFlex driverFirstName={driverFirstName} />;
   }
 
-  const station = session?.user.station;
+  // const station = session?.user.station;
 
-  const locations = await getLocations(station);
+  // // const locations = await getLocations(station);
 
   return <HomeLm driverFirstName={driverFirstName} />;
 }

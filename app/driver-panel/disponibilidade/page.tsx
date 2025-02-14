@@ -34,9 +34,8 @@ export default async function Disponibilidade() {
   const dates = await fetchDates(session?.user.ownflex);
 
   const preferences = await getPreferences(session?.user.driverId.toString());
-  const options = await getOptions(session?.user.driverId);
 
-  if (session?.user.ownflex && (!preferences.length > 0 || !options)) {
+  if (session?.user.ownflex && !preferences.length > 0) {
     return (
       <Dialog open={true}>
         <DialogContent>
