@@ -7,25 +7,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import SignoutButton from "@/components/signout-button";
-import IncentiveAlert from "@/components/incentive-alert";
-import getMap from "@/lib/getMap";
 import Link from "next/link";
-import Image from "next/image";
-import { auth } from "@/auth";
-import { MapPin, SquarePen } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { SquarePen } from "lucide-react";
 import OwnFleetApps from "./ownflex-apps";
-import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import Whatsapp from "@/public/whatsapp.png";
-
-// const formatHub = (hub) => {
-//   if (!hub) return;
-
-//   return hub.split("_")[2];
-// };
+import getMap from "@/lib/getMap";
+import StaticMap from "./static-map";
+import { Alert } from "./ui/alert";
 
 export default async function HomeOwnFlex({ driverFirstName }) {
-  const session = await auth();
+  // const session = await auth();
+  const mapInfo = await getMap("OwnFlex");
+
   // const station = session?.user.station;
   // const mapInfo = await getMap(station);
   return (
@@ -33,58 +32,82 @@ export default async function HomeOwnFlex({ driverFirstName }) {
       <CardHeader>
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
         <CardDescription>
-          Que bom ter você aqui! <br />
-          Aqui é onde você encontrará informações sobre a sua jornada como
-          motorista parceiro Shopee. <br />
-          Além disso, você poderá{" "}
-          <strong>selecionar suas preferências de entrega </strong>e confirmar
-          sua <strong>disponibilidade diariamente</strong>. <br />
+          Que bom ter você por aqui! <br />
+          Esse é um espaço exclusivo para gerenciar suas regiões de preferência
+          de entrega e sua disponibilidade diária no HUB Entrega Rápida - Lapa.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-6">
         <OnboardingOwnFlex />
 
-        {/* <div className="space-y-4 border-2 rounded-lg">
-          <div className="bg-primary text-white flex justify-center text-2xl py-2 rounded-t-lg">
-            <strong>Hub</strong>&nbsp;
-            {formatHub(session?.user.choosed_station || session?.user.station)}
-          </div>
-          <Link
-            href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full"
-          >
-            <div className="relative">
-              <Image
-                src={mapInfo.map}
-                alt="Mapa da região de atuação"
-                width={600}
-                height={400}
-                className="rounded-lg border-2 border-[--background]"
-              />
-              <span className="absolute bottom-2 right-2 text-xs italic bg-white bg-opacity-75 px-2 py-1 rounded">
-                *Região de atuação aproximada
+        <CardTitle className="text-2xl">+ Informações Úteis</CardTitle>
+
+        <Accordion defaultValue="address" type="single" collapsible>
+          <AccordionItem value="address">
+            <AccordionTrigger className="text-md">
+              <span className="flex justify-start items-center gap-4">
+                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                Endereço Entrega Rápida
               </span>
-            </div>
+            </AccordionTrigger>
 
-            <div className="flex items-center space-x-2">
-              <MapPin className="text-primary" />
-              <p className="text-base">
-                Endereço: <strong>{mapInfo.address}</strong>
-              </p>
-            </div>
-          </Link>
-        </div> */}
-        <CardTitle className="text-2xl">+ Informações</CardTitle>
+            <AccordionContent>
+              <StaticMap
+                title={"Entrega Rápida Lapa"}
+                map={mapInfo.map}
+                url={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
+                address={mapInfo.address}
+              />
+            </AccordionContent>
+          </AccordionItem>
 
-        <CardDescription>
-          Verifique abaixo os aplicativos mencionados no treinamento.
-        </CardDescription>
-        <OwnFleetApps />
+          <AccordionItem value="datetime">
+            <AccordionTrigger className="text-md">
+              <span className="flex justify-start items-center gap-4">
+                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                Dias e horário
+              </span>
+            </AccordionTrigger>
 
-        <CardTitle className="text-2xl">Ajuda </CardTitle>
+            <AccordionContent>
+              <CardDescription>
+                Segunda a sábado (domingos são informados previamente) Janela 1:
+                6 às 10h Janela 2: 15:30 às 18h
+              </CardDescription>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="apps">
+            <AccordionTrigger className="text-md">
+              <span className="flex justify-start items-center gap-4">
+                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                Aplicativos necessários
+              </span>
+            </AccordionTrigger>
+
+            <AccordionContent>
+              <OwnFleetApps />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <CardTitle className="text-2xl">+ Ajuda</CardTitle>
+
+        <div className="flex flex-col gap-4">
+          <CardDescription>
+            Acesse no <strong>menu inicial do seu aplicativo</strong>:
+          </CardDescription>
+
+          <Alert variant={"secondary"}>
+            <strong>Treinamentos:</strong> guias rápidos e vídeos curtos com as
+            principais dicas para você.
+          </Alert>
+          <Alert variant={"secondary"}>
+            <strong>Central de Ajuda:</strong> tire suas dúvidas de pagamento,
+            nota fiscal, acareação e muito mais.
+          </Alert>
+        </div>
 
         <div className="flex flex-col gap-4">
           <Link href="https://forms.gle/o1CmdEY5qNUn5hFJ7" target="_blank">

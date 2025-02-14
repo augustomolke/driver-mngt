@@ -19,8 +19,7 @@ export default function TodoAlert({ amount }: { amount: number }) {
               </strong>
             </AlertTitle>
             <AlertDescription>
-              Para ter a melhor experiência como motorista parceiro Shopee,
-              revise os itens abaixo.
+              Revise os itens abaixo para continuar.
             </AlertDescription>
           </div>
         </Alert>

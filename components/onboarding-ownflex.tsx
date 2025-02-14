@@ -30,41 +30,39 @@ export default async function OnboardingOwnFlex() {
     pendencias.push("Preferências");
   }
 
-  console.log(bookings);
-
   return (
     <>
       <TodoAlert amount={pendencias.length} />
       <Accordion type="single" collapsible>
         {pendencias.includes("Preferências") && (
           <AccordionItem value="preferences">
-            <AccordionTrigger className="text-2xl">
-              <span className="flex justify-start gap-4">
+            <AccordionTrigger className="text-xl">
+              <span className="flex justify-start items-center gap-4">
                 <TriangleAlert size={36} className="animate-pulse" />
-                Preferências
+                Regiões de Entrega
               </span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4">
-              Você pode selecionar áreas, dias e hoários de preferência para
-              realizar carregamentos! Nós utilizamos essa informação para te dar
-              a melhor experiência.
+              Você pode selecionar quantas regiões quiser. Quanto mais regiões
+              selecionadas, maior a chance de terem rotas disponíveis para você.
               <Link href="/driver-panel/preferencias">
-                <Button>Informar minhas preferências</Button>
+                <Button>Selecionar minha preferência</Button>
               </Link>
             </AccordionContent>
           </AccordionItem>
         )}
         {pendencias.includes("Disponibilidade") && (
           <AccordionItem value="availability">
-            <AccordionTrigger className="text-2xl">
-              <span className="flex justify-start gap-4">
+            <AccordionTrigger className="text-xl">
+              <span className="flex justify-start items-center gap-4">
                 <TriangleAlert size={36} className="animate-pulse" />
                 Disponibilidade
               </span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4">
-              Você pode informar se está disponível para carregamentos para cada
-              turno.
+              Informe sua disponibilidade para os próximos 3 dias de
+              carregamento. Você pode selecionar quantos dias e horários quiser.{" "}
+              <strong>Se não puder comparecer, por favor, desmarque!</strong>
               <Link href="/driver-panel/disponibilidade">
                 <Button>Informar disponibilidade</Button>
               </Link>

@@ -80,11 +80,17 @@ export const SelectionDrawer = ({
           <DrawerContent className="max-w-screen-sm mx-auto">
             <DrawerHeader>
               <DrawerTitle>Confirmar seleção</DrawerTitle>
-              <DrawerDescription>
-                <strong>
-                  Consideraremos que você gostaria de realizar entregas em toda
-                  regiões destacada no mapa.
-                </strong>
+              <DrawerDescription className="flex flex-col gap-2">
+                <span>
+                  Essas serão as regiões que utilizaremos para disponibilizar
+                  suas rotas.{" "}
+                </span>
+
+                <span>
+                  Você pode atualizar as suas preferências quando precisar
+                  sempre até
+                  <strong> 22h do dia anterior do seu carregamento.</strong>
+                </span>
                 <div>
                   As regiões selecionadas são:
                   <div>

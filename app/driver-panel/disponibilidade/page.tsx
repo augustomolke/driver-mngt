@@ -82,9 +82,9 @@ export default async function Disponibilidade() {
         <CardTitle>Disponibilidade</CardTitle>
         <CardDescription className="flex flex-col gap-2">
           <div>
-            Você pode sempre informar a sua disponibilidade para realizar
-            entregas. Assim, a gente pode se preparar para{" "}
-            <strong>dar a melhor experiência de carregamento!</strong>
+            Informe sua disponibilidade para os próximos 3 dias de carregamento.
+            Você pode selecionar quantos dias e horários quiser.{" "}
+            <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
           {session?.user.ownflex && (
             <Dialog>
