@@ -110,26 +110,33 @@ export default function Scheduling({
                   </FormLabel>
                 </div>
                 <div className="flex flex-col gap-2">
-                  {shiftsOptions.map(({ id, description }) => (
-                    <Controller
-                      key={id}
-                      name={`${date.value}.${id}`}
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <DateCheckbox
-                              text={description}
-                              id={`${date.name}.${id}`}
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="min-w-16 h-16 text-xl"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  ))}
+                  {shiftsOptions.map(({ id, description, exclude = [] }) => {
+                    const dateObj = new Date(date.value);
+
+                    if (exclude.includes(dateObj.getDay())) {
+                      return null;
+                    }
+                    return (
+                      <Controller
+                        key={id}
+                        name={`${date.value}.${id}`}
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <DateCheckbox
+                                text={description}
+                                id={`${date.name}.${id}`}
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="min-w-16 h-16 text-xl"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    );
+                  })}
                 </div>
               </div>
               {idx < dates.length - 1 && <Separator className="my-8" />}
