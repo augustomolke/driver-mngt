@@ -25,8 +25,9 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
-import { Alert } from "@/components/ui/alert";
 export default async function Disponibilidade() {
   const session = await auth();
 
@@ -86,39 +87,44 @@ export default async function Disponibilidade() {
             entregas. Assim, a gente pode se preparar para{" "}
             <strong>dar a melhor experiência de carregamento!</strong>
           </div>
-          <Dialog>
-            <DialogTrigger>
-              <Badge variant={"secondary"}>
-                {`Modalidade ${
-                  session?.user.ownflex ? "Flex" : "Entrega Comum"
-                }`}
-              </Badge>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Trocar de modalidade</DialogTitle>
-                <DialogDescription className="flex flex-col gap-2">
-                  <span>
-                    Na modalidade Flex, você pode realizar coletas e entregas no
-                    mesmo dia e maximizar os ganhos.
-                  </span>
-                  <strong>
-                    A troca de modalidade pode demorar até 24h para ser
-                    efetivada.
-                  </strong>
-                </DialogDescription>
+          {session?.user.ownflex && (
+            <Dialog>
+              <DialogTrigger>
+                <div className="flex items-center justify-center gap-2">
+                  <Switch id="modalidade" defaultChecked={true} />
+                  <Label htmlFor="modalidade">
+                    {`Modalidade ${
+                      session?.user.ownflex ? "Flex" : "Entrega Comum"
+                    }`}
+                  </Label>
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Trocar de modalidade</DialogTitle>
+                  <DialogDescription className="flex flex-col gap-2">
+                    <span>
+                      Na modalidade Flex, você pode realizar coletas e entregas
+                      no mesmo dia e maximizar os ganhos.
+                    </span>
+                    <strong>
+                      A troca de modalidade pode demorar até 24h para ser
+                      efetivada.
+                    </strong>
+                  </DialogDescription>
 
-                <DialogFooter>
-                  <Link href="/driver-panel/preferencias">
-                    <Button>
-                      {`Trocar para 
+                  <DialogFooter>
+                    <Link href="https://docs.google.com/forms/d/1EJnL6MMK3YLrPpmD_UD_EDM-CfhfwiDec2Cl12IUzLc">
+                      <Button>
+                        {`Trocar para 
                       ${session?.user.ownflex ? "Entrega Comum" : "Flex"}`}
-                    </Button>
-                  </Link>
-                </DialogFooter>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+                      </Button>
+                    </Link>
+                  </DialogFooter>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:
         </CardDescription>

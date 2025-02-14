@@ -34,13 +34,13 @@ export default async function Preferences() {
   const preferences = await getPreferences(session?.user.driverId.toString());
 
   if (session?.user.ownflex) {
-    const clusters = await getClusters(
-      session?.user.ownflex ? "OwnFlex" : session?.user.station
-    );
+    // const clusters = await getClusters(
+    //   session?.user.ownflex ? "OwnFlex" : session?.user.station
+    // );
 
-    if (clusters.length > 0) {
-      redirect("/driver-panel/clusters");
-    }
+    // if (clusters.length > 0) {
+    //   redirect("/driver-panel/clusters");
+    // }
 
     const ceps2 = await getCeps();
 

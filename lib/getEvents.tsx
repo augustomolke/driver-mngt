@@ -19,6 +19,9 @@ export async function fetchDates(ownflex = false, days: number = 3) {
   const cron = eventDb.cron_exp;
 
   const limit = new Date();
+
+  limit.setHours(limit.getHours() - limit.getTimezoneOffset() / 60);
+
   if (limit.getHours() > 22) {
     limit.setDate(limit.getDate() + 1);
   }

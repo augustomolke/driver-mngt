@@ -39,7 +39,7 @@ export default function OwnFleetApps() {
             className="flex gap-8 items-center"
           >
             <Image src={GooglePlay} alt="Google Play" width={36} height={36} />
-            <span className="font-bold">Next Move </span>
+            <span className="font-bold">NexMove </span>
           </Link>
         </AlertTitle>
         <AlertDescription className="gap-4 flex flex-col items-center">
