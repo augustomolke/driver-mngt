@@ -101,15 +101,23 @@ export default async function HomeOwnFlex({ driverFirstName }) {
         <CardTitle className="text-2xl">+ Ajuda</CardTitle>
 
         <div className="flex flex-col gap-4">
-          <CardDescription>
-            Acesse no <strong>menu inicial do seu aplicativo</strong>:
+          <CardDescription className="text-primary">
+            Acesse o menu inicial do Driver App e clique em{" "}
+            <strong>Treinamentos</strong> ou
+            <strong> Central de Ajuda</strong> para tirar suas dúvidas!
           </CardDescription>
 
-          <Alert variant={"secondary"}>
+          <Alert
+            variant={"secondary"}
+            className="border-none text-muted-foreground"
+          >
             <strong>Treinamentos:</strong> guias rápidos e vídeos curtos com as
             principais dicas para você.
           </Alert>
-          <Alert variant={"secondary"}>
+          <Alert
+            variant={"secondary"}
+            className="border-none text-muted-foreground"
+          >
             <strong>Central de Ajuda:</strong> tire suas dúvidas de pagamento,
             nota fiscal, acareação e muito mais.
           </Alert>
