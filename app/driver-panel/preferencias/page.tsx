@@ -33,8 +33,12 @@ export default async function Preferences() {
   const session = await auth();
   const preferences = await getPreferences(session?.user.driverId.toString());
 
+  console.log(session.user.driverId);
+
   if (
-    ["3333", "4444", "5555", "6666", "7777"].includes(session.user.driverId)
+    ["3333", "4444", "5555", "6666", "7777"].includes(
+      session.user.driverId.toString()
+    )
   ) {
     redirect("/driver-panel/clusters");
   }
