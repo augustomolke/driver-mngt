@@ -7,7 +7,7 @@ export default async function Home() {
 
   if (!session) return <div>Not authenticated</div>;
 
-  if (session.user.ownflex) {
+  if (session.user.ownflex || session.user.station.startsWith("LM Hub_PR")) {
     redirect("/driver-panel");
   }
 
