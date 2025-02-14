@@ -28,8 +28,6 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const cron = eventDb.cron_exp;
 
-  process.env.TZ = "America/Sao_Paulo";
-
   const limit = new Date();
 
   if (isLaterThan10PMSaoPaulo()) {
