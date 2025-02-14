@@ -20,6 +20,7 @@ import { Button } from "./ui/button";
 import getMap from "@/lib/getMap";
 import StaticMap from "./static-map";
 import { Alert } from "./ui/alert";
+import { MapPin, Calendar, Smartphone } from "lucide-react";
 
 export default async function HomeOwnFlex({ driverFirstName }) {
   // const session = await auth();
@@ -47,7 +48,7 @@ export default async function HomeOwnFlex({ driverFirstName }) {
           <AccordionItem value="address">
             <AccordionTrigger className="text-md">
               <span className="flex justify-start items-center gap-4">
-                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                <MapPin size={24} />
                 Endereço Entrega Rápida
               </span>
             </AccordionTrigger>
@@ -65,15 +66,20 @@ export default async function HomeOwnFlex({ driverFirstName }) {
           <AccordionItem value="datetime">
             <AccordionTrigger className="text-md">
               <span className="flex justify-start items-center gap-4">
-                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                <Calendar size={24} />
                 Dias e horário
               </span>
             </AccordionTrigger>
 
             <AccordionContent>
-              <CardDescription>
-                Segunda a sábado (domingos são informados previamente) Janela 1:
-                6 às 10h Janela 2: 15:30 às 18h
+              <CardDescription className="flex flex-col gap-4">
+                <div>
+                  Segunda a sábado (domingos são informados previamente)
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="font-bold">Janela 1: 6 às 10h </div>
+                  <div className="font-bold">Janela 2: 15:30 às 18h</div>
+                </div>
               </CardDescription>
             </AccordionContent>
           </AccordionItem>
@@ -81,7 +87,7 @@ export default async function HomeOwnFlex({ driverFirstName }) {
           <AccordionItem value="apps">
             <AccordionTrigger className="text-md">
               <span className="flex justify-start items-center gap-4">
-                {/* <TriangleAlert size={36} className="animate-pulse" /> */}
+                <Smartphone size={24} />
                 Aplicativos necessários
               </span>
             </AccordionTrigger>
