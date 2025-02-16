@@ -35,7 +35,7 @@ export default async function Disponibilidade() {
 
   const preferences = await getPreferences(session?.user.driverId.toString());
 
-  if (session?.user.ownflex && !preferences.length > 0) {
+  if (session?.user.ownflex && preferences.length < 5) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -44,8 +44,8 @@ export default async function Disponibilidade() {
               Você ainda não preencheu suas preferências!
             </DialogTitle>
             <DialogDescription>
-              Para informar sua disponibilidade, é preciso preencher suas
-              preferências.
+              Para informar sua disponibilidade, é preciso escolher pelo menos 5
+              regiões de preferência.
             </DialogDescription>
 
             <DialogFooter>

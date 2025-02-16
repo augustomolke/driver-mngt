@@ -26,7 +26,7 @@ export default async function OnboardingOwnFlex() {
     pendencias.push("Disponibilidade");
   }
 
-  if (preferences.length == 0) {
+  if (preferences.length < 5) {
     pendencias.push("Preferências");
   }
 
