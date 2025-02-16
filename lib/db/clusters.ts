@@ -30,6 +30,7 @@ export async function savePreferences(clusters, user) {
       vehicle: user.vehicle,
       city: "",
       cep: cluster,
+      ownflex: user.ownflex,
     }));
 
     await prisma.$transaction([
