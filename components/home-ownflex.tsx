@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SquarePen } from "lucide-react";
+import { SquarePen, Handshake } from "lucide-react";
 import OwnFleetApps from "./ownflex-apps";
 import { Button } from "./ui/button";
 import getMap from "@/lib/getMap";
@@ -133,6 +133,26 @@ export default async function HomeOwnFlex({ driverFirstName }) {
             </Button>
           </Link>
 
+          <CardTitle className="text-2xl">+ Indicação</CardTitle>
+
+          <CardDescription className="text-primary">
+            Que tal ganhar até <strong>R$200</strong> por indicar novos
+            Motoristas Parceiros? <br />E tem mais:{" "}
+            <strong>seu indicado também ganha R$100</strong> após concluir suas
+            primeiras 5 rotas.
+          </CardDescription>
+
+          <Link
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdbprI-ygYpZv4k2uEkJnV7yHMb3-nTeTLswgEK7ouRUqRdCQ/formResponse"
+            target="_blank"
+          >
+            <Button>
+              <div className="flex items-center gap-2 font-bold">
+                <Handshake />
+                Indicar um amigo
+              </div>
+            </Button>
+          </Link>
           {/* <Link
             href={`https://wa.me/551128386686?text=Ol%C3%A1%2C%20preciso%20de%20ajuda.%20Sou%20entregador%20OwnFlex%20e%20meu%20id%20%C3%A9%3A%20${session?.user.driverId}`}
             target="_blank"
