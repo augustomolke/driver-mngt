@@ -47,11 +47,7 @@ export const SelectionDrawer = ({
         description: "Sua preferência foi salva!",
       });
 
-      router.push(
-        serverSession.user.trips > 0
-          ? "/driver-panel"
-          : "/primeira-entrega/data"
-      );
+      router.push("/driver-panel");
     } catch (err) {
       console.log("Erro", err);
       setLoading(false);
