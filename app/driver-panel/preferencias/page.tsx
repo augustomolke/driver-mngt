@@ -33,82 +33,79 @@ export default async function Preferences() {
   const session = await auth();
   const preferences = await getPreferences(session?.user.driverId.toString());
 
-  if (
-    ["3333", "4444", "5555", "6666", "7777"].includes(
-      session.user.driverId.toString()
-    )
-  ) {
+  if (session?.user.ownflex) {
     redirect("/driver-panel/clusters");
   }
 
-  if (session?.user.ownflex) {
-    // const clusters = await getClusters(
-    //   session?.user.ownflex ? "OwnFlex" : session?.user.station
-    // );
+  // const clusters = await getClusters(
+  //   session?.user.ownflex ? "OwnFlex" : session?.user.station
+  // );
 
-    // if (clusters.length > 0) {
-    //   redirect("/driver-panel/clusters");
-    // }
+  // if (clusters.length > 0) {
+  //   redirect("/driver-panel/clusters");
+  // }
 
-    const ceps2 = await getCeps();
+  // if (session?.user.ownflex) {
 
-    const options = await getOptions(session?.user.driverId);
+  //   const ceps2 = await getCeps();
 
-    const regions = [...new Set(ceps2.map((r) => r["route"]))].filter(
-      (a) => a.length > 0
-    );
+  //   const options = await getOptions(session?.user.driverId);
 
-    const macroRegions = regions.reduce((acc, curr) => {
-      return {
-        ...acc,
-        [curr]: ceps2
-          .filter((c) => c["route"] == curr)
-          .map((cep) => {
-            const min = formatCep(cep["zipcode_min"]);
-            const max = formatCep(cep["zipcode_max"]);
-            return {
-              ceps: `De ${min} a ${max}`,
-              zona: cep["zona"],
-              cluster: cep["cluster"],
-            };
-          }),
-      };
-    }, {});
+  //   const regions = [...new Set(ceps2.map((r) => r["route"]))].filter(
+  //     (a) => a.length > 0
+  //   );
 
-    const driverFirstName = session?.user.driverName.split(" ")[0];
+  //   const macroRegions = regions.reduce((acc, curr) => {
+  //     return {
+  //       ...acc,
+  //       [curr]: ceps2
+  //         .filter((c) => c["route"] == curr)
+  //         .map((cep) => {
+  //           const min = formatCep(cep["zipcode_min"]);
+  //           const max = formatCep(cep["zipcode_max"]);
+  //           return {
+  //             ceps: `De ${min} a ${max}`,
+  //             zona: cep["zona"],
+  //             cluster: cep["cluster"],
+  //           };
+  //         }),
+  //     };
+  //   }, {});
 
-    const defaultValues =
-      preferences.length > 0
-        ? { ceps: preferences.map((p) => p.cep), macro: preferences[0].city }
-        : { ceps: [], macro: "" };
+  //   const driverFirstName = session?.user.driverName.split(" ")[0];
 
-    return (
-      <Card className="max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
-        </CardHeader>
+  //   const defaultValues =
+  //     preferences.length > 0
+  //       ? { ceps: preferences.map((p) => p.cep), macro: preferences[0].city }
+  //       : { ceps: [], macro: "" };
 
-        <CardContent className="space-y-6">
-          <CardDescription>
-            Aqui você pode informar as regiões que gostaria de realizar entrega.
-            Por favor,{" "}
-            <strong>selecione no mapa abaixo pelo menos uma região.</strong>
-          </CardDescription>
+  //   return (
+  //     <Card className="max-w-3xl mx-auto">
+  //       <CardHeader>
+  //         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
+  //       </CardHeader>
 
-          {/* <OwnFlexPrefsForm
-            defaultOptions={options ? JSON.parse(options.options) : undefined}
-          /> */}
+  //       <CardContent className="space-y-6">
+  //         <CardDescription>
+  //           Aqui você pode informar as regiões que gostaria de realizar entrega.
+  //           Por favor,{" "}
+  //           <strong>selecione no mapa abaixo pelo menos uma região.</strong>
+  //         </CardDescription>
 
-          <OwnFlexCepsForm
-            loggedUser={session?.user}
-            defaultValues={defaultValues}
-            macroRegions={macroRegions}
-            defaultOptions={options ? JSON.parse(options.options) : undefined}
-          />
-        </CardContent>
-      </Card>
-    );
-  }
+  //         {/* <OwnFlexPrefsForm
+  //           defaultOptions={options ? JSON.parse(options.options) : undefined}
+  //         /> */}
+
+  //         <OwnFlexCepsForm
+  //           loggedUser={session?.user}
+  //           defaultValues={defaultValues}
+  //           macroRegions={macroRegions}
+  //           defaultOptions={options ? JSON.parse(options.options) : undefined}
+  //         />
+  //       </CardContent>
+  //     </Card>
+  //   );
+  // }
 
   const locations = await getLocations(
     session?.user.choosed_station || session?.user.station

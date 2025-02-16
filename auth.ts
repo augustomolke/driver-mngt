@@ -58,10 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const { driverId, password } = parsed.data;
 
-        if (driverId == "6969696969") {
-          await updateLogin();
-        }
-
         // logic to salt and hash password
 
         // logic to verify if the user exists
