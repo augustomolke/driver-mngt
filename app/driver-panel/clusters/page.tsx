@@ -17,7 +17,7 @@ export default async function Preferences() {
     session?.user.ownflex ? "OwnFlex" : session?.user.station
   );
   if (clusters.length == 0) {
-    redirect("/primeira-entrega/preferencias");
+    redirect("/driver-panel/preferencias");
   }
   const hubInfo = await getHubInfo(
     session?.user.ownflex ? "OwnFlex" : session?.user.station
