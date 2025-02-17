@@ -25,7 +25,7 @@ export default async function Home() {
   const event = await getFirstTripBooking(session.user.driverId.toString());
 
   if (!!event) {
-    redirect("/primeira-entrega/congrats");
+    redirect("/primeira-entrega/waitlist");
   }
 
   return (

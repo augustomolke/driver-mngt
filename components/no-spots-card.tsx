@@ -31,7 +31,7 @@ export const NoSpotsCard = () => {
               . Entraremos em contato para informar os próximos passos. Por
               favor, mantenha seus dados de contato atualizados no App Driver.{" "}
             </CardDescription>
-            <ReviewPreferencesAlert />
+            {/* <ReviewPreferencesAlert /> */}
             <Separator className="my-4" />
 
             {/* <div className="flex items-center justify-center gap-8">
