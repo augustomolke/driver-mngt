@@ -121,13 +121,13 @@ export default function MyMap(props: any) {
               ref={poly}
               eventHandlers={{
                 mouseover: (e) => {
-                  if (isClosed) return;
+                  // if (isClosed) return;
 
                   const layer = e.target;
                   layer.setStyle(selectedStyle);
                 },
                 mouseout: (e) => {
-                  if (isClosed) return;
+                  // if (isClosed) return;
                   if (!selected.includes(cluster.zone_id)) {
                     const layer = e.target;
                     layer.setStyle(defaultStyle);
@@ -140,7 +140,7 @@ export default function MyMap(props: any) {
                       ? defaultStyle
                       : selectedStyle
                   );
-                  setSelected(isClosed ? "closed" : cluster.zone_id);
+                  setSelected(cluster.zone_id);
                 },
               }}
               key={cluster.zone_id}

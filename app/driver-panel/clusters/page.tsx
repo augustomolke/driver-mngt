@@ -2,9 +2,9 @@ import { auth } from "@/auth";
 import { getClusters } from "@/lib/db/clusters";
 import { getHubInfo } from "@/gsheets/locations";
 import MapComponent from "@/components/map-container";
-import { getPrevClusters } from "@/lib/db/clusters";
 import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
+import { getPreferences } from "@/lib/db/preferences";
 
 export default async function Preferences() {
   const session = await auth();
@@ -13,17 +13,18 @@ export default async function Preferences() {
   //   session?.user.driverId.toString()
   // );
 
-  const clusters = await getClusters(
-    session?.user.ownflex ? "OwnFlex" : session?.user.station
-  );
+  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+
+  const clusters = await getClusters(station);
   if (clusters.length == 0) {
     redirect("/driver-panel/preferencias");
   }
-  const hubInfo = await getHubInfo(
-    session?.user.ownflex ? "OwnFlex" : session?.user.station
-  );
+  const hubInfo = await getHubInfo(station);
 
-  const prevClusters = await getPrevClusters(session?.user.driverId.toString());
+  const prevClusters = await getPreferences(
+    session?.user.driverId.toString(),
+    station
+  );
 
   return (
     <Card className="m-0 p-0">

@@ -114,11 +114,12 @@ export default ({
             driver_id: loggedUser.driverId.toString(),
             driver_name: loggedUser.driverName,
             phone: loggedUser.phone.toString(),
-            station: loggedUser.choosed_station || loggedUser.station,
+            station: loggedUser.station,
             vehicle: loggedUser.vehicle,
             city: pref.city,
             cep: pref.cep,
-          }))
+          })),
+          loggedUser.station
         );
 
         toast({

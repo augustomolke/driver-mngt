@@ -14,7 +14,8 @@ export default async function Preferences() {
   // }
 
   const preloadedPreferences = await getPreferences(
-    session?.user.driverId.toString()
+    session?.user.driverId.toString(),
+    session?.user.station
   );
 
   const locations = await getLocations(session?.user.station);

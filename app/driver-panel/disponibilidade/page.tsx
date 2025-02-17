@@ -33,7 +33,12 @@ export default async function Disponibilidade() {
 
   const dates = await fetchDates(session?.user.ownflex);
 
-  const preferences = await getPreferences(session?.user.driverId.toString());
+  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+
+  const preferences = await getPreferences(
+    session?.user.driverId.toString(),
+    station
+  );
 
   if (session?.user.ownflex && preferences.length < 5) {
     return (
@@ -59,7 +64,10 @@ export default async function Disponibilidade() {
     );
   }
 
-  const prevBookings = await getAvailability(session?.user.driverId.toString());
+  const prevBookings = await getAvailability(
+    session?.user.driverId.toString(),
+    station
+  );
 
   if (!(dates.length > 0)) {
     redirect("/driver-panel");
@@ -133,10 +141,9 @@ export default async function Disponibilidade() {
           dates={dates}
           shiftsOptions={shiftsOptions}
           prevBookings={prevBookings.filter(
-            ({ station }) =>
-              station ==
-              (session?.user.choosed_station || session?.user.station)
+            (booking) => booking.station == station
           )}
+          station={station}
         />
       </CardContent>
     </Card>

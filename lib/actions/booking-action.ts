@@ -4,16 +4,11 @@ import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { compareArrays } from "../utils";
 import { getPreferences } from "@/lib/db/preferences";
-import {
-  createAvailability,
-  updateAvailability,
-  deleteBooking,
-} from "@/lib/db/bookings";
+import { updateAvailability, deleteBooking } from "@/lib/db/bookings";
 
 import { createBooking } from "../db/bookings";
 import { revalidateTag } from "next/cache";
 import prisma from "../db/db";
-import { preferences } from "@/prisma/seed/data";
 
 const EVENTS_API_URL = process.env.EVENTS_API;
 const SECRET = process.env.SECRET;
@@ -27,8 +22,10 @@ const formatDate = (dateString: string) => {
 export const confirmAvailability = async (values, prevBookings, dates) => {
   const session = await auth();
 
+  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+
   const preferences = await prisma.preferences.findMany({
-    where: { driver_id: session?.user.driverId.toString() },
+    where: { driver_id: session?.user.driverId.toString(), station },
   });
 
   const booking = Object.entries(values)
@@ -69,7 +66,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
           city: preferences.reduce((acc, curr) => curr.city + ", " + acc, ""),
           cep: preferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
           vehicle: session?.user.vehicle,
-          station: session?.user.choosed_station || session?.user.station,
+          station,
           event_id: event.event_id,
           date: event.value,
           info: JSON.stringify(
@@ -134,12 +131,15 @@ export const createBookingAction = async (
 ) => {
   const session = await auth();
 
+  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+
   if (!session?.user) {
     return;
   }
 
   const preloadedPreferences = await getPreferences(
-    session.user.driverId.toString()
+    session.user.driverId.toString(),
+    station
   );
 
   if (preloadedPreferences.length === 0) {
@@ -151,7 +151,7 @@ export const createBookingAction = async (
     name: session.user.driverName,
     plate: session.user.plate,
     date,
-    station: session.user.station,
+    station,
     vehicle: session.user.vehicle,
     phone: session.user.phone.toString(),
     city: preloadedPreferences.reduce(

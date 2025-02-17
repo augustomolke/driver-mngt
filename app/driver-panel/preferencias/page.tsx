@@ -2,19 +2,7 @@ import PreferencesForm from "@/components/preferences-form";
 import { auth } from "@/auth";
 import { getPreferences } from "@/lib/db/preferences";
 import { getLocations } from "@/gsheets/locations";
-import { getClusters } from "@/lib/db/clusters";
 import { redirect } from "next/navigation";
-import OwnFlexCepsForm from "@/components/ownflex-ceps-form";
-import { getCeps } from "@/gsheets/ownflex";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { getOptions } from "@/lib/db/options";
-import OwnFlexPrefsForm from "@/components/ownflex-prefs-form";
 
 function formatCep(input) {
   // Ensure the input is a string
@@ -31,11 +19,17 @@ function formatCep(input) {
 
 export default async function Preferences() {
   const session = await auth();
-  const preferences = await getPreferences(session?.user.driverId.toString());
 
   if (session?.user.ownflex) {
     redirect("/driver-panel/clusters");
   }
+
+  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+
+  const preferences = await getPreferences(
+    session?.user.driverId.toString(),
+    station
+  );
 
   // const clusters = await getClusters(
   //   session?.user.ownflex ? "OwnFlex" : session?.user.station

@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import Logo from "@/components/assets/logo";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { auth } from "@/auth";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,15 +23,17 @@ export const metadata: Metadata = {
   description: "Painel do Motorista Shopee",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <SessionProvider>
       <TooltipProvider>
-        <html lang="en">
+        <html lang="en" className={session?.user.ownflex ? "ownflex" : "lm"}>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >
