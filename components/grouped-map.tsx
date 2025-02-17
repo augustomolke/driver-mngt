@@ -108,7 +108,7 @@ export default function MyMap(props: any) {
         //   return [0, 0];
         // }, [poly]);
 
-        const isClosed = closed.includes(cluster.zone_id);
+        // const isClosed = closed.includes(cluster.zone_id);
 
         return (
           <>
