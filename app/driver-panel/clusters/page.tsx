@@ -17,13 +17,11 @@ export default async function Preferences() {
     session?.user.ownflex ? "OF-Lapa" : session?.user.station
   );
 
-  console.log(clusters);
-
   if (clusters.length == 0) {
     redirect("/driver-panel/preferencias");
   }
   const hubInfo = await getHubInfo(
-    session?.user.ownflex ? "OwnFlex" : session?.user.station
+    session?.user.ownflex ? "OF-Lapa" : session?.user.station
   );
 
   const prevClusters = await getPrevClusters(session?.user.driverId.toString());
