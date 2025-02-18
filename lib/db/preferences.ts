@@ -7,7 +7,7 @@ export const getPreferences = async (
   ownflex = false
 ): Promise<Preferences> => {
   return await prisma.preferences.findMany({
-    where: { driver_id, ownflex },
+    where: { driver_id, ownflex: ownflex || false },
   });
 };
 
