@@ -13,6 +13,7 @@ export default async function Preferences() {
   // );
 
   const clusters = await getClusters(session?.user.station);
+
   if (clusters.length == 0) {
     redirect("/primeira-entrega/preferencias");
   }
