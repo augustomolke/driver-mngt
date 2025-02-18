@@ -62,7 +62,10 @@ export default async function Disponibilidade() {
     );
   }
 
-  const prevBookings = await getAvailability(session?.user.driverId.toString());
+  const prevBookings = await getAvailability(
+    session?.user.driverId.toString(),
+    session?.user.ownflex
+  );
 
   if (!(dates.length > 0)) {
     redirect("/driver-panel");
