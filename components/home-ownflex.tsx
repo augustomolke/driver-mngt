@@ -22,9 +22,13 @@ import StaticMap from "./static-map";
 import { Alert } from "./ui/alert";
 import { MapPin, Calendar, Smartphone } from "lucide-react";
 
-export default async function HomeOwnFlex({ driverFirstName }) {
+export default async function HomeOwnFlex({
+  driverFirstName,
+  choosed_station,
+  pendencias,
+}) {
   // const session = await auth();
-  const mapInfo = await getMap("OwnFlex");
+  const mapInfo = await getMap(choosed_station);
 
   // const station = session?.user.station;
   // const mapInfo = await getMap(station);
@@ -40,7 +44,7 @@ export default async function HomeOwnFlex({ driverFirstName }) {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <OnboardingOwnFlex />
+        <OnboardingOwnFlex pendencias={pendencias} />
 
         <CardTitle className="text-2xl">+ Informações Úteis</CardTitle>
 

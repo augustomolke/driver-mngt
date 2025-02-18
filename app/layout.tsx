@@ -32,9 +32,10 @@ export default async function RootLayout({
   const session = await auth();
   const options = await getOptions(session?.user.driverId);
 
-  const choosed_station = options
-    ? JSON.parse(options?.options || "")?.hub
-    : session?.user.station;
+  const parsedOptions = options?.options && JSON.parse(options.options);
+
+  const choosed_station =
+    parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
 
   return (
     <SessionProvider>
@@ -42,13 +43,13 @@ export default async function RootLayout({
         <html
           lang="en"
           className={
-            !choosed_station || choosed_station == "LM" ? "lm" : "ownflex"
+            !parsedOptions?.hub || parsedOptions?.hub == "LM" ? "lm" : "ownflex"
           }
         >
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >
-            <header className="header md:row-span-2">
+            <header className="header md:row-span-2 relative">
               <Logo />
             </header>
 

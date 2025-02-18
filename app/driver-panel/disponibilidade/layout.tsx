@@ -14,21 +14,20 @@ export default async function RootLayout({
 
   const parsedOptions = options?.options && JSON.parse(options.options);
 
-  const choosed_station =
-    parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
-
-  const event = await getEvent(session?.user.station, "AVAILABILITY");
-
   return (
     <div className="h-full relative">
+      {!parsedOptions?.hub ||
+        (parsedOptions?.hub != "LM" && (
+          <Badge
+            id="ownflex-badge"
+            className="absolute top-2 right-2 text-sm font-medium font-bold italic"
+          >
+            Flex
+          </Badge>
+        ))}
+
       {children}
       <div className="h-[64px]"></div>
-
-      <BottomNav
-        hasDisp={
-          choosed_station != "LM" || (choosed_station == "LM" && !!event)
-        }
-      />
     </div>
   );
 }

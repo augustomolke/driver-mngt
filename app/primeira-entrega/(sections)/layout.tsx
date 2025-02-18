@@ -3,7 +3,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <section className="container row-span-7 p-[2rem]">{children}</section>
-  );
+  return <section className="container row-span-7">{children}</section>;
 }

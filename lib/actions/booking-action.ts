@@ -19,10 +19,14 @@ const formatDate = (dateString: string) => {
   return `${month}/${day}/${year}`;
 };
 
-export const confirmAvailability = async (values, prevBookings, dates) => {
+export const confirmAvailability = async (
+  values,
+  prevBookings,
+  dates,
+  station,
+  ownflex
+) => {
   const session = await auth();
-
-  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
 
   const preferences = await prisma.preferences.findMany({
     where: { driver_id: session?.user.driverId.toString(), station },
@@ -62,7 +66,7 @@ export const confirmAvailability = async (values, prevBookings, dates) => {
           name: session?.user.driverName,
           phone: session?.user.phone.toString(),
           plate: session?.user.plate,
-          ownflex: session?.user.ownflex || false,
+          ownflex,
           city: preferences.reduce((acc, curr) => curr.city + ", " + acc, ""),
           cep: preferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
           vehicle: session?.user.vehicle,
@@ -127,11 +131,10 @@ export const createBookingAction = async (
   shift,
   exp,
   description,
-  instructions
+  instructions,
+  station
 ) => {
   const session = await auth();
-
-  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
 
   if (!session?.user) {
     return;

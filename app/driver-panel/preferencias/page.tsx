@@ -23,11 +23,12 @@ export default async function Preferences() {
 
   const options = await getOptions(session?.user.driverId);
 
-  const choosed_station = options
-    ? JSON.parse(options?.options || "")?.hub
-    : session?.user.station;
+  const parsedOptions = options?.options && JSON.parse(options.options);
 
-  if (choosed_station !== "LM") {
+  const choosed_station =
+    parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
+
+  if (!!parsedOptions?.hub && parsedOptions?.hub !== "LM") {
     redirect("/driver-panel/clusters");
   }
 

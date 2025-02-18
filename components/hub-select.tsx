@@ -26,7 +26,7 @@ export default function HubSelect({
         redirect("/driver-panel");
       }}
     >
-      <SelectTrigger>
+      <SelectTrigger className="[&>span]:font-bold">
         <SelectValue placeholder="Selecione um hub" />
       </SelectTrigger>
       <SelectContent>

@@ -12,8 +12,8 @@ export default async function Preferences() {
 
   const options = await getOptions(session?.user.driverId);
 
-  const choosed_station = options
-    ? JSON.parse(options?.options || "")?.hub
+  const choosed_station = options?.options
+    ? JSON.parse(options.options)?.hub
     : session?.user.station;
 
   const station =

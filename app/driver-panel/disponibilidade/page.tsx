@@ -26,6 +26,8 @@ import {
 import Link from "next/link";
 import HubSelection from "@/components/hub-select";
 import { parse } from "path";
+import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
+import { TriangleAlert } from "lucide-react";
 
 export default async function Disponibilidade() {
   const session = await auth();
@@ -33,19 +35,23 @@ export default async function Disponibilidade() {
   const dates = await fetchDates(session?.user.ownflex);
 
   const options = await getOptions(session?.user.driverId);
-  const parsedOptions = JSON.parse(options?.options || "");
+  const parsedOptions = options?.options ? JSON.parse(options?.options) : {};
 
-  const choosed_station = options ? parsedOptions?.hub : session?.user.station;
-
-  const station =
-    choosed_station !== "LM" ? choosed_station : session?.user.station;
+  const choosed_station =
+    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
+      ? parsedOptions?.hub
+      : session?.user.station;
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
-    station
+    choosed_station
   );
 
-  if (choosed_station !== "LM" && preferences.length < 5) {
+  if (
+    !!parsedOptions?.hub &&
+    parsedOptions?.hub !== "LM" &&
+    preferences.length < 5
+  ) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -71,7 +77,7 @@ export default async function Disponibilidade() {
 
   const prevBookings = await getAvailability(
     session?.user.driverId.toString(),
-    station
+    choosed_station
   );
 
   if (!(dates.length > 0)) {
@@ -79,7 +85,7 @@ export default async function Disponibilidade() {
   }
 
   const shiftsOptions =
-    choosed_station !== "LM"
+    !!parsedOptions?.hub && parsedOptions?.hub !== "LM"
       ? [
           { id: "AM", description: "6h às 10h" },
           { id: "PM", description: "15:30h às 18h", exclude: [0] },
@@ -94,20 +100,31 @@ export default async function Disponibilidade() {
     <Card>
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
-        <CardDescription className="flex flex-col gap-2">
+        <CardDescription className="flex flex-col gap-4">
           <div>
             Informe sua disponibilidade para os próximos 3 dias de carregamento.
             Você pode selecionar quantos dias e horários quiser.{" "}
             <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
           {session?.user.ownflex && (
-            <HubSelection
-              defaultValue={parsedOptions?.hub}
-              options={[
-                { key: "LM", label: session.user.station },
-                { key: "OF-Lapa", label: "Entrega Rápida - Lapa" },
-              ]}
-            />
+            <Alert variant={"secondary"} className="space-y-2">
+              <AlertTitle className="font-bold flex gap-2 items-center">
+                <TriangleAlert className="animate-pulse" />
+                Atenção!
+              </AlertTitle>
+
+              <AlertDescription>
+                Você está confirmando sua disponibilidade para o hub:
+              </AlertDescription>
+
+              <HubSelection
+                defaultValue={parsedOptions?.hub}
+                options={[
+                  { key: "LM", label: session.user.station.split("_")[2] },
+                  { key: "OF-Lapa", label: "Entrega Rápida - Lapa" },
+                ]}
+              />
+            </Alert>
           )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:
@@ -118,9 +135,10 @@ export default async function Disponibilidade() {
           dates={dates}
           shiftsOptions={shiftsOptions}
           prevBookings={prevBookings.filter(
-            (booking) => booking.station == station
+            (booking) => booking.station == choosed_station
           )}
-          station={station}
+          station={choosed_station}
+          ownflex={parsedOptions?.hub == "LM" ? false : true}
         />
       </CardContent>
     </Card>
