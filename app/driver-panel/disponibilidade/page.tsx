@@ -24,23 +24,28 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import HubSelection from "@/components/hub-select";
+import { parse } from "path";
 
 export default async function Disponibilidade() {
   const session = await auth();
 
   const dates = await fetchDates(session?.user.ownflex);
 
-  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+  const options = await getOptions(session?.user.driverId);
+  const parsedOptions = JSON.parse(options?.options || "");
+
+  const choosed_station = options ? parsedOptions?.hub : session?.user.station;
+
+  const station =
+    choosed_station !== "LM" ? choosed_station : session?.user.station;
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
     station
   );
 
-  if (session?.user.ownflex && preferences.length < 5) {
+  if (choosed_station !== "LM" && preferences.length < 5) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -73,16 +78,17 @@ export default async function Disponibilidade() {
     redirect("/driver-panel");
   }
 
-  const shiftsOptions = session?.user.ownflex
-    ? [
-        { id: "AM", description: "6h às 10h" },
-        { id: "PM", description: "15:30h às 18h", exclude: [0] },
-      ]
-    : [
-        { id: "AM", description: "AM" },
-        { id: "PM", description: "PM" },
-        { id: "SD", description: "SD" },
-      ];
+  const shiftsOptions =
+    choosed_station !== "LM"
+      ? [
+          { id: "AM", description: "6h às 10h" },
+          { id: "PM", description: "15:30h às 18h", exclude: [0] },
+        ]
+      : [
+          { id: "AM", description: "AM" },
+          { id: "PM", description: "PM" },
+          { id: "SD", description: "SD" },
+        ];
 
   return (
     <Card>
@@ -95,42 +101,13 @@ export default async function Disponibilidade() {
             <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
           {session?.user.ownflex && (
-            <Dialog>
-              <DialogTrigger>
-                <div className="flex items-center justify-center gap-2">
-                  <Switch id="modalidade" defaultChecked={true} />
-                  <Label htmlFor="modalidade">
-                    {`Modalidade ${
-                      session?.user.ownflex ? "Flex" : "Entrega Comum"
-                    }`}
-                  </Label>
-                </div>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Trocar de modalidade</DialogTitle>
-                  <DialogDescription className="flex flex-col gap-2">
-                    <span>
-                      Na modalidade Flex, você pode realizar coletas e entregas
-                      no mesmo dia e maximizar os ganhos.
-                    </span>
-                    <strong>
-                      A troca de modalidade pode demorar até 24h para ser
-                      efetivada.
-                    </strong>
-                  </DialogDescription>
-
-                  <DialogFooter>
-                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd1dqFFQD0F6lYCjRXJ5ZGYSLI2eMvZMJRb5pGyabLhkPocMg/viewform">
-                      <Button>
-                        {`Trocar para 
-                      ${session?.user.ownflex ? "Entrega Comum" : "Flex"}`}
-                      </Button>
-                    </Link>
-                  </DialogFooter>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
+            <HubSelection
+              defaultValue={parsedOptions?.hub}
+              options={[
+                { key: "LM", label: session.user.station },
+                { key: "OF-Lapa", label: "Entrega Rápida - Lapa" },
+              ]}
+            />
           )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:

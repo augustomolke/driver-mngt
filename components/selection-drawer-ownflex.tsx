@@ -22,21 +22,17 @@ import { Badge } from "./ui/badge";
 
 const limit = 5;
 
-export const SelectionDrawer = ({
-  serverSession,
-  defaultOptions = { days: [], shifts: [] },
-}) => {
+export const SelectionDrawer = ({ serverSession, choosed_station }) => {
   const { selected, setSelected, closeBtn } = useClusters();
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
   const router = useRouter();
-  // const [options, setOptions] = React.useState(defaultOptions);
 
   const onSubmit = React.useCallback(async () => {
     setLoading(true);
 
     try {
-      await savePreferences(selected, serverSession.user);
+      await savePreferences(selected, serverSession.user, choosed_station);
       // await saveOptions(JSON.stringify(options));
 
       toast({

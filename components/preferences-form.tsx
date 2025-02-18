@@ -61,6 +61,7 @@ export default ({
   redirectTo = null,
   backButton = false,
   user: loggedUser,
+  choosed_station,
   priorityAlert = false,
   incentiveAlert = false,
 }) => {
@@ -114,7 +115,8 @@ export default ({
             driver_id: loggedUser.driverId.toString(),
             driver_name: loggedUser.driverName,
             phone: loggedUser.phone.toString(),
-            station: loggedUser.station,
+            station:
+              choosed_station == "LM" ? loggedUser.station : choosed_station,
             vehicle: loggedUser.vehicle,
             city: pref.city,
             cep: pref.cep,

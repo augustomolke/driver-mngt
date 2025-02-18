@@ -20,8 +20,8 @@ export const getPrevClusters = async (driver_id: string): Promise<any[]> => {
   });
 };
 
-export async function savePreferences(clusters, user) {
-  const station = user.ownflex ? "OwnFlex" : user.station;
+export async function savePreferences(clusters, user, choosed_station = null) {
+  const station = choosed_station || user.station;
   try {
     const preferences = clusters.map((cluster: any) => ({
       driver_id: user.driverId.toString(),

@@ -11,7 +11,7 @@ export default function MyPage({
   center,
   defaultClusters,
   style,
-  defaultOptions,
+  choosed_station,
 }) {
   const Map = useMemo(
     () =>
@@ -27,7 +27,7 @@ export default function MyPage({
       {serverSession && serverSession.user.ownflex ? (
         <OwnFlexSelectionDrawer
           serverSession={serverSession}
-          // defaultOptions={defaultOptions}
+          choosed_station={choosed_station}
         />
       ) : (
         <SelectionDrawer serverSession={serverSession} />

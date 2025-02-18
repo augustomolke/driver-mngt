@@ -6,6 +6,7 @@ import Logo from "@/components/assets/logo";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { auth } from "@/auth";
+import { getOptions } from "@/lib/db/options";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,11 +30,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  const options = await getOptions(session?.user.driverId);
+
+  const choosed_station = options
+    ? JSON.parse(options?.options || "")?.hub
+    : session?.user.station;
 
   return (
     <SessionProvider>
       <TooltipProvider>
-        <html lang="en" className={session?.user.ownflex ? "ownflex" : "lm"}>
+        <html
+          lang="en"
+          className={
+            !choosed_station || choosed_station == "LM" ? "lm" : "ownflex"
+          }
+        >
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >

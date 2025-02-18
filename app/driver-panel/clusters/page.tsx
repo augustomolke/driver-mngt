@@ -5,15 +5,19 @@ import MapComponent from "@/components/map-container";
 import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { getPreferences } from "@/lib/db/preferences";
+import { getOptions } from "@/lib/db/options";
 
 export default async function Preferences() {
   const session = await auth();
 
-  // const preloadedPreferences = await getPreferences(
-  //   session?.user.driverId.toString()
-  // );
+  const options = await getOptions(session?.user.driverId);
 
-  const station = session?.user.ownflex ? "OwnFlex" : session?.user.station;
+  const choosed_station = options
+    ? JSON.parse(options?.options || "")?.hub
+    : session?.user.station;
+
+  const station =
+    choosed_station !== "LM" ? choosed_station : session?.user.station;
 
   const clusters = await getClusters(station);
   if (clusters.length == 0) {
@@ -38,6 +42,7 @@ export default async function Preferences() {
         center={[hubInfo.latitude, hubInfo.longitude]}
         defaultClusters={prevClusters.map((cluster) => cluster.cep)}
         style={{ width: "100%", height: "75vh", borderRadius: "0.8rem" }}
+        choosed_station={choosed_station}
       />
     </Card>
   );
