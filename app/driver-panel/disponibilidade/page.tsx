@@ -33,7 +33,10 @@ export default async function Disponibilidade() {
 
   const dates = await fetchDates(session?.user.ownflex);
 
-  const preferences = await getPreferences(session?.user.driverId.toString());
+  const preferences = await getPreferences(
+    session?.user.driverId.toString(),
+    true
+  );
 
   if (session?.user.ownflex && preferences.length < 5) {
     return (

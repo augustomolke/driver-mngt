@@ -17,8 +17,8 @@ export default async function OnboardingOwnFlex() {
   const session = await auth();
 
   const [preferences, bookings] = await Promise.all([
-    getPreferences(session?.user.driverId.toString()),
-    getAvailability(session?.user.driverId.toString()),
+    getPreferences(session?.user.driverId.toString(), session?.user.ownflex),
+    getAvailability(session?.user.driverId.toString(), session?.user.ownflex),
   ]);
 
   const pendencias = [];

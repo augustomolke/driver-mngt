@@ -3,10 +3,11 @@ import { revalidatePath } from "next/cache";
 import prisma from "./db";
 
 export const getPreferences = async (
-  driver_id: number | string
+  driver_id: number | string,
+  ownflex = false
 ): Promise<Preferences> => {
   return await prisma.preferences.findMany({
-    where: { driver_id },
+    where: { driver_id, ownflex },
   });
 };
 
