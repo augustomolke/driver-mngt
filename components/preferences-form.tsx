@@ -4,7 +4,10 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { CircleCheckBig, CircleX, DollarSign, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Truck } from "lucide-react";
-import { Fade, AttentionSeeker } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
+import worker from "@/components/assets/warehouse-worker.svg";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 
 import {
   Card,
@@ -64,11 +67,26 @@ export default ({
   priorityAlert = false,
   incentiveAlert = false,
 }) => {
+  const checks =
+    loggedUser.vehicle === "MOTO"
+      ? [
+          "Calçado de segurança confeccionado em couro com biqueira de composite",
+          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Colete Refletivo",
+          "Alforje ou Baú fechado com capacidade mínima de 80L",
+        ]
+      : [
+          "Calçado de segurança confeccionado em couro com biqueira de composite",
+          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Colete Refletivo",
+        ];
+
   const router = useRouter();
 
   const { toast } = useToast();
 
   const [loading, setLoading] = React.useState(false);
+  const [checked, setChecked] = React.useState([]);
 
   const [cascadeState, setCascade] = React.useState(true);
   const [values, setValues] = React.useState(
@@ -407,7 +425,62 @@ export default ({
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Gostaria de salvar suas alterações?</DialogTitle>
+              <DialogTitle>Sua segurança é nossa prioridade!</DialogTitle>
+              <DialogDescription>
+                Antes de prosseguir, é necessário garantir que você possui os
+                equipamentos de segurança obrigatórios!{" "}
+                <strong>
+                  Sem esses itens, não será permitida a entrada nas instalações!
+                </strong>
+                <div className="flex justify-center items-center">
+                  <Image src={worker} width={120} className="tra" />
+                  <div className="gap-4 flex flex-col justify-start items-start">
+                    {checks.map((c, idx) => (
+                      <div className="flex gap-2 w-full">
+                        <Checkbox
+                          id={idx}
+                          value={c}
+                          onCheckedChange={() =>
+                            setChecked((state) => [...state, c])
+                          }
+                        />
+                        <Label className="text-left" for={idx}>
+                          {c}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    form="preferences"
+                    disabled={
+                      values.findIndex((v) => v.value == "") > -1 ||
+                      !(checked.length == checks.length)
+                    }
+                  >
+                    {loading ? (
+                      <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
+                    ) : (
+                      "Salvar Alterações"
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+
+        {/* <Dialog>
+          <DialogTrigger>
+            <Button disabled={values.filter((v) => v.value != "").length < 3}>
+              Salvar Alterações
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>AAA</DialogTitle>
               <DialogDescription>
                 Lembre-se:{" "}
                 <strong>
@@ -431,7 +504,7 @@ export default ({
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </CardFooter>
     </Card>
   );

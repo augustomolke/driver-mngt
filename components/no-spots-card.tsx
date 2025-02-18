@@ -24,12 +24,13 @@ export const NoSpotsCard = () => {
           </CardHeader>
           <CardContent>
             <CardDescription className="my-4">
+              Em breve um funcionário Shopee do seu HUB entrará em contato pelo
+              seu número de WhatsApp cadastrado para agendar a sua primeira
+              entrega.
+              <br />
               <strong>
-                Obrigado por confirmar seu interesse em ser um Motorista
-                Parceiro Shopee
+                Fique atendo no seu celular! Estaremos esperando por você
               </strong>
-              . Entraremos em contato para informar os próximos passos. Por
-              favor, mantenha seus dados de contato atualizados no App Driver.{" "}
             </CardDescription>
             {/* <ReviewPreferencesAlert /> */}
             <Separator className="my-4" />
