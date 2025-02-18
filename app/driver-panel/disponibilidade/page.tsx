@@ -35,7 +35,7 @@ export default async function Disponibilidade() {
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
-    true
+    session?.user.ownflex
   );
 
   if (session?.user.ownflex && preferences.length < 5) {
