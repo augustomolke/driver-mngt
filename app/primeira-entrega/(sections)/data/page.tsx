@@ -124,16 +124,11 @@ export default async function Home() {
   const checks =
     session?.user.vehicle === "MOTO"
       ? [
-          "Calçado de segurança confeccionado em couro com biqueira de composite",
-          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Bota de segurança com certificado de aprovação",
           "Colete Refletivo",
           "Alforje ou Baú fechado com capacidade mínima de 80L",
         ]
-      : [
-          "Calçado de segurança confeccionado em couro com biqueira de composite",
-          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
-          "Colete Refletivo",
-        ];
+      : ["Bota de segurança com certificado de aprovação", "Colete Refletivo"];
 
   return (
     <div>
