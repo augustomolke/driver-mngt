@@ -1,8 +1,8 @@
 "use server";
 import parser from "cron-parser";
 import { getEvent } from "@/lib/db/events";
-import { prisma } from "@/prisma/db";
 import { auth } from "@/auth";
+import { getOptions } from "@/lib/db/options";
 
 function isLaterThan10PMSaoPaulo() {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -17,10 +17,16 @@ function isLaterThan10PMSaoPaulo() {
 export async function fetchDates(ownflex = false, days: number = 3) {
   const session = await auth();
 
-  const eventDb = await getEvent(
-    ownflex ? "OF Hub_SP_Lapa" : session?.user.station,
-    "AVAILABILITY"
-  );
+  const options = await getOptions(session?.user.driverId);
+
+  const parsedOptions = options?.options && JSON.parse(options.options);
+
+  const choosed_station =
+    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
+      ? "OF Hub_SP_Lapa"
+      : session?.user.station;
+
+  const eventDb = await getEvent(choosed_station, "AVAILABILITY");
 
   if (!eventDb) {
     return [];

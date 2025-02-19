@@ -67,7 +67,7 @@ export default function Scheduling({
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await confirmAvailability(values, prevBookings, dates, station, ownflex);
+      await confirmAvailability(values, dates, station, ownflex);
       toast({
         icon: (
           <CircleCheckBig color="hsl(var(--green))" height={48} width={48} />

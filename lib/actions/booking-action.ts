@@ -10,116 +10,63 @@ import { createBooking } from "../db/bookings";
 import { revalidateTag } from "next/cache";
 import prisma from "../db/db";
 
-const EVENTS_API_URL = process.env.EVENTS_API;
-const SECRET = process.env.SECRET;
-
 const formatDate = (dateString: string) => {
   const [day, month, year] = dateString.split("/");
 
   return `${month}/${day}/${year}`;
 };
 
-export const confirmAvailability = async (
-  values,
-  prevBookings,
-  dates,
-  station,
-  ownflex
-) => {
+export const confirmAvailability = async (values, dates, station, ownflex) => {
   const session = await auth();
 
-  const preferences = await prisma.preferences.findMany({
-    where: { driver_id: session?.user.driverId.toString(), station },
+  const preferences = await getPreferences(
+    session.user.driverId.toString(),
+    station
+  );
+
+  const city = preferences.reduce((acc, curr) => curr.city + ", " + acc, "");
+
+  const cep = preferences.reduce((acc, curr) => curr.cep + ", " + acc, "");
+
+  const prevBookings = await prisma.bookings.findMany({
+    where: {
+      driver_id: session.user.driverId.toString(),
+      station,
+      date: { in: Object.keys(values).map((key) => new Date(key)) },
+    },
   });
 
-  const booking = Object.entries(values)
-    .map(([event_name, bookings]) => {
-      const event = dates.find(
-        (d) => d.value.getDate() === new Date(event_name).getDate()
-      );
-
-      const prev = prevBookings
-        .filter(
-          (prev) =>
-            new Date(prev.date).getDate() == new Date(event.value).getDate()
-        )
-        .find(Boolean);
-
-      if (
-        compareArrays(
-          prev?.info,
-          Object.entries(bookings)
-            .filter((book) => !!book[1])
-            .map((book) => book[0])
-        )
-      ) {
-        //nothing to do
-        return null;
-      }
-
-      if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
-        //deletar
-        return null;
-      } else {
-        return {
-          driver_id: session.user.driverId.toString(),
-          name: session?.user.driverName,
-          phone: session?.user.phone.toString(),
-          plate: session?.user.plate,
-          ownflex,
-          city: preferences.reduce((acc, curr) => curr.city + ", " + acc, ""),
-          cep: preferences.reduce((acc, curr) => curr.cep + ", " + acc, ""),
-          vehicle: session?.user.vehicle,
-          station,
-          event_id: event.event_id,
-          date: event.value,
-          info: JSON.stringify(
-            Object.entries(bookings)
-              .filter((book) => !!book[1])
-              .map((book) => book[0])
-          ),
-          ...(!!prev && { booking_id: prev?.id }),
-        };
-      }
+  const newBookings = Object.entries(values)
+    .map(([date, value], index) => {
+      return {
+        driver_id: session.user.driverId.toString(),
+        name: session.user.driverName,
+        plate: session.user.plate,
+        vehicle: session.user.vehicle,
+        station,
+        phone: session.user.phone.toString(),
+        city,
+        cep,
+        ownflex,
+        event_id: dates[0].event_id,
+        date: new Date(date),
+        info: JSON.stringify(
+          Object.entries(value)
+            .filter(([shift, selected]) => selected)
+            .map(([shift, selected]) => shift)
+        ),
+      };
     })
-    .filter((v) => !!v);
+    .filter((booking) => JSON.parse(booking.info).length > 0);
 
-  const bookingToDelete = Object.entries(values)
-    .map(([event_name, bookings]) => {
-      const event = dates.find(
-        (d) => d.value.getDate() === new Date(event_name).getDate()
-      );
-      const prev = prevBookings
-        .filter(
-          (prev) =>
-            new Date(prev.date).getDate() == new Date(event.value).getDate()
-        )
-        .find(Boolean);
-      if (Object.entries(bookings).findIndex((book) => !!book[1]) < 0) {
-        //deletar
-        return prev?.id;
-      }
-    })
-    .filter((v) => !!v);
-
-  const promises = [];
-
-  if (booking.length > 0) {
-    promises.push(createBooking(booking.filter((b) => !b.booking_id)));
-    promises.push(
-      updateAvailability(
-        booking
-          .filter((b) => !!b.booking_id)
-          .map((b) => ({ id: b.booking_id, payload: { info: b.info } }))
-      )
-    );
-  }
-
-  if (bookingToDelete.length > 0) {
-    promises.push(deleteBooking(bookingToDelete));
-  }
-
-  await Promise.all(promises);
+  await prisma.$transaction([
+    prisma.bookings.deleteMany({
+      where: { id: { in: prevBookings.map((b) => b.id) } },
+    }),
+    prisma.bookings.createMany({
+      data: newBookings,
+    }),
+  ]);
 
   revalidateTag("availability");
   redirect("/driver-panel");
