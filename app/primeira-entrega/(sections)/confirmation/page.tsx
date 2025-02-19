@@ -1,5 +1,4 @@
 import { NoSpotsCard } from "@/components/no-spots-card";
-i;
 export default async function Home() {
   return (
     <div>
