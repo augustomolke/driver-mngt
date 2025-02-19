@@ -71,16 +71,11 @@ export default ({
   const checks =
     loggedUser.vehicle === "MOTO"
       ? [
-          "Calçado de segurança confeccionado em couro com biqueira de composite",
-          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
+          "Bota de segurança com certificado de aprovação",
           "Colete Refletivo",
           "Alforje ou Baú fechado com capacidade mínima de 80L",
         ]
-      : [
-          "Calçado de segurança confeccionado em couro com biqueira de composite",
-          // "Luvas:  proteção das mãos do usuário contra agentes abrasivos, escoriantes e cortantes",
-          "Colete Refletivo",
-        ];
+      : ["Bota de segurança com certificado de aprovação", "Colete Refletivo"];
 
   const router = useRouter();
 
@@ -442,9 +437,15 @@ export default ({
                         <Checkbox
                           id={idx}
                           value={c}
-                          onCheckedChange={() =>
-                            setChecked((state) => [...state, c])
-                          }
+                          onCheckedChange={(value) => {
+                            if (value) {
+                              setChecked((state) => [...state, c]);
+                            } else {
+                              setChecked((state) =>
+                                state.filter((v) => v != c)
+                              );
+                            }
+                          }}
                         />
                         <Label className="text-left" for={idx}>
                           {c}

@@ -314,9 +314,15 @@ export default function FirstTripForm({
                         <Checkbox
                           id={idx}
                           value={c}
-                          onCheckedChange={() =>
-                            setChecked((state) => [...state, c])
-                          }
+                          onCheckedChange={(value) => {
+                            if (value) {
+                              setChecked((state) => [...state, c]);
+                            } else {
+                              setChecked((state) =>
+                                state.filter((v) => v != c)
+                              );
+                            }
+                          }}
                         />
                         <Label className="text-left" for={idx}>
                           {c}
