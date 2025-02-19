@@ -48,7 +48,8 @@ export default async function Home() {
   }
 
   const preloadedPreferences = await getPreferences(
-    session?.user.driverId.toString()
+    session?.user.driverId.toString(),
+    session?.user.station
   );
 
   if (!(preloadedPreferences.length > 0)) {

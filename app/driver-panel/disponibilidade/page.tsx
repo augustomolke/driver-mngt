@@ -24,21 +24,34 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import HubSelection from "@/components/hub-select";
+import { parse } from "path";
+import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
+import { TriangleAlert } from "lucide-react";
 
 export default async function Disponibilidade() {
   const session = await auth();
 
   const dates = await fetchDates(session?.user.ownflex);
 
+  const options = await getOptions(session?.user.driverId);
+  const parsedOptions = options?.options ? JSON.parse(options?.options) : {};
+
+  const choosed_station =
+    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
+      ? parsedOptions?.hub
+      : session?.user.station;
+
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
-    session?.user.ownflex
+    choosed_station
   );
 
-  if (session?.user.ownflex && preferences.length < 5) {
+  if (
+    !!parsedOptions?.hub &&
+    parsedOptions?.hub !== "LM" &&
+    preferences.length < 5
+  ) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -64,71 +77,54 @@ export default async function Disponibilidade() {
 
   const prevBookings = await getAvailability(
     session?.user.driverId.toString(),
-    session?.user.ownflex
+    choosed_station
   );
 
   if (!(dates.length > 0)) {
     redirect("/driver-panel");
   }
 
-  const shiftsOptions = session?.user.ownflex
-    ? [
-        { id: "AM", description: "6h às 10h" },
-        { id: "PM", description: "15:30h às 18h", exclude: [0] },
-      ]
-    : [
-        { id: "AM", description: "AM" },
-        { id: "PM", description: "PM" },
-        { id: "SD", description: "SD" },
-      ];
+  const shiftsOptions =
+    !!parsedOptions?.hub && parsedOptions?.hub !== "LM"
+      ? [
+          { id: "AM", description: "6h às 10h" },
+          { id: "PM", description: "15:30h às 18h", exclude: [0] },
+        ]
+      : [
+          { id: "AM", description: "AM" },
+          { id: "PM", description: "PM" },
+          { id: "SD", description: "SD" },
+        ];
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
-        <CardDescription className="flex flex-col gap-2">
+        <CardDescription className="flex flex-col gap-4">
           <div>
             Informe sua disponibilidade para os próximos 3 dias de carregamento.
             Você pode selecionar quantos dias e horários quiser.{" "}
             <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
           {session?.user.ownflex && (
-            <Dialog>
-              <DialogTrigger>
-                <div className="flex items-center justify-center gap-2">
-                  <Switch id="modalidade" defaultChecked={true} />
-                  <Label htmlFor="modalidade">
-                    {`Modalidade ${
-                      session?.user.ownflex ? "Flex" : "Entrega Comum"
-                    }`}
-                  </Label>
-                </div>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Trocar de modalidade</DialogTitle>
-                  <DialogDescription className="flex flex-col gap-2">
-                    <span>
-                      Na modalidade Flex, você pode realizar coletas e entregas
-                      no mesmo dia e maximizar os ganhos.
-                    </span>
-                    <strong>
-                      A troca de modalidade pode demorar até 24h para ser
-                      efetivada.
-                    </strong>
-                  </DialogDescription>
+            <Alert variant={"secondary"} className="space-y-2">
+              <AlertTitle className="font-bold flex gap-2 items-center">
+                <TriangleAlert className="animate-pulse" />
+                Atenção!
+              </AlertTitle>
 
-                  <DialogFooter>
-                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSd1dqFFQD0F6lYCjRXJ5ZGYSLI2eMvZMJRb5pGyabLhkPocMg/viewform">
-                      <Button>
-                        {`Trocar para 
-                      ${session?.user.ownflex ? "Entrega Comum" : "Flex"}`}
-                      </Button>
-                    </Link>
-                  </DialogFooter>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
+              <AlertDescription>
+                Você está confirmando sua disponibilidade para o hub:
+              </AlertDescription>
+
+              <HubSelection
+                defaultValue={parsedOptions?.hub}
+                options={[
+                  { key: "LM", label: session.user.station.split("_")[2] },
+                  { key: "OF-Lapa", label: "Entrega Rápida - Lapa" },
+                ]}
+              />
+            </Alert>
           )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:
@@ -139,10 +135,12 @@ export default async function Disponibilidade() {
           dates={dates}
           shiftsOptions={shiftsOptions}
           prevBookings={prevBookings.filter(
-            ({ station }) =>
-              station ==
-              (session?.user.choosed_station || session?.user.station)
+            (booking) => booking.station == choosed_station
           )}
+          station={choosed_station}
+          ownflex={
+            !!parsedOptions?.hub && parsedOptions?.hub !== "LM" ? true : false
+          }
         />
       </CardContent>
     </Card>

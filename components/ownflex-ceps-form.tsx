@@ -44,6 +44,8 @@ export default function OwnFlexCepsForm({
   const resetCeps = useCepsStore((state) => state.resetCeps);
   const [options, setOptions] = useState(defaultOptions);
 
+  const station = loggedUser.ownflex ? "OwnFlex" : loggedUser.station;
+
   const form = useForm({
     defaultValues,
   });
@@ -80,7 +82,7 @@ export default function OwnFlexCepsForm({
         driver_id: loggedUser.driverId.toString(),
         driver_name: loggedUser.driverName,
         phone: loggedUser.phone.toString(),
-        station: loggedUser.choosed_station || loggedUser.station,
+        station,
         vehicle: loggedUser.vehicle,
         city: data.macro,
         cep: pref,
@@ -88,7 +90,7 @@ export default function OwnFlexCepsForm({
       }));
 
       await Promise.all([
-        savePreferences(payload),
+        savePreferences(payload, station),
         saveOptions(JSON.stringify(options)),
       ]);
 

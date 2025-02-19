@@ -2,29 +2,33 @@ import { auth } from "@/auth";
 import { getClusters } from "@/lib/db/clusters";
 import { getHubInfo } from "@/gsheets/locations";
 import MapComponent from "@/components/map-container";
-import { getPrevClusters } from "@/lib/db/clusters";
 import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
+import { getPreferences } from "@/lib/db/preferences";
+import { getOptions } from "@/lib/db/options";
 
 export default async function Preferences() {
   const session = await auth();
 
-  // const preloadedPreferences = await getPreferences(
-  //   session?.user.driverId.toString()
-  // );
+  const options = await getOptions(session?.user.driverId);
 
-  const clusters = await getClusters(
-    session?.user.ownflex ? "OF-Lapa" : session?.user.station
-  );
+  const choosed_station = options?.options
+    ? JSON.parse(options.options)?.hub
+    : session?.user.station;
 
+  const station =
+    choosed_station !== "LM" ? choosed_station : session?.user.station;
+
+  const clusters = await getClusters(station);
   if (clusters.length == 0) {
     redirect("/driver-panel/preferencias");
   }
-  const hubInfo = await getHubInfo(
-    session?.user.ownflex ? "OF-Lapa" : session?.user.station
-  );
+  const hubInfo = await getHubInfo(station);
 
-  const prevClusters = await getPrevClusters(session?.user.driverId.toString());
+  const prevClusters = await getPreferences(
+    session?.user.driverId.toString(),
+    station
+  );
 
   return (
     <Card className="m-0 p-0">
@@ -38,6 +42,7 @@ export default async function Preferences() {
         center={[hubInfo.latitude, hubInfo.longitude]}
         defaultClusters={prevClusters.map((cluster) => cluster.cep)}
         style={{ width: "100%", height: "75vh", borderRadius: "0.8rem" }}
+        choosed_station={choosed_station}
       />
     </Card>
   );

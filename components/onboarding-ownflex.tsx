@@ -13,23 +13,7 @@ import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
 import TodoAlert from "./todo-alert";
 
-export default async function OnboardingOwnFlex() {
-  const session = await auth();
-
-  const [preferences, bookings] = await Promise.all([
-    getPreferences(session?.user.driverId.toString(), session?.user.ownflex),
-    getAvailability(session?.user.driverId.toString(), session?.user.ownflex),
-  ]);
-
-  const pendencias = [];
-  if (bookings.length == 0) {
-    pendencias.push("Disponibilidade");
-  }
-
-  if (preferences.length < 5) {
-    pendencias.push("Preferências");
-  }
-
+export default async function OnboardingOwnFlex({ pendencias = [] }) {
   return (
     <>
       <TodoAlert amount={pendencias.length} />

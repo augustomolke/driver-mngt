@@ -20,13 +20,14 @@ export const getPrevClusters = async (driver_id: string): Promise<any[]> => {
   });
 };
 
-export async function savePreferences(clusters, user) {
+export async function savePreferences(clusters, user, choosed_station = null) {
+  const station = choosed_station || user.station;
   try {
     const preferences = clusters.map((cluster: any) => ({
       driver_id: user.driverId.toString(),
       driver_name: user.driverName,
       phone: user.phone.toString(),
-      station: user.station,
+      station,
       vehicle: user.vehicle,
       city: "",
       cep: cluster,
@@ -35,7 +36,7 @@ export async function savePreferences(clusters, user) {
 
     await prisma.$transaction([
       prisma.preferences.deleteMany({
-        where: { driver_id: user.driverId.toString() },
+        where: { driver_id: user.driverId.toString(), station },
       }),
       prisma.preferences.createMany({
         data: preferences,

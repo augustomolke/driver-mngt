@@ -33,14 +33,10 @@ export const getSpots = unstable_cache(
 );
 
 export const getAvailability = unstable_cache(
-  async (driver_id: string, ownflex = false) => {
+  async (driver_id: string, station: string) => {
     return await prisma.bookings.findMany({
       where: {
-        AND: [
-          { driver_id },
-          { date: { gte: new Date() } },
-          { ownflex: ownflex || false },
-        ],
+        AND: [{ driver_id }, { station }, { date: { gte: new Date() } }],
       },
     });
   },
