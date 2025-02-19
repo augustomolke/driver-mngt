@@ -30,22 +30,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  const options = await getOptions(session?.user.driverId);
 
-  const parsedOptions = options?.options && JSON.parse(options.options);
+  let newClass = "lm";
 
-  const choosed_station =
-    parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
+  if (!!session?.user) {
+    const options = await getOptions(session?.user.driverId);
+
+    const parsedOptions = options?.options && JSON.parse(options.options);
+
+    const choosed_station =
+      parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
+
+    newClass =
+      !parsedOptions?.hub || parsedOptions?.hub == "LM" ? "lm" : "ownflex";
+  }
 
   return (
     <SessionProvider>
       <TooltipProvider>
-        <html
-          lang="en"
-          className={
-            !parsedOptions?.hub || parsedOptions?.hub == "LM" ? "lm" : "ownflex"
-          }
-        >
+        <html lang="en" className={newClass}>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >
