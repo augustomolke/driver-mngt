@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   yesterday.setDate(yesterday.getDate() - 1);
   const data = await prisma.bookings.findMany({
     where: {
+      station: "OF-Lapa",
       ownflex: true,
       date: { gte: yesterday },
       event: { event_type: "AVAILABILITY" },
