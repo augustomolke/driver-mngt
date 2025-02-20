@@ -38,9 +38,6 @@ export default async function RootLayout({
 
     const parsedOptions = options?.options && JSON.parse(options.options);
 
-    const choosed_station =
-      parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
-
     newClass =
       !parsedOptions?.hub || parsedOptions?.hub == "LM" ? "lm" : "ownflex";
   }

@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { getPreferences } from "@/lib/db/preferences";
 import { getLocations } from "@/gsheets/locations";
 import { redirect } from "next/navigation";
-import { getOptions } from "@/lib/db/options";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
 function formatCep(input) {
   // Ensure the input is a string
@@ -21,27 +21,18 @@ function formatCep(input) {
 export default async function Preferences() {
   const session = await auth();
 
-  const options = await getOptions(session?.user.driverId);
+  const { choosed_station, mode } = await getCurrentMode();
 
-  const parsedOptions = options?.options && JSON.parse(options.options);
-
-  const choosed_station =
-    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
-      ? parsedOptions?.hub
-      : session?.user.station;
-
-  if (!!parsedOptions?.hub && parsedOptions?.hub !== "LM") {
+  if (mode === "OF") {
     redirect("/driver-panel/clusters");
   }
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
-    choosed_station === "LM" ? session?.user.station : choosed_station
+    choosed_station
   );
 
-  const locations = await getLocations(
-    session?.user.choosed_station || session?.user.station
-  );
+  const locations = await getLocations(choosed_station);
 
   return (
     <PreferencesForm

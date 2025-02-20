@@ -5,29 +5,22 @@ import MapComponent from "@/components/map-container";
 import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { getPreferences } from "@/lib/db/preferences";
-import { getOptions } from "@/lib/db/options";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
 export default async function Preferences() {
   const session = await auth();
 
-  const options = await getOptions(session?.user.driverId);
+  const { choosed_station } = await getCurrentMode();
 
-  const choosed_station = options?.options
-    ? JSON.parse(options.options)?.hub
-    : session?.user.station;
-
-  const station =
-    choosed_station !== "LM" ? choosed_station : session?.user.station;
-
-  const clusters = await getClusters(station);
+  const clusters = await getClusters(choosed_station);
   if (clusters.length == 0) {
     redirect("/driver-panel/preferencias");
   }
-  const hubInfo = await getHubInfo(station);
+  const hubInfo = await getHubInfo(choosed_station);
 
   const prevClusters = await getPreferences(
     session?.user.driverId.toString(),
-    station
+    choosed_station
   );
 
   return (

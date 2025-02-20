@@ -1,34 +1,23 @@
 import BottomNav from "@/components/bottom-nav";
 import { auth } from "@/auth";
 import { getEvent } from "@/lib/db/events";
-import { getOptions } from "@/lib/db/options";
-import { Badge } from "@/components/ui/badge";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-  const options = await getOptions(session?.user.driverId);
+  const { choosed_station, mode } = await getCurrentMode();
 
-  const parsedOptions = options?.options && JSON.parse(options.options);
-
-  const choosed_station =
-    parsedOptions?.hub == "LM" ? session?.user.station : parsedOptions?.hub;
-
-  const event = await getEvent(session?.user.station, "AVAILABILITY");
+  const event = await getEvent(choosed_station, "AVAILABILITY");
 
   return (
     <div className="h-full relative">
       {children}
       <div className="h-[64px]"></div>
 
-      <BottomNav
-        hasDisp={
-          choosed_station != "LM" || (choosed_station == "LM" && !!event)
-        }
-      />
+      <BottomNav hasDisp={mode == "OF" || (mode == "LM" && !!event)} />
     </div>
   );
 }

@@ -13,7 +13,6 @@ import { redirect } from "next/navigation";
 import { getAvailability } from "@/lib/db/bookings";
 import { Separator } from "@/components/ui/separator";
 import { getPreferences } from "@/lib/db/preferences";
-import { getOptions } from "@/lib/db/options";
 import {
   Dialog,
   DialogContent,
@@ -21,37 +20,26 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import HubSelection from "@/components/hub-select";
-import { parse } from "path";
 import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
 import { TriangleAlert } from "lucide-react";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
 export default async function Disponibilidade() {
   const session = await auth();
 
-  const dates = await fetchDates(session?.user.ownflex);
+  const dates = await fetchDates();
 
-  const options = await getOptions(session?.user.driverId);
-  const parsedOptions = options?.options ? JSON.parse(options?.options) : {};
-
-  const choosed_station =
-    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
-      ? parsedOptions?.hub
-      : session?.user.station;
+  const { choosed_station, mode } = await getCurrentMode();
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
     choosed_station
   );
 
-  if (
-    !!parsedOptions?.hub &&
-    parsedOptions?.hub !== "LM" &&
-    preferences.length < 5
-  ) {
+  if (mode === "OF" && preferences.length < 5) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -85,7 +73,7 @@ export default async function Disponibilidade() {
   }
 
   const shiftsOptions =
-    !!parsedOptions?.hub && parsedOptions?.hub !== "LM"
+    mode === "OF"
       ? [
           { id: "AM", description: "6h às 10h" },
           { id: "PM", description: "15:30h às 18h", exclude: [0] },
@@ -118,10 +106,10 @@ export default async function Disponibilidade() {
               </AlertDescription>
 
               <HubSelection
-                defaultValue={parsedOptions?.hub}
+                defaultValue={mode == "OF" ? choosed_station : "LM"}
                 options={[
                   { key: "LM", label: session.user.station.split("_")[2] },
-                  { key: "OF-Lapa", label: "Entrega Rápida - Lapa" },
+                  { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },
                 ]}
               />
             </Alert>
@@ -138,9 +126,7 @@ export default async function Disponibilidade() {
             (booking) => booking.station == choosed_station
           )}
           station={choosed_station}
-          ownflex={
-            !!parsedOptions?.hub && parsedOptions?.hub !== "LM" ? true : false
-          }
+          ownflex={mode === "OF" ? true : false}
         />
       </CardContent>
     </Card>

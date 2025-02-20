@@ -1,10 +1,8 @@
 import PreferencesForm from "@/components/preferences-form";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import { getLocations } from "@/gsheets/locations";
 import { getPreferences } from "@/lib/db/preferences";
-import { getClusters } from "@/lib/db/clusters";
-import { getOptions } from "@/lib/db/options";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 export default async function Preferences() {
   const session = await auth();
 
@@ -12,19 +10,14 @@ export default async function Preferences() {
   // if (clusters.length > 0) {
   //   redirect("/primeira-entrega/clusters");
   // }
+  const { choosed_station } = await getCurrentMode();
 
   const preloadedPreferences = await getPreferences(
     session?.user.driverId.toString(),
-    session?.user.station
+    choosed_station
   );
 
-  const locations = await getLocations(session?.user.station);
-
-  const options = await getOptions(session?.user.driverId);
-
-  const parsedOptions = options?.options && JSON.parse(options.options);
-
-  const choosed_station = session?.user.station;
+  const locations = await getLocations(choosed_station);
 
   return (
     <PreferencesForm

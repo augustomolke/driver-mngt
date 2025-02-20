@@ -2,7 +2,7 @@
 import parser from "cron-parser";
 import { getEvent } from "@/lib/db/events";
 import { auth } from "@/auth";
-import { getOptions } from "@/lib/db/options";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
 function isLaterThan10PMSaoPaulo() {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -15,16 +15,7 @@ function isLaterThan10PMSaoPaulo() {
 }
 
 export async function fetchDates(ownflex = false, days: number = 3) {
-  const session = await auth();
-
-  const options = await getOptions(session?.user.driverId);
-
-  const parsedOptions = options?.options && JSON.parse(options.options);
-
-  const choosed_station =
-    !!parsedOptions?.hub && parsedOptions?.hub != "LM"
-      ? "OF Hub_SP_Lapa"
-      : session?.user.station;
+  const { choosed_station } = await getCurrentMode();
 
   const eventDb = await getEvent(choosed_station, "AVAILABILITY");
 

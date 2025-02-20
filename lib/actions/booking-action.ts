@@ -1,10 +1,7 @@
 "use server";
 import { auth } from "@/auth";
-import { signOut } from "@/auth";
 import { redirect } from "next/navigation";
-import { compareArrays } from "../utils";
 import { getPreferences } from "@/lib/db/preferences";
-import { updateAvailability, deleteBooking } from "@/lib/db/bookings";
 
 import { createBooking } from "../db/bookings";
 import { revalidateTag } from "next/cache";
