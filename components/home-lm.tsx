@@ -7,9 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import SignoutButton from "@/components/signout-button";
-import getMap from "@/lib/getMap";
 import { auth } from "@/auth";
 import StaticMap from "./static-map";
+import { getCurrentMode } from "@/lib/getCurrentMode";
+import { Suspense } from "react";
+import { Spinner } from "./spinner";
 
 const formatHub = (hub) => {
   if (!hub) return;
@@ -18,9 +20,8 @@ const formatHub = (hub) => {
 };
 
 export default async function HomeLm({ driverFirstName }) {
-  const session = await auth();
-  const station = session?.user.station;
-  const mapInfo = await getMap(station);
+  const { choosed_station } = await getCurrentMode();
+
   return (
     <Card className="max-w-3xl mx-auto">
       <CardHeader>
@@ -36,15 +37,9 @@ export default async function HomeLm({ driverFirstName }) {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <StaticMap
-          title={formatHub(
-            session?.user.choosed_station || session?.user.station
-          )}
-          map={mapInfo.map}
-          url={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
-          address={mapInfo.address}
-        />
-
+        <Suspense fallback={<Spinner />}>
+          <StaticMap title={formatHub(choosed_station)} />
+        </Suspense>
         <div className="flex justify-end">
           <SignoutButton />
         </div>

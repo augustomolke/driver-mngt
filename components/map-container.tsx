@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { SelectionDrawer } from "@/components/selection-drawer";
 import { SelectionDrawer as OwnFlexSelectionDrawer } from "@/components/selection-drawer-ownflex";
+import { useClusters } from "@/hooks/useClusters";
 
 export default function MyPage({
   serverSession = null,
@@ -22,16 +23,19 @@ export default function MyPage({
     []
   );
 
+  const { selected } = useClusters();
+
   return (
     <>
-      {serverSession && serverSession.user.ownflex ? (
-        <OwnFlexSelectionDrawer
-          serverSession={serverSession}
-          choosed_station={choosed_station}
-        />
-      ) : (
-        <SelectionDrawer serverSession={serverSession} />
-      )}
+      {selected.length > 0 &&
+        (serverSession && serverSession.user.ownflex ? (
+          <OwnFlexSelectionDrawer
+            serverSession={serverSession}
+            choosed_station={choosed_station}
+          />
+        ) : (
+          <SelectionDrawer serverSession={serverSession} />
+        ))}
 
       <Map
         zoom={10}

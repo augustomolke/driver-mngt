@@ -17,10 +17,11 @@ import {
 import { SquarePen, Handshake } from "lucide-react";
 import OwnFleetApps from "./ownflex-apps";
 import { Button } from "./ui/button";
-import getMap from "@/lib/getMap";
 import StaticMap from "./static-map";
 import { Alert } from "./ui/alert";
 import { MapPin, Calendar, Smartphone } from "lucide-react";
+import { Suspense } from "react";
+import { Spinner } from "./spinner";
 
 export default async function HomeOwnFlex({
   driverFirstName,
@@ -28,7 +29,6 @@ export default async function HomeOwnFlex({
   pendencias,
 }) {
   // const session = await auth();
-  const mapInfo = await getMap(choosed_station);
 
   // const station = session?.user.station;
   // const mapInfo = await getMap(station);
@@ -58,12 +58,9 @@ export default async function HomeOwnFlex({
             </AccordionTrigger>
 
             <AccordionContent>
-              <StaticMap
-                title={"Entrega Rápida Lapa"}
-                map={mapInfo.map}
-                url={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
-                address={mapInfo.address}
-              />
+              <Suspense fallback={<Spinner />}>
+                <StaticMap title={"Entrega Rápida Lapa"} />
+              </Suspense>
             </AccordionContent>
           </AccordionItem>
 

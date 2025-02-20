@@ -16,9 +16,8 @@ import { CircleX, CircleCheckBig } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { savePreferences } from "@/lib/db/clusters";
-import { OptionsForm } from "@/components/ownflex-options-form";
-import { saveOptions } from "@/lib/db/options";
 import { Badge } from "./ui/badge";
+import { Bounce, AttentionSeeker } from "react-awesome-reveal";
 
 const limit = 5;
 
@@ -62,11 +61,13 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
         closeBtn();
       }}
     >
-      <DrawerTrigger asChild>
-        <Button className="fixed bottom-20 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
-          <CircleCheckBig className="w-12 h-12" />
-        </Button>
-      </DrawerTrigger>
+      <Bounce className="fixed bottom-20 right-4 z-50 ">
+        <DrawerTrigger className="flex items-center justify-center shadow-lg transform active:scale-x-75 transition-transform rounded-full bg-green-600 hover:bg-green-600 text-white p-3">
+          <CircleCheckBig className="w-6 h-6 mr-1" />
+          <span className="font-bold">Confirmar</span>
+        </DrawerTrigger>
+      </Bounce>
+
       {selected.length >= limit ? (
         <>
           <DrawerContent className="max-w-screen-sm mx-auto">
@@ -87,7 +88,9 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
                   As regiões selecionadas são:
                   <div>
                     {selected.map((c) => (
-                      <Badge className="m-1">{c}</Badge>
+                      <Badge className="m-1 transform focus:scale-x-75 transition-transform">
+                        {c}
+                      </Badge>
                     ))}
                   </div>
                 </div>

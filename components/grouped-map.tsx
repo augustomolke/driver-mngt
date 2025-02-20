@@ -139,7 +139,7 @@ const Clusters = ({ clusters }) => {
 const SelectedList = ({ selected, clusters }: any) => {
   if (selected.length == 0)
     return (
-      <div className="z-1 m-auto mt-0 p-1 flex gap-2">
+      <div className="z-1 mt-0 ml-2 p-1 flex gap-2">
         <MapPin></MapPin>
         <span className="font-bold">Selecione no mapa as regiões</span>
       </div>
@@ -149,7 +149,7 @@ const SelectedList = ({ selected, clusters }: any) => {
 
   return (
     <div className="z-1 m-auto mt-0 p-1">
-      <span className="font-bold">{`Você selecionou ${selected.length} ${
+      <span className="font-bold ml-2">{`Você selecionou ${selected.length} ${
         selected.length > 1 ? "regiões" : "região"
       }`}</span>
 

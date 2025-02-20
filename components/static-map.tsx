@@ -1,8 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
+import getMap from "@/lib/getMap";
+import { getCurrentMode } from "@/lib/getCurrentMode";
 
-export default function StaticMap({ title, map, url, address }) {
+export default async function StaticMap({ title }) {
+  const { choosed_station } = await getCurrentMode();
+  const mapInfo = await getMap(choosed_station);
+
+  if (!mapInfo) return null;
+
   return (
     <div className="space-y-4 border-2 rounded-lg">
       <div className="bg-primary text-white flex justify-center text-xl py-2 rounded-t-lg">
@@ -10,14 +17,14 @@ export default function StaticMap({ title, map, url, address }) {
       </div>
 
       <Link
-        href={url}
+        href={`http://maps.google.com/?q=${mapInfo.latitude},${mapInfo.longitude}`}
         target="_blank"
         rel="noopener noreferrer"
         className="w-full"
       >
         <div className="relative">
           <Image
-            src={map}
+            src={mapInfo.map}
             alt="Mapa da região de atuação"
             width={600}
             height={400}
@@ -31,7 +38,7 @@ export default function StaticMap({ title, map, url, address }) {
         <div className="flex items-center justify-center space-x-2">
           <MapPin className="text-primary" />
           <p className="text-base">
-            <strong>{address}</strong>
+            <strong>{mapInfo.address}</strong>
           </p>
         </div>
       </Link>
