@@ -25,8 +25,9 @@ import { Spinner } from "./spinner";
 
 export default async function HomeOwnFlex({
   driverFirstName,
-  choosed_station,
   pendencias,
+  largePackagesCard,
+  options,
 }) {
   // const session = await auth();
 
@@ -44,7 +45,11 @@ export default async function HomeOwnFlex({
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <OnboardingOwnFlex pendencias={pendencias} />
+        <OnboardingOwnFlex
+          pendencias={pendencias}
+          largePackagesCard={largePackagesCard}
+          options={options}
+        />
 
         <CardTitle className="text-2xl">+ Informações Úteis</CardTitle>
 

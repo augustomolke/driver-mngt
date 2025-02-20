@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 export default function HubSelect({
   options = [],
   defaultValue,
+  currentOptions,
 }: {
   options: { key: string; label: string }[];
 }) {
@@ -22,7 +23,7 @@ export default function HubSelect({
       defaultValue={defaultValue}
       onValueChange={async (hub: string) => {
         "use server";
-        await saveOptionsAction(JSON.stringify({ hub }));
+        await saveOptionsAction(JSON.stringify({ ...currentOptions, hub }));
         redirect("/driver-panel");
       }}
     >

@@ -10,7 +10,7 @@ export default async function DriverPanel() {
   const session = await auth();
   const driverFirstName = session?.user.driverName.split(" ")[0];
 
-  const { choosed_station, mode } = await getCurrentMode();
+  const { choosed_station, mode, options } = await getCurrentMode();
 
   if (mode === "OF") {
     const [preferences, bookings] = await Promise.all([
@@ -39,6 +39,10 @@ export default async function DriverPanel() {
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
           pendencias={pendencias}
+          largePackagesCard={(session?.user.vehicle as string).includes(
+            "FIORINO"
+          )}
+          options={options}
         />
         <div className="h-[64px]"></div>
       </div>

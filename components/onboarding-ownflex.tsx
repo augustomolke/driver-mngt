@@ -4,16 +4,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { TriangleAlert } from "lucide-react";
+import { TriangleAlert, PackagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getOptions } from "@/lib/db/options";
-import { auth } from "@/auth";
-import { getPreferences } from "@/lib/db/preferences";
-import { getAvailability } from "@/lib/db/bookings";
+
 import TodoAlert from "./todo-alert";
 
-export default async function OnboardingOwnFlex({ pendencias = [] }) {
+import { LargePackageCard } from "./large-package-card";
+
+export default function OnboardingOwnFlex({
+  pendencias = [],
+  largePackagesCard,
+  options,
+}) {
   return (
     <>
       <TodoAlert amount={pendencias.length} />
@@ -53,6 +56,19 @@ export default async function OnboardingOwnFlex({ pendencias = [] }) {
             </AccordionContent>
           </AccordionItem>
         )}
+        {largePackagesCard ? (
+          <AccordionItem value="large-packages">
+            <AccordionTrigger className="text-xl">
+              <span className="flex justify-start items-center gap-4">
+                <PackagePlus size={36} className="animate-pulse" />
+                Rotas Especiais
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col">
+              <LargePackageCard options={options} />
+            </AccordionContent>
+          </AccordionItem>
+        ) : null}
       </Accordion>
     </>
   );

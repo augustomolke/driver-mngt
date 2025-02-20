@@ -32,7 +32,7 @@ export default async function Disponibilidade() {
 
   const dates = await fetchDates();
 
-  const { choosed_station, mode } = await getCurrentMode();
+  const { choosed_station, mode, options } = await getCurrentMode();
 
   const preferences = await getPreferences(
     session?.user.driverId.toString(),
@@ -107,6 +107,7 @@ export default async function Disponibilidade() {
 
               <HubSelection
                 defaultValue={mode == "OF" ? choosed_station : "LM"}
+                currentOptions={options}
                 options={[
                   { key: "LM", label: session.user.station.split("_")[2] },
                   { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },

@@ -88,9 +88,7 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
                   As regiões selecionadas são:
                   <div>
                     {selected.map((c) => (
-                      <Badge className="m-1 transform focus:scale-x-75 transition-transform">
-                        {c}
-                      </Badge>
+                      <Badge className="m-1">{c}</Badge>
                     ))}
                   </div>
                 </div>
