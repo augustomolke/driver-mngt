@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     return {
       driver_id: option.driver_id,
       hub: parsed.hub,
-      large_packages: parsed.largePackages,
+      large_packages: !!parsed.largePackages,
     };
   });
 
