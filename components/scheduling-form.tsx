@@ -144,7 +144,7 @@ export default function Scheduling({
                               <FormItem>
                                 <FormControl>
                                   <DateCheckbox
-                                    disabled={new Date() > dateLimit}
+                                    disabled={new Date() >= dateLimit}
                                     text={description}
                                     id={`${date.name}.${id}`}
                                     checked={field.value}
