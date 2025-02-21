@@ -14,3 +14,13 @@ export function compareArrays(array1, array2) {
     })
   );
 }
+
+export function isLaterThan(hour: number) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Sao_Paulo",
+    hour: "numeric",
+    hour12: false,
+  });
+  const currentHour = parseInt(formatter.format(new Date()));
+  return currentHour >= hour;
+}

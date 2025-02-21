@@ -3,16 +3,7 @@ import parser from "cron-parser";
 import { getEvent } from "@/lib/db/events";
 import { auth } from "@/auth";
 import { getCurrentMode } from "@/lib/getCurrentMode";
-
-function isLaterThan10PMSaoPaulo() {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Sao_Paulo",
-    hour: "numeric",
-    hour12: false,
-  });
-  const currentHour = parseInt(formatter.format(new Date()));
-  return currentHour >= 22;
-}
+import { isLaterThan } from "@/lib/utils";
 
 export async function fetchDates(ownflex = false, days: number = 3) {
   const { choosed_station } = await getCurrentMode();
@@ -27,20 +18,25 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const limit = new Date();
 
-  if (isLaterThan10PMSaoPaulo()) {
+  if (isLaterThan(29)) {
     limit.setDate(limit.getDate() + 1);
   }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
   // tomorrow.setDate(tomorrow.getDate() + 1);
 
   const parsed = parser.parseExpression(cron, {
     tz: eventDb.timezone,
-    currentDate: limit,
+    // startDate: limit,
+    // currentDate: yesterday,
   });
 
   const dates = Array.from({ length: days }, (v, i, k) => k).map(
     (event, idx) => {
       const nextEvent = parsed.next();
+
       const format = nextEvent.toDate().toLocaleDateString("pt-br", {
         day: "numeric",
         month: "short",
