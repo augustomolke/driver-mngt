@@ -22,12 +22,15 @@ import { Alert } from "./ui/alert";
 import { MapPin, Calendar, Smartphone } from "lucide-react";
 import { Suspense } from "react";
 import { Spinner } from "./spinner";
+import AllocationsCard from "./allocations-card";
 
 export default async function HomeOwnFlex({
   driverFirstName,
   pendencias,
   largePackagesCard,
   options,
+  allocations,
+  crowdSelection,
 }) {
   // const session = await auth();
 
@@ -46,6 +49,8 @@ export default async function HomeOwnFlex({
 
       <CardContent className="space-y-6">
         <OnboardingOwnFlex
+          allocations={allocations}
+          crowdSelection={crowdSelection}
           pendencias={pendencias}
           largePackagesCard={largePackagesCard}
           options={options}

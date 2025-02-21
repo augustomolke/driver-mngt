@@ -1,25 +1,22 @@
 import Link from "next/link";
 import * as React from "react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
-import SchedulingForm from "@/components/scheduling-form";
+import { AttentionSeeker } from "react-awesome-reveal";
 
-export default async ({ hasDisp }) => {
+export default async ({ hasDisp, crowdSourcing = false }) => {
+  let layoutClass = "grid-cols-2";
+
+  if (hasDisp) {
+    layoutClass = "grid-cols-3";
+  }
+
+  if (crowdSourcing) {
+    layoutClass = "grid-cols-4";
+  }
+
   return (
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 ">
       <div
-        className={`grid h-full max-w-lg mx-auto font-medium ${
-          hasDisp ? "grid-cols-3" : "grid-cols-2"
-        }`}
+        className={`grid h-full max-w-lg mx-auto font-medium ${layoutClass}`}
       >
         <Link
           href="/driver-panel/preferencias"
@@ -45,6 +42,31 @@ export default async ({ hasDisp }) => {
             Preferências
           </span>
         </Link>
+        {crowdSourcing ? (
+          <Link
+            href="/driver-panel/crowdsourcing"
+            type="button"
+            className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group"
+          >
+            <svg
+              className="w-6 h-5 mb-2 text-gray-500  group-hover:text-primary "
+              viewBox="2 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+              <path d="M15 18H9" />
+              <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+              <circle cx="17" cy="18" r="2" />
+              <circle cx="7" cy="18" r="2" />
+            </svg>
+            <span className="text-sm text-primary ">Rotas</span>
+          </Link>
+        ) : null}
+
         <Link
           href="/driver-panel"
           type="button"

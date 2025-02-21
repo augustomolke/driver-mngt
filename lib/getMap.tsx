@@ -19,7 +19,11 @@ export default unstable_cache(
       body,
     });
 
-    return await result.json();
+    try {
+      return await result.json();
+    } catch {
+      return {};
+    }
   },
   ["map"],
   { revalidate: 3600 }

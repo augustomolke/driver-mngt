@@ -26,6 +26,7 @@ import HubSelection from "@/components/hub-select";
 import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
 import { TriangleAlert } from "lucide-react";
 import { getCurrentMode } from "@/lib/getCurrentMode";
+import { OwnFlexShifts, LastMileShifts } from "@/components/assets/shifts";
 
 export default async function Disponibilidade() {
   const session = await auth();
@@ -72,17 +73,7 @@ export default async function Disponibilidade() {
     redirect("/driver-panel");
   }
 
-  const shiftsOptions =
-    mode === "OF"
-      ? [
-          { id: "AM", description: "6h às 10h" },
-          { id: "PM", description: "15:30h às 18h", exclude: [0] },
-        ]
-      : [
-          { id: "AM", description: "AM" },
-          { id: "PM", description: "PM" },
-          { id: "SD", description: "SD" },
-        ];
+  const shiftsOptions = mode === "OF" ? OwnFlexShifts : LastMileShifts;
 
   return (
     <Card>

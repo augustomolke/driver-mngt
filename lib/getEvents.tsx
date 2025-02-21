@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 
 function isLaterThan10PMSaoPaulo() {
+  return false;
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Sao_Paulo",
     hour: "numeric",
