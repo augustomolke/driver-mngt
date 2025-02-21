@@ -18,7 +18,7 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const limit = new Date();
 
-  if (isLaterThan(29)) {
+  if (isLaterThan(22)) {
     limit.setDate(limit.getDate() + 1);
   }
 
@@ -30,7 +30,8 @@ export async function fetchDates(ownflex = false, days: number = 3) {
   const parsed = parser.parseExpression(cron, {
     tz: eventDb.timezone,
     // startDate: limit,
-    currentDate: yesterday,
+    currentDate: limit,
+    // currentDate: yesterday,
   });
 
   const dates = Array.from({ length: days }, (v, i, k) => k).map(

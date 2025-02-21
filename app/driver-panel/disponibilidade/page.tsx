@@ -75,13 +75,13 @@ export default async function Disponibilidade() {
   const shiftsOptions =
     mode === "OF"
       ? [
-          { id: "AM", description: "6h às 10h", limit: { h: 22, d: -1 } },
+          { id: "AM", description: "6h às 10h" }, //, limit: { h: 22, d: -1 } },
           {
             id: "PM",
             description: "15:30h às 18h",
             exclude: [0],
-            limit: { h: 15, d: 0 },
           },
+          //limit: { h: 15, d: 0 },},
         ]
       : [
           { id: "AM", description: "AM" },

@@ -123,13 +123,14 @@ export default function Scheduling({
                     {shiftsOptions.map(
                       ({ id, description, exclude = [], limit }) => {
                         const dateObj = new Date(date.value);
+                        if (!!limit) {
+                          const dateLimit = dateObj;
 
-                        const dateLimit = dateObj;
-
-                        dateLimit.setDate(
-                          new Date(date.value).getDate() + limit.d
-                        );
-                        dateLimit.setHours(limit.h, 0, 0, 0);
+                          dateLimit.setDate(
+                            new Date(date.value).getDate() + limit.d
+                          );
+                          dateLimit.setHours(limit.h, 0, 0, 0);
+                        }
 
                         if (exclude.includes(dateObj.getDay())) {
                           return null;
@@ -144,7 +145,7 @@ export default function Scheduling({
                               <FormItem>
                                 <FormControl>
                                   <DateCheckbox
-                                    disabled={new Date() >= dateLimit}
+                                    //disabled={new Date() >= dateLimit}
                                     text={description}
                                     id={`${date.name}.${id}`}
                                     checked={field.value}
