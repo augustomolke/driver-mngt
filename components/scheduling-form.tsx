@@ -99,13 +99,11 @@ export default function Scheduling({
                 return true;
               }
 
-              return !(
+              return (
                 new Date(date.value).getDate() == new Date().getDate() &&
                 isLaterThan(shift.limit)
               );
             });
-
-            if (filteredShifts.length === 0) return null;
 
             return (
               <motion.div
@@ -122,34 +120,44 @@ export default function Scheduling({
                     </FormLabel>
                   </div>
                   <div className="flex flex-col gap-2">
-                    {filteredShifts.map(({ id, description, exclude = [] }) => {
-                      const dateObj = new Date(date.value);
+                    {shiftsOptions.map(
+                      ({ id, description, exclude = [], limit }) => {
+                        const dateObj = new Date(date.value);
 
-                      if (exclude.includes(dateObj.getDay())) {
-                        return null;
+                        const dateLimit = dateObj;
+
+                        dateLimit.setDate(
+                          new Date(date.value).getDate() + limit.d
+                        );
+                        dateLimit.setHours(limit.h, 0, 0, 0);
+
+                        if (exclude.includes(dateObj.getDay())) {
+                          return null;
+                        }
+
+                        return (
+                          <Controller
+                            key={id}
+                            name={`${date.value}.${id}`}
+                            control={form.control}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <DateCheckbox
+                                    disabled={new Date() > dateLimit}
+                                    text={description}
+                                    id={`${date.name}.${id}`}
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                    className="min-w-16 h-16 text-xl"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        );
                       }
-
-                      return (
-                        <Controller
-                          key={id}
-                          name={`${date.value}.${id}`}
-                          control={form.control}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <DateCheckbox
-                                  text={description}
-                                  id={`${date.name}.${id}`}
-                                  checked={field.value}
-                                  onCheckedChange={field.onChange}
-                                  className="min-w-16 h-16 text-xl"
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      );
-                    })}
+                    )}
                   </div>
                 </div>
                 {idx < dates.length - 1 && <Separator className="my-8" />}

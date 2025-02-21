@@ -30,7 +30,7 @@ export async function fetchDates(ownflex = false, days: number = 3) {
   const parsed = parser.parseExpression(cron, {
     tz: eventDb.timezone,
     // startDate: limit,
-    // currentDate: yesterday,
+    currentDate: yesterday,
   });
 
   const dates = Array.from({ length: days }, (v, i, k) => k).map(
