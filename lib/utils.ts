@@ -48,3 +48,13 @@ export function getTodayAndTomorrowInSaoPaulo() {
     endDate: tomorrow,
   };
 }
+
+export function isLaterThan(hour: number, day = new Date()) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Sao_Paulo",
+    hour: "numeric",
+    hour12: false,
+  });
+  const currentHour = parseInt(formatter.format(day));
+  return currentHour >= hour;
+}

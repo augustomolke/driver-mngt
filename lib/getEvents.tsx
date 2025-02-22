@@ -3,12 +3,7 @@ import parser from "cron-parser";
 import { getEvent } from "@/lib/db/events";
 import { auth } from "@/auth";
 import { getCurrentMode } from "@/lib/getCurrentMode";
-
-function isLaterThan10PMSaoPaulo() {
-  const current = new Date();
-
-  return current.getHours() >= 22;
-}
+import { isLaterThan } from "@/lib/utils";
 
 export async function fetchDates(ownflex = false, days: number = 3) {
   const { choosed_station } = await getCurrentMode();
@@ -23,7 +18,7 @@ export async function fetchDates(ownflex = false, days: number = 3) {
 
   const limit = new Date();
 
-  if (isLaterThan10PMSaoPaulo()) {
+  if (isLaterThan(22)) {
     limit.setDate(limit.getDate() + 1);
   }
   // const tomorrow = new Date(today.setHours(0, 0, 0, 0));
