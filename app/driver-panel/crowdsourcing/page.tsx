@@ -20,12 +20,17 @@ export default async function Preferences() {
 
   const currentSelection = await getAllocations();
 
-  const chosenCluster = clusters
-    .map((cluster) => ({
-      ...cluster,
-      zone_detail: JSON.parse(cluster.zone_detail),
-    }))
-    .filter((c) => currentSelection[0]?.cluster == c.zone_id);
+  const chosenCluster = currentSelection.reduce((acc, curr) => {
+    return [
+      ...acc,
+      ...clusters
+        .map((cluster) => ({
+          ...cluster,
+          zone_detail: JSON.parse(cluster.zone_detail),
+        }))
+        .filter((c) => curr?.cluster == c.zone_id),
+    ];
+  }, []);
 
   const bonds = chosenCluster.map((b) =>
     b.zone_detail.coordinates.map((tuple) => tuple.map((x) => [x[1], x[0]]))
@@ -42,15 +47,12 @@ export default async function Preferences() {
       <Card className="m-0 p-0">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex flex-col items-center gap-2">
-            <span>
-              Você confirmou seu interesse na região abaixo, para a janela:
-            </span>
-            <Badge key={currentSelection[0].shift}>
-              {
-                OwnFlexShifts.find((s) => s.id === currentSelection[0].shift)
-                  ?.description
-              }
-            </Badge>
+            <span>Você escolheu as regiões e turnos abaixo:</span>
+            {currentSelection.map(({ shift }) => (
+              <Badge key={shift}>
+                {OwnFlexShifts.find((s) => s.id === shift)?.description}
+              </Badge>
+            ))}
           </div>
         </div>
         <MapComponent
@@ -67,10 +69,18 @@ export default async function Preferences() {
     );
   }
 
-  const filteredClusters = clusters.map((cluster) => ({
-    ...cluster,
-    zone_detail: JSON.parse(cluster.zone_detail),
-  }));
+  const filteredClusters = clusters
+    .filter((c) => crowdSourcing.map((a) => a.cluster).includes(c.zone_id))
+    .map((cluster) => ({
+      ...cluster,
+      zone_detail: JSON.parse(cluster.zone_detail),
+    }));
+
+  const bondsSelection = filteredClusters.map((cluster) =>
+    cluster.zone_detail.coordinates.map((tuple) =>
+      tuple.map((x) => [x[1], x[0]])
+    )
+  );
 
   return (
     <Card className="m-0 p-0">
@@ -80,6 +90,7 @@ export default async function Preferences() {
         availableShifts={availableShifts}
         clusters={filteredClusters}
         crowdSourcing={crowdSourcing}
+        bonds={bondsSelection}
         center={[hubInfo.latitude, hubInfo.longitude]}
         defaultClusters={[]}
         style={{ width: "100%", height: "75vh", borderRadius: "0.8rem" }}

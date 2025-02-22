@@ -45,10 +45,8 @@ const Clusters = ({ clusters, bonds }) => {
 
   useEffect(() => {
     setSelected([]);
-  }, []);
 
-  useEffect(() => {
-    if (bonds) {
+    if (bonds.length > 0) {
       map.fitBounds(bonds);
     }
   }, []);
@@ -105,6 +103,16 @@ const Clusters = ({ clusters, bonds }) => {
   );
 };
 
+const SelectedList = ({}: any) => {
+  return (
+    <div className="z-1 m-auto mt-0 p-1">
+      <span className="font-bold ml-2 flex justify-center">
+        As regiões abaixo estão com rotas dispoíveis HOJE para você!
+      </span>
+    </div>
+  );
+};
+
 export default function MyMap(props: any) {
   const {
     serverSession,
@@ -119,6 +127,7 @@ export default function MyMap(props: any) {
 
   return (
     <>
+      <SelectedList />
       <MapContainer
         style={{ height: "70vh", borderRadius: "0 0 0.8rem 0.8rem" }}
         center={center}

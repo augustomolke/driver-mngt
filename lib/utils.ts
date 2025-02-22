@@ -22,16 +22,10 @@ export function hasEventEnded(startDate: Date, durationMs: number) {
   if (typeof durationMs !== "number" || durationMs < 0) {
     throw new Error("Invalid duration");
   }
-  const eventEndTime = startDate.getTime() + durationMs * 1000 * 60;
-  const nowInSaoPaulo = new Date().toLocaleString("en-US", {
-    timeZone: "America/Sao_Paulo",
-  });
-  const eventEndTimeInSaoPaulo = new Date(eventEndTime).toLocaleString(
-    "en-US",
-    { timeZone: "America/Sao_Paulo" }
-  );
 
-  return new Date(nowInSaoPaulo) > new Date(eventEndTimeInSaoPaulo);
+  const eventEndTime = startDate.getTime() + durationMs * 1000 * 60;
+
+  return new Date() > new Date(eventEndTime);
 }
 
 export function getTodayAndTomorrowInSaoPaulo() {

@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { hasEventEnded } from "@/lib/utils";
 import { getTodayAndTomorrowInSaoPaulo } from "@/lib/utils";
 import { getOpenOffers } from "./offers";
+import { revalidatePath } from "next/cache";
 
 export const getAllocations = async (): Promise<any> => {
   const session = await auth();
@@ -32,9 +33,13 @@ export const getAllocations = async (): Promise<any> => {
 export const createAllocation = async (allocations: any): Promise<any> => {
   const session = await auth();
 
-  return await prisma.allocations.create({
+  const allocation = await prisma.allocations.create({
     data: { driver_id: session.user?.driverId.toString(), ...allocations },
   });
+
+  revalidatePath("/driver-panel/crowdsourcing");
+
+  return allocation;
 };
 
 export const createManyAllocations = async (allocations: any): Promise<any> => {
@@ -44,12 +49,16 @@ export const createManyAllocations = async (allocations: any): Promise<any> => {
 
   if (openOffers.length == 0) throw new Error("There are no open offers");
 
-  return await prisma.allocations.createMany({
+  const allocated = await prisma.allocations.createMany({
     data: allocations.map((a) => ({
       driver_id: session.user?.driverId.toString(),
       ...a,
     })),
   });
+
+  revalidatePath("/driver-panel/crowdsourcing");
+
+  return allocated;
 };
 
 export const deleteAllocation = async (id: number): Promise<any> => {

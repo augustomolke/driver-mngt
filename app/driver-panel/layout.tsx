@@ -25,9 +25,11 @@ export default async function RootLayout({
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
         crowdSourcing={
-          mode == "OF" &&
-          allocations.filter((a) => a.type != "CROWDSOURCING").length < 2 &&
-          openOffers.length > 0
+          (openOffers.length > 0 ||
+            (allocations.filter((a) => a.type != "CROWDSOURCING").length > 0 &&
+              allocations.filter((a) => a.type != "CROWDSOURCING").length <
+                2)) &&
+          mode == "OF"
         }
       />
     </div>

@@ -35,6 +35,7 @@ export default function MyPage({
 
       <Map
         zoom={10}
+        bonds={bonds}
         serverSession={serverSession}
         closed={closed}
         clusters={clusters}

@@ -5,14 +5,9 @@ import { auth } from "@/auth";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 
 function isLaterThan10PMSaoPaulo() {
-  return false;
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Sao_Paulo",
-    hour: "numeric",
-    hour12: false,
-  });
-  const currentHour = parseInt(formatter.format(new Date()));
-  return currentHour >= 22;
+  const current = new Date();
+
+  return current.getHours() >= 22;
 }
 
 export async function fetchDates(ownflex = false, days: number = 3) {

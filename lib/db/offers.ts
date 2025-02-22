@@ -45,8 +45,8 @@ export const getOpenOffers = async (): Promise<any> => {
 
   const result = filteredOpenings.filter(
     (o) =>
-      (allocations.find((a) => a.cluster == o.cluster)?._count.driver_id || 0) <
-      o.spots
+      (allocations.find((a) => a.cluster == o.cluster)?._count?.driver_id ||
+        0) < o.spots
   );
 
   const driver_allocations = await getAllocations();
