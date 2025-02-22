@@ -19,7 +19,6 @@ export default function OnboardingOwnFlex({
   largePackagesCard,
   options,
   allocations,
-  crowdSelection = [],
 }) {
   return (
     <>
@@ -41,12 +40,6 @@ export default function OnboardingOwnFlex({
               Você foi escalado para realizar entregas nos seguintes horários:
               <div className="flex flex-wrap gap-2">
                 {allocations?.map((a) => (
-                  <Badge key={a.shift}>
-                    {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
-                  </Badge>
-                ))}
-
-                {crowdSelection?.map((a) => (
                   <Badge key={a.shift}>
                     {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
                   </Badge>

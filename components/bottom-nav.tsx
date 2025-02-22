@@ -108,7 +108,7 @@ export default async ({ hasDisp, crowdSourcing = false }) => {
             </svg>
 
             <span className="text-sm text-gray-500  group-hover:text-primary">
-              Disponibilidade
+              Agendar
             </span>
           </Link>
         ) : null}

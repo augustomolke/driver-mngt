@@ -2,17 +2,18 @@ import BottomNav from "@/components/bottom-nav";
 import { auth } from "@/auth";
 import { getEvent } from "@/lib/db/events";
 import { getCurrentMode } from "@/lib/getCurrentMode";
-import getAllocations from "@/lib/getAllocations";
+import { getAllocations } from "@/lib/db/allocations";
+import { getOpenOffers } from "@/lib/db/offers";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
   const { choosed_station, mode } = await getCurrentMode();
 
-  const allocations = await getAllocations(session?.user.driverId.toString());
+  const allocations = await getAllocations();
+  const openOffers = await getOpenOffers();
 
   const event = await getEvent(choosed_station, "AVAILABILITY");
 
@@ -23,7 +24,11 @@ export default async function RootLayout({
 
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
-        crowdSourcing={mode == "OF" && !allocations}
+        crowdSourcing={
+          mode == "OF" &&
+          allocations.filter((a) => a.type != "CROWDSOURCING").length < 2 &&
+          openOffers.length > 0
+        }
       />
     </div>
   );

@@ -50,7 +50,6 @@ export default async function HomeOwnFlex({
       <CardContent className="space-y-6">
         <OnboardingOwnFlex
           allocations={allocations}
-          crowdSelection={crowdSelection}
           pendencias={pendencias}
           largePackagesCard={largePackagesCard}
           options={options}

@@ -8,7 +8,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -18,15 +17,16 @@ import { useToast } from "@/hooks/use-toast";
 import { CircleX, CircleCheckBig } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { saveCurrentCrowdSelection } from "@/lib/savecrowdSourcing";
 import { Label } from "./ui/label";
 import { Badge } from "./ui/badge";
 import { OwnFlexShifts } from "@/components/assets/shifts";
+import { createManyAllocations } from "@/lib/db/allocations";
 
 export const SelectionDrawer = ({
   serverSession,
   choosed_station,
   crowdSourcing = [],
+  availableShifts,
 }) => {
   const { selected, setSelected, closeBtn } = useCrowdSourcing();
   const [selectedShifts, setSelectedShifts] = React.useState([]);
@@ -38,15 +38,16 @@ export const SelectionDrawer = ({
     setLoading(true);
 
     try {
-      const promises = selectedShifts.map((shift) => {
-        return saveCurrentCrowdSelection(
-          serverSession.user.driverId,
-          `${selected[0]}_${shift}`
-        );
+      const allocations = selectedShifts.map((shift) => {
+        return {
+          cluster: selected[0],
+          shift,
+          type: "CROWDSOURCING",
+          duration: 60,
+        };
       });
-      await Promise.all(promises);
-      // await saveOptions(JSON.stringify(options));
 
+      await createManyAllocations(allocations);
       toast({
         icon: (
           <CircleCheckBig color="hsl(var(--green))" height={48} width={48} />
@@ -55,10 +56,14 @@ export const SelectionDrawer = ({
         description: "Sua preferência foi salva!",
       });
 
+      setSelected([]);
+
       router.push("/driver-panel");
     } catch (err) {
       console.log("Erro", err);
       setLoading(false);
+      setSelected([]);
+
       router.push("/error?message=FilledCluster");
 
       toast({
@@ -71,7 +76,7 @@ export const SelectionDrawer = ({
 
   const shifts = useMemo(() => {
     const shifts = crowdSourcing.filter((cluster) => {
-      return cluster.Cluster == selected[0];
+      return cluster.cluster == selected[0];
     });
 
     return shifts.map((s) => s.shift);
@@ -98,6 +103,7 @@ export const SelectionDrawer = ({
                 {shifts.map((shift) => (
                   <div className="flex items-center gap-2 justify-center">
                     <Checkbox
+                      disabled={!availableShifts[shift]}
                       checked={selectedShifts.includes(shift)}
                       onCheckedChange={(check) => {
                         if (check) {
@@ -114,6 +120,7 @@ export const SelectionDrawer = ({
                     <Label htmlFor={shift}>
                       <Badge key={shift}>
                         {OwnFlexShifts.find((s) => s.id === shift)?.description}
+                        {!availableShifts[shift] && " - Já alocado"}
                       </Badge>
                     </Label>
                   </div>

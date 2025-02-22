@@ -13,10 +13,6 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import { useEffect } from "react";
 import { useCrowdSourcing } from "@/hooks/useCrowdSourcing";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-import { MapPin } from "lucide-react";
-import { Slide } from "react-awesome-reveal";
 
 const defaultStyle = {
   fillColor: "red",
@@ -45,7 +41,7 @@ const hubIcon = new Icon({
 
 const Clusters = ({ clusters, bonds }) => {
   const map = useMap();
-  const { selected, setSelected, setBound } = useCrowdSourcing();
+  const { selected, setSelected } = useCrowdSourcing();
 
   useEffect(() => {
     setSelected([]);

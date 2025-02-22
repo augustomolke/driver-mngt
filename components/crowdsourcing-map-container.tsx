@@ -13,6 +13,7 @@ export default function MyPage({
   choosed_station,
   crowdSourcing,
   bonds,
+  availableShifts,
 }) {
   const Map = useMemo(
     () =>
@@ -29,6 +30,7 @@ export default function MyPage({
         serverSession={serverSession}
         choosed_station={choosed_station}
         crowdSourcing={crowdSourcing}
+        availableShifts={availableShifts}
       />
 
       <Map
