@@ -106,7 +106,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             plate: user.data.plate,
             vehicle: user.data.vehicle,
             ownflex: user.data.ownflex,
-            trips: user.data.trips,
+            trips: user.data.trips || 0,
           },
           create: {
             driver_id: user.data.driverId.toString(),
@@ -116,7 +116,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             plate: user.data.plate,
             vehicle: user.data.vehicle,
             ownflex: user.data.ownflex,
-            trips: user.data.trips,
+            trips: user.data.trips || 0,
           },
         });
         // return user object with their profile data
