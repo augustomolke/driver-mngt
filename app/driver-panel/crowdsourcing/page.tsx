@@ -56,8 +56,6 @@ export default async function Preferences() {
       zone_detail: JSON.parse(cluster.zone_detail),
     }));
 
-  console.log(crowdSourcing);
-
   if (
     !(availableShifts.AM || availableShifts.PM) ||
     (filteredClusters.length === 0 &&
