@@ -8,7 +8,7 @@ export default async function StaticMap({ title }) {
   const { choosed_station } = await getCurrentMode();
   const mapInfo = await getMap(choosed_station);
 
-  if (!mapInfo) return null;
+  if (!mapInfo.map) return null;
 
   return (
     <div className="space-y-4 border-2 rounded-lg">

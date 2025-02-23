@@ -34,6 +34,19 @@ const generateMessage = (code) => {
       ),
     };
   }
+  if (code == "FilledCluster") {
+    return {
+      title: "Este turno e região já foram preenchidos.",
+      message: "Por favor, volte e escolha outra região.",
+      action: (
+        <div className="flex flex-col justify-center items-center w-full">
+          <Link href="/driver-panel">
+            <Button> Tentar Novamente</Button>
+          </Link>
+        </div>
+      ),
+    };
+  }
 
   if (code == "WrongPhone") {
     return {

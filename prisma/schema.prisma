@@ -77,6 +77,29 @@ model Preferences {
   booking_id  Int?
 }
 
+model Allocations {
+  id          Int      @id @default(autoincrement())
+  driver_id   String
+  cluster     String
+  shift       SHIFTS
+  duration    Int
+  type        ALLOCATION_TYPE
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
+}
+
+model Offers {
+  id          Int      @id @default(autoincrement())
+  station     String
+  cluster     String
+  shift       SHIFTS
+  duration    Int @default(60)
+  spots       Int @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
+}
+
+
 enum EVENT_TYPE {
   FIRST_TRIP
   AVAILABILITY
@@ -94,4 +117,10 @@ enum VEHICLE {
   FIORINO
   VAN
   VUC
+}
+
+enum ALLOCATION_TYPE {
+  CROWDSOURCING
+  MANUAL
+  AUTOMATIC
 }

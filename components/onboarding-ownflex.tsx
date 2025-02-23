@@ -7,6 +7,8 @@ import {
 import { TriangleAlert, PackagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { OwnFlexShifts } from "@/components/assets/shifts";
 
 import TodoAlert from "./todo-alert";
 
@@ -16,11 +18,38 @@ export default function OnboardingOwnFlex({
   pendencias = [],
   largePackagesCard,
   options,
+  allocations,
 }) {
   return (
     <>
       <TodoAlert amount={pendencias.length} />
       <Accordion type="single" collapsible>
+        {pendencias.includes("Rotas") && (
+          <AccordionItem value="preferences">
+            <AccordionTrigger className="text-xl">
+              <span className="flex justify-start items-center gap-4">
+                <TriangleAlert
+                  size={36}
+                  className="animate-pulse"
+                  color="#EE4D2D"
+                />
+                Você foi escalado!
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-4">
+              Você foi escalado para realizar entregas nos seguintes horários:
+              <div className="flex flex-wrap gap-2">
+                {allocations?.map((a) => (
+                  <Badge key={a.shift}>
+                    {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
+                  </Badge>
+                ))}
+              </div>
+              <span className="font-bold">Contamos com a sua presença!</span>
+            </AccordionContent>
+          </AccordionItem>
+        )}
+
         {pendencias.includes("Preferências") && (
           <AccordionItem value="preferences">
             <AccordionTrigger className="text-xl">

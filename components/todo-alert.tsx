@@ -25,7 +25,7 @@ export default function TodoAlert({ amount }: { amount: number }) {
         </Alert>
       ) : (
         <Alert className="bg-green flex justify-center items-center mb-8 w-full">
-          <Bounce effect="tada" delay={1500}>
+          <Bounce delay={1500}>
             <CircleCheckBig className="h-8 w-8 mr-1" />
           </Bounce>
           <div>

@@ -45,7 +45,7 @@ export default async function RootLayout({
   return (
     <SessionProvider>
       <TooltipProvider>
-        <html lang="en" className={newClass}>
+        <html lang="en" className={newClass} suppressHydrationWarning>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >

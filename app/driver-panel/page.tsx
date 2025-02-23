@@ -5,6 +5,7 @@ import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentMode } from "@/lib/getCurrentMode";
+import { getAllocations } from "@/lib/db/allocations";
 
 export default async function DriverPanel() {
   const session = await auth();
@@ -13,9 +14,10 @@ export default async function DriverPanel() {
   const { choosed_station, mode, options } = await getCurrentMode();
 
   if (mode === "OF") {
-    const [preferences, bookings] = await Promise.all([
+    const [preferences, bookings, allocations] = await Promise.all([
       getPreferences(session?.user.driverId.toString(), choosed_station),
       getAvailability(session?.user.driverId.toString(), choosed_station),
+      getAllocations(),
     ]);
 
     const pendencias = [];
@@ -27,6 +29,10 @@ export default async function DriverPanel() {
       pendencias.push("Preferências");
     }
 
+    if (allocations?.length > 0) {
+      pendencias.push("Rotas");
+    }
+
     return (
       <div className="h-full relative">
         <Badge
@@ -36,6 +42,7 @@ export default async function DriverPanel() {
           Flex
         </Badge>
         <HomeOwnFlex
+          allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
           pendencias={pendencias}

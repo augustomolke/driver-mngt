@@ -12,24 +12,11 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import { useEffect } from "react";
-import { useClusters } from "@/hooks/useClusters";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-import { MapPin } from "lucide-react";
-import { Slide } from "react-awesome-reveal";
+import { useCrowdSourcing } from "@/hooks/useCrowdSourcing";
 
 const defaultStyle = {
-  fillColor: "gray",
+  fillColor: "red",
   fillOpacity: 0.5,
-  weight: 2,
-  opacity: 1,
-  dashArray: 3,
-  color: "white",
-};
-
-const closedStyle = {
-  fillColor: "gray",
-  fillOpacity: 0.8,
   weight: 2,
   opacity: 1,
   dashArray: 3,
@@ -38,7 +25,7 @@ const closedStyle = {
 
 const selectedStyle = {
   dashArray: "",
-  fillColor: "#FD8D3C",
+  fillColor: "green",
   fillOpacity: 0.7,
   weight: 3,
   opacity: 1,
@@ -52,20 +39,17 @@ const hubIcon = new Icon({
   popupAnchor: [0, -32],
 });
 
-const checkIcon = new Icon({
-  iconUrl: "/PIN CHECK.png",
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-});
-
-const Clusters = ({ clusters }) => {
-  const { selected, setSelected, setBound } = useClusters();
+const Clusters = ({ clusters, bonds, disableSelection }) => {
   const map = useMap();
+  const { selected, setSelected } = useCrowdSourcing();
 
   useEffect(() => {
-    setBound(map);
-  }, [map]);
+    setSelected([]);
+
+    if (bonds.length > 0) {
+      map.fitBounds(bonds);
+    }
+  }, []);
 
   return (
     <>
@@ -73,42 +57,29 @@ const Clusters = ({ clusters }) => {
         const positions = cluster.zone_detail.coordinates.map((tuple) =>
           tuple.map((x) => [x[1], x[0]])
         );
-        // const center = useMemo(() => {
-        //   if (poly.current) {
-        //     const bounds = poly.current.getBounds(); // Get polygon bounds
-        //     const center = bounds.getCenter(); // Get center of bounds
-        //     console.log(center);
-        //     return [center.lat, center.lng];
-        //   }
-
-        //   return [0, 0];
-        // }, [poly]);
-
-        // const isClosed = closed.includes(cluster.zone_id);
 
         return (
           <>
-            {/* {selected.includes(cluster.zone_id) && (
-          <Marker position={center} icon={checkIcon}>
-            <Popup>{center}</Popup>
-          </Marker>
-        )} */}
             <Polygon
               eventHandlers={{
                 mouseover: (e) => {
                   // if (isClosed) return;
+                  if (disableSelection) return;
 
                   const layer = e.target;
                   layer.setStyle(selectedStyle);
                 },
                 mouseout: (e) => {
-                  // if (isClosed) return;
+                  // if (isClosed) return;\
+                  if (disableSelection) return;
+
                   if (!selected.includes(cluster.zone_id)) {
                     const layer = e.target;
                     layer.setStyle(defaultStyle);
                   }
                 },
                 click: (e) => {
+                  if (disableSelection) return;
                   const layer = e.target;
                   layer.setStyle(
                     selected.includes(cluster.zone_id)
@@ -121,7 +92,9 @@ const Clusters = ({ clusters }) => {
               key={cluster.zone_id}
               positions={positions}
               pathOptions={
-                selected.includes(cluster.zone_id)
+                disableSelection
+                  ? defaultStyle
+                  : selected.includes(cluster.zone_id)
                   ? selectedStyle
                   : defaultStyle
               }
@@ -136,75 +109,21 @@ const Clusters = ({ clusters }) => {
   );
 };
 
-const SelectedList = ({ selected, clusters }: any) => {
-  if (selected.length == 0)
-    return (
-      <div className="z-1 mt-0 ml-2 p-1 flex gap-2">
-        <MapPin></MapPin>
-        <span className="font-bold">Selecione no mapa as regiões</span>
-      </div>
-    );
-
-  const { bound } = useClusters();
-
-  return (
-    <div className="z-1 m-auto mt-0 p-1">
-      <span className="font-bold ml-2">{`Você selecionou ${selected.length} ${
-        selected.length > 1 ? "regiões" : "região"
-      }`}</span>
-
-      <div className="flex gap-2 overscroll-auto overflow-x-scroll">
-        {selected.map((s) => (
-          <Slide
-            className="shrink-0"
-            triggerOnce
-            direction="left"
-            duration={300}
-          >
-            <Badge
-              onClick={() => {
-                const newBound = clusters
-                  .find((c) => c.zone_id === s)
-                  ?.zone_detail.coordinates.map((tuple) =>
-                    tuple.map((x) => [x[1], x[0]])
-                  );
-
-                bound.fitBounds(newBound);
-              }}
-            >
-              {s}
-            </Badge>{" "}
-          </Slide>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 export default function MyMap(props: any) {
   const {
     serverSession,
     closed,
+    bonds,
     clusters,
     center,
     zoom,
+    disableSelection,
     defaultClusters,
     style = { width: "100vw" },
   } = props;
 
-  const { setSelected, selected, bound, setBound } = useClusters();
-
-  useEffect(() => {
-    if (
-      defaultClusters.find((c) => clusters.map((a) => a.zone_id).includes(c))
-    ) {
-      setSelected(defaultClusters);
-    }
-  }, [defaultClusters]);
-
   return (
     <>
-      <SelectedList selected={selected} clusters={clusters} />
       <MapContainer
         style={{ height: "70vh", borderRadius: "0 0 0.8rem 0.8rem" }}
         center={center}
@@ -228,7 +147,11 @@ export default function MyMap(props: any) {
           </Marker>
         )}
 
-        <Clusters clusters={clusters} />
+        <Clusters
+          clusters={clusters}
+          bonds={bonds}
+          disableSelection={disableSelection}
+        />
       </MapContainer>
     </>
   );

@@ -94,16 +94,16 @@ export default function Scheduling({
           className="space-y-12"
         >
           {dates.map((date, idx) => {
-            const filteredShifts = shiftsOptions.filter((shift) => {
-              if (!shift.limit) {
-                return true;
-              }
+            // const filteredShifts = shiftsOptions.filter((shift) => {
+            //   if (!shift.limit) {
+            //     return true;
+            //   }
 
-              return (
-                new Date(date.value).getDate() == new Date().getDate() &&
-                isLaterThan(shift.limit)
-              );
-            });
+            //   return (
+            //     new Date(date.value).getDate() == new Date().getDate() &&
+            //     isLaterThan(shift.limit)
+            //   );
+            // });
 
             return (
               <motion.div
@@ -123,9 +123,10 @@ export default function Scheduling({
                     {shiftsOptions.map(
                       ({ id, description, exclude = [], limit }) => {
                         const dateObj = new Date(date.value);
-                        if (!!limit) {
-                          const dateLimit = dateObj;
 
+                        const dateLimit = dateObj;
+
+                        if (!!limit) {
                           dateLimit.setDate(
                             new Date(date.value).getDate() + limit.d
                           );
@@ -145,7 +146,7 @@ export default function Scheduling({
                               <FormItem>
                                 <FormControl>
                                   <DateCheckbox
-                                    //disabled={new Date() >= dateLimit}
+                                    disabled={new Date() >= dateLimit}
                                     text={description}
                                     id={`${date.name}.${id}`}
                                     checked={field.value}
