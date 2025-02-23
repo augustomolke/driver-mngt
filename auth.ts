@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { revalidateTag } from "next/cache";
 import { object, string } from "zod";
 import { updateLogin } from "./lib/db/preferences";
+import prisma from "@/lib/db/db";
 
 const api_url = process.env.GSHEET_AUTH_API_URL;
 
@@ -96,6 +97,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         revalidateTag("locations");
 
+        await prisma.drivers.upsert({
+          where: { driver_id: user.data.driverId.toString() },
+          update: {
+            name: user.data.driverName,
+            phone: user.data.phone.toString(),
+            station: user.data.station,
+            plate: user.data.plate,
+            vehicle: user.data.vehicle,
+            ownflex: user.data.ownflex,
+            trips: user.data.trips,
+          },
+          create: {
+            driver_id: user.data.driverId.toString(),
+            name: user.data.driverName,
+            phone: user.data.phone.toString(),
+            station: user.data.station,
+            plate: user.data.plate,
+            vehicle: user.data.vehicle,
+            ownflex: user.data.ownflex,
+            trips: user.data.trips,
+          },
+        });
         // return user object with their profile data
         return user.data;
       },

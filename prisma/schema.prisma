@@ -99,6 +99,19 @@ model Offers {
   updatedAt  DateTime @updatedAt @default(now())
 }
 
+model Drivers {
+  driver_id String  @id
+  name      String
+  phone     String
+  station   String
+  plate     String
+  vehicle   VEHICLE
+  trips     Int @default(0)
+  ownflex   Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
 
 enum EVENT_TYPE {
   FIRST_TRIP
