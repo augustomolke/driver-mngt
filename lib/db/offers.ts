@@ -61,14 +61,22 @@ export const getOpenOffers = async (): Promise<any> => {
 };
 
 export const createOffer = async (offer: any): Promise<any> => {
+  const endTime = new Date(offer.createdAt);
+
+  endTime.setMinutes(endTime.getMinutes() + offer.duration);
+
   return await prisma.offers.create({
-    data: { ...offer },
+    data: { ...offer, endTime },
   });
 };
 
 export const createManyOffer = async (offers: any): Promise<any> => {
+  const endTime = new Date();
+
+  endTime.setMinutes(endTime.getMinutes() + offers[0].duration);
+
   return await prisma.offers.createMany({
-    data: offers,
+    data: offers.map((o) => ({ ...o, endTime })),
   });
 };
 

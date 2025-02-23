@@ -86,6 +86,7 @@ model Allocations {
   type        ALLOCATION_TYPE
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
+  endTime     DateTime?
 }
 
 model Offers {
@@ -97,6 +98,7 @@ model Offers {
   spots       Int @default(1)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
+  endTime     DateTime?
 }
 
 model Drivers {

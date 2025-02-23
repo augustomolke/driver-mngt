@@ -33,8 +33,16 @@ export const getAllocations = async (): Promise<any> => {
 export const createAllocation = async (allocations: any): Promise<any> => {
   const session = await auth();
 
+  const endTime = new Date();
+
+  endTime.setMinutes(endTime.getMinutes() + allocations.duration);
+
   const allocation = await prisma.allocations.create({
-    data: { driver_id: session.user?.driverId.toString(), ...allocations },
+    data: {
+      driver_id: session.user?.driverId.toString(),
+      ...allocations,
+      endTime,
+    },
   });
 
   revalidatePath("/driver-panel/crowdsourcing");
@@ -50,11 +58,18 @@ export const createManyAllocations = async (allocations: any): Promise<any> => {
 
   if (openOffers.length == 0) throw new Error("There are no open offers");
 
+  const endTime = new Date();
+
+  endTime.setMinutes(endTime.getMinutes() + allocations[0].duration);
+
   const allocated = await prisma.allocations.createMany({
-    data: allocations.map((a) => ({
-      driver_id: session.user?.driverId.toString(),
-      ...a,
-    })),
+    data: allocations.map((a) => {
+      return {
+        driver_id: session.user?.driverId.toString(),
+        ...a,
+        endTime: endTime.toISOString(),
+      };
+    }),
   });
 
   revalidatePath("/driver-panel/crowdsourcing");

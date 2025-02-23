@@ -10,13 +10,13 @@ const showCrowdsourcingMenu = (allocations: any[], offers: any[], mode) => {
     return false;
   }
   if (offers.length == 0) {
+    if (allocations.filter((a) => a.type == "CROWDSOURCING").length > 0) {
+      return true;
+    }
     return false;
   }
 
-  if (
-    allocations.length >= 2 &&
-    allocations.filter((a) => a.type == "CROWDSOURCING").length == 0
-  ) {
+  if (allocations.filter((a) => a.type != "CROWDSOURCING").length >= 2) {
     return false;
   }
 

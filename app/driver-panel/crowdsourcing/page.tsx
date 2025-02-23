@@ -44,7 +44,25 @@ export default async function Preferences() {
     // SD: currentSelection.filter((s) => s.shift === "SD"),
   };
 
-  if (!(availableShifts.AM || availableShifts.PM)) {
+  const filteredClusters = clusters
+    .filter((c) =>
+      crowdSourcing
+        .filter((a) => availableShifts[a.shift])
+        .map((a) => a.cluster)
+        .includes(c.zone_id)
+    )
+    .map((cluster) => ({
+      ...cluster,
+      zone_detail: JSON.parse(cluster.zone_detail),
+    }));
+
+  console.log(crowdSourcing);
+
+  if (
+    !(availableShifts.AM || availableShifts.PM) ||
+    (filteredClusters.length === 0 &&
+      (availableShifts.AM || availableShifts.PM))
+  ) {
     return (
       <Card className="m-0 p-0">
         <div className="flex flex-col gap-2 p-2">
@@ -77,13 +95,6 @@ export default async function Preferences() {
       </Card>
     );
   }
-
-  const filteredClusters = clusters
-    .filter((c) => crowdSourcing.map((a) => a.cluster).includes(c.zone_id))
-    .map((cluster) => ({
-      ...cluster,
-      zone_detail: JSON.parse(cluster.zone_detail),
-    }));
 
   const bondsSelection = filteredClusters.map((cluster) =>
     cluster.zone_detail.coordinates.map((tuple) =>
