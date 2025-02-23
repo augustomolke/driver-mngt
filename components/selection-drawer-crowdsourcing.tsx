@@ -95,7 +95,7 @@ export const SelectionDrawer = ({
         <DrawerContent className="max-w-screen-sm mx-auto">
           <DrawerHeader>
             <DrawerTitle>
-              Temos rotas disponíveis HOJE para a região <b>{selected[0]}</b>!
+              Confirmar minha rota na região <b>{selected[0]}</b>!
             </DrawerTitle>
             <DrawerDescription className="flex flex-col gap-2">
               <div className="gap-2 flex flex-col">

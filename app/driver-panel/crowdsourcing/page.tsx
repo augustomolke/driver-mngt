@@ -8,6 +8,8 @@ import { getHubInfo } from "@/gsheets/locations";
 import { getAllocations } from "@/lib/db/allocations";
 import { Badge } from "@/components/ui/badge";
 import { OwnFlexShifts } from "@/components/assets/shifts";
+import { HandshakeIcon, TriangleAlertIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 
 export default async function Preferences() {
   const session = await auth();
@@ -46,13 +48,19 @@ export default async function Preferences() {
     return (
       <Card className="m-0 p-0">
         <div className="flex flex-col gap-2 p-2">
-          <div className="flex flex-col items-center gap-2">
-            <span>Você escolheu as regiões e turnos abaixo:</span>
-            {currentSelection.map(({ shift }) => (
-              <Badge key={shift}>
-                {OwnFlexShifts.find((s) => s.id === shift)?.description}
-              </Badge>
-            ))}
+          <div className="flex justift-start items-center gap-2">
+            <HandshakeIcon height={36} width={36} />
+
+            <div className="flex flex-col gap-1 justify-start items-center">
+              <span>Regiões e turnos escolhidos:</span>
+              <div className="flex gap-2">
+                {currentSelection.map(({ shift }) => (
+                  <Badge key={shift}>
+                    {OwnFlexShifts.find((s) => s.id === shift)?.description}
+                  </Badge>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         <MapComponent
@@ -64,6 +72,7 @@ export default async function Preferences() {
           bonds={bonds}
           style={{ width: "100%", height: "75vh", borderRadius: "0.8rem" }}
           choosed_station={choosed_station}
+          disableSelection={true}
         />
       </Card>
     );
@@ -82,8 +91,21 @@ export default async function Preferences() {
     )
   );
 
+  if (filteredClusters.length === 0) {
+    redirect("/driver-panel");
+  }
+
   return (
     <Card className="m-0 p-0">
+      <div className="z-1 m-auto mt-0 p-1">
+        <div className="flex gap-4 justify-start items-center">
+          <TriangleAlertIcon height={36} width={36} />
+          <span className="font-bold max-w-[80%] flex justify-center">
+            Temos rotas disponíveis para as regiões abaixo. Escolha a sua e
+            garanta sua corrida!
+          </span>
+        </div>
+      </div>
       <MapComponent
         serverSession={session}
         closed={[]}

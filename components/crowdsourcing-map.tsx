@@ -39,7 +39,7 @@ const hubIcon = new Icon({
   popupAnchor: [0, -32],
 });
 
-const Clusters = ({ clusters, bonds }) => {
+const Clusters = ({ clusters, bonds, disableSelection }) => {
   const map = useMap();
   const { selected, setSelected } = useCrowdSourcing();
 
@@ -64,18 +64,22 @@ const Clusters = ({ clusters, bonds }) => {
               eventHandlers={{
                 mouseover: (e) => {
                   // if (isClosed) return;
+                  if (disableSelection) return;
 
                   const layer = e.target;
                   layer.setStyle(selectedStyle);
                 },
                 mouseout: (e) => {
-                  // if (isClosed) return;
+                  // if (isClosed) return;\
+                  if (disableSelection) return;
+
                   if (!selected.includes(cluster.zone_id)) {
                     const layer = e.target;
                     layer.setStyle(defaultStyle);
                   }
                 },
                 click: (e) => {
+                  if (disableSelection) return;
                   const layer = e.target;
                   layer.setStyle(
                     selected.includes(cluster.zone_id)
@@ -88,7 +92,9 @@ const Clusters = ({ clusters, bonds }) => {
               key={cluster.zone_id}
               positions={positions}
               pathOptions={
-                selected.includes(cluster.zone_id)
+                disableSelection
+                  ? defaultStyle
+                  : selected.includes(cluster.zone_id)
                   ? selectedStyle
                   : defaultStyle
               }
@@ -103,16 +109,6 @@ const Clusters = ({ clusters, bonds }) => {
   );
 };
 
-const SelectedList = ({}: any) => {
-  return (
-    <div className="z-1 m-auto mt-0 p-1">
-      <span className="font-bold ml-2 flex justify-center">
-        As regiões abaixo estão com rotas dispoíveis HOJE para você!
-      </span>
-    </div>
-  );
-};
-
 export default function MyMap(props: any) {
   const {
     serverSession,
@@ -121,13 +117,13 @@ export default function MyMap(props: any) {
     clusters,
     center,
     zoom,
+    disableSelection,
     defaultClusters,
     style = { width: "100vw" },
   } = props;
 
   return (
     <>
-      <SelectedList />
       <MapContainer
         style={{ height: "70vh", borderRadius: "0 0 0.8rem 0.8rem" }}
         center={center}
@@ -151,7 +147,11 @@ export default function MyMap(props: any) {
           </Marker>
         )}
 
-        <Clusters clusters={clusters} bonds={bonds} />
+        <Clusters
+          clusters={clusters}
+          bonds={bonds}
+          disableSelection={disableSelection}
+        />
       </MapContainer>
     </>
   );

@@ -38,6 +38,7 @@ export const createAllocation = async (allocations: any): Promise<any> => {
   });
 
   revalidatePath("/driver-panel/crowdsourcing");
+  revalidatePath("/driver-panel");
 
   return allocation;
 };
@@ -57,6 +58,7 @@ export const createManyAllocations = async (allocations: any): Promise<any> => {
   });
 
   revalidatePath("/driver-panel/crowdsourcing");
+  revalidatePath("/driver-panel");
 
   return allocated;
 };

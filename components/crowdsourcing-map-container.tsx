@@ -14,6 +14,7 @@ export default function MyPage({
   crowdSourcing,
   bonds,
   availableShifts,
+  disableSelection,
 }) {
   const Map = useMemo(
     () =>
@@ -26,17 +27,20 @@ export default function MyPage({
 
   return (
     <>
-      <SelectionDrawer
-        serverSession={serverSession}
-        choosed_station={choosed_station}
-        crowdSourcing={crowdSourcing}
-        availableShifts={availableShifts}
-      />
+      {!disableSelection && (
+        <SelectionDrawer
+          serverSession={serverSession}
+          choosed_station={choosed_station}
+          crowdSourcing={crowdSourcing}
+          availableShifts={availableShifts}
+        />
+      )}
 
       <Map
         zoom={10}
         bonds={bonds}
         serverSession={serverSession}
+        disableSelection={disableSelection}
         closed={closed}
         clusters={clusters}
         center={center}
