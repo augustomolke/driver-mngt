@@ -52,8 +52,7 @@ export default async function RootLayout({
             <header className="header md:row-span-2 relative">
               <Logo />
             </header>
-
-            <section className="px-8 md:row-span-6">
+            <section className="p-8 md:row-span-6">
               {children}
               <Toaster />
             </section>

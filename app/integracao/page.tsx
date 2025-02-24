@@ -48,43 +48,42 @@ export default function Integracao() {
 
   return (
     <>
-      <section className="container row-span-6">
-        <div className="h-full flex justify-center items-center">
-          <Accordion
-            type="single"
-            value={current}
-            onValueChange={setCurrent}
-            className="w-full sm:max-w-[70%] text-primary"
+    <div  className=" ">
+      <Accordion
+        collapsible
+        type="single"
+        value={current}
+        onValueChange={setCurrent}
+        className="w-full md:w-[600px] lg:w-[600px] flex flex-col"
+      >
+        {steps.map((step) => (
+          <AccordionItem
+            key={step.id}
+            value={`#step${step.id}`}
+            className={cn(
+              "my-2 bg-foreground rounded-lg px-3",
+              "bg-foreground",
+              "mt-6"
+            )}
           >
-            {steps.map((step) => (
-              <AccordionItem
-                key={step.id}
-                value={`#step${step.id}`}
-                className={cn(
-                  "my-2 bg-foreground rounded-lg px-3",
-                  "bg-foreground",
-                  "mt-6"
-                )}
-              >
-                <AccordionTrigger>{step.title}</AccordionTrigger>
-                <AccordionContent>
-                  {step.content}
-                  {step.buttonLabel && (
-                    <div className={cn("flex justify-end", step.buttonClass)}>
-                      <Button
-                        id={`step${step.id}`}
-                        onClick={() => setCurrent(`#step${step.id + 1}`)}
-                      >
-                        {step.buttonLabel}
-                      </Button>
-                    </div>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+            <AccordionTrigger>{step.title}</AccordionTrigger>
+            <AccordionContent>
+              {step.content}
+              {step.buttonLabel && (
+                <div className={cn("flex justify-end", step.buttonClass)}>
+                  <Button
+                    id={`step${step.id}`}
+                    onClick={() => setCurrent(`#step${step.id + 1}`)}
+                  >
+                    {step.buttonLabel}
+                  </Button>
+                </div>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+     </div>
     </>
   );
 }
