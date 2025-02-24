@@ -105,7 +105,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             station: user.data.station,
             plate: user.data.plate,
             vehicle: user.data.vehicle,
-            ownflex: user.data.ownflex,
+            ownflex: !!user.data.ownflex,
             trips: user.data.trips || 0,
           },
           create: {
@@ -115,7 +115,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             station: user.data.station,
             plate: user.data.plate,
             vehicle: user.data.vehicle,
-            ownflex: user.data.ownflex,
+            ownflex: !!user.data.ownflex,
             trips: user.data.trips || 0,
           },
         });
