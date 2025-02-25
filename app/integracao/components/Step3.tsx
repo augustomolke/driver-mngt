@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -19,9 +19,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import img1 from "@/components/assets/carroselgif3.gif";
 import img2 from "@/components/assets/carosselgif4.gif";
@@ -33,7 +33,7 @@ const images = [img1, img2];
 
 const icons = [
   {
-    src: img3
+    src: img3,
   },
   {
     src: img4,
@@ -60,12 +60,12 @@ export const Title = () => (
   </div>
 );
 
-export const Content = () => (
+export const Content = ({ onClick }) => (
   <div className="p-4">
     <div className="mt-4 w-full max-w-2xl mx-auto">
       <p style={{ color: "#EE4D2D" }}>
-        A ShopeePay <strong> é um serviço de carteira digital </strong> oferecido
-        pela Shopee por onde os Motoristas Parceiros{" "}
+        A ShopeePay <strong> é um serviço de carteira digital </strong>{" "}
+        oferecido pela Shopee por onde os Motoristas Parceiros{" "}
         <strong> recebem seus ganhos </strong>
       </p>
       <p
@@ -73,7 +73,10 @@ export const Content = () => (
         className="border-2 border-solid border-[#EE4D2D] text-center p-2 rounded-md my-2"
       >
         O cadastro na ShopeePay deve estar no{" "}
-        <strong> mesmo nome e telefone do cadastro realizado no Driver App </strong>
+        <strong>
+          {" "}
+          mesmo nome e telefone do cadastro realizado no Driver App{" "}
+        </strong>
         (aplicativo de entregas)
       </p>
 
@@ -82,39 +85,44 @@ export const Content = () => (
           <CarouselContent>
             {Array.from({ length: 4 }).map((_, index) => {
               const slideNumber = index + 1;
-              const slideContent = slideNumber <= 2 ? (
-                <div className="flex flex-col items-start justify-center h-full px-4">
-                  <h3 className="text-xl font-bold mb-2">
-                    {slidesText[slideNumber - 1].title}
-                  </h3>
-                  <p className="text-[#EE4D2D] mr-4">
-                    {slidesText[slideNumber - 1].text}
-                  </p>
-                  <div className="mt-4 w-full max-w-[120px]">
-                    <a href={icons[slideNumber - 1].link} target="_blank" rel="noopener noreferrer">
-                      <Image
-                        src={icons[slideNumber - 1].src}
-                        alt={`Imagem do slide ${slideNumber}`}
-                        width={120}
-                        height={50}
-                        className="w-full rounded-lg object-cover"
-                        style={{
-                          mixBlendMode: "multiply",
-                        }}
-                      />
-                    </a>
+              const slideContent =
+                slideNumber <= 2 ? (
+                  <div className="flex flex-col items-start justify-center h-full px-4">
+                    <h3 className="text-xl font-bold mb-2">
+                      {slidesText[slideNumber - 1].title}
+                    </h3>
+                    <p className="text-[#EE4D2D] mr-4">
+                      {slidesText[slideNumber - 1].text}
+                    </p>
+                    <div className="mt-4 w-full max-w-[120px]">
+                      <a
+                        href={icons[slideNumber - 1].link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Image
+                          src={icons[slideNumber - 1].src}
+                          alt={`Imagem do slide ${slideNumber}`}
+                          width={120}
+                          height={50}
+                          className="w-full rounded-lg object-cover"
+                          style={{
+                            mixBlendMode: "multiply",
+                          }}
+                        />
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="relative w-full h-full overflow-hidden rounded-lg">
-                  <Image
-                    src={images[slideNumber - 3]}
-                    alt={`Slide ${slideNumber}`}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              );
+                ) : (
+                  <div className="relative w-full h-full overflow-hidden rounded-lg">
+                    <Image
+                      src={images[slideNumber - 3]}
+                      alt={`Slide ${slideNumber}`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                );
 
               return (
                 <CarouselItem key={index}>
@@ -162,12 +170,13 @@ export const Content = () => (
             <DialogHeader>
               <DialogTitle>Você tem certeza?</DialogTitle>
               <DialogDescription>
-                Não pule nenhuma etapa, pois sem o cadastro completo da ShopeePay não será possível começar as entregas.
+                Não pule nenhuma etapa, pois sem o cadastro completo da
+                ShopeePay não será possível começar as entregas.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="sm:justify-start">
               <DialogClose asChild>
-                <Button variant="outline" >
+                <Button variant="outline" onClick={onClick}>
                   Minha carteira ShopeePay está ativa!
                 </Button>
               </DialogClose>
