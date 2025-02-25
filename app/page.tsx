@@ -7,6 +7,10 @@ export default async function Home() {
 
   if (!session) return <div>Not authenticated</div>;
 
+  if (session.user.ownflex) {
+    redirect("/driver-panel");
+  }
+
   if (!session.user.trips) {
     redirect("/primeira-entrega");
   } else {

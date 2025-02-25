@@ -4,13 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import { CircleCheckBig, CircleX, Calendar, Sun, Moon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { confirmAvailability } from "@/lib/actions/booking-action";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormItem, FormLabel } from "@/components/ui/form";
+import { isLaterThan } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import DateCheckbox from "./date-checkbox";
@@ -25,6 +20,7 @@ interface SchedulingProps {
     instance: string;
   }>;
   preloadedBookings: any;
+  station: string;
 }
 
 interface FormValues {
@@ -35,9 +31,13 @@ interface FormValues {
   };
 }
 
-const shiftsOptions = ["AM", "PM", "SD"];
-
-export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
+export default function Scheduling({
+  dates,
+  prevBookings,
+  shiftsOptions,
+  station,
+  ownflex,
+}: SchedulingProps) {
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -62,7 +62,7 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await confirmAvailability(values, prevBookings, dates);
+      await confirmAvailability(values, dates, station, ownflex);
       toast({
         icon: (
           <CircleCheckBig color="hsl(var(--green))" height={48} width={48} />
@@ -93,46 +93,79 @@ export default function Scheduling({ dates, prevBookings }: SchedulingProps) {
           transition={{ duration: 0.5 }}
           className="space-y-12"
         >
-          {dates.map((date, idx) => (
-            <motion.div
-              key={date.value}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-            >
-              <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center mb-6">
-                  <Calendar className="mr-3 text-primary w-16 h-16" />
-                  <FormLabel className="text-2xl font-semibold text-primary">
-                    {date.formatted}
-                  </FormLabel>
+          {dates.map((date, idx) => {
+            // const filteredShifts = shiftsOptions.filter((shift) => {
+            //   if (!shift.limit) {
+            //     return true;
+            //   }
+
+            //   return (
+            //     new Date(date.value).getDate() == new Date().getDate() &&
+            //     isLaterThan(shift.limit)
+            //   );
+            // });
+
+            return (
+              <motion.div
+                key={date.value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                  <div className="flex items-center mb-6">
+                    <Calendar className="mr-3 text-primary w-16 h-16" />
+                    <FormLabel className="text-2xl font-semibold text-primary">
+                      {date.formatted}
+                    </FormLabel>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {shiftsOptions.map(
+                      ({ id, description, exclude = [], limit }) => {
+                        const dateObj = new Date(date.value);
+
+                        const dateLimit = dateObj;
+
+                        if (!!limit) {
+                          dateLimit.setDate(
+                            new Date(date.value).getDate() + limit.d
+                          );
+                          dateLimit.setHours(limit.h, 0, 0, 0);
+                        }
+
+                        if (exclude.includes(dateObj.getDay())) {
+                          return null;
+                        }
+
+                        return (
+                          <Controller
+                            key={id}
+                            name={`${date.value}.${id}`}
+                            control={form.control}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <DateCheckbox
+                                    disabled={new Date() >= dateLimit}
+                                    text={description}
+                                    id={`${date.name}.${id}`}
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                    className="min-w-16 h-16 text-xl"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
-                <div className="flex justify-center gap-2">
-                  {shiftsOptions.map((shift) => (
-                    <Controller
-                      key={shift}
-                      name={`${date.value}.${shift}`}
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <DateCheckbox
-                              text={shift}
-                              id={`${date.name}.${shift}`}
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="w-16 h-16 text-xl"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  ))}
-                </div>
-              </div>
-              {idx < dates.length - 1 && <Separator className="my-8" />}
-            </motion.div>
-          ))}
+                {idx < dates.length - 1 && <Separator className="my-8" />}
+              </motion.div>
+            );
+          })}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

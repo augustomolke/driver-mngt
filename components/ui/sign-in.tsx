@@ -2,19 +2,16 @@
 import React, { useState } from "react";
 import { Input } from "./input";
 import { Label } from "./label";
-import { Button } from "./button";
 import loginAction from "@/lib/login-action";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import LoginSubmitButton from "./login-submit-button";
 import { useToast } from "@/hooks/use-toast";
-import { CircleX } from "lucide-react";
 
 interface FormValues {
   driverId: string;
@@ -35,17 +32,8 @@ export function SignIn() {
   };
 
   const handleSubmit = async (formData: FormData) => {
-    try {
-      setLoading(true);
-      await loginAction(formData);
-    } catch (e) {
-      setLoading(false);
-      toast({
-        icon: <CircleX height={48} width={48} />,
-        title: "Algo deu errado!",
-        description: e.message.split(".")[0],
-      });
-    }
+    setLoading(true);
+    await loginAction(formData);
   };
 
   const isFormValid = Object.values(values).every(Boolean);

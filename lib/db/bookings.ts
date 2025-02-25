@@ -5,26 +5,38 @@ import { bookings } from "@/prisma/seed/data";
 const EVENTS_API_URL = process.env.EVENTS_API || "";
 const SECRET = process.env.SECRET || "";
 
-export const getFirstTripBooking = unstable_cache(
-  async (driver_id) => {
-    const booking = await prisma.bookings.findFirst({
-      where: { driver_id, event: { event_type: "FIRST_TRIP" } },
+export const getFirstTripBooking = async (driver_id) => {
+  const booking = await prisma.bookings.findFirst({
+    where: { driver_id, event: { event_type: "FIRST_TRIP" } },
+  });
+
+  return booking;
+};
+
+export const getSpots = unstable_cache(
+  async (station) => {
+    const booking = await prisma.bookings.findMany({
+      where: {
+        station,
+        event: { event_type: "FIRST_TRIP" },
+        date: { gte: new Date() },
+      },
     });
 
     return booking;
   },
-  ["first-trip-booking"],
+  ["spots"],
   {
-    revalidate: 1800,
-    tags: ["first-trip-booking"],
+    revalidate: 10,
+    tags: ["spots"],
   }
 );
 
 export const getAvailability = unstable_cache(
-  async (driver_id: string) => {
+  async (driver_id: string, station: string) => {
     return await prisma.bookings.findMany({
       where: {
-        AND: [{ driver_id }, { date: { gte: new Date() } }],
+        AND: [{ driver_id }, { station }, { date: { gte: new Date() } }],
       },
     });
   },

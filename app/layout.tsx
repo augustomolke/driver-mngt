@@ -5,6 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import Logo from "@/components/assets/logo";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { auth } from "@/auth";
+import { getOptions } from "@/lib/db/options";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,23 +24,36 @@ export const metadata: Metadata = {
   description: "Painel do Motorista Shopee",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
+  let newClass = "lm";
+
+  if (!!session?.user) {
+    const options = await getOptions(session?.user.driverId);
+
+    const parsedOptions = options?.options && JSON.parse(options.options);
+
+    newClass =
+      !parsedOptions?.hub || parsedOptions?.hub == "LM" ? "lm" : "ownflex";
+  }
+
   return (
     <SessionProvider>
       <TooltipProvider>
-        <html lang="en">
+        <html lang="en" className={newClass} suppressHydrationWarning>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
           >
-            <header className="header my-4 row-span-1">
+            <header className="header md:row-span-2 relative">
               <Logo />
             </header>
 
-            <section className="container row-span-7 p-[2rem]">
+            <section className="px-8 md:row-span-6">
               {children}
               <Toaster />
             </section>

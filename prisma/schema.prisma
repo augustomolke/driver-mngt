@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,62 +8,112 @@ datasource db {
 }
 
 model Feedbacks {
-  id        Int      @id @default(autoincrement())
-  driver_id String
-  nps Int
-  reason String
+  id         Int      @id @default(autoincrement())
+  driver_id  String
+  nps        Int
+  reason     String
   first_trip Boolean
-  text String
+  text       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
+
+model Options {
+  driver_id         Int      @id @default(autoincrement())
+  options           String
+  createdAt  DateTime @default(now())
+}
+
+model Clusters {
+  zone_base_id Int @id @default(autoincrement())
+  zone_id      String
+  zone_name    String
+  station_id   Int
+  station_name String
+  zone_detail  String
+}
 
 model Bookings {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  driver_id     String   @db.VarChar(255)
-  name   String
-  plate String
-  vehicle String
-  station String
-  phone String
-  city String
-  cep String
-  date DateTime
-  event Event @relation(fields: [event_id], references: [id])
+  driver_id String   @db.VarChar(255)
+  name      String
+  plate     String
+  vehicle   String
+  station   String
+  ownflex   Boolean @default(false)
+  phone     String
+  city      String
+  cep       String
+  date      DateTime
   event_id  Int
-  info String?
+  info      String?
+  event     Event    @relation(fields: [event_id], references: [id])
 }
 
 model Event {
-  id      Int      @id @default(autoincrement())
-  event_type   EVENT_TYPE
-  location  String
-  options String?
-  timezone String
-  cron_exp  String
-  bookings Bookings[]
+  id         Int        @id @default(autoincrement())
+  event_type EVENT_TYPE
+  location   String
+  options    String?
+  timezone   String
+  cron_exp   String
+  bookings   Bookings[]
 }
-
-// model Location {
-//   id      Int      @id @default(autoincrement())
-//   cep String
-//   city String
-//   neighbor String
-
-//   Preferences Preferences[]
-// }
 
 model Preferences {
-  id      Int      @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   driver_id   String
-  driver_name    String
-  phone String
-  station  String
-  vehicle VEHICLE
-  cep String
-  city String
+  driver_name String
+  phone       String
+  station     String
+  vehicle     VEHICLE
+  ownflex   Boolean @default(false)
+  cep         String
+  city        String
+  createdAt   DateTime @default(now())
+  booking_id  Int?
 }
+
+model Allocations {
+  id          Int      @id @default(autoincrement())
+  driver_id   String
+  cluster     String
+  shift       SHIFTS
+  duration    Int
+  type        ALLOCATION_TYPE
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
+  endTime     DateTime?
+}
+
+model Offers {
+  id          Int      @id @default(autoincrement())
+  station     String
+  cluster     String
+  shift       SHIFTS
+  duration    Int @default(60)
+  spots       Int @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt @default(now())
+  endTime     DateTime?
+}
+
+model Drivers {
+  driver_id String  @id
+  name      String
+  phone     String
+  station   String
+  plate     String
+  vehicle   VEHICLE
+  trips     Int @default(0)
+  ownflex   Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
 
 enum EVENT_TYPE {
   FIRST_TRIP
@@ -83,9 +127,15 @@ enum SHIFTS {
 }
 
 enum VEHICLE {
-PASSEIO
-MOTO
-FIORINO
-VAN
-VUC
+  PASSEIO
+  MOTO
+  FIORINO
+  VAN
+  VUC
+}
+
+enum ALLOCATION_TYPE {
+  CROWDSOURCING
+  MANUAL
+  AUTOMATIC
 }

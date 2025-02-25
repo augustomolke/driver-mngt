@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CircleX } from "lucide-react";
 import worker from "@/components/assets/warehouse-worker.svg";
 import {
   Form,
@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import {
   Select,
@@ -55,20 +56,25 @@ import {
 } from "@/components/ui/dialog";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
+import { Separator } from "./ui/separator";
 
 export default function FirstTripForm({
   dates,
-  eventId,
   checks,
+  event,
   preloadedPreferences,
+  shifts,
 }) {
   const router = useRouter();
 
-  const preferences = usePreloadedQuery(preloadedPreferences);
+  const preferences = preloadedPreferences;
 
   const { toast } = useToast();
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState();
+  const [shift, setShift] = React.useState();
+  const [exp, setExp] = React.useState();
+
   const [checked, setChecked] = React.useState([]);
 
   const form = useForm();
@@ -76,7 +82,20 @@ export default function FirstTripForm({
   const onSubmit = async () => {
     try {
       setLoading(true);
-      await createBookingAction(value, eventId);
+      const selectedDate = dates.find((d) => d.evString == value);
+
+      const options = JSON.parse(event.options);
+
+      const instructions = options?.instructions;
+
+      await createBookingAction(
+        selectedDate.evDate,
+        event.id,
+        shift,
+        exp,
+        shifts.find((s) => s.name == shift)?.description,
+        instructions
+      );
     } catch (e) {
       toast({
         icon: <CircleX height={48} width={48} />,
@@ -87,12 +106,12 @@ export default function FirstTripForm({
     }
   };
 
-  if (
-    dates.length == 0 ||
-    preferences[0].preferences.filter((p) => !!p.priority).length == 0
-  ) {
-    return <NoSpotsCard />;
-  }
+  // if (
+  //   dates.length == 0 ||
+  //   preferences.filter((p) => !!p.priority).length == 0
+  // ) {
+  //   return <NoSpotsCard />;
+  // }
 
   if (dates.length == 1) {
     return (
@@ -103,9 +122,10 @@ export default function FirstTripForm({
             Data e horário
           </CardTitle>{" "}
         </CardHeader>
+
         <CardContent>
           A próxima data disponível será
-          <strong>{dates[0]}</strong>
+          <strong>{dates[0].evString}</strong>
         </CardContent>
       </Card>
     );
@@ -118,9 +138,11 @@ export default function FirstTripForm({
           <CalendarClock height={32} width={32} />
           Data e horário
         </CardTitle>
+        <Image src={driverArrived} />
+
         <CardDescription>
-          Estas são as datas disponíveis para você no momento. Escolha uma para
-          agendar seu treinamento prático.
+          Estas são as datas disponíveis para você no momento.{" "}
+          <strong>Escolha uma para agendar seu treinamento prático.</strong>
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -137,14 +159,19 @@ export default function FirstTripForm({
                 return (
                   <FormItem>
                     <FormControl>
-                      <Select value={value} onValueChange={(a) => setValue(a)}>
+                      <Select
+                        value={value}
+                        onValueChange={(a) => {
+                          setValue(a);
+                        }}
+                      >
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Escolha uma data" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Datas disponíveis</SelectLabel>
-                            {dates.map((date) => (
+                            {dates.map(({ evString: date }) => (
                               <SelectItem value={date}>{date}</SelectItem>
                             ))}
                           </SelectGroup>
@@ -156,14 +183,106 @@ export default function FirstTripForm({
                 );
               }}
             />
+
+            <Separator />
+
+            {value ? (
+              <FormField
+                control={form.control}
+                name="shift"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <CardDescription>
+                        Você deve{" "}
+                        <strong>escolher uma janela de expedição</strong> que se
+                        encaixe melhor na sua agenda:
+                      </CardDescription>
+                      <FormControl>
+                        <Select
+                          value={shift}
+                          onValueChange={(a) => setShift(a)}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Escolha uma janela" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Janelas disponíveis</SelectLabel>
+
+                              {shifts
+                                .filter(
+                                  (s) =>
+                                    ([
+                                      "terça-feira, 24 de dezembro",
+                                      "terça-feira, 31 de dezembro",
+                                    ].includes(value) &&
+                                      s.name != "PM") ||
+                                    ![
+                                      "terça-feira, 24 de dezembro",
+                                      "terça-feira, 31 de dezembro",
+                                    ].includes(value)
+                                )
+                                .map(({ name, description }) => (
+                                  <SelectItem value={name}>
+                                    {name} - {description}
+                                  </SelectItem>
+                                ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            ) : null}
+
+            {shift ? (
+              <FormField
+                control={form.control}
+                name="experience"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <CardDescription>
+                        Queremos que sua primeira entrega com a Shopee seja
+                        especial! Para isso,{" "}
+                        <strong>
+                          conta pra gente se você já realizou entregas em outras
+                          plataformas
+                        </strong>
+                        .
+                      </CardDescription>
+                      <FormControl>
+                        <Select value={exp} onValueChange={(a) => setExp(a)}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Escolha uma janela" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Minha experiência</SelectLabel>
+
+                              <SelectItem value={"sim"}>
+                                Já possuo experiência
+                              </SelectItem>
+
+                              <SelectItem value={"não"}>
+                                Vai ser minha primeira vez!
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            ) : null}
           </form>
         </Form>
-        <Image src={driverArrived} />
-
-        <CardDescription>
-          Caso não encontre uma data, não se preocupe!{" "}
-          <strong>Estamos sempre abrindo novas vagas.</strong> Fique de olho!
-        </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between">
         {!loading && (
@@ -174,7 +293,9 @@ export default function FirstTripForm({
 
         <Dialog>
           <DialogTrigger>
-            <Button disabled={!value}>Confirmar agendamento</Button>
+            <Button disabled={!value || !shift || !exp}>
+              Confirmar agendamento
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -193,9 +314,15 @@ export default function FirstTripForm({
                         <Checkbox
                           id={idx}
                           value={c}
-                          onCheckedChange={() =>
-                            setChecked((state) => [...state, c])
-                          }
+                          onCheckedChange={(value) => {
+                            if (value) {
+                              setChecked((state) => [...state, c]);
+                            } else {
+                              setChecked((state) =>
+                                state.filter((v) => v != c)
+                              );
+                            }
+                          }}
                         />
                         <Label className="text-left" for={idx}>
                           {c}

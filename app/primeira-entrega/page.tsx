@@ -22,16 +22,14 @@ import { getFirstTripBooking } from "@/lib/db/bookings";
 export default async function Home() {
   const session = await auth();
 
-
-
   const event = await getFirstTripBooking(session.user.driverId.toString());
 
   if (!!event) {
-    redirect("/primeira-entrega/congrats");
+    redirect("/primeira-entrega/waitlist");
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
+    <div className="flex justify-center">
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex justify-center items-center">

@@ -6,11 +6,11 @@ export function getCurrentWeekDates() {
 
   // Calculate the first day of the week (Sunday)
   const currentDate = new Date(today);
-  currentDate.setDate(today.getDate() - currentDayOfWeek + 7);
+  currentDate.setDate(today.getDate() + 4);
 
   // Calculate the last day of the week (Saturday)
   const endDate = new Date(today);
-  endDate.setDate(today.getDate() + (6 - currentDayOfWeek) + 7);
+  endDate.setDate(today.getDate() + (6 - currentDayOfWeek) + 14);
 
   return {
     currentDate, // Format: YYYY-MM-DD
