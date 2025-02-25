@@ -38,6 +38,7 @@ export default function Integracao() {
       id: 3,
       title: <Step3.Title />,
       content: <Step3.Content />,
+      
     },
     {
       id: 4,
