@@ -42,6 +42,8 @@ export const SelectionDrawer = ({
         return {
           cluster: selected[0],
           shift,
+          description: crowdSourcing.find((s) => s.shift === shift)
+            ?.description,
           type: "CROWDSOURCING",
           duration: 60,
         };
@@ -79,7 +81,7 @@ export const SelectionDrawer = ({
       return cluster.cluster == selected[0];
     });
 
-    return shifts.map((s) => s.shift);
+    return shifts.map((s) => ({ shift: s.shift, description: s.description }));
   }, [crowdSourcing, selected]);
 
   return (
@@ -100,7 +102,7 @@ export const SelectionDrawer = ({
             <DrawerDescription className="flex flex-col gap-2">
               <div className="gap-2 flex flex-col">
                 <Label>Escolha a janela de carregamento:</Label>
-                {shifts.map((shift) => (
+                {shifts.map(({ shift, description }) => (
                   <div className="flex items-center gap-2 justify-center">
                     <Checkbox
                       disabled={!availableShifts[shift]}

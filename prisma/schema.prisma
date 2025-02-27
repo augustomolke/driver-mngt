@@ -84,6 +84,7 @@ model Allocations {
   shift       SHIFTS
   duration    Int
   type        ALLOCATION_TYPE
+  description String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
   endTime     DateTime?
@@ -96,6 +97,7 @@ model Offers {
   shift       SHIFTS
   duration    Int @default(60)
   spots       Int @default(1)
+  description String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
   endTime     DateTime?

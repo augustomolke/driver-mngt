@@ -65,10 +65,13 @@ export default async function Preferences() {
       <Card className="m-0 p-0">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex justift-start items-center gap-2">
-            <HandshakeIcon height={36} width={36} />
+            <HandshakeIcon height={36} width={48} />
 
-            <div className="flex flex-col gap-1 justify-start items-center">
-              <span>Regiões e turnos escolhidos:</span>
+            <div className="flex flex-col gap-1 justify-start items-cente max-w-[80%]">
+              <span>
+                Suas rotas estão confirmadas na próxima janela de carregamento
+                nos horários abaixo:
+              </span>
               <div className="flex gap-2">
                 {currentSelection.map(({ shift }) => (
                   <Badge key={shift}>

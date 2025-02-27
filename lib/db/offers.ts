@@ -14,18 +14,14 @@ export const getOpenOffers = async (): Promise<any> => {
     return;
   }
 
-  const openings = await prisma.offers.findMany({
+  const filteredOpenings = await prisma.offers.findMany({
     where: {
       station: choosed_station,
       endTime: { gte: new Date() },
     },
   });
 
-  if (!openings) return [];
-
-  const filteredOpenings = openings.filter((a) => {
-    return !hasEventEnded(a.createdAt, a.duration);
-  });
+  if (!filteredOpenings) return [];
 
   const allocations = await prisma.allocations.groupBy({
     by: ["cluster"],
@@ -54,7 +50,9 @@ export const getOpenOffers = async (): Promise<any> => {
     // SD: currentSelection.filter((s) => s.shift === "SD"),
   };
 
-  return result.filter((o) => availableShifts[o.shift]);
+  const res = result.filter((o) => availableShifts[o.shift]);
+
+  return res;
 };
 
 export const createOffer = async (offer: any): Promise<any> => {

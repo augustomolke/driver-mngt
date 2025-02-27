@@ -40,10 +40,13 @@ export default function OnboardingOwnFlex({
               Você foi escalado para realizar entregas nos seguintes horários:
               <div className="flex  flex-col gap-2 items-center justify-center">
                 {allocations?.map((a) => (
-                  <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[70%]">
+                  <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
                     <Badge className="font-bold">{a.cluster}</Badge>
                     <span key={a.shift} className="font-bold">
-                      {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
+                      {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
+                      {a.description ||
+                        OwnFlexShifts.find((s) => s.id === a.shift)
+                          ?.description}
                     </span>
                   </div>
                 ))}
