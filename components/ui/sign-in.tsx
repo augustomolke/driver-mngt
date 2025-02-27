@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Input } from "./input";
 import { Label } from "./label";
 import loginAction from "@/lib/login-action";
-import { BadgeHelp } from 'lucide-react';
+import { BadgeHelp } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -14,7 +14,7 @@ import {
 
 import Image from "next/image";
 import photoDriverId from "@/components/assets/photoDriverId.jpeg";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -24,7 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 import LoginSubmitButton from "./login-submit-button";
 import { useToast } from "@/hooks/use-toast";
@@ -68,26 +68,29 @@ export function SignIn() {
 
       <CardContent>
         <form action={handleSubmit}>
-          <input type="hidden" name="redirectTo" value="/" />
-          <FormField
-            label="Driver"
-            name="driverId"
-            type="number"
-            placeholder="Driver ID"
-            value={values.driverId}
-            onChange={handleInputChange}
-            showHelpIcon={true}
-          />
+          <div className="flex flex-col gap-4">
+            <input type="hidden" name="redirectTo" value="/" />
+            <FormField
+              label="Driver ID"
+              name="driverId"
+              type="number"
+              placeholder="Driver ID"
+              value={values.driverId}
+              onChange={handleInputChange}
+              showHelpIcon={true}
+            />
 
-          <FormField
-            label="Últimos 4 dígitos do seu telefone"
-            name="password"
-            type="password"
-            placeholder="XXXX"
-            maxLength={4}
-            value={values.password}
-            onChange={handleInputChange}
-          />
+            <FormField
+              label="Últimos 4 dígitos do seu telefone"
+              name="password"
+              type="password"
+              placeholder="XXXX"
+              maxLength={4}
+              value={values.password}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <div className="w-full flex justify-end mt-4 ">
             <LoginSubmitButton disabled={loading || !isFormValid} />
           </div>
@@ -108,23 +111,29 @@ interface FormFieldProps {
   showHelpIcon?: boolean;
 }
 
-function FormField({ label, showHelpIcon = false, ...inputProps }: FormFieldProps) {
+function FormField({
+  label,
+  showHelpIcon = false,
+  ...inputProps
+}: FormFieldProps) {
   return (
     <Label>
       <div className="flex flex-col gap-2">
-        <div className="flex flex gap-2">
-          <div className="pt-3">{label}</div>
+        <div className="flex flex items-center gap-2">
+          <div className="flex flex-col justify-center items-center font-bold ">
+            {label}
+          </div>
           {showHelpIcon && (
             <Dialog>
               <DialogTrigger asChild>
-                <BadgeHelp className="w-5 cursor-pointer mt-1.5" />
+                <BadgeHelp className="w-4 h-4 cursor-pointer" />
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md pt-8 pb-8 px-0">
+              <DialogContent className="sm:max-w-md pb-8 px-0">
                 <DialogHeader className="px-0">
                   <DialogTitle>Ajuda - Driver ID</DialogTitle>
                   <DialogDescription>
-                    O Driver ID é encontrado no canto superior do Driver APP.
-                    É um número único que identifica cada motorista.
+                    O Driver ID é encontrado no canto superior do Driver APP. É
+                    um número único que identifica cada motorista.
                   </DialogDescription>
                   <Image
                     src={photoDriverId}
@@ -134,9 +143,7 @@ function FormField({ label, showHelpIcon = false, ...inputProps }: FormFieldProp
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start px-0">
                   <DialogClose asChild>
-                    <Button type="button">
-                      Fechar
-                    </Button>
+                    <Button type="button">Fechar</Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>
