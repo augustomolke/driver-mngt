@@ -102,31 +102,37 @@ export const SelectionDrawer = ({
             <DrawerDescription className="flex flex-col gap-2">
               <div className="gap-2 flex flex-col">
                 <Label>Escolha a janela de carregamento:</Label>
-                {shifts.map(({ shift, description }) => (
-                  <div className="flex items-center gap-2 justify-center">
-                    <Checkbox
-                      disabled={!availableShifts[shift]}
-                      checked={selectedShifts.includes(shift)}
-                      onCheckedChange={(check) => {
-                        if (check) {
-                          setSelectedShifts((state) => [...state, shift]);
-                        } else {
-                          setSelectedShifts((state) =>
-                            state.filter((s) => s != shift)
-                          );
-                        }
-                      }}
-                      key={shift}
-                      id={shift}
-                    ></Checkbox>
-                    <Label htmlFor={shift}>
-                      <Badge key={shift}>
-                        {OwnFlexShifts.find((s) => s.id === shift)?.description}
-                        {!availableShifts[shift] && " - Já alocado"}
-                      </Badge>
-                    </Label>
-                  </div>
-                ))}
+                {shifts.map(({ shift }) => {
+                  const label =
+                    OwnFlexShifts.find((s) => s.id === shift)?.description ||
+                    shift;
+
+                  return (
+                    <div className="flex items-center gap-2 justify-center">
+                      <Checkbox
+                        disabled={!availableShifts[shift]}
+                        checked={selectedShifts.includes(shift)}
+                        onCheckedChange={(check) => {
+                          if (check) {
+                            setSelectedShifts((state) => [...state, shift]);
+                          } else {
+                            setSelectedShifts((state) =>
+                              state.filter((s) => s != shift)
+                            );
+                          }
+                        }}
+                        key={shift}
+                        id={shift}
+                      ></Checkbox>
+                      <Label htmlFor={shift}>
+                        <Badge key={shift}>
+                          {label}
+                          {!availableShifts[shift] && " - Já alocado"}
+                        </Badge>
+                      </Label>
+                    </div>
+                  );
+                })}
               </div>
             </DrawerDescription>
           </DrawerHeader>
