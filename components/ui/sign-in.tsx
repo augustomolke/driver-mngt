@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Input } from "./input";
 import { Label } from "./label";
 import loginAction from "@/lib/login-action";
+import { BadgeHelp } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -10,6 +11,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import Image from "next/image";
+import photoDriverId from "@/components/assets/photoDriverId.jpeg";
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 import LoginSubmitButton from "./login-submit-button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -41,7 +57,7 @@ export function SignIn() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Que bom que você está aqui!</CardTitle>
+        <CardTitle className="">Que bom que você está aqui!</CardTitle>
         <CardDescription>
           Para começar, preencha o seu{" "}
           <strong>Driver ID, localizado no canto superior do APP Driver</strong>
@@ -54,13 +70,15 @@ export function SignIn() {
         <form action={handleSubmit}>
           <input type="hidden" name="redirectTo" value="/" />
           <FormField
-            label="Driver ID"
+            label="Driver"
             name="driverId"
             type="number"
             placeholder="Driver ID"
             value={values.driverId}
             onChange={handleInputChange}
+            showHelpIcon={true}
           />
+
           <FormField
             label="Últimos 4 dígitos do seu telefone"
             name="password"
@@ -70,7 +88,7 @@ export function SignIn() {
             value={values.password}
             onChange={handleInputChange}
           />
-          <div className="w-full flex justify-end mt-4">
+          <div className="w-full flex justify-end mt-4 ">
             <LoginSubmitButton disabled={loading || !isFormValid} />
           </div>
         </form>
@@ -87,13 +105,46 @@ interface FormFieldProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   maxLength?: number;
+  showHelpIcon?: boolean;
 }
 
-function FormField({ label, ...inputProps }: FormFieldProps) {
+function FormField({ label, showHelpIcon = false, ...inputProps }: FormFieldProps) {
   return (
     <Label>
-      {label}
-      <Input className="text-primary" {...inputProps} />
+      <div className="flex flex-col gap-2">
+        <div className="flex flex gap-2">
+          <div className="pt-3">{label}</div>
+          {showHelpIcon && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <BadgeHelp className="w-5 cursor-pointer mt-1.5" />
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md pt-8 pb-8 px-0">
+                <DialogHeader className="px-0">
+                  <DialogTitle>Ajuda - Driver ID</DialogTitle>
+                  <DialogDescription>
+                    O Driver ID é encontrado no canto superior do Driver APP.
+                    É um número único que identifica cada motorista.
+                  </DialogDescription>
+                  <Image
+                    src={photoDriverId}
+                    alt="photoDriverId"
+                    className="w-full max-w-xs mx-auto"
+                  />
+                </DialogHeader>
+                <DialogFooter className="sm:justify-start px-0">
+                  <DialogClose asChild>
+                    <Button type="button">
+                      Fechar
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
+        <Input className="text-primary" {...inputProps} />
+      </div>
     </Label>
   );
 }
