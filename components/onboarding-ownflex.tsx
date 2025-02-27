@@ -39,17 +39,20 @@ export default function OnboardingOwnFlex({
             <AccordionContent className="flex flex-col gap-4">
               Você foi escalado para realizar entregas nos seguintes horários:
               <div className="flex  flex-col gap-2 items-center justify-center">
-                {allocations?.map((a) => (
-                  <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
-                    <Badge className="font-bold">{a.cluster}</Badge>
-                    <span key={a.shift} className="font-bold">
-                      {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
-                      {a.description ||
-                        OwnFlexShifts.find((s) => s.id === a.shift)
-                          ?.description}
-                    </span>
-                  </div>
-                ))}
+                {allocations?.map((a) => {
+                  const description = a.description
+                    ? a.description
+                    : OwnFlexShifts.find((s) => s.id === a.shift)?.description;
+                  return (
+                    <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
+                      <Badge className="font-bold">{a.cluster}</Badge>
+                      <span key={a.shift} className="font-bold">
+                        {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
+                        {description}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
               <span className="font-bold">Contamos com a sua presença!</span>
             </AccordionContent>
