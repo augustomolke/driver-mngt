@@ -39,11 +39,14 @@ export const SelectionDrawer = ({
 
     try {
       const allocations = selectedShifts.map((shift) => {
+        const description = crowdSourcing.find(
+          (s) => s.shift === shift
+        )?.description;
+
         return {
           cluster: selected[0],
           shift,
-          description: crowdSourcing.find((s) => s.shift === shift)
-            ?.description,
+          description,
           type: "CROWDSOURCING",
           duration: 60,
         };
