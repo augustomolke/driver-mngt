@@ -37,11 +37,11 @@ const nextConfig = {
       //   destination: "https://spx-legacy.netlify.app",
       //   permanent: false,
       // },
-      {
-        source: "/integracao",
-        destination: "https://spx-legacy.netlify.app/integracao",
-        permanent: false,
-      },
+      // {
+      //   source: "/integracao",
+      //   destination: "https://spx-legacy.netlify.app/integracao",
+      //   permanent: false,
+      // },
     ];
   },
 };
