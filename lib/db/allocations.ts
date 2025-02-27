@@ -15,10 +15,9 @@ export const getAllocations = async (): Promise<any> => {
 
   const driver_id = session.user.driverId.toString();
 
-  const { startDate, endDate } = getTodayAndTomorrowInSaoPaulo();
-
+  const now = new Date();
   const allocations = await prisma.allocations.findMany({
-    where: { driver_id, createdAt: { gte: startDate, lte: endDate } },
+    where: { driver_id, endTime: { gte: now } },
   });
 
   if (!allocations) return [];

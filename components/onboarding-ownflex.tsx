@@ -38,11 +38,14 @@ export default function OnboardingOwnFlex({
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4">
               Você foi escalado para realizar entregas nos seguintes horários:
-              <div className="flex flex-wrap gap-2">
+              <div className="flex  flex-col gap-2 items-center justify-center">
                 {allocations?.map((a) => (
-                  <Badge key={a.shift}>
-                    {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
-                  </Badge>
+                  <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[70%]">
+                    <Badge className="font-bold">{a.cluster}</Badge>
+                    <span key={a.shift} className="font-bold">
+                      {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
+                    </span>
+                  </div>
                 ))}
               </div>
               <span className="font-bold">Contamos com a sua presença!</span>

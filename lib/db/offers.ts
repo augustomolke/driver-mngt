@@ -4,7 +4,6 @@ import prisma from "./db";
 import { auth } from "@/auth";
 import { hasEventEnded } from "@/lib/utils";
 import { getCurrentMode } from "../getCurrentMode";
-import { getTodayAndTomorrowInSaoPaulo } from "@/lib/utils";
 import { getAllocations } from "./allocations";
 
 export const getOpenOffers = async (): Promise<any> => {
@@ -15,12 +14,10 @@ export const getOpenOffers = async (): Promise<any> => {
     return;
   }
 
-  const { startDate, endDate } = getTodayAndTomorrowInSaoPaulo();
-
   const openings = await prisma.offers.findMany({
     where: {
       station: choosed_station,
-      createdAt: { gte: startDate, lte: endDate },
+      endTime: { gte: new Date() },
     },
   });
 

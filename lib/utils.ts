@@ -28,27 +28,6 @@ export function hasEventEnded(startDate: Date, durationMs: number) {
   return new Date() > new Date(eventEndTime);
 }
 
-export function getTodayAndTomorrowInSaoPaulo() {
-  const now = new Date();
-  const options = {
-    timeZone: "America/Sao_Paulo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  };
-
-  const todayStr = new Intl.DateTimeFormat("en-CA", options).format(now);
-  const today = new Date(`${todayStr}T00:00:00-03:00`);
-
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  return {
-    startDate: today,
-    endDate: tomorrow,
-  };
-}
-
 export function isLaterThan(hour: number, day = new Date()) {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Sao_Paulo",
