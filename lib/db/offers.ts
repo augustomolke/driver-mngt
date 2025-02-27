@@ -36,7 +36,7 @@ export const getOpenOffers = async (): Promise<any> => {
       cluster: {
         in: filteredOpenings.map((o) => o.cluster),
       },
-      createdAt: { gte: startDate, lte: endDate },
+      endTime: { gte: new Date() },
     },
   });
 
