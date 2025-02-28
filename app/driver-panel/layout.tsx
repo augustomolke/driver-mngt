@@ -43,7 +43,10 @@ export default async function RootLayout({
 
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
-        crowdSourcing={showCrowdsourcingMenu(allocations, openOffers, mode)}
+        crowdSourcing={
+          ["3333", "4444"].includes(session?.user?.driverId.toString()) &&
+          showCrowdsourcingMenu(allocations, openOffers, mode)
+        }
       />
     </div>
   );

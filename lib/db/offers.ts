@@ -14,6 +14,8 @@ export const getOpenOffers = async (): Promise<any> => {
     return;
   }
 
+  // Get active Offers
+
   const filteredOpenings = await prisma.offers.findMany({
     where: {
       station: choosed_station,
@@ -22,6 +24,8 @@ export const getOpenOffers = async (): Promise<any> => {
   });
 
   if (!filteredOpenings) return [];
+
+  // Get active Offers with free spots
 
   const allocations = await prisma.allocations.groupBy({
     by: ["cluster"],
@@ -41,6 +45,8 @@ export const getOpenOffers = async (): Promise<any> => {
       (allocations.find((a) => a.cluster == o.cluster)?._count?.driver_id ||
         0) < o.spots
   );
+
+  // Get free shifts for the driver
 
   const driver_allocations = await getAllocations();
 

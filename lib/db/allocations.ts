@@ -2,9 +2,14 @@
 import prisma from "./db";
 import { auth } from "@/auth";
 import { hasEventEnded } from "@/lib/utils";
-import { getTodayAndTomorrowInSaoPaulo } from "@/lib/utils";
 import { getOpenOffers } from "./offers";
 import { revalidatePath } from "next/cache";
+
+const allowAllocate = (allocation: any, openOffers: any) => {
+  return !!openOffers.find(
+    (o) => o.cluster == allocation.cluster && o.shift == allocation.shift
+  );
+};
 
 export const getAllocations = async (): Promise<any> => {
   const session = await auth();
@@ -55,7 +60,9 @@ export const createManyAllocations = async (allocations: any): Promise<any> => {
 
   const openOffers = await getOpenOffers();
 
-  if (openOffers.length == 0) throw new Error("There are no open offers");
+  if (!allocations.every((a) => allowAllocate(a, openOffers))) {
+    throw new Error("There are no open offers for this driver");
+  }
 
   const endTime = new Date();
 
