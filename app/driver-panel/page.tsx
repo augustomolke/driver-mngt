@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import HomeOwnFlex from "@/components/home-ownflex";
+import ApresentationDriver from "../components/apresentationDriver"
 import HomeLm from "@/components/home-lm";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
@@ -35,13 +36,14 @@ export default async function DriverPanel() {
 
     return (
       <div className="h-full relative">
-        <Badge
+        {/* <Badge
           id="ownflex-badge"
           className="absolute top-2 right-2 text-sm font-medium font-bold italic"
         >
           Flex
-        </Badge>
-        <HomeOwnFlex
+        </Badge> */}
+        
+        {/* <HomeOwnFlex
           allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
@@ -50,8 +52,13 @@ export default async function DriverPanel() {
             "FIORINO"
           )}
           options={options}
-        />
+        /> */}
+
+
+         <div className="bg-red w-20 h-30"></div>
+        <ApresentationDriver/>
         <div className="h-[64px]"></div>
+        
       </div>
     );
   }

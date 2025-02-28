@@ -23,6 +23,8 @@ import { MapPin, Calendar, Smartphone } from "lucide-react";
 import { Suspense } from "react";
 import { Spinner } from "./spinner";
 import AllocationsCard from "./allocations-card";
+import ApresentationDriver from "../app/components/apresentationDriver"
+
 
 export default async function HomeOwnFlex({
   driverFirstName,
@@ -39,6 +41,7 @@ export default async function HomeOwnFlex({
   return (
     <Card className="max-w-3xl mx-auto">
       <CardHeader>
+      <ApresentationDriver/>
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
         <CardDescription>
           Que bom ter você por aqui! <br />
@@ -54,6 +57,8 @@ export default async function HomeOwnFlex({
           largePackagesCard={largePackagesCard}
           options={options}
         />
+
+        
 
         <CardTitle className="text-2xl">+ Informações Úteis</CardTitle>
 
