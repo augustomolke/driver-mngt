@@ -40,7 +40,7 @@ export default async function Disponibilidade() {
     choosed_station
   );
 
-  if (mode === "OF" && preferences.length < 5) {
+  if (preferences.length < 5) {
     return (
       <Dialog open={true}>
         <DialogContent>
