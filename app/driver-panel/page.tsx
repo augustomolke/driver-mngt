@@ -1,12 +1,15 @@
 import { auth } from "@/auth";
 import HomeOwnFlex from "@/components/home-ownflex";
 import ApresentationDriver from "../components/apresentationDriver"
+import DriverPendingAlert from "../components/driverPendingAlert"
+import StaticMaps from "../components/staticMaps"
 import HomeLm from "@/components/home-lm";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 import { getAllocations } from "@/lib/db/allocations";
+
 
 export default async function DriverPanel() {
   const session = await auth();
@@ -33,6 +36,10 @@ export default async function DriverPanel() {
     if (allocations?.length > 0) {
       pendencias.push("Rotas");
     }
+    const driverTexts = {
+      title: "Olá, Driver",
+      message: "Que bom ter você por aqui! Esse é um espaço exclusivo para gerenciar suas regiões de preferência de entrega e sua disponibilidade diária no HUB Entrega Rápida - Lapa."
+    };
 
     return (
       <div className="h-full relative">
@@ -41,9 +48,9 @@ export default async function DriverPanel() {
           className="absolute top-2 right-2 text-sm font-medium font-bold italic"
         >
           Flex
-        </Badge> */}
+        </Badge>  */}
         
-        {/* <HomeOwnFlex
+          {/* <HomeOwnFlex
           allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
@@ -52,11 +59,17 @@ export default async function DriverPanel() {
             "FIORINO"
           )}
           options={options}
-        /> */}
+        />   */}
 
 
-         <div className="bg-red w-20 h-30"></div>
-        <ApresentationDriver/>
+         <div className=""></div>
+             <div className="bg-white w-full h-auto p-3 rounded-md" >
+             <ApresentationDriver {...driverTexts} />
+              <DriverPendingAlert pendencias={3} />
+              <StaticMaps title={"Entrega Rápida Lapa"}/>
+             </div>
+
+            
         <div className="h-[64px]"></div>
         
       </div>
