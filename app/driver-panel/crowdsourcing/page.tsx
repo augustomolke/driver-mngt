@@ -9,6 +9,7 @@ import { getAllocations } from "@/lib/db/allocations";
 import { Badge } from "@/components/ui/badge";
 import { HandshakeIcon, TriangleAlertIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import { getDescription } from "@/lib/utils";
 
 export default async function Preferences() {
   const session = await auth();
@@ -53,12 +54,11 @@ export default async function Preferences() {
             <div className="flex flex-col gap-1 justify-start items-cente w-[80%]">
               <span className="font-bold">Rotas confirmadas:</span>
               <div className="flex flex-col gap-2">
-                {currentSelection.map(({ offer }) => (
+                {currentSelection.map((a) => (
                   <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
-                    <Badge className="font-bold">{offer.cluster}</Badge>
-                    <span key={offer.id} className="">
-                      {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
-                      {offer.description}
+                    <Badge className="font-bold">{a.offer.cluster}</Badge>
+                    <span key={a.offer.id} className="">
+                      {getDescription(a)}
                     </span>
                   </div>
                 ))}
