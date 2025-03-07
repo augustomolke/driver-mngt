@@ -3,6 +3,12 @@ import HomeOwnFlex from "@/components/home-ownflex";
 import ApresentationDriver from "../components/apresentationDriver"
 import DriverPendingAlert from "../components/driverPendingAlert"
 import StaticMaps from "../components/staticMaps"
+import DeliveryWindow from "../components/deliveryWindow"
+import RequiredApplications from "../components/requiredApplications"
+import SpxExpress from "@/public/spx_express_logo.svg";
+import GooglePlay from "@/public/google-play.png";
+import Trackage from "@/public/trackage.png";
+import InfoHelp from "../components/infoHelp";
 import HomeLm from "@/components/home-lm";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
@@ -40,6 +46,16 @@ export default async function DriverPanel() {
       title: "Olá, Driver",
       message: "Que bom ter você por aqui! Esse é um espaço exclusivo para gerenciar suas regiões de preferência de entrega e sua disponibilidade diária no HUB Entrega Rápida - Lapa."
     };
+    const deliveryWindowTexts = {
+      title: "Segunda a sábado (domingos são informados previamente)",
+      Option1: "Janela 1: 6 às 10h",
+      Option2: "Janela 2: 15:30 às 18h"
+    };
+    const textInfoHelp = {
+      title: "Segunda a sábado (domingos são informados previamente)",
+      trainingText: "Janela 1: 6 às 10h",
+      helpCenterText: "Janela 2: 15:30 às 18h"
+    };
 
     return (
       <div className="h-full relative">
@@ -49,8 +65,8 @@ export default async function DriverPanel() {
         >
           Flex
         </Badge>  */}
-        
-          {/* <HomeOwnFlex
+
+        {/* <HomeOwnFlex
           allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
@@ -62,16 +78,33 @@ export default async function DriverPanel() {
         />   */}
 
 
-         <div className=""></div>
-             <div className="bg-white w-full h-auto p-3 rounded-md" >
-             <ApresentationDriver {...driverTexts} />
-              <DriverPendingAlert pendencias={3} />
-              <StaticMaps title={"Entrega Rápida Lapa"}/>
-             </div>
-
-            
+        <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col" >
+          <ApresentationDriver {...driverTexts} />
+          <DriverPendingAlert pendencias={3} />
+          <StaticMaps title={"Entrega"} />
+          <DeliveryWindow  {...deliveryWindowTexts} />
+          <RequiredApplications
+            iconSrc={SpxExpress}
+            iconName="Driver App"
+            description="Aplicativo oficial para Motoristas Parceiros Shopee."
+            link="https://shopee.com.br/m/entregadores-shopee"
+          />
+          <RequiredApplications
+            iconSrc={GooglePlay}
+            iconName="NexMove"
+            description="Para acessar o galpão (apresentar QR Code na portaria) Clique aqui para instruções de configuração."
+            link="https://play.google.com/store/apps/details?id=nexmove.nexcode"
+          />
+          <RequiredApplications
+            iconSrc={Trackage}
+            iconName="Motorista Trackage"
+            description="Para controle de filas de carregamento, devolução e descarregamento. Clique aqui para instruções de configuração."
+            link="https://docs.google.com/presentation/d/e/2PACX-1vRCjoOawkPw97Ktq4RP9BskRX8TIXC9Cs84WWmiLxxYfXVLdsneoi0G31ux-rlPoPojuhO4A3nN6KRw/pub?start=true&loop=false&delayms=3000"
+          />
+          <InfoHelp {...textInfoHelp}/>
+        </div>
         <div className="h-[64px]"></div>
-        
+
       </div>
     );
   }
