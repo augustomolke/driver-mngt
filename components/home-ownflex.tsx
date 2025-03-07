@@ -57,7 +57,7 @@ export default async function HomeOwnFlex({
           </AlertTitle>
 
           <AlertDescription>
-            Você está confirmando sua disponibilidade para o hub:
+            Para alterar sua modalidade, selecione o hub desejado:
           </AlertDescription>
 
           <HubSelection

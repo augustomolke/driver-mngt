@@ -48,7 +48,7 @@ export default async function HomeLm({ driverFirstName }) {
             </AlertTitle>
 
             <AlertDescription>
-              Você está confirmando sua disponibilidade para o hub:
+              Para alterar sua modalidade, selecione o hub desejado:
             </AlertDescription>
 
             <HubSelection
