@@ -80,16 +80,12 @@ model Preferences {
 model Allocations {
   id          Int      @id @default(autoincrement())
   driver_id   String
-  cluster     String?
-  shift       SHIFTS?
-  duration    Int?
-  type        ALLOCATION_TYPE?
   description String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
   endTime    DateTime?
-  offer      Offers? @relation(fields: [offerId], references: [id],onDelete: Cascade, onUpdate: Cascade)
-  offerId    Int?
+  offer      Offers @relation(fields: [offerId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  offerId    Int
 }
 
 model Offers {
