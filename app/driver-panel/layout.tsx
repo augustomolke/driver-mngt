@@ -10,13 +10,18 @@ const showCrowdsourcingMenu = (allocations: any[], offers: any[], mode) => {
     return false;
   }
   if (offers.length == 0) {
-    if (allocations.filter((a) => a.type == "CROWDSOURCING").length > 0) {
+    if (
+      allocations.filter((a) => a.offer.offer_type == "CROWDSOURCING").length >
+      0
+    ) {
       return true;
     }
     return false;
   }
 
-  if (allocations.filter((a) => a.type != "CROWDSOURCING").length >= 2) {
+  if (
+    allocations.filter((a) => a.offer.offer_type != "CROWDSOURCING").length >= 2
+  ) {
     return false;
   }
 
@@ -44,8 +49,9 @@ export default async function RootLayout({
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
         crowdSourcing={
-          ["3333", "4444"].includes(session?.user?.driverId.toString()) &&
-          showCrowdsourcingMenu(allocations, openOffers, mode)
+          ["3333", "4444", "5555"].includes(
+            session?.user?.driverId.toString()
+          ) && showCrowdsourcingMenu(allocations, openOffers, mode)
         }
       />
     </div>

@@ -36,11 +36,11 @@ const generateMessage = (code) => {
   }
   if (code == "FilledCluster") {
     return {
-      title: "Este turno e região já foram preenchidos.",
+      title: "Um ou mais turnos já foram preenchidos.",
       message: "Por favor, volte e escolha outra região.",
       action: (
         <div className="flex flex-col justify-center items-center w-full">
-          <Link href="/driver-panel">
+          <Link href="/driver-panel/crowdsourcing">
             <Button> Tentar Novamente</Button>
           </Link>
         </div>
@@ -78,19 +78,17 @@ const generateMessage = (code) => {
 
 export default function Error({}: {}) {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const code = searchParams.get("message");
 
   const { title, message, action } = generateMessage(code);
 
   return (
-    <Card className="max-w-3xl mx-auto">
-      <CardHeader className="max-w-80">
-        <CardTitle className="text-2xl flex justify-center items-center gap-2 ">
-          <CircleX height={48} width={48} />
-
-          {title}
+    <Card className="">
+      <CardHeader className="w-100">
+        <CardTitle className="text-2xl flex flex-col justify-center items-center gap-2">
+          <CircleX className="shrink-0" height={64} width={64} />
+          <div>{title}</div>
         </CardTitle>
       </CardHeader>
 

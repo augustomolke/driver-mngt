@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const data = await prisma.preferences.findMany({
-    where: { ownflex: false, createdAt: { gte: new Date(2025, 1, 17) } },
+    where: { ownflex: false },
   });
 
   const response = pivotTable(
