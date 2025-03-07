@@ -18,11 +18,14 @@ import { SquarePen, Handshake } from "lucide-react";
 import OwnFleetApps from "./ownflex-apps";
 import { Button } from "./ui/button";
 import StaticMap from "./static-map";
-import { Alert } from "./ui/alert";
 import { MapPin, Calendar, Smartphone } from "lucide-react";
 import { Suspense } from "react";
 import { Spinner } from "./spinner";
-import AllocationsCard from "./allocations-card";
+import HubSelection from "@/components/hub-select";
+import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
+import { TriangleAlert } from "lucide-react";
+import { getCurrentMode } from "@/lib/getCurrentMode";
+import { auth } from "@/auth";
 
 export default async function HomeOwnFlex({
   driverFirstName,
@@ -32,9 +35,10 @@ export default async function HomeOwnFlex({
   allocations,
   crowdSelection,
 }) {
-  // const session = await auth();
+  const { choosed_station, mode } = await getCurrentMode();
+  const session = await auth();
 
-  // const station = session?.user.station;
+  const station = session?.user.station;
   // const mapInfo = await getMap(station);
   return (
     <Card className="max-w-3xl mx-auto">
@@ -45,6 +49,26 @@ export default async function HomeOwnFlex({
           Esse é um espaço exclusivo para gerenciar suas regiões de preferência
           de entrega e sua disponibilidade diária no HUB Entrega Rápida - Lapa.
         </CardDescription>
+
+        <Alert variant={"secondary"} className="space-y-2">
+          <AlertTitle className="font-bold flex gap-2 items-center">
+            <TriangleAlert className="animate-pulse" />
+            Atenção!
+          </AlertTitle>
+
+          <AlertDescription>
+            Você está confirmando sua disponibilidade para o hub:
+          </AlertDescription>
+
+          <HubSelection
+            defaultValue={mode == "OF" ? choosed_station : "LM"}
+            currentOptions={options}
+            options={[
+              { key: "LM", label: station.split("_")[2] },
+              { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },
+            ]}
+          />
+        </Alert>
       </CardHeader>
 
       <CardContent className="space-y-6">

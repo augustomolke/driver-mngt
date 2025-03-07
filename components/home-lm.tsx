@@ -12,6 +12,9 @@ import StaticMap from "./static-map";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 import { Suspense } from "react";
 import { Spinner } from "./spinner";
+import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
+import { TriangleAlert } from "lucide-react";
+import HubSelection from "@/components/hub-select";
 
 const formatHub = (hub) => {
   if (!hub) return;
@@ -20,7 +23,9 @@ const formatHub = (hub) => {
 };
 
 export default async function HomeLm({ driverFirstName }) {
-  const { choosed_station } = await getCurrentMode();
+  const { choosed_station, options, mode } = await getCurrentMode();
+  const session = await auth();
+  const station = session.user.station;
 
   return (
     <Card className="max-w-3xl mx-auto">
@@ -34,6 +39,28 @@ export default async function HomeLm({ driverFirstName }) {
           <strong>selecionar suas preferências de entrega </strong>e confirmar
           sua <strong>disponibilidade diariamente</strong>. <br />
         </CardDescription>
+
+        {session?.user.ownflex ? (
+          <Alert variant={"secondary"} className="space-y-2">
+            <AlertTitle className="font-bold flex gap-2 items-center">
+              <TriangleAlert className="animate-pulse" />
+              Atenção!
+            </AlertTitle>
+
+            <AlertDescription>
+              Você está confirmando sua disponibilidade para o hub:
+            </AlertDescription>
+
+            <HubSelection
+              defaultValue={mode == "OF" ? choosed_station : "LM"}
+              currentOptions={options}
+              options={[
+                { key: "LM", label: station.split("_")[2] },
+                { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },
+              ]}
+            />
+          </Alert>
+        ) : null}
       </CardHeader>
 
       <CardContent className="space-y-6">

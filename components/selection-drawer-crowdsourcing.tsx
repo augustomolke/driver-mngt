@@ -39,17 +39,11 @@ export const SelectionDrawer = ({
 
     try {
       const allocations = selectedShifts.map((shift) => {
-        const description = crowdSourcing.find(
-          (s) => s.shift === shift
-        )?.description;
+        const offer = crowdSourcing.find((s) => s.shift === shift);
 
-        return {
-          cluster: selected[0],
-          shift,
-          description,
-          type: "CROWDSOURCING",
-          duration: 60,
-        };
+        const offerId = offer?.id;
+
+        return offerId;
       });
 
       await createManyAllocations(allocations);
@@ -80,8 +74,8 @@ export const SelectionDrawer = ({
   }, [selected, selectedShifts]); //, options]);
 
   const shifts = useMemo(() => {
-    const shifts = crowdSourcing.filter((cluster) => {
-      return cluster.cluster == selected[0];
+    const shifts = crowdSourcing.filter((offer) => {
+      return offer.cluster == selected[0];
     });
 
     return shifts.map((s) => ({ shift: s.shift, description: s.description }));

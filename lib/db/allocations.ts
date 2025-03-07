@@ -23,65 +23,75 @@ export const getAllocations = async (): Promise<any> => {
   const now = new Date();
   const allocations = await prisma.allocations.findMany({
     where: { driver_id, endTime: { gte: now } },
+    include: { offer: true },
   });
 
   if (!allocations) return [];
 
-  const filteredAllocations = allocations.filter((a) => {
-    return !hasEventEnded(new Date(a.createdAt), a.duration);
-  });
-
-  return filteredAllocations;
+  return allocations;
 };
 
-export const createAllocation = async (allocations: any): Promise<any> => {
+// export const createAllocation = async (allocations: any): Promise<any> => {
+//   const session = await auth();
+
+//   const endTime = new Date();
+
+//   endTime.setMinutes(endTime.getMinutes() + allocations.duration);
+
+//   const allocation = await prisma.allocations.create({
+//     data: {
+//       driver_id: session.user?.driverId.toString(),
+//       ...allocations,
+//       endTime,
+//     },
+//   });
+
+//   revalidatePath("/driver-panel/crowdsourcing");
+//   revalidatePath("/driver-panel");
+
+//   return allocation;
+// };
+
+export const createManyAllocations = async (ids: any): Promise<any> => {
   const session = await auth();
 
-  const endTime = new Date();
-
-  endTime.setMinutes(endTime.getMinutes() + allocations.duration);
-
-  const allocation = await prisma.allocations.create({
-    data: {
-      driver_id: session.user?.driverId.toString(),
-      ...allocations,
-      endTime,
+  const offers = await prisma.offers.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+      endTime: { gte: new Date() },
     },
+    include: { allocations: true },
   });
 
-  revalidatePath("/driver-panel/crowdsourcing");
-  revalidatePath("/driver-panel");
+  const openOffers = offers.filter((o) => o.allocations.length < o.spots);
 
-  return allocation;
-};
-
-export const createManyAllocations = async (allocations: any): Promise<any> => {
-  const session = await auth();
-
-  const openOffers = await getOpenOffers();
-
-  if (!allocations.every((a) => allowAllocate(a, openOffers))) {
+  if (!openOffers.length) {
     throw new Error("There are no open offers for this driver");
   }
 
-  const endTime = new Date();
+  try {
+    const allocated = await prisma.allocations.createMany({
+      data: openOffers.map((a) => {
+        return {
+          driver_id: session.user?.driverId.toString(),
+          offerId: a.id,
+          endTime: a.endTime,
+        };
+      }),
+    });
 
-  endTime.setMinutes(endTime.getMinutes() + allocations[0].duration);
+    revalidatePath("/driver-panel/crowdsourcing");
+    revalidatePath("/driver-panel");
 
-  const allocated = await prisma.allocations.createMany({
-    data: allocations.map((a) => {
-      return {
-        driver_id: session.user?.driverId.toString(),
-        ...a,
-        endTime: endTime.toISOString(),
-      };
-    }),
-  });
+    return allocated;
+  } catch (err) {
+    revalidatePath("/driver-panel/crowdsourcing");
+    revalidatePath("/driver-panel");
 
-  revalidatePath("/driver-panel/crowdsourcing");
-  revalidatePath("/driver-panel");
-
-  return allocated;
+    throw err;
+  }
 };
 
 export const deleteAllocation = async (id: number): Promise<any> => {

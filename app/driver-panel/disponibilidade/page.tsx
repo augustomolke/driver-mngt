@@ -22,9 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import HubSelection from "@/components/hub-select";
-import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
-import { TriangleAlert } from "lucide-react";
+
 import { getCurrentMode } from "@/lib/getCurrentMode";
 import { OwnFlexShifts, LastMileShifts } from "@/components/assets/shifts";
 
@@ -85,27 +83,6 @@ export default async function Disponibilidade() {
             Você pode selecionar quantos dias e horários quiser.{" "}
             <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
-          {session?.user.ownflex && (
-            <Alert variant={"secondary"} className="space-y-2">
-              <AlertTitle className="font-bold flex gap-2 items-center">
-                <TriangleAlert className="animate-pulse" />
-                Atenção!
-              </AlertTitle>
-
-              <AlertDescription>
-                Você está confirmando sua disponibilidade para o hub:
-              </AlertDescription>
-
-              <HubSelection
-                defaultValue={mode == "OF" ? choosed_station : "LM"}
-                currentOptions={options}
-                options={[
-                  { key: "LM", label: session.user.station.split("_")[2] },
-                  { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },
-                ]}
-              />
-            </Alert>
-          )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:
         </CardDescription>
