@@ -52,9 +52,24 @@ export default async function DriverPanel() {
       Option2: "Janela 2: 15:30 às 18h"
     };
     const textInfoHelp = {
-      title: "Segunda a sábado (domingos são informados previamente)",
-      trainingText: "Janela 1: 6 às 10h",
-      helpCenterText: "Janela 2: 15:30 às 18h"
+      title: (
+        <>
+          Acesse o menu inicial do Driver App e clique em <span className="font-bold">Treinamentos</span> ou <span className="font-bold">Central de Ajuda</span> para tirar suas dúvidas!
+        </>
+      ),
+      trainingText: (
+        <>
+          <span className="font-bold">Treinamentos:</span> guias rápidos e vídeos curtos com as principais dicas para você.
+        </>
+      ),
+      helpCenterText: (
+        <>
+          <span className="font-bold">Central de Ajuda:</span> tire suas dúvidas de pagamento, nota fiscal, acareação e muito mais.
+        </>
+      ),
+      buttonText: "Acessar Treinamentos", 
+      buttonLink: "https://forms.gle/o1CmdEY5qNUn5hFJ7"
+      
     };
 
     return (
@@ -101,7 +116,7 @@ export default async function DriverPanel() {
             description="Para controle de filas de carregamento, devolução e descarregamento. Clique aqui para instruções de configuração."
             link="https://docs.google.com/presentation/d/e/2PACX-1vRCjoOawkPw97Ktq4RP9BskRX8TIXC9Cs84WWmiLxxYfXVLdsneoi0G31ux-rlPoPojuhO4A3nN6KRw/pub?start=true&loop=false&delayms=3000"
           />
-          <InfoHelp {...textInfoHelp}/>
+          <InfoHelp {...textInfoHelp} />
         </div>
         <div className="h-[64px]"></div>
 
