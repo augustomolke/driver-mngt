@@ -42,9 +42,8 @@ export default async function RootLayout({
   const event = await getEvent(choosed_station, "AVAILABILITY");
 
   return (
-    <div className="h-full relative">
+    <div className=" ">
       {children}
-      <div className="h-[64px]"></div>
 
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}

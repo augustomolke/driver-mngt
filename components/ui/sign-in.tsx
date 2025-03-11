@@ -55,7 +55,7 @@ export function SignIn() {
   const isFormValid = Object.values(values).every(Boolean);
 
   return (
-    <Card>
+    <Card className=" md:w-96 ">
       <CardHeader>
         <CardTitle className="">Que bom que você está aqui!</CardTitle>
         <CardDescription>

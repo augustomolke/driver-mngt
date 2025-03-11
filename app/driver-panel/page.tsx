@@ -9,6 +9,8 @@ import SpxExpress from "@/public/spx_express_logo.svg";
 import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
 import InfoHelp from "../components/infoHelp";
+import CardPending from "../components/cardPending";
+import { SquarePen } from "lucide-react";
 import HomeLm from "@/components/home-lm";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
@@ -51,6 +53,11 @@ export default async function DriverPanel() {
       Option1: "Janela 1: 6 às 10h",
       Option2: "Janela 2: 15:30 às 18h"
     };
+    const cardPendingContent = {
+      descriptionText: "Informe sua disponibilidade para os próximos 3 dias de carregamento. Você pode selecionar quantos dias e horários quiser.",
+      buttonText: "Informar disponibilidade",
+      buttonLink: "https://forms.gle/o1CmdEY5qNUn5hFJ7"
+    };
     const textInfoHelp = {
       title: (
         <>
@@ -67,9 +74,9 @@ export default async function DriverPanel() {
           <span className="font-bold">Central de Ajuda:</span> tire suas dúvidas de pagamento, nota fiscal, acareação e muito mais.
         </>
       ),
-      buttonText: "Acessar Treinamentos", 
+      buttonText: "Acessar Treinamentos",
       buttonLink: "https://forms.gle/o1CmdEY5qNUn5hFJ7"
-      
+
     };
 
     return (
@@ -81,7 +88,7 @@ export default async function DriverPanel() {
           Flex
         </Badge>  */}
 
-        {/* <HomeOwnFlex
+        <HomeOwnFlex
           allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
@@ -90,12 +97,12 @@ export default async function DriverPanel() {
             "FIORINO"
           )}
           options={options}
-        />   */}
-
+        />   
+{/* 
 
         <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col" >
           <ApresentationDriver {...driverTexts} />
-          <DriverPendingAlert pendencias={3} />
+          <DriverPendingAlert pendencias={0} />
           <StaticMaps title={"Entrega"} />
           <DeliveryWindow  {...deliveryWindowTexts} />
           <RequiredApplications
@@ -116,10 +123,10 @@ export default async function DriverPanel() {
             description="Para controle de filas de carregamento, devolução e descarregamento. Clique aqui para instruções de configuração."
             link="https://docs.google.com/presentation/d/e/2PACX-1vRCjoOawkPw97Ktq4RP9BskRX8TIXC9Cs84WWmiLxxYfXVLdsneoi0G31ux-rlPoPojuhO4A3nN6KRw/pub?start=true&loop=false&delayms=3000"
           />
-          <InfoHelp {...textInfoHelp} />
-        </div>
+          <InfoHelp {...textInfoHelp} icon={SquarePen} />;
+          <CardPending {...cardPendingContent} />
+        </div> */}
         <div className="h-[64px]"></div>
-
       </div>
     );
   }

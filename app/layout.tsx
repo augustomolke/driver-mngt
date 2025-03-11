@@ -47,17 +47,18 @@ export default async function RootLayout({
       <TooltipProvider>
         <html lang="en" className={newClass} suppressHydrationWarning>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen md:max-w-lg m-auto`}
-          >
-            <header className="header md:row-span-2 relative">
-              <Logo />
-            </header>
-            <section className="p-8 md:row-span-6">
-              {children}
-              <Toaster />
-            </section>
+            className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-cols-1 grid-rows-8 h-screen  m-auto`}
 
-            {/* <footer className="h-[24px]"></footer> */}
+          >
+            <main className="flex flex-col min-h-screen w-full">
+              <header className="relative flex justify-center items-center py-4">
+                <Logo />
+              </header>
+              <section className="p-4  flex flex-col justify-center items-center flex-grow w-full">
+              <div className="max-w-4xl w-full flex flex-col justify-center items-center">{children}</div>
+                <Toaster />
+              </section>
+            </main>
           </body>
         </html>
       </TooltipProvider>

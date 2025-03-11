@@ -44,7 +44,7 @@ export default async function HomeOwnFlex({
   const station = session?.user.station;
   // const mapInfo = await getMap(station);
   return (
-    <Card className="max-w-3xl mx-auto">
+    <Card className="max-w-3xl mx-auto  md:w-96">
       <CardHeader>
       <ApresentationDriver/>
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
