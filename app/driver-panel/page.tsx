@@ -9,7 +9,9 @@ import SpxExpress from "@/public/spx_express_logo.svg";
 import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
 import InfoHelp from "../components/infoHelp";
+import { TriangleAlert } from "lucide-react";
 import CardPending from "../components/cardPending";
+import SelectHub from "../components/selectHub"
 import { SquarePen } from "lucide-react";
 import HomeLm from "@/components/home-lm";
 import { getPreferences } from "@/lib/db/preferences";
@@ -78,6 +80,10 @@ export default async function DriverPanel() {
       buttonLink: "https://forms.gle/o1CmdEY5qNUn5hFJ7"
 
     };
+    const textSelectHub  = {
+      title: "Atenção!",
+      description: "Para alterar sua modalidade, selecione o hub desejado:"
+    };
 
     return (
       <div className="h-full relative">
@@ -88,7 +94,7 @@ export default async function DriverPanel() {
           Flex
         </Badge>  */}
 
-        <HomeOwnFlex
+        {/* <HomeOwnFlex
           allocations={allocations}
           driverFirstName={driverFirstName}
           choosed_station={choosed_station}
@@ -97,10 +103,11 @@ export default async function DriverPanel() {
             "FIORINO"
           )}
           options={options}
-        />   
-{/* 
-
-        <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col" >
+        /> */}
+       
+       
+         
+        <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96" >
           <ApresentationDriver {...driverTexts} />
           <DriverPendingAlert pendencias={0} />
           <StaticMaps title={"Entrega"} />
@@ -124,8 +131,9 @@ export default async function DriverPanel() {
             link="https://docs.google.com/presentation/d/e/2PACX-1vRCjoOawkPw97Ktq4RP9BskRX8TIXC9Cs84WWmiLxxYfXVLdsneoi0G31ux-rlPoPojuhO4A3nN6KRw/pub?start=true&loop=false&delayms=3000"
           />
           <InfoHelp {...textInfoHelp} icon={SquarePen} />;
-          <CardPending {...cardPendingContent} />
-        </div> */}
+          <CardPending {...cardPendingContent} /> 
+          <SelectHub {...textSelectHub} icon={TriangleAlert}/>
+        </div> 
         <div className="h-[64px]"></div>
       </div>
     );

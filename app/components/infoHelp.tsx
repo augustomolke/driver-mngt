@@ -21,7 +21,7 @@ export default function InfoHelp({ title, trainingText, helpCenterText, buttonTe
       <div className="bg-[#384b7a] p-2 rounded-lg w-60">
         <a href={buttonLink} target="_blank" className="flex items-center gap-2 text-white cursor-pointer">
             {Icon && <Icon />}
-          <div className="font-bold">{buttonText}</div> {/* Texto do botão */}
+          <div className="font-bold">{buttonText}</div>
         </a>
       </div>
     </div>
