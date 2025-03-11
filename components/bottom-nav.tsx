@@ -6,10 +6,6 @@ export default async ({ hasDisp, crowdSourcing = false }) => {
   let layoutClass = "grid-cols-2";
 
   if (hasDisp) {
-    layoutClass = "grid-cols-3";
-  }
-
-  if (crowdSourcing) {
     layoutClass = "grid-cols-4";
   }
 
@@ -42,37 +38,37 @@ export default async ({ hasDisp, crowdSourcing = false }) => {
             Preferências
           </span>
         </Link>
-        {crowdSourcing ? (
-          <Link
-            href="/driver-panel/crowdsourcing"
-            type="button"
-            className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group"
-          >
-            <div className="relative">
+        <Link
+          href="/driver-panel/crowdsourcing"
+          type="button"
+          className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group"
+        >
+          <div className="relative">
+            {crowdSourcing && (
               <span className="absolute flex size-3 tip-0 -left-1">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
               </span>
-              <svg
-                className="w-6 h-5 mb-2 text-gray-500  group-hover:text-primary "
-                viewBox="2 0 20 20"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
-                <path d="M15 18H9" />
-                <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
-                <circle cx="17" cy="18" r="2" />
-                <circle cx="7" cy="18" r="2" />
-              </svg>
-            </div>
+            )}
+            <svg
+              className="w-6 h-5 mb-2 text-gray-500  group-hover:text-primary "
+              viewBox="2 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+              <path d="M15 18H9" />
+              <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+              <circle cx="17" cy="18" r="2" />
+              <circle cx="7" cy="18" r="2" />
+            </svg>
+          </div>
 
-            <span className="text-sm text-primary ">Rotas</span>
-          </Link>
-        ) : null}
+          <span className="text-sm text-primary ">Rotas</span>
+        </Link>
 
         <Link
           href="/driver-panel"

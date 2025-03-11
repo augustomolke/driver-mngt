@@ -1,6 +1,13 @@
 import { auth } from "@/auth";
 import MapComponent from "@/components/crowdsourcing-map-container";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getOpenOffers } from "@/lib/db/offers";
 import { getClusters } from "@/lib/db/clusters";
 import { getCurrentMode } from "@/lib/getCurrentMode";
@@ -10,6 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { HandshakeIcon, TriangleAlertIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getDescription } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Preferences() {
   const session = await auth();
@@ -101,7 +110,27 @@ export default async function Preferences() {
   );
 
   if (filteredClusters.length === 0) {
-    redirect("/driver-panel");
+    return (
+      <Card>
+        <CardContent>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TriangleAlertIcon height={48} width={48} />
+              Volte mais tarde
+            </CardTitle>
+          </CardHeader>
+          <CardDescription>
+            No momento não existem rotas disponíveis para selecionar. Por favor,
+            tente mais tarde
+          </CardDescription>
+        </CardContent>
+        <CardFooter className="flex justify-end">
+          <Link href="/driver-panel">
+            <Button>Voltar para Início</Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    );
   }
 
   return (
