@@ -1,10 +1,16 @@
+
+
+import { useState, useEffect } from 'react';
 import { auth } from "@/auth";
-import HomeOwnFlex from "@/components/home-ownflex";
-import ApresentationDriver from "../components/apresentationDriver"
-import DriverPendingAlert from "../components/driverPendingAlert"
-import StaticMaps from "../components/staticMaps"
-import DeliveryWindow from "../components/deliveryWindow"
-import RequiredApplications from "../components/requiredApplications"
+import { getPreferences } from "@/lib/db/preferences";
+import { getAvailability } from "@/lib/db/bookings";
+import { getAllocations } from "@/lib/db/allocations";
+import { getCurrentMode } from "@/lib/getCurrentMode";
+import ApresentationDriver from "../components/apresentationDriver";
+import DriverPendingAlert from "../components/driverPendingAlert";
+import StaticMaps from "../components/staticMaps";
+import DeliveryWindow from "../components/deliveryWindow";
+import RequiredApplications from "../components/requiredApplications";
 import SpxExpress from "@/public/spx_express_logo.svg";
 import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
@@ -12,14 +18,11 @@ import InfoHelp from "../components/infoHelp";
 import SelectCep from "../components/selectCep";
 import { TriangleAlert } from "lucide-react";
 import CardPending from "../components/cardPending";
-import SelectHub from "../components/selectHub"
+import SelectHub from "../components/selectHub";
 import { SquarePen } from "lucide-react";
 import HomeLm from "@/components/home-lm";
-import { getPreferences } from "@/lib/db/preferences";
-import { getAvailability } from "@/lib/db/bookings";
 import { Badge } from "@/components/ui/badge";
-import { getCurrentMode } from "@/lib/getCurrentMode";
-import { getAllocations } from "@/lib/db/allocations";
+
 
 
 export default async function DriverPanel() {
@@ -27,6 +30,7 @@ export default async function DriverPanel() {
   const driverFirstName = session?.user.driverName.split(" ")[0];
 
   const { choosed_station, mode, options } = await getCurrentMode();
+
 
   if (mode === "OF") {
     const [preferences, bookings, allocations] = await Promise.all([
@@ -90,6 +94,16 @@ export default async function DriverPanel() {
       { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
     ];
 
+
+    const cepOptions = [
+      { value: "Entrega Rápida - Lapa", label: "Entrega Rápida - Lapa" },
+      { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
+    ];
+
+
+   
+
+
     return (
       <div className="h-full relative">
         {/* <Badge
@@ -138,7 +152,7 @@ export default async function DriverPanel() {
           <InfoHelp {...textInfoHelp} icon={SquarePen} />;
           <CardPending {...cardPendingContent} />
           <SelectHub {...textSelectHub} icon={TriangleAlert} options={hubOptions} />
-          <SelectCep/>
+          <SelectCep options={cepOptions}  />
         </div>
         <div className="h-[64px]"></div>
       </div>

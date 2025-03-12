@@ -1,3 +1,7 @@
+
+'use client';
+
+
 import React from 'react';
 import {
   Select,
@@ -8,40 +12,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import { TrashIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 
 
+interface SelectOption {
+  value: string;
+  label: string;
+}
 
-export default function SelectCep() {
+
+interface SelectCepProps {
+  options: SelectOption[];
+  onDelete: (value: string) => void;
+}
+
+
+export default function SelectCep({ options, onDelete }: SelectCepProps) {
+  const handleDelete = (value: string) => {
+    onDelete(value); 
+  };
   return (
     <div className='flex flex-col '>
       <div className="text-black flex ">
         <Select>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a fruit" />
+            <SelectValue placeholder="Selecione o Cep" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem className="text-[#ee4d2d] border-none bg-transparent !hover:bg-transparent !hover:border-none !hover:shadow-none !focus:outline-none !active:bg-transparent" value="apple">Apple</SelectItem>
+              <SelectLabel>Rio de janeiro</SelectLabel>
+              {options.map((option) => (
+                <SelectItem className="text-black" key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
         <button
           type="button"
           className='p-3'
+          onClick={() => handleDelete(options[0]?.value)}
         >
-          <TrashIcon className="h-4 w-4  text-[#ee4d2d] " />
+          <TrashIcon className="h-6 w-6  text-[#ee4d2d] " />
         </button>
       </div>
       <button
         type="button"
-         className="rounded-full text-[#ee4d2d] flex items-center justify-center mt-3"
+        className="rounded-full text-[#ee4d2d] flex items-center justify-center mt-3"
       >
-       <PlusCircledIcon className="h-6 w-6" />
+        <PlusCircledIcon className="h-6 w-6" />
       </button>
     </div>
-
   );
 }
+
+
