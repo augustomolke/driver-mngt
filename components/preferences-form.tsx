@@ -163,7 +163,7 @@ export default ({
     [preferences]
   );
   return (
-    <Card>
+    <Card className="bg-black">
       <CardHeader>
         <CardTitle className="flex gap-4 items-center">
           <MapPin height={32} width={32} /> Áreas de entrega
@@ -183,13 +183,13 @@ export default ({
         regions.filter((location) => location.priority != "").length > 0 ? (
           <PriorityAlert callback={"/primeira-entrega/preferencias"} />
         ) : null}
-        <CardDescription className="mb-4">
+        <CardDescription className="mb-4 bg-pink-500">
           Selecione pelo menos 3 áreas de preferência
         </CardDescription>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8"
+            className="space-y-8 bg-fuchsia-400"
             id="preferences"
           >
             <Fade cascade={cascadeState} damping={0.1} triggerOnce>
@@ -204,7 +204,7 @@ export default ({
                           <FormItem className="w-full" id={id}>
                             <FormControl>
                               <Select
-                                className="w-full"
+                                className="w-full "
                                 id={`select${id}`}
                                 value={value}
                                 onValueChange={(a) =>
@@ -224,7 +224,7 @@ export default ({
                                   })
                                 }
                               >
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger className="w-full bg-[#23FF00]">
                                   <SelectValue placeholder="Selecione uma área" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -360,6 +360,7 @@ export default ({
                             ) : null} */}
                           </FormItem>
                           <Button
+                            className="bg-[#FF0000]"
                             variant="outliner"
                             type="button"
                             disabled={values.length <= 3}
@@ -382,7 +383,7 @@ export default ({
             </Fade>
           </form>
         </Form>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt- bg-[#00E3FF]">
           <Button
             onClick={() =>
               setValues((state) => {

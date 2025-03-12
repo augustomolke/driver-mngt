@@ -9,6 +9,7 @@ import SpxExpress from "@/public/spx_express_logo.svg";
 import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
 import InfoHelp from "../components/infoHelp";
+import SelectCep from "../components/selectCep";
 import { TriangleAlert } from "lucide-react";
 import CardPending from "../components/cardPending";
 import SelectHub from "../components/selectHub"
@@ -80,10 +81,14 @@ export default async function DriverPanel() {
       buttonLink: "https://forms.gle/o1CmdEY5qNUn5hFJ7"
 
     };
-    const textSelectHub  = {
+    const textSelectHub = {
       title: "Atenção!",
       description: "Para alterar sua modalidade, selecione o hub desejado:"
     };
+    const hubOptions = [
+      { value: "Entrega Rápida - Lapa", label: "Entrega Rápida - Lapa" },
+      { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
+    ];
 
     return (
       <div className="h-full relative">
@@ -104,9 +109,9 @@ export default async function DriverPanel() {
           )}
           options={options}
         /> */}
-       
-       
-         
+
+
+
         <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96" >
           <ApresentationDriver {...driverTexts} />
           <DriverPendingAlert pendencias={0} />
@@ -131,9 +136,10 @@ export default async function DriverPanel() {
             link="https://docs.google.com/presentation/d/e/2PACX-1vRCjoOawkPw97Ktq4RP9BskRX8TIXC9Cs84WWmiLxxYfXVLdsneoi0G31ux-rlPoPojuhO4A3nN6KRw/pub?start=true&loop=false&delayms=3000"
           />
           <InfoHelp {...textInfoHelp} icon={SquarePen} />;
-          <CardPending {...cardPendingContent} /> 
-          <SelectHub {...textSelectHub} icon={TriangleAlert}/>
-        </div> 
+          <CardPending {...cardPendingContent} />
+          <SelectHub {...textSelectHub} icon={TriangleAlert} options={hubOptions} />
+          <SelectCep/>
+        </div>
         <div className="h-[64px]"></div>
       </div>
     );
