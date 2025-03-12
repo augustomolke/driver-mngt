@@ -11,6 +11,7 @@ import DriverPendingAlert from "../components/driverPendingAlert";
 import StaticMaps from "../components/staticMaps";
 import DeliveryWindow from "../components/deliveryWindow";
 import RequiredApplications from "../components/requiredApplications";
+import SelectAvailability from "../components/selectAvailability"
 import SpxExpress from "@/public/spx_express_logo.svg";
 import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
@@ -94,14 +95,18 @@ export default async function DriverPanel() {
       { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
     ];
 
+    const cepDescription = {
+      descriptionCard: "Selecione pelo menos 3 áreas de preferência",
+    };
 
     const cepOptions = [
       { value: "Entrega Rápida - Lapa", label: "Entrega Rápida - Lapa" },
       { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
     ];
-
-
-   
+     
+    const SelectAvailabilityDescription = {
+      dateAvailability: "Quinta-feira, 13 de mar.",
+    };
 
 
     return (
@@ -152,7 +157,8 @@ export default async function DriverPanel() {
           <InfoHelp {...textInfoHelp} icon={SquarePen} />;
           <CardPending {...cardPendingContent} />
           <SelectHub {...textSelectHub} icon={TriangleAlert} options={hubOptions} />
-          <SelectCep options={cepOptions}  />
+          <SelectCep {...cepDescription} options={cepOptions}  />
+          <SelectAvailability {...SelectAvailabilityDescription}/>
         </div>
         <div className="h-[64px]"></div>
       </div>
@@ -163,9 +169,9 @@ export default async function DriverPanel() {
 
   // // const locations = await getLocations(station);
 
-  return (
-    <>
-      <HomeLm driverFirstName={driverFirstName} />
-    </>
-  );
+  // return (
+  //   <>
+  //     <HomeLm driverFirstName={driverFirstName} />
+  //   </>
+  // );
 }
