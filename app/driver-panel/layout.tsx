@@ -48,6 +48,7 @@ export default async function RootLayout({
 
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
+        hasCrowdsourcing={mode == "OF"}
         crowdSourcing={showCrowdsourcingMenu(allocations, openOffers, mode)}
       />
     </div>
