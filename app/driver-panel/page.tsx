@@ -1,6 +1,5 @@
 
 
-import { useState, useEffect } from 'react';
 import { auth } from "@/auth";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
@@ -17,6 +16,7 @@ import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
 import InfoHelp from "../components/infoHelp";
 import SelectCep from "../components/selectCep";
+import MapClusters from "../components/mapClusters";
 import { TriangleAlert } from "lucide-react";
 import CardPending from "../components/cardPending";
 import SelectHub from "../components/selectHub";
@@ -128,9 +128,6 @@ export default async function DriverPanel() {
           )}
           options={options}
         /> */}
-
-
-
         <div className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96" >
           <ApresentationDriver {...driverTexts} />
           <DriverPendingAlert pendencias={0} />
@@ -159,6 +156,7 @@ export default async function DriverPanel() {
           <SelectHub {...textSelectHub} icon={TriangleAlert} options={hubOptions} />
           <SelectCep {...cepDescription} options={cepOptions}  />
           <SelectAvailability {...SelectAvailabilityDescription}/>
+          <MapClusters/>
         </div>
         <div className="h-[64px]"></div>
       </div>
