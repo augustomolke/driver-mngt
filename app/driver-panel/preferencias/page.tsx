@@ -22,6 +22,7 @@ export default async function Preferences() {
   const session = await auth();
 
   const { choosed_station, mode } = await getCurrentMode();
+  console.log("PORAAAAAAAAAAAAAAAAAA", choosed_station, mode)
 
   if (mode === "OF") {
     redirect("/driver-panel/clusters");

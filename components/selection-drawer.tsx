@@ -60,9 +60,10 @@ export const SelectionDrawer = ({ serverSession }) => {
       onClose={() => {
         closeBtn();
       }}
+      
     >
-      <DrawerTrigger asChild>
-        <Button className="fixed bottom-20 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
+      <DrawerTrigger asChild >
+        <Button className=" fixed bottom-20 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
           <CircleCheckBig className="w-12 h-12" />
         </Button>
       </DrawerTrigger>

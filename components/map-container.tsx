@@ -25,6 +25,13 @@ export default function MyPage({
 
   const { selected } = useClusters();
 
+
+  console.log("serverSession:", serverSession); // Loga o valor de serverSession
+  console.log("clusters:", clusters); // Loga o valor de clusters
+  console.log("selected:", selected); // Loga o valor de selected
+  console.log("choosed_station:", choosed_station); // Loga o valor de choosed_station
+
+
   return (
     <>
       {selected.length > 0 &&

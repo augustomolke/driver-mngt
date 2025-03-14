@@ -1,10 +1,12 @@
 
-
 import { auth } from "@/auth";
+import { getClusters } from "@/lib/db/clusters";
+import { getHubInfo } from "@/gsheets/locations";
 import { getPreferences } from "@/lib/db/preferences";
 import { getAvailability } from "@/lib/db/bookings";
 import { getAllocations } from "@/lib/db/allocations";
 import { getCurrentMode } from "@/lib/getCurrentMode";
+import { redirect } from "next/navigation";
 import ApresentationDriver from "../components/apresentationDriver";
 import DriverPendingAlert from "../components/driverPendingAlert";
 import StaticMaps from "../components/staticMaps";
@@ -16,7 +18,7 @@ import GooglePlay from "@/public/google-play.png";
 import Trackage from "@/public/trackage.png";
 import InfoHelp from "../components/infoHelp";
 import SelectCep from "../components/selectCep";
-import MapClusters from "../components/mapClusters";
+import ContentMapClusters from "../components/clusters/contentMapClusters";
 import { TriangleAlert } from "lucide-react";
 import CardPending from "../components/cardPending";
 import SelectHub from "../components/selectHub";
@@ -31,6 +33,19 @@ export default async function DriverPanel() {
   const driverFirstName = session?.user.driverName.split(" ")[0];
 
   const { choosed_station, mode, options } = await getCurrentMode();
+  
+  const hubInfo = await getHubInfo(choosed_station);
+
+  
+  const prevClusters = await getPreferences(
+    session?.user.driverId.toString(),
+    choosed_station
+  );
+
+   const clusters = await getClusters(choosed_station);
+    if (clusters.length == 0) {
+      redirect("/driver-panel/preferencias");
+    }
 
 
   if (mode === "OF") {
@@ -156,7 +171,17 @@ export default async function DriverPanel() {
           <SelectHub {...textSelectHub} icon={TriangleAlert} options={hubOptions} />
           <SelectCep {...cepDescription} options={cepOptions}  />
           <SelectAvailability {...SelectAvailabilityDescription}/>
-          <MapClusters/>
+          <ContentMapClusters
+           serverSession={session}
+           closed={[]}
+           clusters={clusters.map((cluster) => ({
+             ...cluster,
+             zone_detail: JSON.parse(cluster.zone_detail),
+           }))}
+           center={[hubInfo.latitude, hubInfo.longitude]}
+           defaultClusters={prevClusters.map((cluster) => cluster.cep)}
+           style={{ width: "100%", height: "75vh", borderRadius: "0.8rem" }}
+           choosed_station={choosed_station}/>
         </div>
         <div className="h-[64px]"></div>
       </div>

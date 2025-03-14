@@ -61,7 +61,7 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
         closeBtn();
       }}
     >
-      <Bounce className="fixed bottom-20 right-4 z-50 ">
+      <Bounce className="fixed bottom-20 right-4 z-50 bg-red">
         <DrawerTrigger className="flex items-center justify-center shadow-lg transform active:scale-x-75 transition-transform rounded-full bg-green-600 hover:bg-green-600 text-white p-3">
           <CircleCheckBig className="w-6 h-6 mr-1" />
           <span className="font-bold">Confirmar</span>
@@ -70,7 +70,7 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
 
       {selected.length >= limit ? (
         <>
-          <DrawerContent className="max-w-screen-sm mx-auto">
+          <DrawerContent className="max-w-screen-sm mx-auto bg-red-600">
             <DrawerHeader>
               <DrawerTitle>Confirmar seleção</DrawerTitle>
               <DrawerDescription className="flex flex-col gap-2">
