@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { TriangleAlert, PackagePlus } from "lucide-react";
+import { TriangleAlert, PackagePlus, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,18 @@ import { getDescription } from "@/lib/utils";
 import TodoAlert from "./todo-alert";
 
 import { LargePackageCard } from "./large-package-card";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { deleteAllocation } from "@/lib/db/allocations";
+import CancelAllocationDialog from "./cancel-allocation-dialog";
 
 export default function OnboardingOwnFlex({
   pendencias = [],
@@ -43,12 +55,45 @@ export default function OnboardingOwnFlex({
                   const description = getDescription(a);
 
                   return (
-                    <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
+                    <div className="flex border rounded-full justify-between drop-shadow-md w-[100%]">
                       <Badge className="font-bold">{a.offer.cluster}</Badge>
                       <span key={a.offer.id} className="font-bold">
                         {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
                         {description}
                       </span>
+
+                      {/* <Dialog>
+                        <DialogTrigger>
+                          <XCircle className="text-muted-foreground" />
+                        </DialogTrigger>
+
+                        <DialogContent className="sm:max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Você tem certeza?</DialogTitle>
+                            <DialogDescription>
+                              Se você cancelar, poderá escolher outra rota
+                              somente se houverem vagas.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter className="sm:justify-start">
+                            <DialogClose asChild>
+                              <Button
+                                onClick={async () => {
+                                  "use server";
+                                  console.log("a");
+                                }}
+                              >
+                                Cancelar minha rota
+                              </Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog> */}
+
+                      <CancelAllocationDialog
+                        action={deleteAllocation}
+                        id={a.id}
+                      />
                     </div>
                   );
                 })}

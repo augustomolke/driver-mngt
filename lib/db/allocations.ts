@@ -95,7 +95,21 @@ export const createManyAllocations = async (ids: any): Promise<any> => {
 };
 
 export const deleteAllocation = async (id: number): Promise<any> => {
-  return await prisma.allocations.delete({
-    where: { id },
-  });
+  console.log("AAAA", id);
+
+  try {
+    await prisma.allocations.delete({
+      where: { id },
+    });
+
+    revalidatePath("/driver-panel/crowdsourcing");
+    revalidatePath("/driver-panel");
+
+    return true;
+  } catch (err) {
+    revalidatePath("/driver-panel/crowdsourcing");
+    revalidatePath("/driver-panel");
+
+    throw err;
+  }
 };

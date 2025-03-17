@@ -15,7 +15,8 @@ export const getDescription = (allocation: any) => {
     return allocation.offer.description;
   }
 
-  return OwnFlexShifts.find((s) => s.id === a.offer.shift)?.description;
+  return OwnFlexShifts.find((s) => s.id === allocation.offer.shift)
+    ?.description;
 };
 
 export function compareArrays(array1, array2) {

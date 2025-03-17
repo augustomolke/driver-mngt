@@ -38,7 +38,7 @@ export default async function Disponibilidade() {
     choosed_station
   );
 
-  if (preferences.length < 5) {
+  if (preferences.length < (mode === "OF" ? 5 : 3)) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -47,8 +47,8 @@ export default async function Disponibilidade() {
               Você ainda não preencheu suas preferências!
             </DialogTitle>
             <DialogDescription>
-              Para informar sua disponibilidade, é preciso escolher pelo menos 5
-              regiões de preferência.
+              Para informar sua disponibilidade, é preciso escolher suas regiões
+              de preferência.
             </DialogDescription>
 
             <DialogFooter>

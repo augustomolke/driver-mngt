@@ -1,15 +1,14 @@
 import Link from "next/link";
 import * as React from "react";
-import { AttentionSeeker } from "react-awesome-reveal";
 
-export default async ({ hasDisp, crowdSourcing = false }) => {
+export default async ({ hasDisp, crowdSourcing = false, hasCrowdsourcing }) => {
   let layoutClass = "grid-cols-2";
 
   if (hasDisp) {
     layoutClass = "grid-cols-3";
   }
 
-  if (crowdSourcing) {
+  if (hasCrowdsourcing) {
     layoutClass = "grid-cols-4";
   }
 
@@ -42,17 +41,19 @@ export default async ({ hasDisp, crowdSourcing = false }) => {
             Preferências
           </span>
         </Link>
-        {crowdSourcing ? (
+        {hasCrowdsourcing && (
           <Link
             href="/driver-panel/crowdsourcing"
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group"
           >
             <div className="relative">
-              <span className="absolute flex size-3 tip-0 -left-1">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
-              </span>
+              {crowdSourcing && (
+                <span className="absolute flex size-3 tip-0 -left-1">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
+                </span>
+              )}
               <svg
                 className="w-6 h-5 mb-2 text-gray-500  group-hover:text-primary "
                 viewBox="2 0 20 20"
@@ -72,7 +73,7 @@ export default async ({ hasDisp, crowdSourcing = false }) => {
 
             <span className="text-sm text-primary ">Rotas</span>
           </Link>
-        ) : null}
+        )}
 
         <Link
           href="/driver-panel"
