@@ -22,7 +22,6 @@ import { MapPin, Calendar, Smartphone } from "lucide-react";
 import { Suspense } from "react";
 import { Spinner } from "./spinner";
 import AllocationsCard from "./allocations-card";
-import ApresentationDriver from "../app/components/apresentationDriver"
 import HubSelection from "@/components/hub-select";
 import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
 import { TriangleAlert } from "lucide-react";
@@ -40,6 +39,10 @@ export default async function HomeOwnFlex({
 }) {
   const { choosed_station, mode } = await getCurrentMode();
   const session = await auth();
+
+
+
+
 
   const station = session?.user.station;
   // const mapInfo = await getMap(station);

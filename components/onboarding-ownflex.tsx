@@ -9,20 +9,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { getDescription } from "@/lib/utils";
-
 import TodoAlert from "./todo-alert";
-
 import { LargePackageCard } from "./large-package-card";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogDescription,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { deleteAllocation } from "@/lib/db/allocations";
 import CancelAllocationDialog from "./cancel-allocation-dialog";
 
@@ -61,34 +49,6 @@ export default function OnboardingOwnFlex({
                         {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
                         {description}
                       </span>
-
-                      {/* <Dialog>
-                        <DialogTrigger>
-                          <XCircle className="text-muted-foreground" />
-                        </DialogTrigger>
-
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>Você tem certeza?</DialogTitle>
-                            <DialogDescription>
-                              Se você cancelar, poderá escolher outra rota
-                              somente se houverem vagas.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <DialogFooter className="sm:justify-start">
-                            <DialogClose asChild>
-                              <Button
-                                onClick={async () => {
-                                  "use server";
-                                  console.log("a");
-                                }}
-                              >
-                                Cancelar minha rota
-                              </Button>
-                            </DialogClose>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog> */}
 
                       <CancelAllocationDialog
                         action={deleteAllocation}

@@ -15,7 +15,7 @@ export default async function RootLayout({
   const parsedOptions = options?.options && JSON.parse(options.options);
 
   return (
-    <div className="h-full relative">
+    <div className="h-full relative ">
       {!parsedOptions?.hub ||
         (parsedOptions?.hub != "LM" && (
           <Badge

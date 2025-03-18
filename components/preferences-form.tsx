@@ -352,12 +352,7 @@ export default ({
                                 </SelectContent>
                               </Select>
                             </FormControl>
-                            {/* {regions.find((region) => region.value == value)
-                              .incentive ? (
-                              <CardDescription className="text-xs">
-                                Entregas nesta região garantem ganhos extras!
-                              </CardDescription>
-                            ) : null} */}
+                            
                           </FormItem>
                           <Button
                             className="bg-[#FF0000]"
@@ -476,39 +471,7 @@ export default ({
           </DialogContent>
         </Dialog>
 
-        {/* <Dialog>
-          <DialogTrigger>
-            <Button disabled={values.filter((v) => v.value != "").length < 3}>
-              Salvar Alterações
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>AAA</DialogTitle>
-              <DialogDescription>
-                Lembre-se:{" "}
-                <strong>
-                  não é uma garantia de que todas suas entregas serão somente
-                  nas áreas que escolheu.
-                </strong>
-                <Image src={packageOnTheWay} alt="Entrega" />
-                <DialogFooter>
-                  <Button
-                    type="submit"
-                    form="preferences"
-                    disabled={values.findIndex((v) => v.value == "") > -1}
-                  >
-                    {loading ? (
-                      <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
-                    ) : (
-                      "Salvar Alterações"
-                    )}
-                  </Button>
-                </DialogFooter>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog> */}
+     
       </CardFooter>
     </Card>
   );

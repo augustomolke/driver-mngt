@@ -16,8 +16,12 @@ import { CircleX, CircleCheckBig } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { savePreferences } from "@/lib/db/clusters";
+import { Badge } from "@/components/ui/badge";
+import { Bounce } from "react-awesome-reveal";
 
-export const SelectionDrawer = ({ serverSession }) => {
+const limit = 5;
+
+export const SelectionDrawer = ({ serverSession, choosed_station }) => {
   const { selected, setSelected, closeBtn } = useClusters();
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
@@ -27,7 +31,8 @@ export const SelectionDrawer = ({ serverSession }) => {
     setLoading(true);
 
     try {
-      await savePreferences(selected, serverSession.user);
+      await savePreferences(selected, serverSession.user, choosed_station);
+      // await saveOptions(JSON.stringify(options));
 
       toast({
         icon: (
@@ -37,11 +42,7 @@ export const SelectionDrawer = ({ serverSession }) => {
         description: "Sua preferência foi salva!",
       });
 
-      router.push(
-        serverSession.user.trips > 0
-          ? "/driver-panel"
-          : "/primeira-entrega/data"
-      );
+      router.push("/driver-panel");
     } catch (err) {
       console.log("Erro", err);
       setLoading(false);
@@ -52,37 +53,52 @@ export const SelectionDrawer = ({ serverSession }) => {
         description: "Algo deu errado.",
       });
     }
-  }, [selected]);
+  }, [selected]); //, options]);
 
   return (
     <Drawer
       onClose={() => {
         closeBtn();
       }}
-      
     >
-      <DrawerTrigger asChild >
-        <Button className=" fixed bottom-20 right-4 z-50 shadow-lg rounded-full bg-green-600 hover:bg-green-600 text-white p-3 w-16 h-16 flex items-center justify-center">
-          <CircleCheckBig className="w-12 h-12" />
-        </Button>
-      </DrawerTrigger>
-      {selected.length > 0 ? (
+      <Bounce className="fixed bottom-20 right-4 z-50 bg-red">
+        <DrawerTrigger className="flex items-center justify-center shadow-lg transform active:scale-x-75 transition-transform rounded-full bg-green-600 hover:bg-green-600 text-white p-3">
+          <CircleCheckBig className="w-6 h-6 mr-1" />
+          <span className="font-bold">Confirmar</span>
+        </DrawerTrigger>
+      </Bounce>
+
+      {selected.length >= limit ? (
         <>
-          <DrawerContent className="max-w-screen-sm mx-auto">
+          <DrawerContent className="max-w-screen-sm mx-auto bg-red-600">
             <DrawerHeader>
-              <DrawerTitle>
-                Gostaria de selecionar essas regiões como regiões de
-                preferência?
-              </DrawerTitle>
-              <DrawerDescription>
-                <strong>
-                  Consideraremos que você gostaria de realizar entregas em toda
-                  regiões destacada no mapa.
-                </strong>
+              <DrawerTitle>Confirmar seleção</DrawerTitle>
+              <DrawerDescription className="flex flex-col gap-2">
+                <span>
+                  Essas serão as regiões que utilizaremos para disponibilizar
+                  suas rotas.{" "}
+                </span>
+
+                <span>
+                  Você pode atualizar as suas preferências quando precisar
+                  sempre até
+                  <strong> 22h do dia anterior do seu carregamento.</strong>
+                </span>
+                <div>
+                  As regiões selecionadas são:
+                  <div>
+                    {selected.map((c) => (
+                      <Badge className="m-1">{c}</Badge>
+                    ))}
+                  </div>
+                </div>
               </DrawerDescription>
             </DrawerHeader>
             <DrawerFooter>
-              <Button onClick={onSubmit}>
+              <Button
+                onClick={onSubmit}
+                disabled={loading || selected.length < limit}
+              >
                 {loading ? (
                   <ReloadIcon className="mx-12 h-4 w-4 animate-spin" />
                 ) : (
@@ -96,7 +112,7 @@ export const SelectionDrawer = ({ serverSession }) => {
         <>
           <DrawerContent className="max-w-screen-sm mx-auto">
             <DrawerHeader>
-              <DrawerTitle>Por favor, escolha ao menos uma região</DrawerTitle>
+              <DrawerTitle>{`Por favor, escolha ao menos ${limit} regiões`}</DrawerTitle>
               <DrawerDescription>
                 Selecione regiões que gostaria de realizar entregas clicando no
                 mapa.

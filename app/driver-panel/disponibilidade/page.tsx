@@ -1,4 +1,4 @@
-import SchedulingForm from "@/components/scheduling-form";
+import SchedulingForm from "@/app/components/disponibilidade/selectAvailability";
 import { fetchDates } from "@/lib/getEvents";
 import {
   Card,
@@ -74,7 +74,7 @@ export default async function Disponibilidade() {
   const shiftsOptions = mode === "OF" ? OwnFlexShifts : LastMileShifts;
 
   return (
-    <Card>
+    <Card className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96">
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
         <CardDescription className="flex flex-col gap-4">

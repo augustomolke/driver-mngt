@@ -134,7 +134,7 @@ export default async function Preferences() {
   }
 
   return (
-    <Card className="m-0 p-0">
+    <Card className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96">
       <div className="z-1 m-auto mt-0 p-1">
         <div className="flex gap-4 justify-start items-center">
           <TriangleAlertIcon height={36} width={36} />
