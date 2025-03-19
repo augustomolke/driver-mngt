@@ -17,7 +17,13 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { savePreferences } from "@/lib/db/clusters";
 
-export const SelectionDrawer = ({ serverSession }) => {
+interface SelectionDrawerProps {
+  serverSession: {
+    user: any;
+  };
+}
+
+export const SelectionDrawer: React.FC<SelectionDrawerProps> = ({ serverSession}) => {
   const { selected, setSelected, closeBtn } = useClusters();
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
@@ -43,7 +49,6 @@ export const SelectionDrawer = ({ serverSession }) => {
           : "/primeira-entrega/data"
       );
     } catch (err) {
-      console.log("Erro", err);
       setLoading(false);
 
       toast({

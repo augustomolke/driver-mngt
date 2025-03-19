@@ -163,7 +163,7 @@ export default ({
     [preferences]
   );
   return (
-    <Card className="bg-black">
+    <Card c>
       <CardHeader>
         <CardTitle className="flex gap-4 items-center">
           <MapPin height={32} width={32} /> Áreas de entrega
@@ -183,13 +183,13 @@ export default ({
         regions.filter((location) => location.priority != "").length > 0 ? (
           <PriorityAlert callback={"/primeira-entrega/preferencias"} />
         ) : null}
-        <CardDescription className="mb-4 bg-pink-500">
+        <CardDescription className="mb-4 ">
           Selecione pelo menos 3 áreas de preferência
         </CardDescription>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 bg-fuchsia-400"
+            className="space-y-8 "
             id="preferences"
           >
             <Fade cascade={cascadeState} damping={0.1} triggerOnce>
@@ -224,7 +224,7 @@ export default ({
                                   })
                                 }
                               >
-                                <SelectTrigger className="w-full bg-[#23FF00]">
+                                <SelectTrigger className="w-full">
                                   <SelectValue placeholder="Selecione uma área" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -273,7 +273,7 @@ export default ({
                                     return (
                                       <SelectGroup>
                                         {priority.length > 0 ? (
-                                          <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] bg-[white]">
+                                          <SelectLabel className="sticky top-[-5px] px-4 py-3 z-[51] ">
                                             <Badge>
                                               {incentives.length > 0 ? (
                                                 <DollarSign />
@@ -329,7 +329,7 @@ export default ({
                                                 className="flex justify-between items-center"
                                               >
                                                 {region.incentive ? (
-                                                  <Badge className="bg-green">
+                                                  <Badge >
                                                     {region.incentive}
                                                   </Badge>
                                                 ) : null}{" "}
@@ -355,7 +355,7 @@ export default ({
                             
                           </FormItem>
                           <Button
-                            className="bg-[#FF0000]"
+                           
                             variant="outliner"
                             type="button"
                             disabled={values.length <= 3}
@@ -378,7 +378,7 @@ export default ({
             </Fade>
           </form>
         </Form>
-        <div className="flex justify-center mt- bg-[#00E3FF]">
+        <div className="flex justify-center">
           <Button
             onClick={() =>
               setValues((state) => {

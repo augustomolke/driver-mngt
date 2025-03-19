@@ -5,8 +5,15 @@ import { useClusters } from "@/hooks/useClusters";
 import { SelectionDrawer } from "./confirmSelection";
 import { SelectionDrawer as OwnFlexSelectionDrawer } from "./confirmSelectionOwnflex";
 
+
+interface ServerSession {
+  user?: {
+    ownflex?: boolean;
+  };
+}
+
 interface MyPageProps {
-  serverSession?: boolean | null;
+  serverSession?: ServerSession | null;
   closed: any[];
   clusters: {
     zone_id: number;
@@ -31,8 +38,6 @@ export default function MyPage({
 }: MyPageProps) {
 
 
-  console.log("defaultClusters:", defaultClusters);
-
   const Map = useMemo(
     () =>
       dynamic(() => import("./mapClusters"), {
@@ -51,7 +56,7 @@ export default function MyPage({
   return (
     <>
       {selected.length > 0 &&
-        (serverSession && serverSession.user.ownflex ? (
+        (serverSession && typeof serverSession === "object" && serverSession.user?.ownflex ? (
           <OwnFlexSelectionDrawer
             serverSession={serverSession}
             choosed_station={choosed_station}

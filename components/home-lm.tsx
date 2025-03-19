@@ -28,7 +28,7 @@ export default async function HomeLm({ driverFirstName }) {
   const station = session.user.station;
 
   return (
-    <Card className="max-w-3xl mx-auto">
+    <Card className="max-w-3xl mx-auto bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96">
       <CardHeader>
         <CardTitle className="text-2xl">Olá, {driverFirstName}!</CardTitle>
         <CardDescription>

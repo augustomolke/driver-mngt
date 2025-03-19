@@ -54,8 +54,8 @@ export default async function RootLayout({
               <header className="relative flex justify-center items-center py-4">
                 <Logo />
               </header>
-              <section className="p-4  flex flex-col justify-center items-center flex-grow w-full">
-              <div className="max-w-4xl w-full flex flex-col justify-center items-center">{children}</div>
+              <section className="p-4 flex flex-col justify-center items-center flex-grow w-full">
+              <div className="max-w-4xl w-full flex flex-col justify-center items-center  ">{children}</div>
                 <Toaster />
               </section>
             </main>

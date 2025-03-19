@@ -70,7 +70,7 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
 
       {selected.length >= limit ? (
         <>
-          <DrawerContent className="max-w-screen-sm mx-auto bg-red-600">
+          <DrawerContent className="max-w-screen-sm mx-auto ">
             <DrawerHeader>
               <DrawerTitle>Confirmar seleção</DrawerTitle>
               <DrawerDescription className="flex flex-col gap-2">

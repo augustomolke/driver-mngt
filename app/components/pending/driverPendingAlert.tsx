@@ -44,7 +44,7 @@ const DriverPendingAlert: React.FC<DriverPendingAlertProps> = ({
           {pendencias.includes("Rotas") && (
             <AccordionItem value="rotas">
               <AccordionTrigger className="text-xl flex items-center gap-4 text-[#384b8f]">
-                <TriangleAlert size={24} className="animate-pulse text-[#384b8f]" />
+                <TriangleAlert size={35} className="animate-pulse text-[#384b8f]" />
                 <p className=" w-full flex "> Você foi escalado! </p>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-4">
@@ -72,16 +72,16 @@ const DriverPendingAlert: React.FC<DriverPendingAlertProps> = ({
           {pendencias.includes("Preferências") && (
             <AccordionItem value="preferencias">
               <AccordionTrigger className="text-xl flex items-center gap-4 text-[#384b8f]">
-                <TriangleAlert size={24} className="animate-pulse text-[#384b8f]" />
+                <TriangleAlert size={35} className="animate-pulse text-[#384b8f]" />
                 <p className=" w-full flex "> Regiões de Entrega </p>
               </AccordionTrigger>
-              <AccordionContent>
-                <p className="text-[#384b8f]">
+              <AccordionContent className="">
+                <p className="text-[#384b8f] ">
                   Você pode selecionar quantas regiões quiser. Quanto mais regiões selecionadas, maior a
                   chance de terem rotas disponíveis para você.
                 </p>
                 <Link href="/driver-panel/preferencias">
-                  <Button>Selecionar minha preferência</Button>
+                  <Button className="mt-5">Selecionar minha preferência</Button>
                 </Link>
               </AccordionContent>
             </AccordionItem>
@@ -94,14 +94,14 @@ const DriverPendingAlert: React.FC<DriverPendingAlertProps> = ({
               <TriangleAlert size={35} className="animate-pulse text-[#384b8f] " />
                <p className=" w-full flex "> Disponibilidade </p>
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="">
               <p className="text-[#384b8f]">
                 Informe sua disponibilidade para os próximos 3 dias de carregamento. Você pode selecionar
                 quantos dias e horários quiser.
                 <strong> Se não puder comparecer, por favor, desmarque!</strong>
               </p>
               <Link href="/driver-panel/disponibilidade">
-                <Button className="mt-10">Atualizar disponibilidade</Button>
+                <Button className="mt-5">Atualizar disponibilidade</Button>
               </Link>
             </AccordionContent>
           </AccordionItem>

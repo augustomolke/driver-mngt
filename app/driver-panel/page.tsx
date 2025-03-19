@@ -131,19 +131,6 @@ export default async function DriverPanel() {
       { value: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" }
     ];
 
-    const cepDescription = {
-      descriptionCard: "Selecione pelo menos 3 áreas de preferência",
-    };
-
-    const cepOptions = [
-      { value: "Entrega Rápida - Lapa", label: "Entrega Rápida - Lapa" },
-      { value: "São Bernardo do Campo", label: "São Bernardo do Campo" },
-    ];
-
-    const SelectAvailabilityDescription = {
-      dateAvailability: "Quinta-feira, 13 de mar.",
-    };
-
 
     return (
       <div className="h-full relative">

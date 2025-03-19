@@ -24,8 +24,14 @@ interface Cluster {
   };
 }
 
+interface ServerSession {
+  user?: {
+    ownflex?: boolean;
+  };
+}
+
 interface MyMapProps {
-  serverSession: boolean | null;
+  serverSession?: ServerSession | null;
   closed: any[];
   clusters: Cluster[];
   center: [number, number];
@@ -125,7 +131,7 @@ const SelectedList: React.FC<{ selected: number[]; clusters: Cluster[] }> = ({
   const { bound } = useClusters();
 
   return (
-    <div className="z-1 m-auto mt-0 p-1">
+    <div className="  max-w-96 min-w-96 bg-red">
       <span className="font-bold ml-2">{`Você selecionou ${selected.length} ${
         selected.length > 1 ? "regiões" : "região"
       }`}</span>

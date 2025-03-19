@@ -21,7 +21,15 @@ import { Bounce } from "react-awesome-reveal";
 
 const limit = 5;
 
-export const SelectionDrawer = ({ serverSession, choosed_station }) => {
+
+interface SelectionDrawerProps {
+  serverSession: {
+    user: any;
+  };
+  choosed_station: any;
+}
+
+export const SelectionDrawer: React.FC<SelectionDrawerProps> = ({ serverSession, choosed_station }) => {
   const { selected, setSelected, closeBtn } = useClusters();
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
@@ -32,7 +40,6 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
 
     try {
       await savePreferences(selected, serverSession.user, choosed_station);
-      // await saveOptions(JSON.stringify(options));
 
       toast({
         icon: (
@@ -70,7 +77,7 @@ export const SelectionDrawer = ({ serverSession, choosed_station }) => {
 
       {selected.length >= limit ? (
         <>
-          <DrawerContent className="max-w-screen-sm mx-auto bg-red-600">
+          <DrawerContent className="max-w-screen-sm mx-auto ">
             <DrawerHeader>
               <DrawerTitle>Confirmar seleção</DrawerTitle>
               <DrawerDescription className="flex flex-col gap-2">
