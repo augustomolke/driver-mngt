@@ -14,11 +14,16 @@ import { useClusters } from "@/hooks/useClusters";
 import { useToast } from "@/hooks/use-toast";
 import { CircleX, CircleCheckBig } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { savePreferences } from "@/lib/db/clusters";
 
-export const SelectionDrawer = ({ serverSession }) => {
+interface SelectionDrawerProps {
+  serverSession: {
+    user: any;
+  };
+}
+
+export const SelectionDrawer: React.FC<SelectionDrawerProps> = ({ serverSession}) => {
   const { selected, setSelected, closeBtn } = useClusters();
   const [loading, setLoading] = React.useState();
   const { toast } = useToast();
@@ -44,7 +49,6 @@ export const SelectionDrawer = ({ serverSession }) => {
           : "/primeira-entrega/data"
       );
     } catch (err) {
-      console.log("Erro", err);
       setLoading(false);
 
       toast({

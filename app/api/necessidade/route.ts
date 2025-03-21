@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const data = await prisma.preferences.findMany({
-    where: { ownflex: false, createdAt: { gte: new Date(2025, 1, 17) } },
+    where: { ownflex: false },
   });
 
   const response = pivotTable(
@@ -14,8 +14,9 @@ export async function GET(request: Request) {
   ).sort((a, b) => {
     return Number(a.driver_id) > Number(b.driver_id) ? 1 : -1;
   });
+  const maxResponse = getLatestEntries(response);
 
-  return Response.json({ data: response });
+  return Response.json({ data: maxResponse });
 }
 
 function pivotTable(data, groupKeys, concatenateKeys) {
@@ -47,4 +48,21 @@ function pivotTable(data, groupKeys, concatenateKeys) {
       concatenateKeys.map((key) => [key, group[key].join(", ")])
     ),
   }));
+}
+
+function getLatestEntries(entries) {
+  const latestEntries = {};
+
+  for (const entry of entries) {
+    const { driver_id, createdAt } = entry;
+
+    if (
+      !latestEntries[driver_id] ||
+      new Date(createdAt) > new Date(latestEntries[driver_id].createdAt)
+    ) {
+      latestEntries[driver_id] = entry;
+    }
+  }
+
+  return Object.values(latestEntries);
 }

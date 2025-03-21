@@ -1,9 +1,31 @@
 "use client";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { SelectionDrawer } from "@/components/selection-drawer";
-import { SelectionDrawer as OwnFlexSelectionDrawer } from "@/components/selection-drawer-ownflex";
 import { useClusters } from "@/hooks/useClusters";
+import { SelectionDrawer } from "./confirmSelection";
+import { SelectionDrawer as OwnFlexSelectionDrawer } from "./confirmSelectionOwnflex";
+
+
+interface ServerSession {
+  user?: {
+    ownflex?: boolean;
+  };
+}
+
+interface MyPageProps {
+  serverSession?: ServerSession | null;
+  closed: any[];
+  clusters: {
+    zone_id: number;
+    zone_detail: {
+      coordinates: number[][][];
+    };
+  }[];
+  center: [number, number];
+  defaultClusters: string[];
+  style?: React.CSSProperties;
+  choosed_station?: any;
+}
 
 export default function MyPage({
   serverSession = null,
@@ -13,15 +35,18 @@ export default function MyPage({
   defaultClusters,
   style,
   choosed_station,
-}) {
+}: MyPageProps) {
+
+
   const Map = useMemo(
     () =>
-      dynamic(() => import("@/components/grouped-map"), {
+      dynamic(() => import("./mapClusters"), {
         loading: () => <div></div>,
         ssr: false,
       }),
     []
   );
+
 
   const { selected } = useClusters();
 
@@ -31,7 +56,7 @@ export default function MyPage({
   return (
     <>
       {selected.length > 0 &&
-        (serverSession && serverSession.user.ownflex ? (
+        (serverSession && typeof serverSession === "object" && serverSession.user?.ownflex ? (
           <OwnFlexSelectionDrawer
             serverSession={serverSession}
             choosed_station={choosed_station}

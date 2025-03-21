@@ -35,34 +35,7 @@ export default function HubSelect({
           {options.map(({ key, label }) => (
             <SelectItem className="text-primary" value={key}>
               {label}
-              {/* <Dialog>
-                <DialogTrigger>{label}</DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Trocar de modalidade</DialogTitle>
-                    <DialogDescription className="flex flex-col gap-2">
-                      <span>
-                        Na modalidade Flex, você pode realizar coletas e
-                        entregas no mesmo dia e maximizar os ganhos.
-                      </span>
-                      <strong>
-                        A troca de modalidade pode demorar até 24h para ser
-                        efetivada.
-                      </strong>
-                    </DialogDescription>
-
-                    <DialogFooter>
-                      <Button
-                      onClick={async () => {
-                        await saveOptionsAction(JSON.stringify({ hub: key }));
-                      }}
-                    >
-                      Confirmar
-                    </Button>
-                    </DialogFooter>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog> */}
+             
             </SelectItem>
           ))}
         </div>

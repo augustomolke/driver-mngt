@@ -39,12 +39,11 @@ export const SelectionDrawer = ({
 
     try {
       const allocations = selectedShifts.map((shift) => {
-        return {
-          cluster: selected[0],
-          shift,
-          type: "CROWDSOURCING",
-          duration: 60,
-        };
+        const offer = crowdSourcing.find((s) => s.shift === shift);
+
+        const offerId = offer?.id;
+
+        return offerId;
       });
 
       await createManyAllocations(allocations);
@@ -75,11 +74,11 @@ export const SelectionDrawer = ({
   }, [selected, selectedShifts]); //, options]);
 
   const shifts = useMemo(() => {
-    const shifts = crowdSourcing.filter((cluster) => {
-      return cluster.cluster == selected[0];
+    const shifts = crowdSourcing.filter((offer) => {
+      return offer.cluster == selected[0];
     });
 
-    return shifts.map((s) => s.shift);
+    return shifts.map((s) => ({ shift: s.shift, description: s.description }));
   }, [crowdSourcing, selected]);
 
   return (
@@ -100,31 +99,37 @@ export const SelectionDrawer = ({
             <DrawerDescription className="flex flex-col gap-2">
               <div className="gap-2 flex flex-col">
                 <Label>Escolha a janela de carregamento:</Label>
-                {shifts.map((shift) => (
-                  <div className="flex items-center gap-2 justify-center">
-                    <Checkbox
-                      disabled={!availableShifts[shift]}
-                      checked={selectedShifts.includes(shift)}
-                      onCheckedChange={(check) => {
-                        if (check) {
-                          setSelectedShifts((state) => [...state, shift]);
-                        } else {
-                          setSelectedShifts((state) =>
-                            state.filter((s) => s != shift)
-                          );
-                        }
-                      }}
-                      key={shift}
-                      id={shift}
-                    ></Checkbox>
-                    <Label htmlFor={shift}>
-                      <Badge key={shift}>
-                        {OwnFlexShifts.find((s) => s.id === shift)?.description}
-                        {!availableShifts[shift] && " - Já alocado"}
-                      </Badge>
-                    </Label>
-                  </div>
-                ))}
+                {shifts.map(({ shift }) => {
+                  const label =
+                    OwnFlexShifts.find((s) => s.id === shift)?.description ||
+                    shift;
+
+                  return (
+                    <div className="flex items-center gap-2 justify-center">
+                      <Checkbox
+                        disabled={!availableShifts[shift]}
+                        checked={selectedShifts.includes(shift)}
+                        onCheckedChange={(check) => {
+                          if (check) {
+                            setSelectedShifts((state) => [...state, shift]);
+                          } else {
+                            setSelectedShifts((state) =>
+                              state.filter((s) => s != shift)
+                            );
+                          }
+                        }}
+                        key={shift}
+                        id={shift}
+                      ></Checkbox>
+                      <Label htmlFor={shift}>
+                        <Badge key={shift}>
+                          {label}
+                          {!availableShifts[shift] && " - Já alocado"}
+                        </Badge>
+                      </Label>
+                    </div>
+                  );
+                })}
               </div>
             </DrawerDescription>
           </DrawerHeader>

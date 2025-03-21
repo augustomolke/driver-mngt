@@ -1,9 +1,23 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { OwnFlexShifts } from "@/components/assets/shifts";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const getDescription = (allocation: any) => {
+  if (allocation.description) {
+    return allocation.description;
+  }
+
+  if (allocation.offer.description) {
+    return allocation.offer.description;
+  }
+
+  return OwnFlexShifts.find((s) => s.id === allocation.offer.shift)
+    ?.description;
+};
 
 export function compareArrays(array1, array2) {
   if (!array1 || !array2) return false;
@@ -26,27 +40,6 @@ export function hasEventEnded(startDate: Date, durationMs: number) {
   const eventEndTime = startDate.getTime() + durationMs * 1000 * 60;
 
   return new Date() > new Date(eventEndTime);
-}
-
-export function getTodayAndTomorrowInSaoPaulo() {
-  const now = new Date();
-  const options = {
-    timeZone: "America/Sao_Paulo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  };
-
-  const todayStr = new Intl.DateTimeFormat("en-CA", options).format(now);
-  const today = new Date(`${todayStr}T00:00:00-03:00`);
-
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  return {
-    startDate: today,
-    endDate: tomorrow,
-  };
 }
 
 export function isLaterThan(hour: number, day = new Date()) {

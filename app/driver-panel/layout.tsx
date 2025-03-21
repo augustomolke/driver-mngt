@@ -10,13 +10,18 @@ const showCrowdsourcingMenu = (allocations: any[], offers: any[], mode) => {
     return false;
   }
   if (offers.length == 0) {
-    if (allocations.filter((a) => a.type == "CROWDSOURCING").length > 0) {
+    if (
+      allocations.filter((a) => a.offer.offer_type == "CROWDSOURCING").length >
+      0
+    ) {
       return true;
     }
     return false;
   }
 
-  if (allocations.filter((a) => a.type != "CROWDSOURCING").length >= 2) {
+  if (
+    allocations.filter((a) => a.offer.offer_type != "CROWDSOURCING").length >= 2
+  ) {
     return false;
   }
 
@@ -37,17 +42,13 @@ export default async function RootLayout({
   const event = await getEvent(choosed_station, "AVAILABILITY");
 
   return (
-    <div className="h-full relative">
+    <div className=" ">
       {children}
-      <div className="h-[64px]"></div>
 
       <BottomNav
         hasDisp={mode == "OF" || (mode == "LM" && !!event)}
-        crowdSourcing={
-          ["3333", "4444", "5555", "6666", "7777"].includes(
-            session?.user.driverId.toString()
-          ) && showCrowdsourcingMenu(allocations, openOffers, mode)
-        }
+        hasCrowdsourcing={mode == "OF"}
+        crowdSourcing={showCrowdsourcingMenu(allocations, openOffers, mode)}
       />
     </div>
   );

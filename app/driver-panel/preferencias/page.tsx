@@ -6,15 +6,11 @@ import { redirect } from "next/navigation";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 
 function formatCep(input) {
-  // Ensure the input is a string
   let number = input.toString();
 
-  // Check if the number has only 7 digits
   if (number.length === 7) {
-    number = "0" + number; // Append a 0 at the beginning
+    number = "0" + number;
   }
-
-  // Format the number as XXXXX-XXX
   return number.slice(0, 5) + "-" + number.slice(5);
 }
 

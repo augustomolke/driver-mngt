@@ -80,13 +80,12 @@ model Preferences {
 model Allocations {
   id          Int      @id @default(autoincrement())
   driver_id   String
-  cluster     String
-  shift       SHIFTS
-  duration    Int
-  type        ALLOCATION_TYPE
+  description String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
-  endTime     DateTime?
+  endTime    DateTime?
+  offer      Offers @relation(fields: [offerId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  offerId    Int
 }
 
 model Offers {
@@ -96,9 +95,12 @@ model Offers {
   shift       SHIFTS
   duration    Int @default(60)
   spots       Int @default(1)
+  description String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt @default(now())
   endTime     DateTime?
+  allocations Allocations[]
+  offer_type OFFER_TYPE @default(MANUAL)
 }
 
 model Drivers {
@@ -135,6 +137,12 @@ enum VEHICLE {
 }
 
 enum ALLOCATION_TYPE {
+  CROWDSOURCING
+  MANUAL
+  AUTOMATIC
+}
+
+enum OFFER_TYPE {
   CROWDSOURCING
   MANUAL
   AUTOMATIC

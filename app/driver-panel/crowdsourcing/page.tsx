@@ -1,15 +1,24 @@
 import { auth } from "@/auth";
 import MapComponent from "@/components/crowdsourcing-map-container";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getOpenOffers } from "@/lib/db/offers";
 import { getClusters } from "@/lib/db/clusters";
 import { getCurrentMode } from "@/lib/getCurrentMode";
 import { getHubInfo } from "@/gsheets/locations";
 import { getAllocations } from "@/lib/db/allocations";
 import { Badge } from "@/components/ui/badge";
-import { OwnFlexShifts } from "@/components/assets/shifts";
 import { HandshakeIcon, TriangleAlertIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import { getDescription } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Preferences() {
   const session = await auth();
@@ -30,7 +39,7 @@ export default async function Preferences() {
           ...cluster,
           zone_detail: JSON.parse(cluster.zone_detail),
         }))
-        .filter((c) => curr?.cluster == c.zone_id),
+        .filter((c) => curr?.offer?.cluster == c.zone_id),
     ];
   }, []);
 
@@ -38,42 +47,29 @@ export default async function Preferences() {
     b.zone_detail.coordinates.map((tuple) => tuple.map((x) => [x[1], x[0]]))
   );
 
-  const availableShifts = {
-    AM: currentSelection.filter((s) => s.shift === "AM").length == 0,
-    PM: currentSelection.filter((s) => s.shift === "PM").length == 0,
-    // SD: currentSelection.filter((s) => s.shift === "SD"),
-  };
-
-  const filteredClusters = clusters
-    .filter((c) =>
-      crowdSourcing
-        .filter((a) => availableShifts[a.shift])
-        .map((a) => a.cluster)
-        .includes(c.zone_id)
-    )
-    .map((cluster) => ({
-      ...cluster,
-      zone_detail: JSON.parse(cluster.zone_detail),
-    }));
-
   if (
-    !(availableShifts.AM || availableShifts.PM) ||
-    (filteredClusters.length === 0 &&
-      (availableShifts.AM || availableShifts.PM))
+    // !(availableShifts.AM || availableShifts.PM) ||
+    // (filteredClusters.length === 0 &&
+    //   (availableShifts.AM || availableShifts.PM))
+    crowdSourcing.length == 0 &&
+    currentSelection.length > 0
   ) {
     return (
       <Card className="m-0 p-0">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex justift-start items-center gap-2">
-            <HandshakeIcon height={36} width={36} />
+            <HandshakeIcon height={36} width={48} />
 
-            <div className="flex flex-col gap-1 justify-start items-center">
-              <span>Regiões e turnos escolhidos:</span>
-              <div className="flex gap-2">
-                {currentSelection.map(({ shift }) => (
-                  <Badge key={shift}>
-                    {OwnFlexShifts.find((s) => s.id === shift)?.description}
-                  </Badge>
+            <div className="flex flex-col gap-1 justify-start items-cente w-[80%]">
+              <span className="font-bold">Rotas confirmadas:</span>
+              <div className="flex flex-col gap-2">
+                {currentSelection.map((a) => (
+                  <div className="flex border rounded-full justify-between pr-4 drop-shadow-md w-[90%]">
+                    <Badge className="font-bold">{a.offer.cluster}</Badge>
+                    <span key={a.offer.id} className="">
+                      {getDescription(a)}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -94,6 +90,19 @@ export default async function Preferences() {
     );
   }
 
+  const availableShifts = {
+    AM: currentSelection.filter((s) => s.offer.shift === "AM").length == 0,
+    PM: currentSelection.filter((s) => s.offer.shift === "PM").length == 0,
+    // SD: currentSelection.filter((s) => s.shift === "SD"),
+  };
+
+  const filteredClusters = clusters
+    .filter((c) => crowdSourcing.map((a) => a.cluster).includes(c.zone_id))
+    .map((cluster) => ({
+      ...cluster,
+      zone_detail: JSON.parse(cluster.zone_detail),
+    }));
+
   const bondsSelection = filteredClusters.map((cluster) =>
     cluster.zone_detail.coordinates.map((tuple) =>
       tuple.map((x) => [x[1], x[0]])
@@ -101,11 +110,31 @@ export default async function Preferences() {
   );
 
   if (filteredClusters.length === 0) {
-    redirect("/driver-panel");
+    return (
+      <Card>
+        <CardContent>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TriangleAlertIcon height={48} width={48} />
+              Volte mais tarde
+            </CardTitle>
+          </CardHeader>
+          <CardDescription>
+            No momento não existem rotas disponíveis para selecionar. Por favor,
+            tente mais tarde
+          </CardDescription>
+        </CardContent>
+        <CardFooter className="flex justify-end">
+          <Link href="/driver-panel">
+            <Button>Voltar para Início</Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    );
   }
 
   return (
-    <Card className="m-0 p-0">
+    <Card className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96">
       <div className="z-1 m-auto mt-0 p-1">
         <div className="flex gap-4 justify-start items-center">
           <TriangleAlertIcon height={36} width={36} />

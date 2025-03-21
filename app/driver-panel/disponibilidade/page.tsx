@@ -1,4 +1,4 @@
-import SchedulingForm from "@/components/scheduling-form";
+import SchedulingForm from "@/app/components/disponibilidade/selectAvailability";
 import { fetchDates } from "@/lib/getEvents";
 import {
   Card,
@@ -22,9 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import HubSelection from "@/components/hub-select";
-import { AlertTitle, Alert, AlertDescription } from "@/components/ui/alert";
-import { TriangleAlert } from "lucide-react";
+
 import { getCurrentMode } from "@/lib/getCurrentMode";
 import { OwnFlexShifts, LastMileShifts } from "@/components/assets/shifts";
 
@@ -40,7 +38,7 @@ export default async function Disponibilidade() {
     choosed_station
   );
 
-  if (mode === "OF" && preferences.length < 5) {
+  if (preferences.length < (mode === "OF" ? 5 : 3)) {
     return (
       <Dialog open={true}>
         <DialogContent>
@@ -49,8 +47,8 @@ export default async function Disponibilidade() {
               Você ainda não preencheu suas preferências!
             </DialogTitle>
             <DialogDescription>
-              Para informar sua disponibilidade, é preciso escolher pelo menos 5
-              regiões de preferência.
+              Para informar sua disponibilidade, é preciso escolher suas regiões
+              de preferência.
             </DialogDescription>
 
             <DialogFooter>
@@ -76,7 +74,7 @@ export default async function Disponibilidade() {
   const shiftsOptions = mode === "OF" ? OwnFlexShifts : LastMileShifts;
 
   return (
-    <Card>
+    <Card className="bg-white w-full h-auto p-3 rounded-md flex gap-2 flex-col md:w-96">
       <CardHeader>
         <CardTitle>Disponibilidade</CardTitle>
         <CardDescription className="flex flex-col gap-4">
@@ -85,27 +83,6 @@ export default async function Disponibilidade() {
             Você pode selecionar quantos dias e horários quiser.{" "}
             <strong>Se não puder comparecer, por favor, desmarque!</strong>
           </div>
-          {session?.user.ownflex && (
-            <Alert variant={"secondary"} className="space-y-2">
-              <AlertTitle className="font-bold flex gap-2 items-center">
-                <TriangleAlert className="animate-pulse" />
-                Atenção!
-              </AlertTitle>
-
-              <AlertDescription>
-                Você está confirmando sua disponibilidade para o hub:
-              </AlertDescription>
-
-              <HubSelection
-                defaultValue={mode == "OF" ? choosed_station : "LM"}
-                currentOptions={options}
-                options={[
-                  { key: "LM", label: session.user.station.split("_")[2] },
-                  { key: "OF Hub_SP_Lapa", label: "Entrega Rápida - Lapa" },
-                ]}
-              />
-            </Alert>
-          )}
           <Separator className="my-2" />
           Escolha quais turnos e datas você gostaria de carregar abaixo:
         </CardDescription>

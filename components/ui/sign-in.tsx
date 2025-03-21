@@ -55,7 +55,7 @@ export function SignIn() {
   const isFormValid = Object.values(values).every(Boolean);
 
   return (
-    <Card>
+    <Card className=" md:w-96 ">
       <CardHeader>
         <CardTitle className="">Que bom que você está aqui!</CardTitle>
         <CardDescription>
@@ -128,8 +128,8 @@ function FormField({
               <DialogTrigger asChild>
                 <BadgeHelp className="w-4 h-4 cursor-pointer" />
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md pb-8 px-0">
-                <DialogHeader className="px-0">
+              <DialogContent className="sm:max-w-md pb-8 px-0 sm:px-6">
+                <DialogHeader className="px-0 sm:px-6">
                   <DialogTitle>Ajuda - Driver ID</DialogTitle>
                   <DialogDescription>
                     O Driver ID é encontrado no canto superior do Driver APP. É
@@ -141,7 +141,7 @@ function FormField({
                     className="w-full max-w-xs mx-auto"
                   />
                 </DialogHeader>
-                <DialogFooter className="sm:justify-start px-0">
+                <DialogFooter className="sm:justify-start px-0 sm:px-6">
                   <DialogClose asChild>
                     <Button type="button">Fechar</Button>
                   </DialogClose>

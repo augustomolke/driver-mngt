@@ -4,15 +4,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { TriangleAlert, PackagePlus } from "lucide-react";
+import { TriangleAlert, PackagePlus, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { OwnFlexShifts } from "@/components/assets/shifts";
-
+import { getDescription } from "@/lib/utils";
 import TodoAlert from "./todo-alert";
-
 import { LargePackageCard } from "./large-package-card";
+import { deleteAllocation } from "@/lib/db/allocations";
+import CancelAllocationDialog from "./cancel-allocation-dialog";
 
 export default function OnboardingOwnFlex({
   pendencias = [],
@@ -38,12 +38,25 @@ export default function OnboardingOwnFlex({
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4">
               Você foi escalado para realizar entregas nos seguintes horários:
-              <div className="flex flex-wrap gap-2">
-                {allocations?.map((a) => (
-                  <Badge key={a.shift}>
-                    {OwnFlexShifts.find((s) => s.id === a.shift)?.description}
-                  </Badge>
-                ))}
+              <div className="flex  flex-col gap-2 items-center justify-center">
+                {allocations?.map((a) => {
+                  const description = getDescription(a);
+
+                  return (
+                    <div className="flex border rounded-full justify-between drop-shadow-md w-[100%]">
+                      <Badge className="font-bold">{a.offer.cluster}</Badge>
+                      <span key={a.offer.id} className="font-bold">
+                        {/* {OwnFlexShifts.find((s) => s.id === a.shift)?.description} */}
+                        {description}
+                      </span>
+
+                      <CancelAllocationDialog
+                        action={deleteAllocation}
+                        id={a.id}
+                      />
+                    </div>
+                  );
+                })}
               </div>
               <span className="font-bold">Contamos com a sua presença!</span>
             </AccordionContent>
